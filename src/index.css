@@ -56,7 +56,7 @@
 .hero-video {
   position: relative;
   width: 100%;
-  height: clamp(240px, 43vw, 720px);
+  height: clamp(192px, 34.4vw, 500px);
   overflow: hidden;
   background: #17211C;
 }
