@@ -1,0 +1,4389 @@
+[
+  {
+    "_id": "guide-budzet-knx",
+    "_type": "guide",
+    "category": "inwestorzy",
+    "checklist": [
+      "Rzuty i lista funkcji zamiast samego metrażu",
+      "Jednoznaczne pozycje, wyłączenia i podatki",
+      "Dokumentacja oraz zasady serwisu po odbiorze"
+    ],
+    "id": "budzet-knx",
+    "order": 2,
+    "sections": [
+      {
+        "_key": "section-0",
+        "_type": "guideSection",
+        "paragraphs": [
+          "Dwa obiekty o tej samej powierzchni mogą mieć inną liczbę obwodów światła, napędów rolet i stref temperatury. Różnicę robią też rodzaj osprzętu, integracje oraz stopień zaawansowania projektu. Sam przelicznik za metr kwadratowy nie zastąpi zestawienia funkcji.",
+          "Przygotuj rzuty z nazwami pomieszczeń i krótką listę oczekiwań. Zaznacz elementy konieczne na start oraz te, które mogą powstać w kolejnym etapie. Pozwala to przewidzieć miejsce w rozdzielnicy i potrzebne okablowanie bez zamawiania całego wyposażenia od razu."
+        ],
+        "title": "Metraż to za mało"
+      },
+      {
+        "_key": "section-1",
+        "_type": "guideSection",
+        "paragraphs": [
+          "Poproś o osobne wskazanie projektu, urządzeń, rozdzielnic, montażu, programowania, integracji, uruchomienia i dokumentacji. Ustal, czy oferta obejmuje osprzęt ścienny, czujniki, aplikację, licencje i szkolenie. Sprawdź, czy cena jest netto czy brutto oraz jakie są wyłączenia.",
+          "W istniejącym budynku osobną pozycją mogą być pomiary, dostosowanie instalacji i prace odtworzeniowe. Warto określić założenia dostępu do pomieszczeń i prac poza godzinami użytkowania."
+        ],
+        "title": "Porównuj kompletne pozycje"
+      },
+      {
+        "_key": "section-2",
+        "_type": "guideSection",
+        "paragraphs": [
+          "Uzgodnij sposób wyceny dodatkowych scen, liczbę rund ustawień i zakres opieki po odbiorze. W protokole przekazania powinny znaleźć się opis funkcji, kopia projektu ETS i uzgodnione dane dostępowe. Ustal odpowiedzialność za ich bezpieczne przechowywanie oraz warunki późniejszych zmian."
+        ],
+        "title": "Zapisz zasady zmian i przekazania"
+      }
+    ],
+    "sources": [
+      {
+        "_key": "source-0",
+        "_type": "source",
+        "title": "KNX Association — technologia i architektura",
+        "url": "https://www.knx.org/knx-technology"
+      }
+    ],
+    "summary": "Co powinno znaleźć się w zapytaniu i ofercie, żeby porównać ten sam zakres prac.",
+    "title": "Jak przygotować porównywalny budżet KNX"
+  },
+  {
+    "_id": "guide-energia-w-biurze",
+    "_type": "guide",
+    "category": "biura",
+    "checklist": [
+      "Godziny pracy i użytkowanie stref",
+      "Pomiar bazowy oraz okres porównania",
+      "Scenariusze odbioru z użytkownikami"
+    ],
+    "id": "energia-w-biurze",
+    "order": 1,
+    "sections": [
+      {
+        "_key": "section-0",
+        "_type": "guideSection",
+        "paragraphs": [
+          "Zbierz godziny użytkowania, moc oświetlenia oraz dostępne odczyty energii. Oddziel dni robocze od weekendów. Jeżeli porównujesz wyniki sprzed i po modernizacji, uwzględnij zmiany liczby pracowników, czasu pracy oraz ilości światła dziennego. Sam spadek rachunku nie mówi, która zmiana go spowodowała."
+        ],
+        "title": "Ustal punkt odniesienia"
+      },
+      {
+        "_key": "section-1",
+        "_type": "guideSection",
+        "paragraphs": [
+          "Stanowiska przy oknach i stanowiska w głębi pomieszczenia mogą potrzebować innego poziomu doświetlenia. Sterowanie zależne od światła dziennego dostosowuje poziom oświetlenia; zmiana temperatury barwowej to osobna funkcja wymagająca odpowiednich urządzeń.",
+          "Czujnik obecności dobierz do wielkości strefy i sposobu pracy. Osoba siedząca przy komputerze porusza się mniej niż ktoś przechodzący korytarzem. Zbyt krótki czas wyłączenia powoduje frustrację; zbyt długi ogranicza korzyść ze sterowania. Ustawienia warto skorygować po rozpoczęciu normalnej pracy biura."
+        ],
+        "title": "Dopasuj sterowanie do stref"
+      },
+      {
+        "_key": "section-2",
+        "_type": "guideSection",
+        "paragraphs": [
+          "Sprawdź działanie po godzinach, podczas spotkania i w słoneczny dzień. Ustal, kto może zmienić harmonogram oraz jak wrócić do ustawień podstawowych. Porównuj podobne okresy pomiarowe i zapisuj odstępstwa, np. pracę serwisową w weekend.",
+          "Wynik zależy od stanu początkowego, urządzeń i sposobu użytkowania. Dlatego sensowna oferta opisuje metodę pomiaru oraz zakres sterowania, a nie gwarantuje identycznego procentu oszczędności w każdym obiekcie."
+        ],
+        "title": "Odbierz efekt, nie tylko instalację"
+      }
+    ],
+    "sources": [
+      {
+        "_key": "source-0",
+        "_type": "source",
+        "title": "DALI Alliance — pojęcia i funkcje sterowania",
+        "url": "https://www.dali-alliance.org/about-us/terms.html"
+      }
+    ],
+    "summary": "Obecność, światło dzienne i harmonogramy — jak ocenić ich wpływ bez obiecywania przypadkowych procentów.",
+    "title": "Oszczędności w biurze zaczynają się od pomiaru"
+  },
+  {
+    "_id": "guide-knx-dla-inwestora",
+    "_type": "guide",
+    "category": "inwestorzy",
+    "checklist": [
+      "Aktualne rzuty, etap inwestycji i planowany termin prac.",
+      "Lista funkcji dla pomieszczeń: konieczne teraz, dodatkowe i przewidziane na później.",
+      "Zestawienie obwodów światła, napędów osłon i stref temperatury.",
+      "Dokładne modele urządzeń do integracji i dostępna dokumentacja ich interfejsów.",
+      "Zakres budżetu oraz wspólna lista elementów do porównania ofert.",
+      "Wymagania dotyczące działania bez internetu i zdalnego serwisu.",
+      "Lista prób odbiorowych, pakiet dokumentacji i zasady opieki po uruchomieniu."
+    ],
+    "id": "knx-dla-inwestora",
+    "order": -1,
+    "sections": [
+      {
+        "_key": "section-0",
+        "_type": "guideSection",
+        "paragraphs": [
+          "KNX to standard komunikacji urządzeń automatyki budynkowej. Przyciski, czujniki i moduły wykonawcze mogą wspólnie obsługiwać światło, osłony okienne czy temperaturę. Urządzenia różnych producentów można łączyć w jednym projekcie, ale trzeba sprawdzić funkcje konkretnych modeli i prawidłowo je skonfigurować. Sam napis KNX nie oznacza, że każdy produkt zrealizuje dowolne zadanie.",
+          "Najpierw określ oczekiwany efekt. „Inteligentny salon” jest trudny do wyceny i odbioru. „Jeden przycisk przy wyjściu wyłącza wskazane światła, pozostawia zasilanie lodówki i uruchamia ustaloną scenę rolet” daje wykonawcy konkretny zakres. Taką listę zachowaj do końcowych testów."
+        ],
+        "title": "1. Co właściwie kupujesz, wybierając KNX?"
+      },
+      {
+        "_key": "section-1",
+        "_type": "guideSection",
+        "paragraphs": [
+          "Zaproś integratora do rozmowy przed wykonaniem instalacji i zamknięciem ścian. W przewodowym KNX TP komunikacja korzysta z dedykowanej magistrali. Rozwiązania KNX RF mogą pomóc przy modernizacji, gdy ułożenie przewodów jest trudne. Dobór technologii powinien wynikać z warunków obiektu, a nie z samej chęci uniknięcia remontu.",
+          "Na jednym rzucie uzgodnij z architektem, elektrykiem i wykonawcą HVAC lokalizacje przycisków, czujników, rozdzielnic i urządzeń. Ustal rezerwę miejsca oraz trasy pod przyszłą rozbudowę. Zapisz, kto dostarcza każdy element, kto go podłącza i kto odpowiada za uruchomienie. Brak tych ustaleń zwykle ujawnia się wtedy, gdy ekipy są już na budowie."
+        ],
+        "title": "2. Kiedy rozpocząć i co ustalić z projektantem?"
+      },
+      {
+        "_key": "section-2",
+        "_type": "guideSection",
+        "paragraphs": [
+          "Przygotuj trzy grupy: funkcje potrzebne od początku, przydatne dodatki oraz pomysły na później. W pierwszej mogą znaleźć się wygodne sterowanie światłem, temperaturą i roletami. W kolejnych: rozbudowane sceny, wizualizacja, pomiary czy integracje. Każdemu pomieszczeniu przypisz kilka najważniejszych czynności użytkownika.",
+          "Przykładowa scena „Wyjście” powinna mieć dokładną listę odbiorników i wyjątków. Scena „Noc” może pozostawiać delikatne światło komunikacyjne. Są to propozycje do uzgodnienia, a nie gotowe ustawienia odpowiednie dla każdego domu. Sprawdź też, czy gość potrafi włączyć podstawowe światło bez telefonu i instrukcji."
+        ],
+        "title": "3. Podziel funkcje na niezbędne i dodatkowe"
+      },
+      {
+        "_key": "section-3",
+        "_type": "guideSection",
+        "paragraphs": [
+          "Poproś oferentów o wycenę tej samej listy funkcji i liczby obwodów. Oddziel projekt, urządzenia, rozdzielnice, okablowanie, montaż, programowanie, testy, dokumentację oraz późniejszy serwis. Sprawdź, czy oferta obejmuje przyciski, czujniki, bramki integracyjne, wizualizację i ewentualne licencje lub abonamenty.",
+          "Cena za metr kwadratowy bez opisu wyposażenia niewiele mówi. Dwa domy o podobnej powierzchni mogą mieć zupełnie inną liczbę obwodów, napędów i stref temperatury. Uzgodnij sposób wyceny zmian oraz zakres korekt po zamieszkaniu. Nie traktuj deklarowanego procentu oszczędności energii jako gwarancji: wynik zależy od budynku, ustawień i sposobu użytkowania."
+        ],
+        "title": "4. Jak porównać oferty i zaplanować budżet?"
+      },
+      {
+        "_key": "section-4",
+        "_type": "guideSection",
+        "paragraphs": [
+          "Przy pompie ciepła, klimatyzacji, wentylacji czy oświetleniu poproś o potwierdzenie obsługiwanych funkcji dla dokładnego modelu. Odczyt temperatury, zmiana nastawy i pełna diagnostyka to różne zakresy. W zestawieniu powinny znaleźć się potrzebne bramki, licencje i odpowiedzialność za konfigurację obu stron połączenia.",
+          "Ustal również, który układ podejmuje decyzję o ogrzewaniu i chłodzeniu oraz jak działają priorytety i blokady. Warto przed zamówieniem uzgodnić próbę najbardziej nietypowej integracji. Hasło „będzie współpracować” zastąp listą funkcji, którą będzie można sprawdzić podczas odbioru."
+        ],
+        "title": "5. Integracje: sprawdź model, interfejs i zakres"
+      },
+      {
+        "_key": "section-5",
+        "_type": "guideSection",
+        "paragraphs": [
+          "Poproś o opis zależności: co działa lokalnie, co wymaga serwera, a co internetu lub usługi zewnętrznej. Podstawowe funkcje można zaprojektować lokalnie; aplikacja, zdalny dostęp i rozbudowana logika mogą mieć inne wymagania. W protokole odbioru uwzględnij uzgodnioną próbę bez internetu oraz zachowanie po powrocie zasilania.",
+          "KNX Data Secure chroni komunikację przy użyciu zgodnych urządzeń i odpowiedniej konfiguracji. Sam zakup urządzenia obsługującego Secure nie potwierdza, że zabezpieczenie zostało włączone. Ustal sposób zdalnego serwisu, zarządzania dostępem i przechowywania kopii projektu oraz kluczy. Materiałów dostępowych nie umieszczaj w publicznej dokumentacji inwestycji."
+        ],
+        "title": "6. Działanie lokalne, internet i bezpieczeństwo"
+      },
+      {
+        "_key": "section-6",
+        "_type": "guideSection",
+        "paragraphs": [
+          "Przejdź z wykonawcą przez listę funkcji w każdym pomieszczeniu. Sprawdź przyciski, sceny, sterowanie osłonami, nastawy i informację zwrotną. Oceń czytelność opisów oraz wygodę obsługi. Próby dotyczące zabezpieczeń urządzeń i instalacji wykonuje odpowiednio przygotowany wykonawca według uzgodnionej procedury.",
+          "Zapisz wynik, zauważone usterki, osobę odpowiedzialną i termin poprawki. Czujniki obecności oraz harmonogramy warto ocenić również podczas normalnego użytkowania. Uzgodnij krótkie szkolenie i późniejszą korektę ustawień, zamiast zakładać, że parametry z dnia uruchomienia od razu będą optymalne."
+        ],
+        "title": "7. Odbiór instalacji: sprawdzaj zachowanie, nie tylko sprzęt"
+      },
+      {
+        "_key": "section-7",
+        "_type": "guideSection",
+        "paragraphs": [
+          "ETS jest narzędziem do konfiguracji i uruchamiania instalacji KNX. Uzgodnij przekazanie aktualnego eksportu projektu ETS po odbiorze i po kolejnych zmianach. Sam plik projektu nie jest licencją na oprogramowanie ETS. Dokumentacja i dostęp do konfiguracji ułatwiają późniejszą współpracę z serwisem.",
+          "W pakiecie odbiorowym zaplanuj schematy powykonawcze, opis obwodów i urządzeń, listę scen, instrukcję dla użytkownika oraz kopie konfiguracji dodatkowych systemów. Osobno ustal bezpieczne przekazanie haseł i materiałów KNX Secure. Wyznacz miejsce przechowywania kopii, osobę odpowiedzialną za aktualizacje i zasady zgłaszania usterek."
+        ],
+        "title": "8. Dokumentacja, dzięki której można serwisować system"
+      }
+    ],
+    "sources": [
+      {
+        "_key": "source-0",
+        "_type": "source",
+        "title": "KNX Association — technologie TP, RF i IP",
+        "url": "https://knx.org/knx-technology"
+      },
+      {
+        "_key": "source-1",
+        "_type": "source",
+        "title": "KNX Association — ETS, konfiguracja i dokumentacja projektu",
+        "url": "https://knx.org/what-ets"
+      },
+      {
+        "_key": "source-2",
+        "_type": "source",
+        "title": "KNX Association — działanie KNX Data Secure",
+        "url": "https://support.knx.org/hc/en-us/articles/360012689639-KNX-Data-Secure"
+      }
+    ],
+    "summary": "Co ustalić przed wyceną, jak porównać oferty i co odebrać od wykonawcy? Praktyczny przewodnik dla osób budujących dom, urządzających apartament lub przygotowujących biuro.",
+    "title": "KNX dla inwestora: od pierwszego planu do odbioru instalacji"
+  },
+  {
+    "_id": "guide-koordynacja-instalacji",
+    "_type": "guide",
+    "category": "architekci",
+    "checklist": [
+      "Rzuty z funkcjami, wysokościami i aktualną rewizją",
+      "Miejsce oraz dostęp serwisowy do urządzeń",
+      "Uzgodnienia branżowe i plan sprawdzeń"
+    ],
+    "id": "koordynacja-instalacji",
+    "order": 5,
+    "sections": [
+      {
+        "_key": "section-0",
+        "_type": "guideSection",
+        "paragraphs": [
+          "Oznacz na rzucie miejsca przycisków, czujników, napędów i paneli. Dopisz funkcję punktu oraz uzgodnioną wysokość. Ustal, które elementy wymagają zasilania i jakich połączeń potrzebują. Zostaw zaplanowaną rezerwę tam, gdzie później przewidujesz dodatkowe osłony, klimatyzację lub panel.",
+          "Nie dobieraj przewodów wyłącznie na podstawie krótkiego poradnika. Typy, trasy, separację i zabezpieczenia powinien określić projektant dla rzeczywistej instalacji oraz wymagań producentów."
+        ],
+        "title": "Zamknij listę funkcji, nie możliwość rozbudowy"
+      },
+      {
+        "_key": "section-1",
+        "_type": "guideSection",
+        "paragraphs": [
+          "Miejsce na automatykę obejmuje nie tylko szerokość modułów, ale również okablowanie, zasilacze, wentylację i dostęp do zacisków. Uzgodnij lokalizację rozdzielnic, zasilaczy oświetlenia i bramek. Element wymagający obsługi nie powinien zostać trwale zamknięty za wykończeniem.",
+          "Dla montażu zlicowanego, np. LS ZERO, potwierdź rozwiązanie z wykonawcą ściany lub mebla przed rozpoczęciem prac. Sprawdź wzajemne położenie osprzętu, okładzin i zabudowy."
+        ],
+        "title": "Zaplanuj dostęp serwisowy"
+      },
+      {
+        "_key": "section-2",
+        "_type": "guideSection",
+        "paragraphs": [
+          "Na spotkaniu porównaj rzut architektoniczny z oświetleniem, elektryką i HVAC. Sprawdź miejsca kolizji, dostępne interfejsy i odpowiedzialność za dostawę każdego urządzenia. Zapisz decyzje w jednej aktualnej wersji dokumentacji.",
+          "Przed zamknięciem ścian wykonaj dokumentację fotograficzną i uzgodnione sprawdzenia instalacji. Przygotuj również listę scen do późniejszego odbioru: sama obecność przewodu nie potwierdza działania funkcji."
+        ],
+        "title": "Zrób wspólny przegląd branżowy"
+      }
+    ],
+    "sources": [
+      {
+        "_key": "source-0",
+        "_type": "source",
+        "title": "JUNG — przygotowanie montażu LS ZERO",
+        "url": "https://www.jung-group.com/en-UK/Products/Switch-Ranges/LS-ZERO/"
+      }
+    ],
+    "summary": "Lista decyzji dla architekta, elektryka i integratora — od przycisków po miejsce w rozdzielnicy.",
+    "title": "Co uzgodnić przed zamknięciem ścian"
+  },
+  {
+    "_id": "guide-otwarty-standard",
+    "_type": "guide",
+    "category": "inwestorzy",
+    "checklist": [
+      "Wykaz funkcji lokalnych i zależnych od internetu",
+      "Projekt ETS, dokumentacja i zasady dostępu",
+      "Warunki rozbudowy oraz dostępność urządzeń"
+    ],
+    "id": "otwarty-standard",
+    "order": 4,
+    "sections": [
+      {
+        "_key": "section-0",
+        "_type": "guideSection",
+        "paragraphs": [
+          "KNX obejmuje różne sposoby komunikacji, w tym przewodowe TP, radiowe RF i rozwiązania IP. W modernizowanych wnętrzach można łączyć je w instalacje hybrydowe. Dlatego zdanie „KNX zawsze wymaga nowego przewodu do każdego przycisku” jest zbyt szerokie.",
+          "Dobór zależy od możliwości prowadzenia przewodów, zasilania urządzeń i zakresu prac. Rozwiązania radiowe mogą wymagać baterii lub innego źródła zasilania; należy sprawdzić konkretny model i warunki montażu."
+        ],
+        "title": "Standard i konkretna instalacja to różne rzeczy"
+      },
+      {
+        "_key": "section-1",
+        "_type": "guideSection",
+        "paragraphs": [
+          "Urządzenia wielu producentów dają możliwość wyboru, ale serwis potrzebuje informacji o projekcie. Ustal przekazanie pliku ETS, dokumentacji rozdzielnicy, listy adresów i opisów scen. Wykaz urządzeń powinien pozwalać odnaleźć instrukcje i części.",
+          "Podstawowe funkcje mogą działać lokalnie bez centralnego serwera. Zdalny dostęp, asystenci głosowi lub powiadomienia mogą jednak zależeć od bramek, internetu i usług dostawcy. W ofercie warto wyraźnie rozdzielić te grupy funkcji."
+        ],
+        "title": "Niezależność wymaga dokumentacji"
+      },
+      {
+        "_key": "section-2",
+        "_type": "guideSection",
+        "paragraphs": [
+          "Historia standardu nie jest gwarancją bezawaryjnej pracy każdego urządzenia przez określoną liczbę lat. Przy rozbudowie trzeba sprawdzić funkcje, aplikacje produktowe i dostępne interfejsy. Połączenie KNX IoT z istniejącą instalacją wymaga odpowiedniej architektury, np. routera pomiędzy mediami."
+        ],
+        "title": "Kompatybilność sprawdza się dla urządzeń"
+      }
+    ],
+    "sources": [
+      {
+        "_key": "source-0",
+        "_type": "source",
+        "title": "KNX Association — media transmisji i KNX IoT",
+        "url": "https://www.knx.org/knx-technology"
+      }
+    ],
+    "summary": "KNX TP, RF, IP i IoT, dokumentacja oraz granice niezależności od jednego dostawcy.",
+    "title": "Co daje otwarty standard, a co trzeba sprawdzić"
+  },
+  {
+    "_id": "guide-przyciski-i-scenariusze",
+    "_type": "guide",
+    "category": "architekci",
+    "checklist": [
+      "Lista scen dla każdego pomieszczenia",
+      "Układ klawiszy i sposób ich opisania",
+      "Wysokości montażu oraz próbka wykończenia"
+    ],
+    "id": "przyciski-i-scenariusze",
+    "order": 0,
+    "sections": [
+      {
+        "_key": "section-0",
+        "_type": "guideSection",
+        "paragraphs": [
+          "Przed wyborem osprzętu zapisz, co użytkownik robi przy wejściu do pomieszczenia, wieczorem i przy wyjściu z budynku. W salonie mogą to być sceny „Codziennie”, „Kolacja” i „Wyjście”. W sali spotkań: „Rozmowa”, „Prezentacja” i „Sprzątanie”. Każda scena powinna mieć prosty, przewidywalny rezultat.",
+          "Nie każda funkcja potrzebuje osobnego klawisza. Rzadziej używane ustawienia można umieścić w aplikacji lub panelu, ale podstawowe światło powinno pozostać łatwo dostępne. Dobry projekt działa również dla gościa, który nie zna nazw wszystkich scen."
+        ],
+        "title": "Zacznij od codziennych czynności"
+      },
+      {
+        "_key": "section-1",
+        "_type": "guideSection",
+        "paragraphs": [
+          "Rodzina wzornicza nie określa wszystkich możliwości urządzenia. Dla wybranego modelu sprawdź liczbę funkcji, sposób oznaczania przycisków, sygnalizację oraz obecność pomiaru temperatury. Przycisk wielofunkcyjny nie musi być ekranem dotykowym.",
+          "JUNG LS 990 ma klasyczną ramkę; LS ZERO umożliwia jej zlicowanie z powierzchnią. Taki montaż trzeba uwzględnić na etapie przygotowania podłoża. Przed zamówieniem porównaj próbkę materiału w świetle, które rzeczywiście znajdzie się we wnętrzu."
+        ],
+        "title": "Wybierz funkcję, a potem ramkę"
+      },
+      {
+        "_key": "section-2",
+        "_type": "guideSection",
+        "paragraphs": [
+          "Wydrukuj układ klawiszy w skali i poproś osobę nieznającą projektu o wskazanie światła głównego i rolet. Jeżeli potrzebne jest długie objaśnienie, uprość nazwy lub podział funkcji. Ustal też wspólne zasady działania krótkiego i długiego naciśnięcia w całym obiekcie."
+        ],
+        "title": "Sprawdź projekt na krótkiej próbie"
+      }
+    ],
+    "sources": [
+      {
+        "_key": "source-0",
+        "_type": "source",
+        "title": "JUNG — LS ZERO i warianty montażu",
+        "url": "https://www.jung-group.com/en-UK/Products/Switch-Ranges/LS-ZERO/"
+      }
+    ],
+    "summary": "Jak zaplanować sterowanie światłem, roletami i temperaturą bez przeładowania ścian.",
+    "title": "Mniej przycisków, czytelniejsza obsługa"
+  },
+  {
+    "_id": "guide-sala-konferencyjna",
+    "_type": "guide",
+    "category": "biura",
+    "checklist": [
+      "Sceny z opisanym działaniem światła i osłon",
+      "Próba z docelową kamerą i ekranem",
+      "Uzgodnione interfejsy oraz sterowanie ręczne"
+    ],
+    "id": "sala-konferencyjna",
+    "order": 3,
+    "sections": [
+      {
+        "_key": "section-0",
+        "_type": "guideSection",
+        "paragraphs": [
+          "Zacznij od rozmowy przy stole, prezentacji na ekranie i wideokonferencji. Dla każdej sceny opisz światło nad stołem, tło za rozmówcami i pozycję osłon. Nie zaciemniaj automatycznie całej sali tylko dlatego, że włączono ekran — uczestnicy nadal potrzebują widzieć notatki i siebie nawzajem."
+        ],
+        "title": "Trzy czytelne sceny zamiast kilkunastu funkcji"
+      },
+      {
+        "_key": "section-1",
+        "_type": "guideSection",
+        "paragraphs": [
+          "Scena może przywołać zapamiętane poziomy, ale nie poprawi sama widma źródła ani położenia oprawy. Podczas próby sprawdź twarze, odbicia w ekranie, tło i pracę kamery. Jakość oddawania barw oraz ewentualne migotanie trzeba ocenić dla wybranego źródła i zasilacza.",
+          "Jeżeli potrzebna jest zmiana temperatury barwowej, sprawdź zgodność całego zestawu: opraw, zasilaczy oraz sterowania. Nazwa DALI nie oznacza automatycznie obsługi każdej funkcji koloru."
+        ],
+        "title": "Światło dla kamery wymaga odpowiednich opraw"
+      },
+      {
+        "_key": "section-2",
+        "_type": "guideSection",
+        "paragraphs": [
+          "Określ, czy sygnał obecności, rezerwacja sali czy odczyt jakości powietrza mają wpływać na wentylację. Funkcje i dostępne interfejsy potwierdź z dostawcą HVAC oraz AV. Nie zakładaj, że każde urządzenie da się połączyć bez dodatkowej bramki.",
+          "Na odbiór przygotuj krótką próbę: wejście grupy, rozpoczęcie połączenia, prezentacja, ręczna korekta i wyjście ostatniej osoby. Przetestuj powrót do stanu podstawowego oraz sytuację, w której rezerwacja się kończy, ale rozmowa nadal trwa."
+        ],
+        "title": "Uzgodnij współpracę z HVAC i AV"
+      }
+    ],
+    "sources": [
+      {
+        "_key": "source-0",
+        "_type": "source",
+        "title": "DALI Alliance — typy urządzeń, w tym DT8",
+        "url": "https://www.dali-alliance.org/tech-notes/device-types.html"
+      }
+    ],
+    "summary": "Sceny światła, osłony i wentylacja z perspektywy prowadzącego spotkanie.",
+    "title": "Sala spotkań gotowa na codzienną pracę"
+  },
+  {
+    "_id": "page-AboutPage",
+    "_type": "pageContent",
+    "entries": [
+      {
+        "_key": "AboutPage-v2-step1",
+        "_type": "copyEntry",
+        "key": "AboutPage-v2-step1",
+        "label": "Rozpoznanie potrzeb",
+        "value": "Rozpoznanie potrzeb"
+      },
+      {
+        "_key": "AboutPage-v2-step1-body",
+        "_type": "copyEntry",
+        "key": "AboutPage-v2-step1-body",
+        "label": "Rozmawiamy o etapie inwestycji, funkcjach pomieszczeń i priorytetach. Przyglądamy się dost",
+        "value": "Rozmawiamy o etapie inwestycji, funkcjach pomieszczeń i priorytetach. Przyglądamy się dostępnym rzutom."
+      },
+      {
+        "_key": "AboutPage-v2-step1-result",
+        "_type": "copyEntry",
+        "key": "AboutPage-v2-step1-result",
+        "label": "Do ustalenia: cele, materiały wejściowe i pytania do pozostałych branż.",
+        "value": "Do ustalenia: cele, materiały wejściowe i pytania do pozostałych branż."
+      },
+      {
+        "_key": "AboutPage-v2-step2",
+        "_type": "copyEntry",
+        "key": "AboutPage-v2-step2",
+        "label": "Scenariusze i zakres",
+        "value": "Scenariusze i zakres"
+      },
+      {
+        "_key": "AboutPage-v2-step2-body",
+        "_type": "copyEntry",
+        "key": "AboutPage-v2-step2-body",
+        "label": "Zapisujemy sposób działania sterowania, dobieramy rozwiązania i określamy granice prac. Od",
+        "value": "Zapisujemy sposób działania sterowania, dobieramy rozwiązania i określamy granice prac. Oddzielamy urządzenia od usług i elementów poza ofertą."
+      },
+      {
+        "_key": "AboutPage-v2-step2-result",
+        "_type": "copyEntry",
+        "key": "AboutPage-v2-step2-result",
+        "label": "Do uzgodnienia: karta funkcji, zakres wyceny i podział odpowiedzialności.",
+        "value": "Do uzgodnienia: karta funkcji, zakres wyceny i podział odpowiedzialności."
+      },
+      {
+        "_key": "AboutPage-v2-step3",
+        "_type": "copyEntry",
+        "key": "AboutPage-v2-step3",
+        "label": "Koordynacja i wykonanie",
+        "value": "Koordynacja i wykonanie"
+      },
+      {
+        "_key": "AboutPage-v2-step3-body",
+        "_type": "copyEntry",
+        "key": "AboutPage-v2-step3-body",
+        "label": "Uzgadniamy punkty sterowania oraz wymagania instalacji z architektem i wykonawcami. Dokume",
+        "value": "Uzgadniamy punkty sterowania oraz wymagania instalacji z architektem i wykonawcami. Dokumentacja, montaż i konfiguracja wynikają z przyjętego zakresu."
+      },
+      {
+        "_key": "AboutPage-v2-step3-result",
+        "_type": "copyEntry",
+        "key": "AboutPage-v2-step3-result",
+        "label": "Do uzgodnienia: wytyczne, osoby odpowiedzialne i kolejność prac.",
+        "value": "Do uzgodnienia: wytyczne, osoby odpowiedzialne i kolejność prac."
+      },
+      {
+        "_key": "AboutPage-v2-step4",
+        "_type": "copyEntry",
+        "key": "AboutPage-v2-step4",
+        "label": "Sprawdzenie i przekazanie",
+        "value": "Sprawdzenie i przekazanie"
+      },
+      {
+        "_key": "AboutPage-v2-step4-body",
+        "_type": "copyEntry",
+        "key": "AboutPage-v2-step4-body",
+        "label": "Sprawdzamy uzgodnione scenariusze i sposób obsługi. Przed realizacją ustalamy listę przeka",
+        "value": "Sprawdzamy uzgodnione scenariusze i sposób obsługi. Przed realizacją ustalamy listę przekazywanych materiałów oraz zasady późniejszego wsparcia."
+      },
+      {
+        "_key": "AboutPage-v2-step4-result",
+        "_type": "copyEntry",
+        "key": "AboutPage-v2-step4-result",
+        "label": "Do uzgodnienia: testy odbiorowe, instruktaż, dokumentacja i pliki konfiguracyjne.",
+        "value": "Do uzgodnienia: testy odbiorowe, instruktaż, dokumentacja i pliki konfiguracyjne."
+      },
+      {
+        "_key": "AboutPage-v2-kicker",
+        "_type": "copyEntry",
+        "key": "AboutPage-v2-kicker",
+        "label": "Delitech Smart Spaces · jak pracujemy",
+        "value": "Delitech Smart Spaces · jak pracujemy"
+      },
+      {
+        "_key": "AboutPage-v2-title",
+        "_type": "copyEntry",
+        "key": "AboutPage-v2-title",
+        "label": "Jasny zakres. Wspólne decyzje. Sprawdzony sposób obsługi.",
+        "value": "Jasny zakres. Wspólne decyzje. Sprawdzony sposób obsługi."
+      },
+      {
+        "_key": "AboutPage-v2-intro",
+        "_type": "copyEntry",
+        "key": "AboutPage-v2-intro",
+        "label": "Łączymy projekt wnętrza z funkcjami automatyki KNX. Wspieramy architektów, inwestorów i ze",
+        "value": "Łączymy projekt wnętrza z funkcjami automatyki KNX. Wspieramy architektów, inwestorów i zespoły fit-out; zakres odpowiedzialności ustalamy dla konkretnej inwestycji."
+      },
+      {
+        "_key": "AboutPage-v2-handover-title",
+        "_type": "copyEntry",
+        "key": "AboutPage-v2-handover-title",
+        "label": "Co ustalić przed odbiorem instalacji?",
+        "value": "Co ustalić przed odbiorem instalacji?"
+      },
+      {
+        "_key": "AboutPage-v2-handover-body",
+        "_type": "copyEntry",
+        "key": "AboutPage-v2-handover-body",
+        "label": "Otwarty standard daje wybór urządzeń. Możliwość późniejszej obsługi systemu zależy również",
+        "value": "Otwarty standard daje wybór urządzeń. Możliwość późniejszej obsługi systemu zależy również od dokumentacji, konfiguracji i dostępu. Dlatego warto uzgodnić je na początku współpracy."
+      },
+      {
+        "_key": "AboutPage-v2-examples",
+        "_type": "copyEntry",
+        "key": "AboutPage-v2-examples",
+        "label": "Zobacz przykłady rozwiązań",
+        "value": "Zobacz przykłady rozwiązań"
+      },
+      {
+        "_key": "AboutPage-v2-check1",
+        "_type": "copyEntry",
+        "key": "AboutPage-v2-check1",
+        "label": "Lista funkcji i sposób ich sprawdzenia.",
+        "value": "Lista funkcji i sposób ich sprawdzenia."
+      },
+      {
+        "_key": "AboutPage-v2-check2",
+        "_type": "copyEntry",
+        "key": "AboutPage-v2-check2",
+        "label": "Spis urządzeń, schematy i uzgodniona dokumentacja powykonawcza.",
+        "value": "Spis urządzeń, schematy i uzgodniona dokumentacja powykonawcza."
+      },
+      {
+        "_key": "AboutPage-v2-check3",
+        "_type": "copyEntry",
+        "key": "AboutPage-v2-check3",
+        "label": "Zakres przekazania pliku ETS, konfiguracji integracji i uprawnień.",
+        "value": "Zakres przekazania pliku ETS, konfiguracji integracji i uprawnień."
+      },
+      {
+        "_key": "AboutPage-v2-check4",
+        "_type": "copyEntry",
+        "key": "AboutPage-v2-check4",
+        "label": "Instrukcja obsługi, kopie konfiguracji i zasady zgłoszeń serwisowych.",
+        "value": "Instrukcja obsługi, kopie konfiguracji i zasady zgłoszeń serwisowych."
+      },
+      {
+        "_key": "AboutPage-v2-company-kicker",
+        "_type": "copyEntry",
+        "key": "AboutPage-v2-company-kicker",
+        "label": "Firma i kontakt",
+        "value": "Firma i kontakt"
+      },
+      {
+        "_key": "AboutPage-v2-company-title",
+        "_type": "copyEntry",
+        "key": "AboutPage-v2-company-title",
+        "label": "Delitech Smart Spaces",
+        "value": "Delitech Smart Spaces"
+      },
+      {
+        "_key": "AboutPage-v2-company-body",
+        "_type": "copyEntry",
+        "key": "AboutPage-v2-company-body",
+        "label": "Delitech Smart Spaces to oferta automatyki budynkowej Delitech Jasek spółka jawna, prezent",
+        "value": "Delitech Smart Spaces to oferta automatyki budynkowej Delitech Jasek spółka jawna, prezentowana pod adresem intelispaces.pl. Zapytania kierujesz bezpośrednio do naszego zespołu."
+      },
+      {
+        "_key": "AboutPage-v2-salon",
+        "_type": "copyEntry",
+        "key": "AboutPage-v2-salon",
+        "label": "Salon sprzedaży: ul. Konwaliowa 7 lok. 103, 03-194 Warszawa. Spotkania po wcześniejszym uz",
+        "value": "Salon sprzedaży: ul. Konwaliowa 7 lok. 103, 03-194 Warszawa. Spotkania po wcześniejszym uzgodnieniu."
+      },
+      {
+        "_key": "AboutPage-v2-contact-title",
+        "_type": "copyEntry",
+        "key": "AboutPage-v2-contact-title",
+        "label": "Zacznijmy od zakresu Twojego projektu.",
+        "value": "Zacznijmy od zakresu Twojego projektu."
+      },
+      {
+        "_key": "AboutPage-v2-contact-body",
+        "_type": "copyEntry",
+        "key": "AboutPage-v2-contact-body",
+        "label": "Powiedz, co jest już ustalone, a co wymaga decyzji. Dobierzemy kolejny krok do etapu inwes",
+        "value": "Powiedz, co jest już ustalone, a co wymaga decyzji. Dobierzemy kolejny krok do etapu inwestycji."
+      },
+      {
+        "_key": "AboutPage-v2-cta",
+        "_type": "copyEntry",
+        "key": "AboutPage-v2-cta",
+        "label": "Omów projekt",
+        "value": "Omów projekt"
+      }
+    ],
+    "key": "AboutPage",
+    "title": "Jak pracujemy"
+  },
+  {
+    "_id": "page-ArchitectsPage",
+    "_type": "pageContent",
+    "entries": [
+      {
+        "_key": "ArchitectsPage-v2-eyebrow",
+        "_type": "copyEntry",
+        "key": "ArchitectsPage-v2-eyebrow",
+        "label": "Dla architektów i projektantów wnętrz",
+        "value": "Dla architektów i projektantów wnętrz"
+      },
+      {
+        "_key": "ArchitectsPage-v2-title",
+        "_type": "copyEntry",
+        "key": "ArchitectsPage-v2-title",
+        "label": "Projektujesz wnętrze. My pomagamy zaplanować, jak będzie działać.",
+        "value": "Projektujesz wnętrze. My pomagamy zaplanować, jak będzie działać."
+      },
+      {
+        "_key": "ArchitectsPage-v2-intro",
+        "_type": "copyEntry",
+        "key": "ArchitectsPage-v2-intro",
+        "label": "Zaczynamy od rzutu, codziennych sytuacji i detalu na ścianie. Wspólnie porządkujemy sposób",
+        "value": "Zaczynamy od rzutu, codziennych sytuacji i detalu na ścianie. Wspólnie porządkujemy sposób sterowania światłem, osłonami i temperaturą, zanim decyzje trafią na budowę."
+      },
+      {
+        "_key": "ArchitectsPage-v2-main-cta",
+        "_type": "copyEntry",
+        "key": "ArchitectsPage-v2-main-cta",
+        "label": "Omów projekt",
+        "value": "Omów projekt"
+      },
+      {
+        "_key": "ArchitectsPage-v2-package-cta",
+        "_type": "copyEntry",
+        "key": "ArchitectsPage-v2-package-cta",
+        "label": "Zobacz pakiet architekta",
+        "value": "Zobacz pakiet architekta"
+      },
+      {
+        "_key": "ArchitectsPage-v2-hero-card-title",
+        "_type": "copyEntry",
+        "key": "ArchitectsPage-v2-hero-card-title",
+        "label": "Zacznij od jednego pomieszczenia",
+        "value": "Zacznij od jednego pomieszczenia"
+      },
+      {
+        "_key": "ArchitectsPage-v2-hero-card-text",
+        "_type": "copyEntry",
+        "key": "ArchitectsPage-v2-hero-card-text",
+        "label": "Przygotowaliśmy przykładową kartę salonu i listę decyzji do wspólnego ustalenia. Otworzysz",
+        "value": "Przygotowaliśmy przykładową kartę salonu i listę decyzji do wspólnego ustalenia. Otworzysz je bez zakładania konta."
+      },
+      {
+        "_key": "ArchitectsPage-v2-hero-card-link",
+        "_type": "copyEntry",
+        "key": "ArchitectsPage-v2-hero-card-link",
+        "label": "Otwórz materiał do druku",
+        "value": "Otwórz materiał do druku"
+      },
+      {
+        "_key": "ArchitectsPage-v2-package-eyebrow",
+        "_type": "copyEntry",
+        "key": "ArchitectsPage-v2-package-eyebrow",
+        "label": "Materiał do wspólnej pracy",
+        "value": "Materiał do wspólnej pracy"
+      },
+      {
+        "_key": "ArchitectsPage-v2-package-title",
+        "_type": "copyEntry",
+        "key": "ArchitectsPage-v2-package-title",
+        "label": "Pakiet architekta. Konkret na początek rozmowy.",
+        "value": "Pakiet architekta. Konkret na początek rozmowy."
+      },
+      {
+        "_key": "ArchitectsPage-v2-package-intro",
+        "_type": "copyEntry",
+        "key": "ArchitectsPage-v2-package-intro",
+        "label": "Cztery części, które pomagają nazwać potrzeby i zapisać uzgodnienia. To wzór roboczy; doku",
+        "value": "Cztery części, które pomagają nazwać potrzeby i zapisać uzgodnienia. To wzór roboczy; dokumentację i zakres współpracy dobieramy osobno do inwestycji."
+      },
+      {
+        "_key": "ArchitectsPage-v2-pack-brief-title",
+        "_type": "copyEntry",
+        "key": "ArchitectsPage-v2-pack-brief-title",
+        "label": "01. Brief inwestycji",
+        "value": "01. Brief inwestycji"
+      },
+      {
+        "_key": "ArchitectsPage-v2-pack-brief-text",
+        "_type": "copyEntry",
+        "key": "ArchitectsPage-v2-pack-brief-text",
+        "label": "Etap prac, domownicy, priorytety i decyzje, których jeszcze brakuje.",
+        "value": "Etap prac, domownicy, priorytety i decyzje, których jeszcze brakuje."
+      },
+      {
+        "_key": "ArchitectsPage-v2-pack-room-title",
+        "_type": "copyEntry",
+        "key": "ArchitectsPage-v2-pack-room-title",
+        "label": "02. Karta pomieszczenia",
+        "value": "02. Karta pomieszczenia"
+      },
+      {
+        "_key": "ArchitectsPage-v2-pack-room-text",
+        "_type": "copyEntry",
+        "key": "ArchitectsPage-v2-pack-room-text",
+        "label": "Przykład salonu: cztery sceny, punkty sterowania i pytania do inwestora.",
+        "value": "Przykład salonu: cztery sceny, punkty sterowania i pytania do inwestora."
+      },
+      {
+        "_key": "ArchitectsPage-v2-pack-coordination-title",
+        "_type": "copyEntry",
+        "key": "ArchitectsPage-v2-pack-coordination-title",
+        "label": "03. Przed instalacją",
+        "value": "03. Przed instalacją"
+      },
+      {
+        "_key": "ArchitectsPage-v2-pack-coordination-text",
+        "_type": "copyEntry",
+        "key": "ArchitectsPage-v2-pack-coordination-text",
+        "label": "Lista uzgodnień dotyczących światła, osłon, temperatury i przycisków.",
+        "value": "Lista uzgodnień dotyczących światła, osłon, temperatury i przycisków."
+      },
+      {
+        "_key": "ArchitectsPage-v2-pack-handover-title",
+        "_type": "copyEntry",
+        "key": "ArchitectsPage-v2-pack-handover-title",
+        "label": "04. Przy przekazaniu",
+        "value": "04. Przy przekazaniu"
+      },
+      {
+        "_key": "ArchitectsPage-v2-pack-handover-text",
+        "_type": "copyEntry",
+        "key": "ArchitectsPage-v2-pack-handover-text",
+        "label": "Pytania o testy, dokumentację, konfigurację, dostępy i późniejszy serwis.",
+        "value": "Pytania o testy, dokumentację, konfigurację, dostępy i późniejszy serwis."
+      },
+      {
+        "_key": "ArchitectsPage-v2-pack-open",
+        "_type": "copyEntry",
+        "key": "ArchitectsPage-v2-pack-open",
+        "label": "Otwórz pakiet i wydrukuj",
+        "value": "Otwórz pakiet i wydrukuj"
+      },
+      {
+        "_key": "ArchitectsPage-v2-pack-download",
+        "_type": "copyEntry",
+        "key": "ArchitectsPage-v2-pack-download",
+        "label": "Pobierz plik HTML",
+        "value": "Pobierz plik HTML"
+      },
+      {
+        "_key": "ArchitectsPage-v2-pack-format",
+        "_type": "copyEntry",
+        "key": "ArchitectsPage-v2-pack-format",
+        "label": "Wersja do druku lub zapisania jako PDF z przeglądarki. Przykład koncepcyjny, nie projekt w",
+        "value": "Wersja do druku lub zapisania jako PDF z przeglądarki. Przykład koncepcyjny, nie projekt wykonawczy."
+      },
+      {
+        "_key": "ArchitectsPage-v2-room-eyebrow",
+        "_type": "copyEntry",
+        "key": "ArchitectsPage-v2-room-eyebrow",
+        "label": "Zajrzyj do pakietu",
+        "value": "Zajrzyj do pakietu"
+      },
+      {
+        "_key": "ArchitectsPage-v2-room-title",
+        "_type": "copyEntry",
+        "key": "ArchitectsPage-v2-room-title",
+        "label": "Jedno pomieszczenie. Cztery zwykłe sytuacje.",
+        "value": "Jedno pomieszczenie. Cztery zwykłe sytuacje."
+      },
+      {
+        "_key": "ArchitectsPage-v2-room-intro",
+        "_type": "copyEntry",
+        "key": "ArchitectsPage-v2-room-intro",
+        "label": "Salon z jadalnią. Zamiast wybierać urządzenia w ciemno, najpierw zapisujemy, co ma się wyd",
+        "value": "Salon z jadalnią. Zamiast wybierać urządzenia w ciemno, najpierw zapisujemy, co ma się wydarzyć. Poziomy światła i zachowanie osłon ustalamy z użytkownikiem."
+      },
+      {
+        "_key": "ArchitectsPage-v2-room-note",
+        "_type": "copyEntry",
+        "key": "ArchitectsPage-v2-room-note",
+        "label": "To ilustracja sposobu planowania, nie opis wykonanej realizacji ani gotowe ustawienia do s",
+        "value": "To ilustracja sposobu planowania, nie opis wykonanej realizacji ani gotowe ustawienia do skopiowania do instalacji."
+      },
+      {
+        "_key": "ArchitectsPage-v2-scene-dinner-title",
+        "_type": "copyEntry",
+        "key": "ArchitectsPage-v2-scene-dinner-title",
+        "label": "Kolacja",
+        "value": "Kolacja"
+      },
+      {
+        "_key": "ArchitectsPage-v2-scene-dinner-action",
+        "_type": "copyEntry",
+        "key": "ArchitectsPage-v2-scene-dinner-action",
+        "label": "Światło nad stołem i delikatne tło. Reszta strefy wyciszona.",
+        "value": "Światło nad stołem i delikatne tło. Reszta strefy wyciszona."
+      },
+      {
+        "_key": "ArchitectsPage-v2-scene-dinner-question",
+        "_type": "copyEntry",
+        "key": "ArchitectsPage-v2-scene-dinner-question",
+        "label": "Do ustalenia: które oprawy można ściemniać i skąd wywołać scenę?",
+        "value": "Do ustalenia: które oprawy można ściemniać i skąd wywołać scenę?"
+      },
+      {
+        "_key": "ArchitectsPage-v2-scene-film-title",
+        "_type": "copyEntry",
+        "key": "ArchitectsPage-v2-scene-film-title",
+        "label": "Film",
+        "value": "Film"
+      },
+      {
+        "_key": "ArchitectsPage-v2-scene-film-action",
+        "_type": "copyEntry",
+        "key": "ArchitectsPage-v2-scene-film-action",
+        "label": "Mniej światła przy ekranie, subtelne światło orientacyjne.",
+        "value": "Mniej światła przy ekranie, subtelne światło orientacyjne."
+      },
+      {
+        "_key": "ArchitectsPage-v2-scene-film-question",
+        "_type": "copyEntry",
+        "key": "ArchitectsPage-v2-scene-film-question",
+        "label": "Do ustalenia: czy scena ma obejmować osłony okien i sprzęt AV?",
+        "value": "Do ustalenia: czy scena ma obejmować osłony okien i sprzęt AV?"
+      },
+      {
+        "_key": "ArchitectsPage-v2-scene-clean-title",
+        "_type": "copyEntry",
+        "key": "ArchitectsPage-v2-scene-clean-title",
+        "label": "Sprzątanie",
+        "value": "Sprzątanie"
+      },
+      {
+        "_key": "ArchitectsPage-v2-scene-clean-action",
+        "_type": "copyEntry",
+        "key": "ArchitectsPage-v2-scene-clean-action",
+        "label": "Jasne oświetlenie wszystkich potrzebnych stref.",
+        "value": "Jasne oświetlenie wszystkich potrzebnych stref."
+      },
+      {
+        "_key": "ArchitectsPage-v2-scene-clean-question",
+        "_type": "copyEntry",
+        "key": "ArchitectsPage-v2-scene-clean-question",
+        "label": "Do ustalenia: wygodne wywołanie i powrót do poprzedniej sceny.",
+        "value": "Do ustalenia: wygodne wywołanie i powrót do poprzedniej sceny."
+      },
+      {
+        "_key": "ArchitectsPage-v2-scene-leave-title",
+        "_type": "copyEntry",
+        "key": "ArchitectsPage-v2-scene-leave-title",
+        "label": "Wyjście",
+        "value": "Wyjście"
+      },
+      {
+        "_key": "ArchitectsPage-v2-scene-leave-action",
+        "_type": "copyEntry",
+        "key": "ArchitectsPage-v2-scene-leave-action",
+        "label": "Wyłączenie wskazanych świateł jednym poleceniem.",
+        "value": "Wyłączenie wskazanych świateł jednym poleceniem."
+      },
+      {
+        "_key": "ArchitectsPage-v2-scene-leave-question",
+        "_type": "copyEntry",
+        "key": "ArchitectsPage-v2-scene-leave-question",
+        "label": "Do ustalenia: wyjątki, potwierdzenie i zachowanie pozostałych systemów.",
+        "value": "Do ustalenia: wyjątki, potwierdzenie i zachowanie pozostałych systemów."
+      },
+      {
+        "_key": "ArchitectsPage-v2-roles-title",
+        "_type": "copyEntry",
+        "key": "ArchitectsPage-v2-roles-title",
+        "label": "Dobry detal potrzebuje dobrych uzgodnień.",
+        "value": "Dobry detal potrzebuje dobrych uzgodnień."
+      },
+      {
+        "_key": "ArchitectsPage-v2-roles-intro",
+        "_type": "copyEntry",
+        "key": "ArchitectsPage-v2-roles-intro",
+        "label": "Na początku ustalamy, kto projektuje, kto wykonuje i kto zatwierdza. Poniższy podział porz",
+        "value": "Na początku ustalamy, kto projektuje, kto wykonuje i kto zatwierdza. Poniższy podział porządkuje rozmowę; ostateczne obowiązki zapisujemy w zakresie współpracy."
+      },
+      {
+        "_key": "ArchitectsPage-v2-role-architect",
+        "_type": "copyEntry",
+        "key": "ArchitectsPage-v2-role-architect",
+        "label": "Architekt + inwestor",
+        "value": "Architekt + inwestor"
+      },
+      {
+        "_key": "ArchitectsPage-v2-role-architect-text",
+        "_type": "copyEntry",
+        "key": "ArchitectsPage-v2-role-architect-text",
+        "label": "Układ wnętrza, sposób korzystania z pomieszczeń, materiały i akceptacja scenariuszy. Przyc",
+        "value": "Układ wnętrza, sposób korzystania z pomieszczeń, materiały i akceptacja scenariuszy. Przyciski mają pasować do projektu i być zrozumiałe dla domowników."
+      },
+      {
+        "_key": "ArchitectsPage-v2-role-integrator",
+        "_type": "copyEntry",
+        "key": "ArchitectsPage-v2-role-integrator",
+        "label": "Integrator automatyki",
+        "value": "Integrator automatyki"
+      },
+      {
+        "_key": "ArchitectsPage-v2-role-integrator-text",
+        "_type": "copyEntry",
+        "key": "ArchitectsPage-v2-role-integrator-text",
+        "label": "Logika działania, dobór rozwiązań sterowania oraz uzgodnienie punktów styku z oświetleniem",
+        "value": "Logika działania, dobór rozwiązań sterowania oraz uzgodnienie punktów styku z oświetleniem, osłonami i instalacjami. Zakres projektu, programowania i wsparcia wymaga ustalenia."
+      },
+      {
+        "_key": "ArchitectsPage-v2-role-trades",
+        "_type": "copyEntry",
+        "key": "ArchitectsPage-v2-role-trades",
+        "label": "Projektanci i wykonawcy branżowi",
+        "value": "Projektanci i wykonawcy branżowi"
+      },
+      {
+        "_key": "ArchitectsPage-v2-role-trades-text",
+        "_type": "copyEntry",
+        "key": "ArchitectsPage-v2-role-trades-text",
+        "label": "Projekty, dobór i wykonanie instalacji w swoim zakresie oraz potwierdzenie zgodności urząd",
+        "value": "Projekty, dobór i wykonanie instalacji w swoim zakresie oraz potwierdzenie zgodności urządzeń z uzgodnionym sterowaniem. Odbiory i pomiary wymagają właściwych kompetencji."
+      },
+      {
+        "_key": "ArchitectsPage-v2-wall-title",
+        "_type": "copyEntry",
+        "key": "ArchitectsPage-v2-wall-title",
+        "label": "Zanim zatwierdzisz punkty na ścianie",
+        "value": "Zanim zatwierdzisz punkty na ścianie"
+      },
+      {
+        "_key": "ArchitectsPage-v2-wall-text",
+        "_type": "copyEntry",
+        "key": "ArchitectsPage-v2-wall-text",
+        "label": "Uzgodnij funkcję każdego przycisku, czytelne oznaczenia, wysokości, otwieranie drzwi, zabu",
+        "value": "Uzgodnij funkcję każdego przycisku, czytelne oznaczenia, wysokości, otwieranie drzwi, zabudowy i technologię montażu. Liczba klawiszy powinna wynikać z użytecznych funkcji, a nie z liczby obwodów."
+      },
+      {
+        "_key": "ArchitectsPage-v2-jung-alt",
+        "_type": "copyEntry",
+        "key": "ArchitectsPage-v2-jung-alt",
+        "label": "JUNG LS ZERO — osprzęt zlicowany z powierzchnią ściany. Fotografia JUNG.",
+        "value": "JUNG LS ZERO — osprzęt zlicowany z powierzchnią ściany. Fotografia JUNG."
+      },
+      {
+        "_key": "ArchitectsPage-v2-jung-credit",
+        "_type": "copyEntry",
+        "key": "ArchitectsPage-v2-jung-credit",
+        "label": "Fotografia: JUNG · ",
+        "value": "Fotografia: JUNG · "
+      },
+      {
+        "_key": "ArchitectsPage-v2-jung-source",
+        "_type": "copyEntry",
+        "key": "ArchitectsPage-v2-jung-source",
+        "label": "Zobacz kolekcję LS ZERO",
+        "value": "Zobacz kolekcję LS ZERO"
+      },
+      {
+        "_key": "ArchitectsPage-v2-detail-eyebrow",
+        "_type": "copyEntry",
+        "key": "ArchitectsPage-v2-detail-eyebrow",
+        "label": "Funkcja spotyka materiał",
+        "value": "Funkcja spotyka materiał"
+      },
+      {
+        "_key": "ArchitectsPage-v2-detail-title",
+        "_type": "copyEntry",
+        "key": "ArchitectsPage-v2-detail-title",
+        "label": "Przycisk jest częścią wnętrza.",
+        "value": "Przycisk jest częścią wnętrza."
+      },
+      {
+        "_key": "ArchitectsPage-v2-detail-text",
+        "_type": "copyEntry",
+        "key": "ArchitectsPage-v2-detail-text",
+        "label": "Dobór osprzętu to forma, wykończenie i sposób obsługi. Porozmawiajmy o JUNG LS 990 i LS ZE",
+        "value": "Dobór osprzętu to forma, wykończenie i sposób obsługi. Porozmawiajmy o JUNG LS 990 i LS ZERO w kontekście konkretnej ściany, materiału i funkcji pomieszczenia. Możliwości zależą od wybranego modelu."
+      },
+      {
+        "_key": "ArchitectsPage-v2-detail-samples",
+        "_type": "copyEntry",
+        "key": "ArchitectsPage-v2-detail-samples",
+        "label": "Chcesz porównać próbki z inwestorem? Przed spotkaniem potwierdzimy dostępność interesujący",
+        "value": "Chcesz porównać próbki z inwestorem? Przed spotkaniem potwierdzimy dostępność interesujących Cię wzorników i produktów."
+      },
+      {
+        "_key": "ArchitectsPage-v2-detail-cta",
+        "_type": "copyEntry",
+        "key": "ArchitectsPage-v2-detail-cta",
+        "label": "Zapytaj o próbki i spotkanie",
+        "value": "Zapytaj o próbki i spotkanie"
+      },
+      {
+        "_key": "ArchitectsPage-v2-contact-eyebrow",
+        "_type": "copyEntry",
+        "key": "ArchitectsPage-v2-contact-eyebrow",
+        "label": "Zacznijmy od Twojego projektu",
+        "value": "Zacznijmy od Twojego projektu"
+      },
+      {
+        "_key": "ArchitectsPage-v2-contact-title",
+        "_type": "copyEntry",
+        "key": "ArchitectsPage-v2-contact-title",
+        "label": "Masz rzut albo pierwsze pytania?",
+        "value": "Masz rzut albo pierwsze pytania?"
+      },
+      {
+        "_key": "ArchitectsPage-v2-contact-intro",
+        "_type": "copyEntry",
+        "key": "ArchitectsPage-v2-contact-intro",
+        "label": "Napisz, jaki obiekt projektujesz, na jakim etapie są prace i co chcesz uzgodnić. Rzut konc",
+        "value": "Napisz, jaki obiekt projektujesz, na jakim etapie są prace i co chcesz uzgodnić. Rzut koncepcyjny możesz dołączyć do wiadomości e-mail. Ustalimy dalszy krok i zakres pomocy."
+      },
+      {
+        "_key": "ArchitectsPage-v2-email",
+        "_type": "copyEntry",
+        "key": "ArchitectsPage-v2-email",
+        "label": "biuro@intelispaces.pl",
+        "value": "biuro@intelispaces.pl"
+      },
+      {
+        "_key": "ArchitectsPage-v2-phone",
+        "_type": "copyEntry",
+        "key": "ArchitectsPage-v2-phone",
+        "label": "+48 505 260 715",
+        "value": "+48 505 260 715"
+      },
+      {
+        "_key": "ArchitectsPage-v2-showroom-title",
+        "_type": "copyEntry",
+        "key": "ArchitectsPage-v2-showroom-title",
+        "label": "Spotkanie z architektem i inwestorem",
+        "value": "Spotkanie z architektem i inwestorem"
+      },
+      {
+        "_key": "ArchitectsPage-v2-showroom-text",
+        "_type": "copyEntry",
+        "key": "ArchitectsPage-v2-showroom-text",
+        "label": "Salon sprzedaży w Warszawie: ul. Konwaliowa 7 lok. 103, 03-194 Warszawa. Skontaktuj się pr",
+        "value": "Salon sprzedaży w Warszawie: ul. Konwaliowa 7 lok. 103, 03-194 Warszawa. Skontaktuj się przed wizytą, aby ustalić termin i potrzebne materiały."
+      },
+      {
+        "_key": "ArchitectsPage-v2-showroom-map",
+        "_type": "copyEntry",
+        "key": "ArchitectsPage-v2-showroom-map",
+        "label": "Zobacz dojazd",
+        "value": "Zobacz dojazd"
+      }
+    ],
+    "key": "ArchitectsPage",
+    "title": "Dla architektów"
+  },
+  {
+    "_id": "page-ConsultationModal",
+    "_type": "pageContent",
+    "entries": [
+      {
+        "_key": "ConsultationModal-v2-default-topic",
+        "_type": "copyEntry",
+        "key": "ConsultationModal-v2-default-topic",
+        "label": "Rozmowa o projekcie automatyki KNX",
+        "value": "Rozmowa o projekcie automatyki KNX"
+      },
+      {
+        "_key": "ConsultationModal-v2-close",
+        "_type": "copyEntry",
+        "key": "ConsultationModal-v2-close",
+        "label": "Zamknij okno kontaktu",
+        "value": "Zamknij okno kontaktu"
+      },
+      {
+        "_key": "ConsultationModal-v2-eyebrow",
+        "_type": "copyEntry",
+        "key": "ConsultationModal-v2-eyebrow",
+        "label": "Zacznijmy od rozmowy",
+        "value": "Zacznijmy od rozmowy"
+      },
+      {
+        "_key": "ConsultationModal-v2-title",
+        "_type": "copyEntry",
+        "key": "ConsultationModal-v2-title",
+        "label": "Ustalmy kolejny krok",
+        "value": "Ustalmy kolejny krok"
+      },
+      {
+        "_key": "ConsultationModal-v2-intro",
+        "_type": "copyEntry",
+        "key": "ConsultationModal-v2-intro",
+        "label": "Zadzwoń lub napisz, aby porozmawiać o projekcie albo uzgodnić spotkanie w salonie. Termin ",
+        "value": "Zadzwoń lub napisz, aby porozmawiać o projekcie albo uzgodnić spotkanie w salonie. Termin potwierdzimy bezpośrednio z Tobą."
+      },
+      {
+        "_key": "ConsultationModal-v2-topic-label",
+        "_type": "copyEntry",
+        "key": "ConsultationModal-v2-topic-label",
+        "label": "Temat: ",
+        "value": "Temat: "
+      },
+      {
+        "_key": "ConsultationModal-v2-call",
+        "_type": "copyEntry",
+        "key": "ConsultationModal-v2-call",
+        "label": "Zadzwoń",
+        "value": "Zadzwoń"
+      },
+      {
+        "_key": "ConsultationModal-v2-phone",
+        "_type": "copyEntry",
+        "key": "ConsultationModal-v2-phone",
+        "label": "+48 505 260 715",
+        "value": "+48 505 260 715"
+      },
+      {
+        "_key": "ConsultationModal-v2-write",
+        "_type": "copyEntry",
+        "key": "ConsultationModal-v2-write",
+        "label": "Napisz e-mail",
+        "value": "Napisz e-mail"
+      },
+      {
+        "_key": "ConsultationModal-v2-email",
+        "_type": "copyEntry",
+        "key": "ConsultationModal-v2-email",
+        "label": "biuro@intelispaces.pl",
+        "value": "biuro@intelispaces.pl"
+      },
+      {
+        "_key": "ConsultationModal-v2-mail-explanation",
+        "_type": "copyEntry",
+        "key": "ConsultationModal-v2-mail-explanation",
+        "label": "Otworzy się Twoja aplikacja pocztowa z tematem rozmowy. Opis i załączniki dodaj w wiadomoś",
+        "value": "Otworzy się Twoja aplikacja pocztowa z tematem rozmowy. Opis i załączniki dodaj w wiadomości, a następnie ją wyślij. Jeśli nie korzystasz z aplikacji, skopiuj adres do swojej poczty."
+      },
+      {
+        "_key": "ConsultationModal-v2-salon-title",
+        "_type": "copyEntry",
+        "key": "ConsultationModal-v2-salon-title",
+        "label": "Spotkajmy się w salonie sprzedaży",
+        "value": "Spotkajmy się w salonie sprzedaży"
+      },
+      {
+        "_key": "ConsultationModal-v2-salon-address",
+        "_type": "copyEntry",
+        "key": "ConsultationModal-v2-salon-address",
+        "label": "ul. Konwaliowa 7 lok. 103, 03-194 Warszawa",
+        "value": "ul. Konwaliowa 7 lok. 103, 03-194 Warszawa"
+      },
+      {
+        "_key": "ConsultationModal-v2-salon-appointment",
+        "_type": "copyEntry",
+        "key": "ConsultationModal-v2-salon-appointment",
+        "label": "Przed wizytą uzgodnijmy termin. Architekta zapraszamy także wspólnie z inwestorem.",
+        "value": "Przed wizytą uzgodnijmy termin. Architekta zapraszamy także wspólnie z inwestorem."
+      },
+      {
+        "_key": "ConsultationModal-v2-privacy",
+        "_type": "copyEntry",
+        "key": "ConsultationModal-v2-privacy",
+        "label": "Jak przetwarzamy dane kontaktowe",
+        "value": "Jak przetwarzamy dane kontaktowe"
+      }
+    ],
+    "key": "ConsultationModal",
+    "title": "Okno konsultacji"
+  },
+  {
+    "_id": "page-ContactForm",
+    "_type": "pageContent",
+    "entries": [
+      {
+        "_key": "ContactForm-v2-topic-office",
+        "_type": "copyEntry",
+        "key": "ContactForm-v2-topic-office",
+        "label": "Automatyka biura — rozmowa o projekcie",
+        "value": "Automatyka biura — rozmowa o projekcie"
+      },
+      {
+        "_key": "ContactForm-v2-topic-home",
+        "_type": "copyEntry",
+        "key": "ContactForm-v2-topic-home",
+        "label": "Automatyka domu — rozmowa o projekcie",
+        "value": "Automatyka domu — rozmowa o projekcie"
+      },
+      {
+        "_key": "ContactForm-v2-topic-apartment",
+        "_type": "copyEntry",
+        "key": "ContactForm-v2-topic-apartment",
+        "label": "Automatyka apartamentu — rozmowa o projekcie",
+        "value": "Automatyka apartamentu — rozmowa o projekcie"
+      },
+      {
+        "_key": "ContactForm-v2-topic-commercial",
+        "_type": "copyEntry",
+        "key": "ContactForm-v2-topic-commercial",
+        "label": "Automatyka obiektu — rozmowa o projekcie",
+        "value": "Automatyka obiektu — rozmowa o projekcie"
+      },
+      {
+        "_key": "ContactForm-v2-topic-general",
+        "_type": "copyEntry",
+        "key": "ContactForm-v2-topic-general",
+        "label": "Delitech — rozmowa o projekcie",
+        "value": "Delitech — rozmowa o projekcie"
+      },
+      {
+        "_key": "ContactForm-v2-title",
+        "_type": "copyEntry",
+        "key": "ContactForm-v2-title",
+        "label": "Porozmawiajmy o Twoim projekcie",
+        "value": "Porozmawiajmy o Twoim projekcie"
+      },
+      {
+        "_key": "ContactForm-v2-intro",
+        "_type": "copyEntry",
+        "key": "ContactForm-v2-intro",
+        "label": "Masz rzuty, pierwsze pomysły albo pytania? Zadzwoń lub napisz. Wspólnie ustalimy, od czego",
+        "value": "Masz rzuty, pierwsze pomysły albo pytania? Zadzwoń lub napisz. Wspólnie ustalimy, od czego zacząć."
+      },
+      {
+        "_key": "ContactForm-v2-call-label",
+        "_type": "copyEntry",
+        "key": "ContactForm-v2-call-label",
+        "label": "Zadzwoń",
+        "value": "Zadzwoń"
+      },
+      {
+        "_key": "ContactForm-v2-phone",
+        "_type": "copyEntry",
+        "key": "ContactForm-v2-phone",
+        "label": "+48 505 260 715",
+        "value": "+48 505 260 715"
+      },
+      {
+        "_key": "ContactForm-v2-email-label",
+        "_type": "copyEntry",
+        "key": "ContactForm-v2-email-label",
+        "label": "Napisz e-mail",
+        "value": "Napisz e-mail"
+      },
+      {
+        "_key": "ContactForm-v2-email",
+        "_type": "copyEntry",
+        "key": "ContactForm-v2-email",
+        "label": "biuro@intelispaces.pl",
+        "value": "biuro@intelispaces.pl"
+      },
+      {
+        "_key": "ContactForm-v2-mail-explanation",
+        "_type": "copyEntry",
+        "key": "ContactForm-v2-mail-explanation",
+        "label": "Link otwiera Twoją aplikację pocztową. Treść i załączniki dodajesz w niej, a wiadomość wys",
+        "value": "Link otwiera Twoją aplikację pocztową. Treść i załączniki dodajesz w niej, a wiadomość wysyłasz samodzielnie. Możesz też skopiować adres do swojej poczty."
+      },
+      {
+        "_key": "ContactForm-v2-prepare-title",
+        "_type": "copyEntry",
+        "key": "ContactForm-v2-prepare-title",
+        "label": "Co warto dołączyć do wiadomości?",
+        "value": "Co warto dołączyć do wiadomości?"
+      },
+      {
+        "_key": "ContactForm-v2-prepare-location",
+        "_type": "copyEntry",
+        "key": "ContactForm-v2-prepare-location",
+        "label": "Rodzaj obiektu, lokalizację i etap projektu.",
+        "value": "Rodzaj obiektu, lokalizację i etap projektu."
+      },
+      {
+        "_key": "ContactForm-v2-prepare-needs",
+        "_type": "copyEntry",
+        "key": "ContactForm-v2-prepare-needs",
+        "label": "Krótki opis tego, czym chcesz sterować.",
+        "value": "Krótki opis tego, czym chcesz sterować."
+      },
+      {
+        "_key": "ContactForm-v2-prepare-plan",
+        "_type": "copyEntry",
+        "key": "ContactForm-v2-prepare-plan",
+        "label": "Rzut lub szkic, jeśli już go masz. Na początek nie potrzebujesz pełnej dokumentacji.",
+        "value": "Rzut lub szkic, jeśli już go masz. Na początek nie potrzebujesz pełnej dokumentacji."
+      },
+      {
+        "_key": "ContactForm-v2-privacy",
+        "_type": "copyEntry",
+        "key": "ContactForm-v2-privacy",
+        "label": "Jak przetwarzamy dane kontaktowe",
+        "value": "Jak przetwarzamy dane kontaktowe"
+      }
+    ],
+    "key": "ContactForm",
+    "title": "Formularz kontaktowy"
+  },
+  {
+    "_id": "page-ContactPage",
+    "_type": "pageContent",
+    "entries": [
+      {
+        "_key": "ContactPage-5fdd887b5268",
+        "key": "ContactPage-5fdd887b5268",
+        "label": "Centrum Zapytań Projektowych",
+        "value": "Kontakt z zespołem Delitech"
+      },
+      {
+        "_key": "ContactPage-ec0678d054b0",
+        "key": "ContactPage-ec0678d054b0",
+        "label": "Prześlij rzuty. Wrócimy z konkretnymi pytaniami.",
+        "value": "Porozmawiajmy o Twoim projekcie."
+      },
+      {
+        "_key": "ContactPage-c3ab81299f93",
+        "key": "ContactPage-c3ab81299f93",
+        "label": "Warszawa i okolice · realizacje w całej Polsce. Przeanalizujemy rzuty architektoniczne, ws",
+        "value": "Wspieramy architektów, inwestorów i zespoły fit-out. Napisz, na jakim etapie jest projekt i co chcesz ustalić. Możesz dołączyć rzuty do wiadomości e-mail."
+      },
+      {
+        "_key": "ContactPage-01ccf3a7383d",
+        "key": "ContactPage-01ccf3a7383d",
+        "label": "Dane kontaktowe i siedziba spółki",
+        "value": "Salon sprzedaży i kontakt"
+      },
+      {
+        "_key": "ContactPage-758c48e9fb71",
+        "key": "ContactPage-758c48e9fb71",
+        "label": "Delitech Jasek spółka jawna",
+        "value": "Delitech Jasek spółka jawna"
+      },
+      {
+        "_key": "ContactPage-c001add53a0d",
+        "key": "ContactPage-c001add53a0d",
+        "label": "ul. Myśliborska 85A/8",
+        "value": "ul. Konwaliowa 7 lok. 103"
+      },
+      {
+        "_key": "ContactPage-fbb27500dc9a",
+        "key": "ContactPage-fbb27500dc9a",
+        "label": "03-185 Warszawa, Polska",
+        "value": "03-194 Warszawa, Polska"
+      },
+      {
+        "_key": "ContactPage-74b868aeb50d",
+        "key": "ContactPage-74b868aeb50d",
+        "label": "Adres siedziby zgodny z KRS. Spotkania po wcześniejszym uzgodnieniu.",
+        "value": "Salon sprzedaży. Spotkania po wcześniejszym uzgodnieniu."
+      },
+      {
+        "_key": "ContactPage-2fdee1238cd7",
+        "key": "ContactPage-2fdee1238cd7",
+        "label": "Infolinia techniczna / Biuro:",
+        "value": "Kontakt telefoniczny:"
+      },
+      {
+        "_key": "ContactPage-deae7649c1b3",
+        "key": "ContactPage-deae7649c1b3",
+        "label": "Adres dla zapytań i rzutów:",
+        "value": "Adres dla zapytań i rzutów:"
+      },
+      {
+        "_key": "ContactPage-3aaae08d2a31",
+        "key": "ContactPage-3aaae08d2a31",
+        "label": "biuro@intelispaces.pl",
+        "value": "biuro@intelispaces.pl"
+      },
+      {
+        "_key": "ContactPage-aa119009fd36",
+        "key": "ContactPage-aa119009fd36",
+        "label": "Godziny pracy inżynierów:",
+        "value": "Spotkania w salonie:"
+      },
+      {
+        "_key": "ContactPage-9fe843445062",
+        "key": "ContactPage-9fe843445062",
+        "label": "Poniedziałek – Piątek: 08:30 – 17:30",
+        "value": "Termin ustalamy telefonicznie lub e-mailem."
+      },
+      {
+        "_key": "ContactPage-c1cfd89bbd73",
+        "key": "ContactPage-c1cfd89bbd73",
+        "label": "NIP: 1132919580 · REGON: 36555562000000 · KRS: 0000640314",
+        "value": "NIP: 1132919580 · REGON: 36555562000000 · KRS: 0000640314"
+      },
+      {
+        "_key": "ContactPage-56d2593f164d",
+        "key": "ContactPage-56d2593f164d",
+        "label": "Forma prawna: spółka jawna",
+        "value": "Forma prawna: spółka jawna"
+      },
+      {
+        "_key": "ContactPage-9cd1062ed1bc",
+        "key": "ContactPage-9cd1062ed1bc",
+        "label": "Siedziba: Warszawa Białołęka",
+        "value": "Salon sprzedaży: Warszawa Białołęka"
+      },
+      {
+        "_key": "ContactPage-6132be6dabe7",
+        "key": "ContactPage-6132be6dabe7",
+        "label": "Otwórz w Google Maps →",
+        "value": "Otwórz w Google Maps →"
+      },
+      {
+        "_key": "ContactPage-323383cbf602",
+        "key": "ContactPage-323383cbf602",
+        "label": "Delitech Smart Spaces",
+        "value": "Delitech Smart Spaces"
+      },
+      {
+        "_key": "ContactPage-ef67874f99ca",
+        "key": "ContactPage-ef67874f99ca",
+        "label": "ul. Myśliborska 85A/8, 03-185 Warszawa",
+        "value": "ul. Konwaliowa 7 lok. 103, 03-194 Warszawa"
+      },
+      {
+        "_key": "ContactPage-2e39920427d5",
+        "key": "ContactPage-2e39920427d5",
+        "label": "Siedziba rejestrowa spółki",
+        "value": "Salon sprzedaży · lokal 103"
+      },
+      {
+        "_key": "ContactPage-registered-address",
+        "_type": "copyEntry",
+        "key": "ContactPage-registered-address",
+        "label": "Adres siedziby rejestrowej",
+        "value": "Siedziba rejestrowa: ul. Myśliborska 85A/8, 03-185 Warszawa"
+      }
+    ],
+    "key": "ContactPage",
+    "title": "Kontakt"
+  },
+  {
+    "_id": "page-CookieBanner",
+    "_type": "pageContent",
+    "entries": [
+      {
+        "_key": "CookieBanner-38ee241fee82",
+        "key": "CookieBanner-38ee241fee82",
+        "label": "Zgoda na pliki cookies",
+        "value": "Zgoda na pliki cookies"
+      },
+      {
+        "_key": "CookieBanner-5ea2ca4b5aea",
+        "key": "CookieBanner-5ea2ca4b5aea",
+        "label": "Szanujemy Twoją prywatność",
+        "value": "Szanujemy Twoją prywatność"
+      },
+      {
+        "_key": "CookieBanner-9036e76d6456",
+        "key": "CookieBanner-9036e76d6456",
+        "label": "Używamy niezbędnych plików cookie w celu zapewnienia sprawnego działania portalu oraz anal",
+        "value": "Używamy niezbędnych plików cookie w celu zapewnienia sprawnego działania portalu oraz analizy ruchu technicznego. Nie profilujemy reklamowo."
+      },
+      {
+        "_key": "CookieBanner-52a4e8194a41",
+        "key": "CookieBanner-52a4e8194a41",
+        "label": "Polityka cookies",
+        "value": "Polityka cookies"
+      },
+      {
+        "_key": "CookieBanner-ee632f64dc3e",
+        "key": "CookieBanner-ee632f64dc3e",
+        "label": "Akceptuję wszystkie",
+        "value": "Akceptuję wszystkie"
+      },
+      {
+        "_key": "CookieBanner-5645ed0b45fa",
+        "key": "CookieBanner-5645ed0b45fa",
+        "label": "Tylko niezbędne",
+        "value": "Tylko niezbędne"
+      }
+    ],
+    "key": "CookieBanner",
+    "title": "Komunikat cookies"
+  },
+  {
+    "_id": "page-Footer",
+    "_type": "pageContent",
+    "entries": [
+      {
+        "_key": "Footer-c2de178f44cd",
+        "key": "Footer-c2de178f44cd",
+        "label": "Automatyka budynku, która pracuje dla ludzi i przestrzeni. Integrator otwartego standardu ",
+        "value": "Partner architektów i inwestorów w planowaniu automatyki KNX. Światło, osłony i temperatura dopasowane do wnętrza."
+      },
+      {
+        "_key": "Footer-e1e7597c9acc",
+        "key": "Footer-e1e7597c9acc",
+        "label": "KNX · DALI · automatyka pomieszczeń",
+        "value": "KNX · DALI · automatyka pomieszczeń"
+      },
+      {
+        "_key": "Footer-a72cbeddf553",
+        "key": "Footer-a72cbeddf553",
+        "label": "NIP: 1132919580 · REGON: 36555562000000",
+        "value": "NIP: 1132919580 · REGON: 36555562000000"
+      },
+      {
+        "_key": "Footer-758c48e9fb71",
+        "key": "Footer-758c48e9fb71",
+        "label": "Delitech Jasek spółka jawna",
+        "value": "Delitech Jasek spółka jawna"
+      },
+      {
+        "_key": "Footer-90b5ad1fe110",
+        "key": "Footer-90b5ad1fe110",
+        "label": "Obszary & Usługi",
+        "value": "Obszary & Usługi"
+      },
+      {
+        "_key": "Footer-2d4320c44946",
+        "key": "Footer-2d4320c44946",
+        "label": "Automatyka dla biur & Fit-out",
+        "value": "Automatyka dla biur & Fit-out"
+      },
+      {
+        "_key": "Footer-1daad06a30d7",
+        "key": "Footer-1daad06a30d7",
+        "label": "Sale konferencyjne & Zarząd",
+        "value": "Sale konferencyjne & Zarząd"
+      },
+      {
+        "_key": "Footer-61554b5b2bc8",
+        "key": "Footer-61554b5b2bc8",
+        "label": "Domy jednorodzinne & Rezydencje",
+        "value": "Domy jednorodzinne & Rezydencje"
+      },
+      {
+        "_key": "Footer-36b83c3290a7",
+        "key": "Footer-36b83c3290a7",
+        "label": "Apartamenty premium",
+        "value": "Apartamenty premium"
+      },
+      {
+        "_key": "Footer-f93cb367f145",
+        "key": "Footer-f93cb367f145",
+        "label": "Sterowanie DALI & Oświetlenie",
+        "value": "Sterowanie DALI & Oświetlenie"
+      },
+      {
+        "_key": "Footer-193e10837c5f",
+        "key": "Footer-193e10837c5f",
+        "label": "Integracja HVAC & Energia",
+        "value": "Integracja HVAC & Energia"
+      },
+      {
+        "_key": "Footer-a64488a41e20",
+        "key": "Footer-a64488a41e20",
+        "label": "Standard & Partnerzy",
+        "value": "Wiedza i materiały"
+      },
+      {
+        "_key": "Footer-1c46e232e05b",
+        "key": "Footer-1c46e232e05b",
+        "label": "Strefa architekta i projektanta",
+        "value": "Strefa architekta i projektanta"
+      },
+      {
+        "_key": "Footer-64de4d3b934b",
+        "key": "Footer-64de4d3b934b",
+        "label": "Osprzęt architektoniczny JUNG",
+        "value": "Osprzęt architektoniczny JUNG"
+      },
+      {
+        "_key": "Footer-ad0e16d8e224",
+        "key": "Footer-ad0e16d8e224",
+        "label": "Dlaczego standard KNX?",
+        "value": "Dlaczego standard KNX?"
+      },
+      {
+        "_key": "Footer-9f744f97d4e8",
+        "key": "Footer-9f744f97d4e8",
+        "label": "Przykładowe zakresy realizacji",
+        "value": "Przykłady rozwiązań"
+      },
+      {
+        "_key": "Footer-04aae6752296",
+        "key": "Footer-04aae6752296",
+        "label": "Baza wiedzy & FAQ",
+        "value": "Baza wiedzy & FAQ"
+      },
+      {
+        "_key": "Footer-b6c751124f3c",
+        "key": "Footer-b6c751124f3c",
+        "label": "O firmie & Filozofia",
+        "value": "Jak pracujemy"
+      },
+      {
+        "_key": "Footer-0c2fe068f904",
+        "key": "Footer-0c2fe068f904",
+        "label": "Polecane portale branżowe",
+        "value": "Polecane portale branżowe"
+      },
+      {
+        "_key": "Footer-d9d9694e1e63",
+        "key": "Footer-d9d9694e1e63",
+        "label": "Puszki podłogowe i floorboxy",
+        "value": "Puszki podłogowe i floorboxy"
+      },
+      {
+        "_key": "Footer-61e8a88f2749",
+        "key": "Footer-61e8a88f2749",
+        "label": "Mediaporty i gniazda meblowe",
+        "value": "Mediaporty i gniazda meblowe"
+      },
+      {
+        "_key": "Footer-e5e5492232a7",
+        "key": "Footer-e5e5492232a7",
+        "label": "Designerski osprzęt elektroinstalacyjny",
+        "value": "Designerski osprzęt elektroinstalacyjny"
+      },
+      {
+        "_key": "Footer-b9a6e82b27ea",
+        "key": "Footer-b9a6e82b27ea",
+        "label": "Siedziba spółki",
+        "value": "Salon sprzedaży"
+      },
+      {
+        "_key": "Footer-ea7f84fb3479",
+        "key": "Footer-ea7f84fb3479",
+        "label": "ul. Myśliborska 85A/8",
+        "value": "ul. Konwaliowa 7 lok. 103"
+      },
+      {
+        "_key": "Footer-f2fb354d7114",
+        "key": "Footer-f2fb354d7114",
+        "label": "03-185 Warszawa",
+        "value": "03-194 Warszawa"
+      },
+      {
+        "_key": "Footer-8520659aea8e",
+        "key": "Footer-8520659aea8e",
+        "label": "Realizacje w całej Polsce",
+        "value": "Realizacje w całej Polsce"
+      },
+      {
+        "_key": "Footer-3aaae08d2a31",
+        "key": "Footer-3aaae08d2a31",
+        "label": "biuro@intelispaces.pl",
+        "value": "biuro@intelispaces.pl"
+      },
+      {
+        "_key": "Footer-fcbf5c493409",
+        "key": "Footer-fcbf5c493409",
+        "label": "Prześlij rzuty",
+        "value": "Prześlij rzuty"
+      },
+      {
+        "_key": "Footer-14d0048fb323",
+        "key": "Footer-14d0048fb323",
+        "label": "Delitech Smart Spaces. Wszelkie prawa zastrzeżone.",
+        "value": " Delitech Smart Spaces. Wszelkie prawa zastrzeżone."
+      },
+      {
+        "_key": "Footer-a7a190663e33",
+        "key": "Footer-a7a190663e33",
+        "label": "Polityka prywatności",
+        "value": "Polityka prywatności"
+      },
+      {
+        "_key": "Footer-46f3a4957f51",
+        "key": "Footer-46f3a4957f51",
+        "label": "Klauzula RODO",
+        "value": "Klauzula RODO"
+      },
+      {
+        "_key": "Footer-87ba3ef1718d",
+        "key": "Footer-87ba3ef1718d",
+        "label": "Ustawienia cookies",
+        "value": "Ustawienia cookies"
+      },
+      {
+        "_key": "Footer-registered-address",
+        "_type": "copyEntry",
+        "key": "Footer-registered-address",
+        "label": "Adres siedziby rejestrowej",
+        "value": "Siedziba rejestrowa: ul. Myśliborska 85A/8, 03-185 Warszawa"
+      },
+      {
+        "_key": "Footer-v2-architects",
+        "_type": "copyEntry",
+        "key": "Footer-v2-architects",
+        "label": "Współpraca z architektami",
+        "value": "Współpraca z architektami"
+      }
+    ],
+    "key": "Footer",
+    "title": "Stopka"
+  },
+  {
+    "_id": "page-FormPreviewNotice",
+    "_type": "pageContent",
+    "entries": [
+      {
+        "_key": "FormPreviewNotice-5b6eab30ef19",
+        "key": "FormPreviewNotice-5b6eab30ef19",
+        "label": "Podgląd formularza.",
+        "value": "Podgląd formularza."
+      },
+      {
+        "_key": "FormPreviewNotice-dbadf872c216",
+        "key": "FormPreviewNotice-dbadf872c216",
+        "label": "W tej wersji możesz zobaczyć układ pól. Wysyłka zapytań i rezerwacja konsultacji nie są je",
+        "value": " W tej wersji możesz zobaczyć układ pól. Wysyłka zapytań i rezerwacja konsultacji nie są jeszcze dostępne."
+      }
+    ],
+    "key": "FormPreviewNotice",
+    "title": "Komunikat formularzy"
+  },
+  {
+    "_id": "page-HomePage",
+    "_system": {
+      "base": {
+        "id": "page-HomePage",
+        "rev": "kmzixlc5xAVMYQZkjq268w"
+      }
+    },
+    "_type": "pageContent",
+    "entries": [
+      {
+        "_key": "HomePage-v2-dinner",
+        "_type": "copyEntry",
+        "key": "HomePage-v2-dinner",
+        "label": "Kolacja",
+        "value": "Kolacja"
+      },
+      {
+        "_key": "HomePage-v2-dinner-light",
+        "_type": "copyEntry",
+        "key": "HomePage-v2-dinner-light",
+        "label": "Światło nad stołem, delikatne tło w salonie.",
+        "value": "Światło nad stołem, delikatne tło w salonie."
+      },
+      {
+        "_key": "HomePage-v2-dinner-shades",
+        "_type": "copyEntry",
+        "key": "HomePage-v2-dinner-shades",
+        "label": "Zasłony w pozycji wybranej przez domowników.",
+        "value": "Zasłony w pozycji wybranej przez domowników."
+      },
+      {
+        "_key": "HomePage-v2-dinner-control",
+        "_type": "copyEntry",
+        "key": "HomePage-v2-dinner-control",
+        "label": "Jedno naciśnięcie przycisku sceny. Jasność można zmienić ręcznie.",
+        "value": "Jedno naciśnięcie przycisku sceny. Jasność można zmienić ręcznie."
+      },
+      {
+        "_key": "HomePage-v2-film",
+        "_type": "copyEntry",
+        "key": "HomePage-v2-film",
+        "label": "Film",
+        "value": "Film"
+      },
+      {
+        "_key": "HomePage-v2-film-light",
+        "_type": "copyEntry",
+        "key": "HomePage-v2-film-light",
+        "label": "Przygaszone oprawy, dyskretne światło orientacyjne.",
+        "value": "Przygaszone oprawy, dyskretne światło orientacyjne."
+      },
+      {
+        "_key": "HomePage-v2-film-shades",
+        "_type": "copyEntry",
+        "key": "HomePage-v2-film-shades",
+        "label": "Osłony ograniczają odbicia na ekranie.",
+        "value": "Osłony ograniczają odbicia na ekranie."
+      },
+      {
+        "_key": "HomePage-v2-film-control",
+        "_type": "copyEntry",
+        "key": "HomePage-v2-film-control",
+        "label": "Scena z przycisku lub panelu. Sterowanie sprzętem AV wymaga uzgodnionej integracji.",
+        "value": "Scena z przycisku lub panelu. Sterowanie sprzętem AV wymaga uzgodnionej integracji."
+      },
+      {
+        "_key": "HomePage-v2-clean",
+        "_type": "copyEntry",
+        "key": "HomePage-v2-clean",
+        "label": "Sprzątanie",
+        "value": "Sprzątanie"
+      },
+      {
+        "_key": "HomePage-v2-clean-light",
+        "_type": "copyEntry",
+        "key": "HomePage-v2-clean-light",
+        "label": "Jasne oświetlenie całej strefy dziennej.",
+        "value": "Jasne oświetlenie całej strefy dziennej."
+      },
+      {
+        "_key": "HomePage-v2-clean-shades",
+        "_type": "copyEntry",
+        "key": "HomePage-v2-clean-shades",
+        "label": "Położenie osłon pozostaje pod kontrolą użytkownika.",
+        "value": "Położenie osłon pozostaje pod kontrolą użytkownika."
+      },
+      {
+        "_key": "HomePage-v2-clean-control",
+        "_type": "copyEntry",
+        "key": "HomePage-v2-clean-control",
+        "label": "Scena uruchamiana ręcznie; sposób powrotu do codziennych ustawień ustalamy w projekcie.",
+        "value": "Scena uruchamiana ręcznie; sposób powrotu do codziennych ustawień ustalamy w projekcie."
+      },
+      {
+        "_key": "HomePage-v2-away",
+        "_type": "copyEntry",
+        "key": "HomePage-v2-away",
+        "label": "Wyjście",
+        "value": "Wyjście"
+      },
+      {
+        "_key": "HomePage-v2-away-light",
+        "_type": "copyEntry",
+        "key": "HomePage-v2-away-light",
+        "label": "Wyłączenie wybranych obwodów, z pominięciem potrzebnych urządzeń.",
+        "value": "Wyłączenie wybranych obwodów, z pominięciem potrzebnych urządzeń."
+      },
+      {
+        "_key": "HomePage-v2-away-shades",
+        "_type": "copyEntry",
+        "key": "HomePage-v2-away-shades",
+        "label": "Osłony według ustalonego scenariusza i zabezpieczeń pogodowych.",
+        "value": "Osłony według ustalonego scenariusza i zabezpieczeń pogodowych."
+      },
+      {
+        "_key": "HomePage-v2-away-control",
+        "_type": "copyEntry",
+        "key": "HomePage-v2-away-control",
+        "label": "Przycisk przy wyjściu. Reakcje ogrzewania i alarmu uzgadniamy osobno.",
+        "value": "Przycisk przy wyjściu. Reakcje ogrzewania i alarmu uzgadniamy osobno."
+      },
+      {
+        "_key": "HomePage-v2-arch-title",
+        "_type": "copyEntry",
+        "key": "HomePage-v2-arch-title",
+        "label": "Dla architektów",
+        "value": "Dla architektów"
+      },
+      {
+        "_key": "HomePage-v2-arch-body",
+        "_type": "copyEntry",
+        "key": "HomePage-v2-arch-body",
+        "label": "Karta funkcji, rozmieszczenie sterowania i dobór osprzętu do wnętrza. Zobacz materiały do ",
+        "value": "Karta funkcji, rozmieszczenie sterowania i dobór osprzętu do wnętrza. Zobacz materiały do rozmowy z klientem."
+      },
+      {
+        "_key": "HomePage-v2-arch-cta",
+        "_type": "copyEntry",
+        "key": "HomePage-v2-arch-cta",
+        "label": "Poznaj współpracę",
+        "value": "Poznaj współpracę"
+      },
+      {
+        "_key": "HomePage-v2-home-title",
+        "_type": "copyEntry",
+        "key": "HomePage-v2-home-title",
+        "label": "Dla inwestorów",
+        "value": "Dla inwestorów"
+      },
+      {
+        "_key": "HomePage-v2-home-body",
+        "_type": "copyEntry",
+        "key": "HomePage-v2-home-body",
+        "label": "Zaplanuj działanie domu lub apartamentu. Ustal priorytety i sposób obsługi, zanim wybierze",
+        "value": "Zaplanuj działanie domu lub apartamentu. Ustal priorytety i sposób obsługi, zanim wybierzesz urządzenia."
+      },
+      {
+        "_key": "HomePage-v2-home-cta",
+        "_type": "copyEntry",
+        "key": "HomePage-v2-home-cta",
+        "label": "Zaplanuj funkcje domu",
+        "value": "Zaplanuj funkcje domu"
+      },
+      {
+        "_key": "HomePage-v2-office-title",
+        "_type": "copyEntry",
+        "key": "HomePage-v2-office-title",
+        "label": "Dla biur i fit-out",
+        "value": "Dla biur i fit-out"
+      },
+      {
+        "_key": "HomePage-v2-office-body",
+        "_type": "copyEntry",
+        "key": "HomePage-v2-office-body",
+        "label": "Światło, komfort i sceny sal spotkań dopasowane do użytkowników oraz wymagań instalacji bu",
+        "value": "Światło, komfort i sceny sal spotkań dopasowane do użytkowników oraz wymagań instalacji budynku."
+      },
+      {
+        "_key": "HomePage-v2-office-cta",
+        "_type": "copyEntry",
+        "key": "HomePage-v2-office-cta",
+        "label": "Poznaj automatykę biura",
+        "value": "Poznaj automatykę biura"
+      },
+      {
+        "_key": "HomePage-v2-kicker",
+        "_type": "copyEntry",
+        "key": "HomePage-v2-kicker",
+        "label": "KNX · partner architektów i inwestorów",
+        "value": "KNX · partner architektów i inwestorów"
+      },
+      {
+        "_key": "HomePage-v2-title",
+        "_type": "copyEntry",
+        "key": "HomePage-v2-title",
+        "label": "Projektujesz wnętrze. My pomagamy zaplanować, jak będzie działać.",
+        "value": "Projektujesz wnętrze. My pomagamy zaplanować, jak będzie działać."
+      },
+      {
+        "_key": "HomePage-v2-intro",
+        "_type": "copyEntry",
+        "key": "HomePage-v2-intro",
+        "label": "Łączymy światło, osłony i temperaturę w scenariusze dopasowane do codzienności. Zaczynamy ",
+        "value": "Łączymy światło, osłony i temperaturę w scenariusze dopasowane do codzienności. Zaczynamy od rzutu i rozmowy — z architektem, inwestorem oraz wykonawcami."
+      },
+      {
+        "_key": "HomePage-v2-talk",
+        "_type": "copyEntry",
+        "key": "HomePage-v2-talk",
+        "label": "Omów projekt",
+        "value": "Omów projekt"
+      },
+      {
+        "_key": "HomePage-v2-pack",
+        "_type": "copyEntry",
+        "key": "HomePage-v2-pack",
+        "label": "Zobacz pakiet dla architekta",
+        "value": "Zobacz pakiet dla architekta"
+      },
+      {
+        "_key": "HomePage-v2-outcome-title",
+        "_type": "copyEntry",
+        "key": "HomePage-v2-outcome-title",
+        "label": "Od pomysłu do zapisanych decyzji.",
+        "value": "Od pomysłu do zapisanych decyzji."
+      },
+      {
+        "_key": "HomePage-v2-outcome-1",
+        "_type": "copyEntry",
+        "key": "HomePage-v2-outcome-1",
+        "label": "Co ma robić każdy przycisk i scena.",
+        "value": "Co ma robić każdy przycisk i scena."
+      },
+      {
+        "_key": "HomePage-v2-outcome-2",
+        "_type": "copyEntry",
+        "key": "HomePage-v2-outcome-2",
+        "label": "Gdzie umieścić punkty sterowania.",
+        "value": "Gdzie umieścić punkty sterowania."
+      },
+      {
+        "_key": "HomePage-v2-outcome-3",
+        "_type": "copyEntry",
+        "key": "HomePage-v2-outcome-3",
+        "label": "Co uzgodnić z elektrykiem i pozostałymi branżami.",
+        "value": "Co uzgodnić z elektrykiem i pozostałymi branżami."
+      },
+      {
+        "_key": "HomePage-v2-location",
+        "_type": "copyEntry",
+        "key": "HomePage-v2-location",
+        "label": "Salon w Warszawie · projekty w Polsce",
+        "value": "Salon w Warszawie · projekty w Polsce"
+      },
+      {
+        "_key": "HomePage-v2-paths-kicker",
+        "_type": "copyEntry",
+        "key": "HomePage-v2-paths-kicker",
+        "label": "Wybierz punkt wyjścia",
+        "value": "Wybierz punkt wyjścia"
+      },
+      {
+        "_key": "HomePage-v2-paths-title",
+        "_type": "copyEntry",
+        "key": "HomePage-v2-paths-title",
+        "label": "Ten sam projekt. Różne perspektywy.",
+        "value": "Ten sam projekt. Różne perspektywy."
+      },
+      {
+        "_key": "HomePage-v2-scenes-kicker",
+        "_type": "copyEntry",
+        "key": "HomePage-v2-scenes-kicker",
+        "label": "Przykładowa karta pomieszczenia",
+        "value": "Przykładowa karta pomieszczenia"
+      },
+      {
+        "_key": "HomePage-v2-scenes-title",
+        "_type": "copyEntry",
+        "key": "HomePage-v2-scenes-title",
+        "label": "Jeden salon. Cztery scenariusze.",
+        "value": "Jeden salon. Cztery scenariusze."
+      },
+      {
+        "_key": "HomePage-v2-scenes-intro",
+        "_type": "copyEntry",
+        "key": "HomePage-v2-scenes-intro",
+        "label": "Najpierw ustalamy, jak korzystasz z przestrzeni. Dopiero potem dobieramy przyciski, oprawy",
+        "value": "Najpierw ustalamy, jak korzystasz z przestrzeni. Dopiero potem dobieramy przyciski, oprawy i sposób sterowania."
+      },
+      {
+        "_key": "HomePage-v2-scenes-note",
+        "_type": "copyEntry",
+        "key": "HomePage-v2-scenes-note",
+        "label": "To ilustracja koncepcji, nie sterowanie rzeczywistą instalacją. Funkcje zależą od urządzeń",
+        "value": "To ilustracja koncepcji, nie sterowanie rzeczywistą instalacją. Funkcje zależą od urządzeń, projektu i ustaleń z użytkownikami."
+      },
+      {
+        "_key": "HomePage-v2-scenes-pack",
+        "_type": "copyEntry",
+        "key": "HomePage-v2-scenes-pack",
+        "label": "Otwórz przykładową kartę",
+        "value": "Otwórz przykładową kartę"
+      },
+      {
+        "_key": "HomePage-v2-scenes-label",
+        "_type": "copyEntry",
+        "key": "HomePage-v2-scenes-label",
+        "label": "Wybierz przykładowy scenariusz",
+        "value": "Wybierz przykładowy scenariusz"
+      },
+      {
+        "_key": "HomePage-v2-light-label",
+        "_type": "copyEntry",
+        "key": "HomePage-v2-light-label",
+        "label": "Światło",
+        "value": "Światło"
+      },
+      {
+        "_key": "HomePage-v2-shades-label",
+        "_type": "copyEntry",
+        "key": "HomePage-v2-shades-label",
+        "label": "Osłony",
+        "value": "Osłony"
+      },
+      {
+        "_key": "HomePage-v2-control-label",
+        "_type": "copyEntry",
+        "key": "HomePage-v2-control-label",
+        "label": "Obsługa",
+        "value": "Obsługa"
+      },
+      {
+        "_key": "HomePage-v2-showroom-kicker",
+        "_type": "copyEntry",
+        "key": "HomePage-v2-showroom-kicker",
+        "label": "Salon sprzedaży · Warszawa",
+        "value": "Salon sprzedaży · Warszawa"
+      },
+      {
+        "_key": "HomePage-v2-showroom-title",
+        "_type": "copyEntry",
+        "key": "HomePage-v2-showroom-title",
+        "label": "Przyjdź z projektem. Możesz też przyjść z klientem.",
+        "value": "Przyjdź z projektem. Możesz też przyjść z klientem."
+      },
+      {
+        "_key": "HomePage-v2-showroom-body",
+        "_type": "copyEntry",
+        "key": "HomePage-v2-showroom-body",
+        "label": "Porozmawiajmy o wyglądzie osprzętu, funkcjach i kolejności decyzji. Przed wizytą uzgodnimy",
+        "value": "Porozmawiajmy o wyglądzie osprzętu, funkcjach i kolejności decyzji. Przed wizytą uzgodnimy temat spotkania oraz dostępność interesujących Cię próbek."
+      },
+      {
+        "_key": "HomePage-v2-showroom-address",
+        "_type": "copyEntry",
+        "key": "HomePage-v2-showroom-address",
+        "label": "Konwaliowa 7 lok. 103",
+        "value": "Konwaliowa 7 lok. 103"
+      },
+      {
+        "_key": "HomePage-v2-showroom-city",
+        "_type": "copyEntry",
+        "key": "HomePage-v2-showroom-city",
+        "label": "03-194 Warszawa",
+        "value": "03-194 Warszawa"
+      },
+      {
+        "_key": "HomePage-v2-showroom-appointment",
+        "_type": "copyEntry",
+        "key": "HomePage-v2-showroom-appointment",
+        "label": "Spotkania po wcześniejszym uzgodnieniu.",
+        "value": "Spotkania po wcześniejszym uzgodnieniu."
+      },
+      {
+        "_key": "HomePage-v2-showroom-cta",
+        "_type": "copyEntry",
+        "key": "HomePage-v2-showroom-cta",
+        "label": "Zaplanuj wizytę",
+        "value": "Zaplanuj wizytę"
+      },
+      {
+        "_key": "HomePage-v2-process-kicker",
+        "_type": "copyEntry",
+        "key": "HomePage-v2-process-kicker",
+        "label": "Jasny zakres współpracy",
+        "value": "Jasny zakres współpracy"
+      },
+      {
+        "_key": "HomePage-v2-process-title",
+        "_type": "copyEntry",
+        "key": "HomePage-v2-process-title",
+        "label": "Wiesz, co ustalamy i co dalej.",
+        "value": "Wiesz, co ustalamy i co dalej."
+      },
+      {
+        "_key": "HomePage-v2-process-cta",
+        "_type": "copyEntry",
+        "key": "HomePage-v2-process-cta",
+        "label": "Jak pracujemy",
+        "value": "Jak pracujemy"
+      },
+      {
+        "_key": "HomePage-v2-step-1",
+        "_type": "copyEntry",
+        "key": "HomePage-v2-step-1",
+        "label": "1. Rzut i potrzeby",
+        "value": "1. Rzut i potrzeby"
+      },
+      {
+        "_key": "HomePage-v2-step-1-body",
+        "_type": "copyEntry",
+        "key": "HomePage-v2-step-1-body",
+        "label": "Etap inwestycji, sposób korzystania z pomieszczeń i pytania do wyjaśnienia.",
+        "value": "Etap inwestycji, sposób korzystania z pomieszczeń i pytania do wyjaśnienia."
+      },
+      {
+        "_key": "HomePage-v2-step-2",
+        "_type": "copyEntry",
+        "key": "HomePage-v2-step-2",
+        "label": "2. Funkcje i zakres",
+        "value": "2. Funkcje i zakres"
+      },
+      {
+        "_key": "HomePage-v2-step-2-body",
+        "_type": "copyEntry",
+        "key": "HomePage-v2-step-2-body",
+        "label": "Scenariusze, podział odpowiedzialności oraz zakres prac i wyceny.",
+        "value": "Scenariusze, podział odpowiedzialności oraz zakres prac i wyceny."
+      },
+      {
+        "_key": "HomePage-v2-step-3",
+        "_type": "copyEntry",
+        "key": "HomePage-v2-step-3",
+        "label": "3. Uruchomienie i odbiór",
+        "value": "3. Uruchomienie i odbiór"
+      },
+      {
+        "_key": "HomePage-v2-step-3-body",
+        "_type": "copyEntry",
+        "key": "HomePage-v2-step-3-body",
+        "label": "Sprawdzenie uzgodnionych funkcji, instruktaż i przekazanie ustalonych materiałów.",
+        "value": "Sprawdzenie uzgodnionych funkcji, instruktaż i przekazanie ustalonych materiałów."
+      },
+      {
+        "_key": "HomePage-v2-examples",
+        "_type": "copyEntry",
+        "key": "HomePage-v2-examples",
+        "label": "Zobacz przykłady rozwiązań",
+        "value": "Zobacz przykłady rozwiązań"
+      },
+      {
+        "_key": "HomePage-v2-guide",
+        "_type": "copyEntry",
+        "key": "HomePage-v2-guide",
+        "label": "Przeczytaj poradnik KNX dla inwestora",
+        "value": "Przeczytaj poradnik KNX dla inwestora"
+      },
+      {
+        "_key": "HomePage-v2-contact-kicker",
+        "_type": "copyEntry",
+        "key": "HomePage-v2-contact-kicker",
+        "label": "Zacznijmy od rozmowy",
+        "value": "Zacznijmy od rozmowy"
+      },
+      {
+        "_key": "HomePage-v2-contact-title",
+        "_type": "copyEntry",
+        "key": "HomePage-v2-contact-title",
+        "label": "Masz rzut, pomysł albo pierwsze pytania?",
+        "value": "Masz rzut, pomysł albo pierwsze pytania?"
+      },
+      {
+        "_key": "HomePage-v2-contact-body",
+        "_type": "copyEntry",
+        "key": "HomePage-v2-contact-body",
+        "label": "Napisz, dla kogo powstaje przestrzeń i na jakim etapie jest projekt. Nie potrzebujesz pełn",
+        "value": "Napisz, dla kogo powstaje przestrzeń i na jakim etapie jest projekt. Nie potrzebujesz pełnej dokumentacji, żeby się z nami skontaktować."
+      }
+    ],
+    "key": "HomePage",
+    "title": "Strona główna"
+  },
+  {
+    "_id": "page-HomesPage",
+    "_type": "pageContent",
+    "entries": [
+      {
+        "_key": "HomesPage-8e0ce1022126",
+        "key": "HomesPage-8e0ce1022126",
+        "label": "Smart Home Premium · Warszawa & Mazowsze",
+        "value": "Smart Home Premium · Warszawa & Mazowsze"
+      },
+      {
+        "_key": "HomesPage-37b113c96fc3",
+        "key": "HomesPage-37b113c96fc3",
+        "label": "Automatyka dla domów i apartamentów",
+        "value": "Automatyka dla domów i apartamentów"
+      },
+      {
+        "_key": "HomesPage-ef9e93fab957",
+        "key": "HomesPage-ef9e93fab957",
+        "label": "„Komfort od pierwszego dotknięcia.” Tworzymy spójne instalacje KNX w domach jednorodzinnyc",
+        "value": "„Komfort od pierwszego dotknięcia.” Tworzymy spójne instalacje KNX w domach jednorodzinnych, willach i luksusowych apartamentach. Zastępujemy baterie włączników na ścianach szlachetnymi manipulatorami JUNG i automatycznymi scenami."
+      },
+      {
+        "_key": "HomesPage-87c427ffb9bd",
+        "key": "HomesPage-87c427ffb9bd",
+        "label": "Umów konsultację rezydencji",
+        "value": "Umów konsultację rezydencji"
+      },
+      {
+        "_key": "HomesPage-84722b18934a",
+        "key": "HomesPage-84722b18934a",
+        "label": "Prześlij rzuty do analizy",
+        "value": "Prześlij rzuty do analizy"
+      },
+      {
+        "_key": "HomesPage-a51ae6bb554b",
+        "key": "HomesPage-a51ae6bb554b",
+        "label": "Dom jednorodzinny / Rezydencja",
+        "value": "Dom jednorodzinny / Rezydencja"
+      },
+      {
+        "_key": "HomesPage-a517346da800",
+        "key": "HomesPage-a517346da800",
+        "label": "Apartament i Penthouse",
+        "value": "Apartament i Penthouse"
+      },
+      {
+        "_key": "HomesPage-1cef201f52b5",
+        "key": "HomesPage-1cef201f52b5",
+        "label": "Modernizacja instalacji",
+        "value": "Modernizacja instalacji"
+      },
+      {
+        "_key": "HomesPage-f20070d8c9de",
+        "key": "HomesPage-f20070d8c9de",
+        "label": "Rezydencje od 200 do 1200+ m²",
+        "value": "Rezydencje od 200 do 1200+ m²"
+      },
+      {
+        "_key": "HomesPage-2e9be3712c92",
+        "key": "HomesPage-2e9be3712c92",
+        "label": "Pełna kontrola nad domem i ogrodem",
+        "value": "Pełna kontrola nad domem i ogrodem"
+      },
+      {
+        "_key": "HomesPage-401f6cbcd57e",
+        "key": "HomesPage-401f6cbcd57e",
+        "label": "W dużym domu automatyka jest niezbędna, aby nie biegać po kondygnacjach sprawdzając, czy z",
+        "value": "W dużym domu automatyka jest niezbędna, aby nie biegać po kondygnacjach sprawdzając, czy zgaszono światła, zamknięto rolety i opuszczono temperaturę. Jeden przycisk „Wyjście z domu” przy drzwiach lub bramie garażowej gasi wszystkie zbędne obwody, uzbraja alarm i przestawia rekuperację w tryb ekonomiczny."
+      },
+      {
+        "_key": "HomesPage-4332392b006b",
+        "key": "HomesPage-4332392b006b",
+        "label": "Zintegrowana stacja pogodowa KNX chroniąca żaluzje przed silnym wiatrem; ochrona przed gra",
+        "value": "Zintegrowana stacja pogodowa KNX chroniąca żaluzje przed silnym wiatrem; ochrona przed gradem wymaga odpowiedniego czujnika lub usługi ostrzegania"
+      },
+      {
+        "_key": "HomesPage-4aa02f7b84d4",
+        "key": "HomesPage-4aa02f7b84d4",
+        "label": "Niezależna regulacja strefowa: sypialnie chłodniejsze w nocy, salon ciepły wieczorem",
+        "value": "Niezależna regulacja strefowa: sypialnie chłodniejsze w nocy, salon ciepły wieczorem"
+      },
+      {
+        "_key": "HomesPage-1b65ef494018",
+        "key": "HomesPage-1b65ef494018",
+        "label": "Oświetlenie elewacji i ogrodu powiązane z zegarem astronomicznym i zmierzchem",
+        "value": "Oświetlenie elewacji i ogrodu powiązane z zegarem astronomicznym i zmierzchem"
+      },
+      {
+        "_key": "HomesPage-2fae6dd06b4c",
+        "key": "HomesPage-2fae6dd06b4c",
+        "label": "Integracja z pompą ciepła, rekuperacją, panelami fotowoltaicznymi i ładowarką auta",
+        "value": "Integracja z pompą ciepła, rekuperacją, panelami fotowoltaicznymi i ładowarką auta"
+      },
+      {
+        "_key": "HomesPage-907a3a4423a5",
+        "key": "HomesPage-907a3a4423a5",
+        "label": "Umów bezpłatną konsultację rzutów domu",
+        "value": "Omów rzuty domu"
+      },
+      {
+        "_key": "HomesPage-2aa4e88139ee",
+        "key": "HomesPage-2aa4e88139ee",
+        "label": "Wizualizacja wnętrza mieszkalnego — inspiracja do planowania automatyki",
+        "value": "Wizualizacja wnętrza mieszkalnego — inspiracja do planowania automatyki"
+      },
+      {
+        "_key": "HomesPage-3435ed48184d",
+        "key": "HomesPage-3435ed48184d",
+        "label": "Apartamenty i Penthousy 90–400 m²",
+        "value": "Apartamenty i Penthousy 90–400 m²"
+      },
+      {
+        "_key": "HomesPage-7be69b737268",
+        "key": "HomesPage-7be69b737268",
+        "label": "Czyste ściany i wyrafinowana estetyka detalu",
+        "value": "Czyste ściany i wyrafinowana estetyka detalu"
+      },
+      {
+        "_key": "HomesPage-7e4bc8b3443a",
+        "key": "HomesPage-7e4bc8b3443a",
+        "label": "W apartamentach premium architekci walczą o każdy detal wykończenia. Zamiast rzędu 5 pusze",
+        "value": "W apartamentach premium architekci walczą o każdy detal wykończenia. Zamiast rzędu 5 puszek elektrycznych (światło, rolety, termostat, klimatyzacja, audio) instalujemy pojedynczy szlachetny kontroler pokojowy JUNG F 40 lub F 50 w ramce dopasowanej do projektu wnętrza."
+      },
+      {
+        "_key": "HomesPage-69cab2391cf8",
+        "key": "HomesPage-69cab2391cf8",
+        "label": "Dyskretny montaż rozdzielnicy KNX w szafie technicznej lub garderobie",
+        "value": "Dyskretny montaż rozdzielnicy KNX w szafie technicznej lub garderobie"
+      },
+      {
+        "_key": "HomesPage-65e907f06aca",
+        "key": "HomesPage-65e907f06aca",
+        "label": "Scenariusze nastrojowe: „Kolacja”, „Kino domowe”, „Relaks”, „Czystość”",
+        "value": "Scenariusze nastrojowe: „Kolacja”, „Kino domowe”, „Relaks”, „Czystość”"
+      },
+      {
+        "_key": "HomesPage-9867a6a49d68",
+        "key": "HomesPage-9867a6a49d68",
+        "label": "Wyciszone napędy zasłon elektrycznych i żaluzji wewnętrznych",
+        "value": "Wyciszone napędy zasłon elektrycznych i żaluzji wewnętrznych"
+      },
+      {
+        "_key": "HomesPage-38d4aa0255b9",
+        "key": "HomesPage-38d4aa0255b9",
+        "label": "Sterowanie z aplikacji; integracja z Apple HomeKit / Siri po doborze zgodnej bramki",
+        "value": "Sterowanie z aplikacji; integracja z Apple HomeKit / Siri po doborze zgodnej bramki"
+      },
+      {
+        "_key": "HomesPage-bd49b40d2900",
+        "key": "HomesPage-bd49b40d2900",
+        "label": "Porozmawiaj o automatyce apartamentu",
+        "value": "Porozmawiaj o automatyce apartamentu"
+      },
+      {
+        "_key": "HomesPage-eafcb4cc5d33",
+        "key": "HomesPage-eafcb4cc5d33",
+        "label": "JUNG LS ZERO we wnętrzu. Fotografia producenta.",
+        "value": "JUNG LS ZERO we wnętrzu. Fotografia producenta."
+      },
+      {
+        "_key": "HomesPage-3595acfaf716",
+        "key": "HomesPage-3595acfaf716",
+        "label": "Domy zamieszkałe i remonty kapitalne",
+        "value": "Domy zamieszkałe i remonty kapitalne"
+      },
+      {
+        "_key": "HomesPage-56f4c994c7d5",
+        "key": "HomesPage-56f4c994c7d5",
+        "label": "Modernizacja instalacji bez niszczenia wnętrz",
+        "value": "Modernizacja instalacji bez niszczenia wnętrz"
+      },
+      {
+        "_key": "HomesPage-31acc429bd56",
+        "key": "HomesPage-31acc429bd56",
+        "label": "Kupiłeś dom z rynku wtórnego lub chcesz unowocześnić istniejącą instalację elektryczną? St",
+        "value": "Kupiłeś dom z rynku wtórnego lub chcesz unowocześnić istniejącą instalację elektryczną? Standard KNX oferuje zarówno rozwiązania przewodowe (przy generalnym remoncie), jak i moduły radiowe KNX RF i warianty hybrydowe, dobierane do warunków w istniejących puszkach podtynkowych."
+      },
+      {
+        "_key": "HomesPage-294d8a003135",
+        "key": "HomesPage-294d8a003135",
+        "label": "1. Audyt instalacji",
+        "value": "1. Audyt instalacji"
+      },
+      {
+        "_key": "HomesPage-3ee6d81d5f49",
+        "key": "HomesPage-3ee6d81d5f49",
+        "label": "Oceniamy stan rozdzielnicy głównej, przekroje przewodów i możliwości dołożenia magistrali.",
+        "value": "Oceniamy stan rozdzielnicy głównej, przekroje przewodów i możliwości dołożenia magistrali."
+      },
+      {
+        "_key": "HomesPage-2a6cfaa37da9",
+        "key": "HomesPage-2a6cfaa37da9",
+        "label": "2. Dobór rozwiązań hybrydowych",
+        "value": "2. Dobór rozwiązań hybrydowych"
+      },
+      {
+        "_key": "HomesPage-03b8a0e9e463",
+        "key": "HomesPage-03b8a0e9e463",
+        "label": "Łączymy przewodową rozdzielnicę z bezprzewodowymi przyciskami KNX RF tam, gdzie brakuje ka",
+        "value": "Łączymy przewodową rozdzielnicę z bezprzewodowymi przyciskami KNX RF tam, gdzie brakuje kabli."
+      },
+      {
+        "_key": "HomesPage-0d8cbf0c1a14",
+        "key": "HomesPage-0d8cbf0c1a14",
+        "label": "3. Nowe funkcje bez kurzu",
+        "value": "3. Nowe funkcje bez kurzu"
+      },
+      {
+        "_key": "HomesPage-d8087fd3ae56",
+        "key": "HomesPage-d8087fd3ae56",
+        "label": "Zyskujesz sceny, sterowanie smartfonem i oszczędność na ogrzewaniu w ciągu zaledwie kilku ",
+        "value": "Zyskujesz sceny, sterowanie smartfonem i oszczędność na ogrzewaniu w ciągu zaledwie kilku dni."
+      },
+      {
+        "_key": "HomesPage-0ff6fa0f9ef0",
+        "key": "HomesPage-0ff6fa0f9ef0",
+        "label": "Wycena Rezydencji",
+        "value": "Wycena Rezydencji"
+      },
+      {
+        "_key": "HomesPage-ac8762862a0a",
+        "key": "HomesPage-ac8762862a0a",
+        "label": "Prześlij rzuty domu lub apartamentu",
+        "value": "Prześlij rzuty domu lub apartamentu"
+      },
+      {
+        "_key": "HomesPage-c59d2c35b8d8",
+        "key": "HomesPage-c59d2c35b8d8",
+        "label": "Przeanalizujemy rozkład pomieszczeń, punkty świetlne i zaproponujemy optymalny zakres auto",
+        "value": "Przeanalizujemy rozkład pomieszczeń, punkty świetlne i zaproponujemy optymalny zakres automatyki KNX."
+      }
+    ],
+    "key": "HomesPage",
+    "title": "Domy i apartamenty"
+  },
+  {
+    "_id": "page-KNXPage",
+    "_type": "pageContent",
+    "entries": [
+      {
+        "_key": "KNXPage-63f26ca0f4cd",
+        "key": "KNXPage-63f26ca0f4cd",
+        "label": "Międzynarodowy Standard ISO/IEC 14543",
+        "value": "Międzynarodowy Standard ISO/IEC 14543"
+      },
+      {
+        "_key": "KNXPage-ad0e16d8e224",
+        "key": "KNXPage-ad0e16d8e224",
+        "label": "Dlaczego standard KNX?",
+        "value": "Dlaczego standard KNX?"
+      },
+      {
+        "_key": "KNXPage-176306c392e7",
+        "key": "KNXPage-176306c392e7",
+        "label": "W świecie technologii, w którym aplikacje znikają po kilku latach, a producenci zamykają s",
+        "value": "W świecie technologii, w którym aplikacje znikają po kilku latach, a producenci zamykają swoje chmury, KNX jest jedynym otwartym standardem automatyki budynkowej z ponad 30-letnią nieprzerwaną historią i pełną kompatybilnością wsteczną."
+      },
+      {
+        "_key": "KNXPage-b094daeaaae4",
+        "key": "KNXPage-b094daeaaae4",
+        "label": "Fundamenty niezawodności",
+        "value": "Fundamenty niezawodności"
+      },
+      {
+        "_key": "KNXPage-8ef982858d60",
+        "key": "KNXPage-8ef982858d60",
+        "label": "KNX oferuje urządzenia wielu producentów oraz komunikację TP, RF i IP. Dobór rozwiązania z",
+        "value": "KNX oferuje urządzenia wielu producentów oraz komunikację TP, RF i IP. Dobór rozwiązania zależy od budynku, zakresu prac i wymaganych funkcji."
+      },
+      {
+        "_key": "KNXPage-6183a6b3e54b",
+        "key": "KNXPage-6183a6b3e54b",
+        "label": "Urządzenia wielu producentów",
+        "value": "Urządzenia wielu producentów"
+      },
+      {
+        "_key": "KNXPage-882369faefe0",
+        "key": "KNXPage-882369faefe0",
+        "label": "Wielu producentów dostarcza certyfikowane urządzenia KNX. Po sprawdzeniu ich funkcji i zgo",
+        "value": "Wielu producentów dostarcza certyfikowane urządzenia KNX. Po sprawdzeniu ich funkcji i zgodności możesz łączyć włączniki JUNG, sensory Theben i bramki ABB w jednej instalacji."
+      },
+      {
+        "_key": "KNXPage-df8d1888c9ad",
+        "key": "KNXPage-df8d1888c9ad",
+        "label": "Możliwość rozbudowy",
+        "value": "Możliwość rozbudowy"
+      },
+      {
+        "_key": "KNXPage-609ba8c7ae3e",
+        "key": "KNXPage-609ba8c7ae3e",
+        "label": "Otwarty standard ułatwia rozbudowę i serwis. Zgodność konkretnych urządzeń oraz integrację",
+        "value": "Otwarty standard ułatwia rozbudowę i serwis. Zgodność konkretnych urządzeń oraz integrację KNX TP/RF z KNX IoT trzeba sprawdzić w projekcie i zapewnić odpowiedni router lub bramkę."
+      },
+      {
+        "_key": "KNXPage-170e83c86b92",
+        "key": "KNXPage-170e83c86b92",
+        "label": "Magistrala przewodowa (Twisted Pair)",
+        "value": "Magistrala przewodowa (Twisted Pair)"
+      },
+      {
+        "_key": "KNXPage-fa578cca2bf7",
+        "key": "KNXPage-fa578cca2bf7",
+        "label": "Odporna na zakłócenia radiowe, grube stropy żelbetowe i brak Internetu. Sygnały sterujące ",
+        "value": "Odporna na zakłócenia radiowe, grube stropy żelbetowe i brak Internetu. Sygnały sterujące podróżują bezpiecznym, ekranowanym kablem magistralnym o napięciu bezpiecznym SELV (30V)."
+      },
+      {
+        "_key": "KNXPage-b4c596569c11",
+        "key": "KNXPage-b4c596569c11",
+        "label": "Zdecentralizowana logika",
+        "value": "Zdecentralizowana logika"
+      },
+      {
+        "_key": "KNXPage-6cb251dbd342",
+        "key": "KNXPage-6cb251dbd342",
+        "label": "Podstawowe funkcje mogą działać bez centralnego serwera. Dostępność instalacji zależy równ",
+        "value": "Podstawowe funkcje mogą działać bez centralnego serwera. Dostępność instalacji zależy również od zasilania magistrali, topologii oraz urządzeń, w których umieszczono logikę."
+      },
+      {
+        "_key": "KNXPage-6a427509ba36",
+        "key": "KNXPage-6a427509ba36",
+        "label": "Dwa zastosowania tego samego standardu",
+        "value": "Dwa zastosowania tego samego standardu"
+      },
+      {
+        "_key": "KNXPage-837c771a3ffe",
+        "key": "KNXPage-837c771a3ffe",
+        "label": "KNX w biurze a KNX w domu",
+        "value": "KNX w biurze a KNX w domu"
+      },
+      {
+        "_key": "KNXPage-2dd76c43cde1",
+        "key": "KNXPage-2dd76c43cde1",
+        "label": "Zastosowanie komercyjne",
+        "value": "Zastosowanie komercyjne"
+      },
+      {
+        "_key": "KNXPage-0b106fbb9d7b",
+        "key": "KNXPage-0b106fbb9d7b",
+        "label": "KNX w Biurze",
+        "value": "KNX w Biurze"
+      },
+      {
+        "_key": "KNXPage-8d40f923a965",
+        "key": "KNXPage-8d40f923a965",
+        "label": "Obniżenie kosztów eksploatacji (OPEX) przez inteligentne sterowanie oświetleniem i HVAC",
+        "value": "Obniżenie kosztów eksploatacji (OPEX) przez inteligentne sterowanie oświetleniem i HVAC"
+      },
+      {
+        "_key": "KNXPage-f7b11b6c9aa3",
+        "key": "KNXPage-f7b11b6c9aa3",
+        "label": "Łatwa rearanżacja przestrzeni fit-out bez prucia ścian — zmiana przypisania opraw w oprogr",
+        "value": "Łatwa rearanżacja przestrzeni fit-out bez prucia ścian — zmiana przypisania opraw w oprogramowaniu ETS"
+      },
+      {
+        "_key": "KNXPage-b208892f03b1",
+        "key": "KNXPage-b208892f03b1",
+        "label": "Integracja z nadrzędnym systemem zarządzania budynkiem BMS obiektu biurowego",
+        "value": "Integracja z nadrzędnym systemem zarządzania budynkiem BMS obiektu biurowego"
+      },
+      {
+        "_key": "KNXPage-1190f6cb9903",
+        "key": "KNXPage-1190f6cb9903",
+        "label": "Zastosowanie prywatne",
+        "value": "Zastosowanie prywatne"
+      },
+      {
+        "_key": "KNXPage-8f129ed2d721",
+        "key": "KNXPage-8f129ed2d721",
+        "label": "KNX w Domu i Rezydencji",
+        "value": "KNX w Domu i Rezydencji"
+      },
+      {
+        "_key": "KNXPage-aab452fc80bc",
+        "key": "KNXPage-aab452fc80bc",
+        "label": "Bezpieczeństwo rodziny: brak kamer i urządzeń sterujących uzależnionych od chmur obcych ko",
+        "value": "Bezpieczeństwo rodziny: brak kamer i urządzeń sterujących uzależnionych od chmur obcych korporacji"
+      },
+      {
+        "_key": "KNXPage-108b346d4fd9",
+        "key": "KNXPage-108b346d4fd9",
+        "label": "Cisza i dyskrecja: ciche napędy zasłon, brak piszczących zasilaczy i niewidoczne sensory o",
+        "value": "Cisza i dyskrecja: ciche napędy zasłon, brak piszczących zasilaczy i niewidoczne sensory obecności"
+      },
+      {
+        "_key": "KNXPage-d545bfc91dd5",
+        "key": "KNXPage-d545bfc91dd5",
+        "label": "Wzrost wartości rynkowej nieruchomości przy ewentualnej odsprzedaży",
+        "value": "Wzrost wartości rynkowej nieruchomości przy ewentualnej odsprzedaży"
+      },
+      {
+        "_key": "KNXPage-11309aa6e2fd",
+        "key": "KNXPage-11309aa6e2fd",
+        "label": "Masz już instalację KNX wymagającą serwisu lub rozbudowy?",
+        "value": "Masz już instalację KNX wymagającą serwisu lub rozbudowy?"
+      },
+      {
+        "_key": "KNXPage-81ed0612f5fc",
+        "key": "KNXPage-81ed0612f5fc",
+        "label": "Przejmujemy opiekę nad istniejącymi instalacjami w Warszawie i Polsce. Odtwarzamy projekty",
+        "value": "Przejmujemy opiekę nad istniejącymi instalacjami w Warszawie i Polsce. Odtwarzamy projekty ETS, wymieniamy uszkodzone komponenty i dopasowujemy sceny do nowych potrzeb użytkowników."
+      },
+      {
+        "_key": "KNXPage-0bf84a32da42",
+        "key": "KNXPage-0bf84a32da42",
+        "label": "Zleć audyt lub serwis KNX",
+        "value": "Zleć audyt lub serwis KNX"
+      }
+    ],
+    "key": "KNXPage",
+    "title": "Standard KNX"
+  },
+  {
+    "_id": "page-KnowledgePage",
+    "_type": "pageContent",
+    "entries": [
+      {
+        "_key": "KnowledgePage-2ed80de4d020",
+        "key": "KnowledgePage-2ed80de4d020",
+        "label": "Na jakim etapie inwestycji należy rozpocząć projektowanie automatyki KNX?",
+        "value": "Na jakim etapie inwestycji należy rozpocząć projektowanie automatyki KNX?"
+      },
+      {
+        "_key": "KnowledgePage-1d936f0989d8",
+        "key": "KnowledgePage-1d936f0989d8",
+        "label": "Najlepiej rozpocząć w fazie koncepcji lub projektu wykonawczego, przed układaniem przewodó",
+        "value": "Najlepiej rozpocząć w fazie koncepcji lub projektu wykonawczego, przed układaniem przewodów. W instalacji KNX TP trzeba zaplanować magistralę, zasilanie, lokalizację urządzeń i rozdzielnic. Sposób prowadzenia obwodów zależy od projektu; dostępne są także rozwiązania radiowe KNX RF. Wczesna koordynacja ogranicza późniejsze przeróbki."
+      },
+      {
+        "_key": "KnowledgePage-20b8c6b0073d",
+        "key": "KnowledgePage-20b8c6b0073d",
+        "label": "Czym różni się standard KNX od popularnych bezprzewodowych systemów smart home?",
+        "value": "Czym różni się standard KNX od popularnych bezprzewodowych systemów smart home?"
+      },
+      {
+        "_key": "KnowledgePage-8777d1ba96bc",
+        "key": "KnowledgePage-8777d1ba96bc",
+        "label": "KNX jest otwartym standardem automatyki obejmującym m.in. komunikację przewodową TP, radio",
+        "value": "KNX jest otwartym standardem automatyki obejmującym m.in. komunikację przewodową TP, radiową RF i rozwiązania IP. Podstawowe funkcje można zaprojektować do pracy lokalnej, bez chmury. Rodzaj zasilania, zgodność urządzeń oraz wymagania zdalnego dostępu zależą od wybranego rozwiązania."
+      },
+      {
+        "_key": "KnowledgePage-cf6eafbaaf9b",
+        "key": "KnowledgePage-cf6eafbaaf9b",
+        "label": "Dlaczego warto łączyć oświetlenie DALI z automatyką KNX?",
+        "value": "Dlaczego warto łączyć oświetlenie DALI z automatyką KNX?"
+      },
+      {
+        "_key": "KnowledgePage-d778bb55f177",
+        "key": "KnowledgePage-d778bb55f177",
+        "label": "Bramka KNX–DALI pozwala włączyć sterowanie oświetleniem do scen i funkcji budynku. DALI um",
+        "value": "Bramka KNX–DALI pozwala włączyć sterowanie oświetleniem do scen i funkcji budynku. DALI umożliwia adresowanie urządzeń, grupowanie i diagnostykę w zakresie obsługiwanym przez konkretny sprzęt. Poziom ściemniania i jakość światła zależą od opraw i zasilaczy. Tunable White wymaga zgodnych urządzeń; samo oznaczenie DALI tego nie gwarantuje."
+      },
+      {
+        "_key": "KnowledgePage-a303b1e9b8da",
+        "key": "KnowledgePage-a303b1e9b8da",
+        "label": "Czy instalacja KNX może być modyfikowana i rozbudowywana po zamieszkaniu lub odbiorze biur",
+        "value": "Czy instalacja KNX może być modyfikowana i rozbudowywana po zamieszkaniu lub odbiorze biura?"
+      },
+      {
+        "_key": "KnowledgePage-617cadc796b0",
+        "key": "KnowledgePage-617cadc796b0",
+        "label": "Wiele funkcji przycisków i scen można zmienić programowo w ETS, bez ingerencji w ściany. Z",
+        "value": "Wiele funkcji przycisków i scen można zmienić programowo w ETS, bez ingerencji w ściany. Zakres i czas prac zależą od urządzeń, dokumentacji oraz dostępu do projektu. Rozbudowa o nowe obwody może wymagać dodatkowego okablowania i miejsca w rozdzielnicy — warto przewidzieć rezerwę na etapie projektu."
+      },
+      {
+        "_key": "KnowledgePage-b24d7c8b4908",
+        "key": "KnowledgePage-b24d7c8b4908",
+        "label": "Jak wygląda koordynacja z branżą sanitarną / HVAC (klimatyzacja, pompy ciepła, rekuperacja",
+        "value": "Jak wygląda koordynacja z branżą sanitarną / HVAC (klimatyzacja, pompy ciepła, rekuperacja)?"
+      },
+      {
+        "_key": "KnowledgePage-d17448ed54dc",
+        "key": "KnowledgePage-d17448ed54dc",
+        "label": "Uzgadniamy z dostawcami urządzeń dostępne interfejsy i funkcje sterowania. Zależnie od spr",
+        "value": "Uzgadniamy z dostawcami urządzeń dostępne interfejsy i funkcje sterowania. Zależnie od sprzętu integracja może korzystać z KNX, Modbus, BACnet lub dedykowanej bramki. Logikę ogrzewania, chłodzenia i wentylacji trzeba skoordynować, a następnie sprawdzić podczas uruchomienia."
+      },
+      {
+        "_key": "KnowledgePage-9e600be4e04d",
+        "key": "KnowledgePage-9e600be4e04d",
+        "label": "Czy Delitech Smart Spaces wykonuje również montaż fizyczny i prefabrykację szaf?",
+        "value": "Czy Delitech Smart Spaces wykonuje również montaż fizyczny i prefabrykację szaf?"
+      },
+      {
+        "_key": "KnowledgePage-0f0da27ef15f",
+        "key": "KnowledgePage-0f0da27ef15f",
+        "label": "Zakres ustalamy w ofercie: może obejmować projekt, prefabrykację rozdzielnic, dostawę ospr",
+        "value": "Zakres ustalamy w ofercie: może obejmować projekt, prefabrykację rozdzielnic, dostawę osprzętu, montaż, programowanie i uruchomienie. Przy odbiorze warto uzgodnić przekazanie dokumentacji powykonawczej oraz pliku projektu ETS. Licencja programu ETS jest odrębną kwestią od przekazania pliku projektu."
+      },
+      {
+        "_key": "KnowledgePage-3a6877b2e085",
+        "key": "KnowledgePage-3a6877b2e085",
+        "label": "Baza Wiedzy Inżynierskiej",
+        "value": "Baza Wiedzy Inżynierskiej"
+      },
+      {
+        "_key": "KnowledgePage-ec90638e5bbb",
+        "key": "KnowledgePage-ec90638e5bbb",
+        "label": "Wiedza, poradniki i standardy KNX",
+        "value": "Wiedza, poradniki i standardy KNX"
+      },
+      {
+        "_key": "KnowledgePage-e28e82981182",
+        "key": "KnowledgePage-e28e82981182",
+        "label": "Dzielimy się wiedzą techniczną. Znajdziesz tu merytoryczne poradniki dla inwestorów, wytyc",
+        "value": "Dzielimy się wiedzą techniczną. Znajdziesz tu merytoryczne poradniki dla inwestorów, wytyczne dla pracowni architektonicznych oraz odpowiedzi na najczęstsze pytania dotyczące automatyki budynkowej."
+      },
+      {
+        "_key": "KnowledgePage-f3165c191a8f",
+        "key": "KnowledgePage-f3165c191a8f",
+        "label": "Artykuły i Poradniki",
+        "value": "Artykuły i Poradniki"
+      },
+      {
+        "_key": "KnowledgePage-73f8645cf04e",
+        "key": "KnowledgePage-73f8645cf04e",
+        "label": "Praktyka inżynierska i projektowa",
+        "value": "Praktyka inżynierska i projektowa"
+      },
+      {
+        "_key": "KnowledgePage-11366eeda268",
+        "key": "KnowledgePage-11366eeda268",
+        "label": "Wszystkie",
+        "value": "Wszystkie"
+      },
+      {
+        "_key": "KnowledgePage-0e9fc3336fac",
+        "key": "KnowledgePage-0e9fc3336fac",
+        "label": "Dla architektów",
+        "value": "Dla architektów"
+      },
+      {
+        "_key": "KnowledgePage-26fce2603d13",
+        "key": "KnowledgePage-26fce2603d13",
+        "label": "Dla biur & fit-out",
+        "value": "Dla biur & fit-out"
+      },
+      {
+        "_key": "KnowledgePage-9e214d1f6db4",
+        "key": "KnowledgePage-9e214d1f6db4",
+        "label": "Dla inwestorów",
+        "value": "Dla inwestorów"
+      },
+      {
+        "_key": "KnowledgePage-171afa2b2a68",
+        "key": "KnowledgePage-171afa2b2a68",
+        "label": "Odpowiedzi inżynierskie",
+        "value": "Odpowiedzi inżynierskie"
+      },
+      {
+        "_key": "KnowledgePage-566e5cacfbb6",
+        "key": "KnowledgePage-566e5cacfbb6",
+        "label": "Najczęściej zadawane pytania (FAQ)",
+        "value": "Najczęściej zadawane pytania (FAQ)"
+      },
+      {
+        "_key": "KnowledgePage-03f1e7f145b3",
+        "key": "KnowledgePage-03f1e7f145b3",
+        "label": "Praktyczne odpowiedzi dotyczące kosztów, procesu, standardu DALI i odbiorów.",
+        "value": "Praktyczne odpowiedzi dotyczące kosztów, procesu, standardu DALI i odbiorów."
+      },
+      {
+        "_key": "KnowledgePage-a8f37e9d756b",
+        "key": "KnowledgePage-a8f37e9d756b",
+        "label": "Szukaj w pytaniach i odpowiedziach",
+        "value": "Szukaj w pytaniach i odpowiedziach"
+      },
+      {
+        "_key": "KnowledgePage-c8c021ff1161",
+        "key": "KnowledgePage-c8c021ff1161",
+        "label": "Szukaj pytania (np. DALI, koszt, etapy, HVAC)...",
+        "value": "Szukaj pytania (np. DALI, koszt, etapy, HVAC)..."
+      },
+      {
+        "_key": "KnowledgePage-4e37a90ffb07",
+        "key": "KnowledgePage-4e37a90ffb07",
+        "label": "Masz inne pytanie techniczne?",
+        "value": "Masz inne pytanie techniczne?"
+      },
+      {
+        "_key": "KnowledgePage-9748b3db2fbd",
+        "key": "KnowledgePage-9748b3db2fbd",
+        "label": "Opisz obiekt, etap prac i zagadnienie, które chcesz omówić. Pozwoli to przygotować rzeczow",
+        "value": "Opisz obiekt, etap prac i zagadnienie, które chcesz omówić. Pozwoli to przygotować rzeczową rozmowę o projekcie."
+      },
+      {
+        "_key": "KnowledgePage-7643e6ddfba0",
+        "key": "KnowledgePage-7643e6ddfba0",
+        "label": "Zapytaj inżyniera KNX",
+        "value": "Zapytaj inżyniera KNX"
+      }
+    ],
+    "key": "KnowledgePage",
+    "title": "Wiedza i FAQ"
+  },
+  {
+    "_id": "page-Logo",
+    "_type": "pageContent",
+    "entries": [
+      {
+        "_key": "Logo-d8885d3ddbc2",
+        "key": "Logo-d8885d3ddbc2",
+        "label": "DELITECH",
+        "value": "DELITECH"
+      },
+      {
+        "_key": "Logo-537f0e44799d",
+        "key": "Logo-537f0e44799d",
+        "label": "SMART SPACES",
+        "value": "SMART SPACES"
+      }
+    ],
+    "key": "Logo",
+    "title": "Nazwa marki"
+  },
+  {
+    "_id": "page-Navbar",
+    "_type": "pageContent",
+    "entries": [
+      {
+        "_key": "Navbar-3c6c92355e18",
+        "key": "Navbar-3c6c92355e18",
+        "label": "Automatyka pomieszczeń dla biur, domów i apartamentów",
+        "value": "KNX dla architektów, inwestorów i biur"
+      },
+      {
+        "_key": "Navbar-b0e72a2fe58e",
+        "key": "Navbar-b0e72a2fe58e",
+        "label": "Warszawa · realizacje w całej Polsce",
+        "value": "Warszawa · realizacje w całej Polsce"
+      },
+      {
+        "_key": "Navbar-268c60ce0543",
+        "key": "Navbar-268c60ce0543",
+        "label": "Delitech Smart Spaces - Strona główna",
+        "value": "Delitech Smart Spaces - Strona główna"
+      },
+      {
+        "_key": "Navbar-50d83f738c9f",
+        "key": "Navbar-50d83f738c9f",
+        "label": "Główne menu",
+        "value": "Główne menu"
+      },
+      {
+        "_key": "Navbar-df5714c7d60a",
+        "key": "Navbar-df5714c7d60a",
+        "label": "Umów konsultację",
+        "value": "Omów projekt"
+      },
+      {
+        "_key": "Navbar-b615cfd3278a",
+        "key": "Navbar-b615cfd3278a",
+        "label": "Otwórz menu mobilne",
+        "value": "Otwórz menu mobilne"
+      },
+      {
+        "_key": "Navbar-1571ee109283",
+        "key": "Navbar-1571ee109283",
+        "label": "Prześlij rzuty do wyceny",
+        "value": "Kontakt i adres"
+      },
+      {
+        "_key": "knx-investor-guide",
+        "_type": "copyEntry",
+        "key": "Navbar-knx-investor-guide",
+        "label": "Menu — poradnik KNX dla inwestora",
+        "value": "KNX dla inwestora"
+      },
+      {
+        "_key": "Navbar-v2-architects",
+        "_type": "copyEntry",
+        "key": "Navbar-v2-architects",
+        "label": "Dla architektów",
+        "value": "Dla architektów"
+      },
+      {
+        "_key": "Navbar-v2-support",
+        "_type": "copyEntry",
+        "key": "Navbar-v2-support",
+        "label": "Wsparcie projektowe",
+        "value": "Wsparcie projektowe"
+      },
+      {
+        "_key": "Navbar-v2-pack",
+        "_type": "copyEntry",
+        "key": "Navbar-v2-pack",
+        "label": "Pakiet dla architekta",
+        "value": "Pakiet dla architekta"
+      },
+      {
+        "_key": "Navbar-v2-jung",
+        "_type": "copyEntry",
+        "key": "Navbar-v2-jung",
+        "label": "Osprzęt i materiały",
+        "value": "Osprzęt i materiały"
+      },
+      {
+        "_key": "Navbar-v2-homes",
+        "_type": "copyEntry",
+        "key": "Navbar-v2-homes",
+        "label": "Domy i apartamenty",
+        "value": "Domy i apartamenty"
+      },
+      {
+        "_key": "Navbar-v2-house",
+        "_type": "copyEntry",
+        "key": "Navbar-v2-house",
+        "label": "Dom jednorodzinny",
+        "value": "Dom jednorodzinny"
+      },
+      {
+        "_key": "Navbar-v2-apartment",
+        "_type": "copyEntry",
+        "key": "Navbar-v2-apartment",
+        "label": "Apartament",
+        "value": "Apartament"
+      },
+      {
+        "_key": "Navbar-v2-modernize",
+        "_type": "copyEntry",
+        "key": "Navbar-v2-modernize",
+        "label": "Modernizacja instalacji",
+        "value": "Modernizacja instalacji"
+      },
+      {
+        "_key": "Navbar-v2-offices",
+        "_type": "copyEntry",
+        "key": "Navbar-v2-offices",
+        "label": "Biura",
+        "value": "Biura"
+      },
+      {
+        "_key": "Navbar-v2-open",
+        "_type": "copyEntry",
+        "key": "Navbar-v2-open",
+        "label": "Strefy pracy",
+        "value": "Strefy pracy"
+      },
+      {
+        "_key": "Navbar-v2-meeting",
+        "_type": "copyEntry",
+        "key": "Navbar-v2-meeting",
+        "label": "Sale konferencyjne",
+        "value": "Sale konferencyjne"
+      },
+      {
+        "_key": "Navbar-v2-fitout",
+        "_type": "copyEntry",
+        "key": "Navbar-v2-fitout",
+        "label": "Projekt i fit-out",
+        "value": "Projekt i fit-out"
+      },
+      {
+        "_key": "Navbar-v2-process",
+        "_type": "copyEntry",
+        "key": "Navbar-v2-process",
+        "label": "Jak pracujemy",
+        "value": "Jak pracujemy"
+      },
+      {
+        "_key": "Navbar-v2-stages",
+        "_type": "copyEntry",
+        "key": "Navbar-v2-stages",
+        "label": "Etapy i odpowiedzialność",
+        "value": "Etapy i odpowiedzialność"
+      },
+      {
+        "_key": "Navbar-v2-examples",
+        "_type": "copyEntry",
+        "key": "Navbar-v2-examples",
+        "label": "Przykłady rozwiązań",
+        "value": "Przykłady rozwiązań"
+      },
+      {
+        "_key": "Navbar-v2-solutions",
+        "_type": "copyEntry",
+        "key": "Navbar-v2-solutions",
+        "label": "Technologie i integracje",
+        "value": "Technologie i integracje"
+      },
+      {
+        "_key": "Navbar-v2-contact",
+        "_type": "copyEntry",
+        "key": "Navbar-v2-contact",
+        "label": "Kontakt",
+        "value": "Kontakt"
+      },
+      {
+        "_key": "Navbar-v2-showroom",
+        "_type": "copyEntry",
+        "key": "Navbar-v2-showroom",
+        "label": "Salon",
+        "value": "Salon"
+      },
+      {
+        "_key": "Navbar-v2-knowledge",
+        "_type": "copyEntry",
+        "key": "Navbar-v2-knowledge",
+        "label": "Wiedza",
+        "value": "Wiedza"
+      },
+      {
+        "_key": "Navbar-v2-knx",
+        "_type": "copyEntry",
+        "key": "Navbar-v2-knx",
+        "label": "Poznaj standard KNX",
+        "value": "Poznaj standard KNX"
+      },
+      {
+        "_key": "Navbar-v2-guides",
+        "_type": "copyEntry",
+        "key": "Navbar-v2-guides",
+        "label": "Wszystkie poradniki i FAQ",
+        "value": "Wszystkie poradniki i FAQ"
+      },
+      {
+        "_key": "Navbar-v2-close-menu",
+        "_type": "copyEntry",
+        "key": "Navbar-v2-close-menu",
+        "label": "Zamknij menu mobilne",
+        "value": "Zamknij menu mobilne"
+      }
+    ],
+    "key": "Navbar",
+    "title": "Menu"
+  },
+  {
+    "_id": "page-OfficesPage",
+    "_type": "pageContent",
+    "entries": [
+      {
+        "_key": "OfficesPage-35277720e640",
+        "key": "OfficesPage-35277720e640",
+        "label": "Open space i strefy pracy",
+        "value": "Open space i strefy pracy"
+      },
+      {
+        "_key": "OfficesPage-477d4aba46cc",
+        "key": "OfficesPage-477d4aba46cc",
+        "label": "Światło, które podąża za słońcem i skupieniem zespołu",
+        "value": "Światło, które podąża za słońcem i skupieniem zespołu"
+      },
+      {
+        "_key": "OfficesPage-844617c58a7d",
+        "key": "OfficesPage-844617c58a7d",
+        "label": "W dużych strefach open space kluczem jest unikanie olśnienia i zmęczenia wzroku pracownikó",
+        "value": "W dużych strefach open space kluczem jest unikanie olśnienia i zmęczenia wzroku pracowników. KNX zintegrowany z DALI-2 może dopasowywać poziom oświetlenia do światła dziennego (Daylight Harvesting). Zmiana temperatury barwowej wymaga dodatkowo zgodnych opraw, zasilaczy i sterowania Tunable White."
+      },
+      {
+        "_key": "OfficesPage-3a146e74469b",
+        "key": "OfficesPage-3a146e74469b",
+        "label": "Regulacja Tunable White (2700K – 6500K) wspierająca rytm dobowy i koncentrację",
+        "value": "Regulacja Tunable White (2700K – 6500K) wspierająca rytm dobowy i koncentrację"
+      },
+      {
+        "_key": "OfficesPage-6ec1b10b75bc",
+        "key": "OfficesPage-6ec1b10b75bc",
+        "label": "Strefowe sensory obecności o wysokiej czułości w technologii PIR / ultradźwiękowej",
+        "value": "Strefowe sensory obecności o wysokiej czułości w technologii PIR / ultradźwiękowej"
+      },
+      {
+        "_key": "OfficesPage-5bb9a80a8805",
+        "key": "OfficesPage-5bb9a80a8805",
+        "label": "Zintegrowane żaluzje fasadowe redukujące refleksy na monitorach komputerowych",
+        "value": "Zintegrowane żaluzje fasadowe redukujące refleksy na monitorach komputerowych"
+      },
+      {
+        "_key": "OfficesPage-07f9dce0d65d",
+        "key": "OfficesPage-07f9dce0d65d",
+        "label": "Automatyczne odłączenie zbędnych odbiorników po wyjściu ostatniego pracownika",
+        "value": "Automatyczne odłączenie zbędnych odbiorników po wyjściu ostatniego pracownika"
+      },
+      {
+        "_key": "OfficesPage-ca1d1327ba6f",
+        "key": "OfficesPage-ca1d1327ba6f",
+        "label": "Sale konferencyjne i meeting roomy",
+        "value": "Sale konferencyjne i meeting roomy"
+      },
+      {
+        "_key": "OfficesPage-bb564fae0ac9",
+        "key": "OfficesPage-bb564fae0ac9",
+        "label": "Jeden przycisk przygotowuje całą salę do spotkania lub prezentacji",
+        "value": "Jeden przycisk przygotowuje całą salę do spotkania lub prezentacji"
+      },
+      {
+        "_key": "OfficesPage-c7ee00bc2153",
+        "key": "OfficesPage-c7ee00bc2153",
+        "label": "Koniec z szukaniem włączników i pilotów przed ważnym spotkaniem z klientem. Integracja KNX",
+        "value": "Koniec z szukaniem włączników i pilotów przed ważnym spotkaniem z klientem. Integracja KNX z systemem AV pozwala za pomocą jednego kliknięcia lub komendy z panelu rezerwacji uruchomić scenę „Prezentacja” lub „Wideokonferencja”."
+      },
+      {
+        "_key": "OfficesPage-8aa7a9be1c64",
+        "key": "OfficesPage-8aa7a9be1c64",
+        "label": "Scena „Prezentacja”: rolety opadają, światło nad ekranem gaśnie, oprawy obwodowe przyciemn",
+        "value": "Scena „Prezentacja”: rolety opadają, światło nad ekranem gaśnie, oprawy obwodowe przyciemniają się do 25%"
+      },
+      {
+        "_key": "OfficesPage-c6f69caa748b",
+        "key": "OfficesPage-c6f69caa748b",
+        "label": "Scena „Wideorozmowa”: oświetlenie twarzy dobrane pod kątem położenia opraw i jakości oddaw",
+        "value": "Scena „Wideorozmowa”: oświetlenie twarzy dobrane pod kątem położenia opraw i jakości oddawania barw"
+      },
+      {
+        "_key": "OfficesPage-df12bca2b105",
+        "key": "OfficesPage-df12bca2b105",
+        "label": "Monitorowanie poziomu CO2 i automatyczne zwiększanie wydatku wentylacji w czasie długich s",
+        "value": "Monitorowanie poziomu CO2 i automatyczne zwiększanie wydatku wentylacji w czasie długich spotkań"
+      },
+      {
+        "_key": "OfficesPage-52f20e08606f",
+        "key": "OfficesPage-52f20e08606f",
+        "label": "Integracja z kalendarzem Google Workspace / MS Teams i dotykowymi panelami rezerwacji sal",
+        "value": "Integracja z kalendarzem Google Workspace / MS Teams i dotykowymi panelami rezerwacji sal"
+      },
+      {
+        "_key": "OfficesPage-9710cd5109f2",
+        "key": "OfficesPage-9710cd5109f2",
+        "label": "Recepcje i przestrzenie wspólne",
+        "value": "Recepcje i przestrzenie wspólne"
+      },
+      {
+        "_key": "OfficesPage-b93b708d6001",
+        "key": "OfficesPage-b93b708d6001",
+        "label": "Pierwsze wrażenie gościa i dyskretny prestiż organizacji",
+        "value": "Pierwsze wrażenie gościa i dyskretny prestiż organizacji"
+      },
+      {
+        "_key": "OfficesPage-edbcb201a44d",
+        "key": "OfficesPage-edbcb201a44d",
+        "label": "Recepcja i hol wejściowy budują wizerunek firmy od progu. Sceny świetlne płynnie zmieniają",
+        "value": "Recepcja i hol wejściowy budują wizerunek firmy od progu. Sceny świetlne płynnie zmieniają się w zależności od pory roku i dnia: poranny powitalny blask, dynamiczne światło w ciągu dnia oraz kameralny nastrój wieczorny."
+      },
+      {
+        "_key": "OfficesPage-62b91d96494e",
+        "key": "OfficesPage-62b91d96494e",
+        "label": "Scenariusze powitalne skorelowane z zegarem astronomicznym i obecnością",
+        "value": "Scenariusze powitalne skorelowane z zegarem astronomicznym i obecnością"
+      },
+      {
+        "_key": "OfficesPage-98d90c70f78f",
+        "key": "OfficesPage-98d90c70f78f",
+        "label": "Wyróżnienie elementów brandingu i ścian recepcyjnych akcentowym oświetleniem DALI",
+        "value": "Wyróżnienie elementów brandingu i ścian recepcyjnych akcentowym oświetleniem DALI"
+      },
+      {
+        "_key": "OfficesPage-ea638960feb2",
+        "key": "OfficesPage-ea638960feb2",
+        "label": "Sterowanie strefami chillout, kawiarniami biurowymi i ciągami komunikacyjnymi",
+        "value": "Sterowanie strefami chillout, kawiarniami biurowymi i ciągami komunikacyjnymi"
+      },
+      {
+        "_key": "OfficesPage-072f2dd9c390",
+        "key": "OfficesPage-072f2dd9c390",
+        "label": "Harmonogramy weekendowe i świąteczne bez konieczności pamiętania przez recepcjonistę",
+        "value": "Harmonogramy weekendowe i świąteczne bez konieczności pamiętania przez recepcjonistę"
+      },
+      {
+        "_key": "OfficesPage-868423c3c2b4",
+        "key": "OfficesPage-868423c3c2b4",
+        "label": "Gabinety i biura zarządu",
+        "value": "Gabinety i biura zarządu"
+      },
+      {
+        "_key": "OfficesPage-6dca32a39306",
+        "key": "OfficesPage-6dca32a39306",
+        "label": "Maksymalna prywatność, akustyka i indywidualna kontrola klimatu",
+        "value": "Maksymalna prywatność, akustyka i indywidualna kontrola klimatu"
+      },
+      {
+        "_key": "OfficesPage-8addd181085e",
+        "key": "OfficesPage-8addd181085e",
+        "label": "W przestrzeniach gabinetowych liczy się absolutna dyskrecja, komfort akustyczny i natychmi",
+        "value": "W przestrzeniach gabinetowych liczy się absolutna dyskrecja, komfort akustyczny i natychmiastowa reakcja na potrzeby użytkownika. Zapewniamy ciche silniki żaluzji i zlicowany osprzęt JUNG z szlachetnych metali."
+      },
+      {
+        "_key": "OfficesPage-d16190304e11",
+        "key": "OfficesPage-d16190304e11",
+        "label": "Przyciski KNX w stylistyce JUNG LS 990 w wykończeniach mosiądz, stal szlachetna lub ciemny",
+        "value": "Przyciski KNX w stylistyce JUNG LS 990 w wykończeniach mosiądz, stal szlachetna lub ciemny antracyt"
+      },
+      {
+        "_key": "OfficesPage-8f87006c2a4c",
+        "key": "OfficesPage-8f87006c2a4c",
+        "label": "Indywidualny termostat i precyzyjne utrzymanie zadanej temperatury bez przeciągów",
+        "value": "Indywidualny termostat i precyzyjne utrzymanie zadanej temperatury bez przeciągów"
+      },
+      {
+        "_key": "OfficesPage-4fea33b95fec",
+        "key": "OfficesPage-4fea33b95fec",
+        "label": "Scena „Poufne spotkanie”: zaciemnienie przeszkleń (szkło ciekłokrystaliczne / rolety) i wy",
+        "value": "Scena „Poufne spotkanie”: zaciemnienie przeszkleń (szkło ciekłokrystaliczne / rolety) i wyciszenie"
+      },
+      {
+        "_key": "OfficesPage-c92ba0a40cc9",
+        "key": "OfficesPage-c92ba0a40cc9",
+        "label": "Dyskretna integracja z gabinetowym systemem nagłośnienia multiroom",
+        "value": "Dyskretna integracja z gabinetowym systemem nagłośnienia multiroom"
+      },
+      {
+        "_key": "OfficesPage-55527f7b519e",
+        "key": "OfficesPage-55527f7b519e",
+        "label": "Modernizacja istniejących biur",
+        "value": "Modernizacja istniejących biur"
+      },
+      {
+        "_key": "OfficesPage-87fae989f288",
+        "key": "OfficesPage-87fae989f288",
+        "label": "Wymiana przestarzałego sterowania bez paraliżu bieżącej pracy firmy",
+        "value": "Wymiana przestarzałego sterowania bez paraliżu bieżącej pracy firmy"
+      },
+      {
+        "_key": "OfficesPage-552bd6b48ce8",
+        "key": "OfficesPage-552bd6b48ce8",
+        "label": "Specjalizujemy się w modernizacjach instalacji w działających biurach. Wykorzystujemy istn",
+        "value": "Specjalizujemy się w modernizacjach instalacji w działających biurach. Wykorzystujemy istniejące okablowanie lub wprowadzamy magistralę KNX i moduły radiowe KNX RF tam, gdzie kucie ścian jest wykluczone."
+      },
+      {
+        "_key": "OfficesPage-03d663c3e3d0",
+        "key": "OfficesPage-03d663c3e3d0",
+        "label": "Audyt istniejącej infrastruktury elektrycznej i oświetleniowej",
+        "value": "Audyt istniejącej infrastruktury elektrycznej i oświetleniowej"
+      },
+      {
+        "_key": "OfficesPage-54ec2dea3df2",
+        "key": "OfficesPage-54ec2dea3df2",
+        "label": "Możliwość etapowania prac (np. piętro po piętrze, po godzinach pracy biura lub w weekendy)",
+        "value": "Możliwość etapowania prac (np. piętro po piętrze, po godzinach pracy biura lub w weekendy)"
+      },
+      {
+        "_key": "OfficesPage-c3d4aee88f03",
+        "key": "OfficesPage-c3d4aee88f03",
+        "label": "Ocena potencjału oszczędności na podstawie pomiarów, godzin pracy i stanu istniejącej inst",
+        "value": "Ocena potencjału oszczędności na podstawie pomiarów, godzin pracy i stanu istniejącej instalacji"
+      },
+      {
+        "_key": "OfficesPage-5e0bd7f8fb21",
+        "key": "OfficesPage-5e0bd7f8fb21",
+        "label": "Współpraca z zarządcami budynków biurowych klasy A i B+ w Warszawie",
+        "value": "Współpraca z zarządcami budynków biurowych klasy A i B+ w Warszawie"
+      },
+      {
+        "_key": "OfficesPage-6a26fd168a29",
+        "key": "OfficesPage-6a26fd168a29",
+        "label": "Audyt projektu i wycena",
+        "value": "Audyt projektu i wycena"
+      },
+      {
+        "_key": "OfficesPage-9b14b7c7cd81",
+        "key": "OfficesPage-9b14b7c7cd81",
+        "label": "Weryfikacja rzutów fit-out pod kątem instalacji niskoprądowych i KNX",
+        "value": "Weryfikacja rzutów fit-out pod kątem instalacji niskoprądowych i KNX"
+      },
+      {
+        "_key": "OfficesPage-645af3e46585",
+        "key": "OfficesPage-645af3e46585",
+        "label": "Przesyłasz nam rzuty aranżacji wnętrz i branży elektrycznej. Wskazujemy miejsca kolizji, s",
+        "value": "Przesyłasz nam rzuty aranżacji wnętrz i branży elektrycznej. Wskazujemy miejsca kolizji, sugerujemy uproszczenie tras kablowych i przygotowujemy rzetelny kosztorys urządzeń oraz wdrożenia."
+      },
+      {
+        "_key": "OfficesPage-33842ccd4da7",
+        "key": "OfficesPage-33842ccd4da7",
+        "label": "Weryfikacja poprawności doboru bramek DALI i zasilaczy magistrali",
+        "value": "Weryfikacja poprawności doboru bramek DALI i zasilaczy magistrali"
+      },
+      {
+        "_key": "OfficesPage-21658c9933d7",
+        "key": "OfficesPage-21658c9933d7",
+        "label": "Wytyczne dla podwykonawcy elektrycznego przed rozpoczęciem prac na budowie",
+        "value": "Wytyczne dla podwykonawcy elektrycznego przed rozpoczęciem prac na budowie"
+      },
+      {
+        "_key": "OfficesPage-84ae740d99e8",
+        "key": "OfficesPage-84ae740d99e8",
+        "label": "Wycena modułów automatyki, prefabrykacji szaf i programowania ETS",
+        "value": "Wycena modułów automatyki, prefabrykacji szaf i programowania ETS"
+      },
+      {
+        "_key": "OfficesPage-68b5d1e813b2",
+        "key": "OfficesPage-68b5d1e813b2",
+        "label": "Analiza zgodności z wymogami certyfikacji BREEAM / LEED",
+        "value": "Uzgodnienie wymagań dotyczących pomiarów i sterowania z zespołem inwestycji"
+      },
+      {
+        "_key": "OfficesPage-cb1b65fde7f0",
+        "key": "OfficesPage-cb1b65fde7f0",
+        "label": "Biurowy standard KNX · Warszawa i Polska",
+        "value": "Biurowy standard KNX · Warszawa i Polska"
+      },
+      {
+        "_key": "OfficesPage-0d4a6b6198d3",
+        "key": "OfficesPage-0d4a6b6198d3",
+        "label": "Automatyka dla biur i przestrzeni komercyjnych",
+        "value": "Automatyka dla biur i przestrzeni komercyjnych"
+      },
+      {
+        "_key": "OfficesPage-df8782eddecc",
+        "key": "OfficesPage-df8782eddecc",
+        "label": "Projektujemy inteligentne systemy KNX dla biur open space, gabinetów zarządu i sal konfere",
+        "value": "Projektujemy inteligentne systemy KNX dla biur open space, gabinetów zarządu i sal konferencyjnych. Ograniczamy zużycie energii i tworzymy środowisko pracy wspierające zdrowie i produktywność zespołu."
+      },
+      {
+        "_key": "OfficesPage-298c1b7636b3",
+        "key": "OfficesPage-298c1b7636b3",
+        "label": "Skonsultuj projekt biura",
+        "value": "Skonsultuj projekt biura"
+      },
+      {
+        "_key": "OfficesPage-d5ca12e43175",
+        "key": "OfficesPage-d5ca12e43175",
+        "label": "Prześlij rzuty do audytu",
+        "value": "Prześlij rzuty do audytu"
+      },
+      {
+        "_key": "OfficesPage-5b085eba274c",
+        "key": "OfficesPage-5b085eba274c",
+        "label": "Strefy obiektu biurowego",
+        "value": "Strefy obiektu biurowego"
+      },
+      {
+        "_key": "OfficesPage-adb510384f00",
+        "key": "OfficesPage-adb510384f00",
+        "label": "Wybierz strefę i poznaj scenariusze sterowania",
+        "value": "Wybierz strefę i poznaj scenariusze sterowania"
+      },
+      {
+        "_key": "OfficesPage-e95e66242690",
+        "key": "OfficesPage-e95e66242690",
+        "label": "Kluczowe funkcjonalności automatyki:",
+        "value": "Kluczowe funkcjonalności automatyki:"
+      },
+      {
+        "_key": "OfficesPage-e68bbab81cab",
+        "key": "OfficesPage-e68bbab81cab",
+        "label": "Specyfikacja integracji KNX",
+        "value": "Specyfikacja integracji KNX"
+      },
+      {
+        "_key": "OfficesPage-40ac484af1e3",
+        "key": "OfficesPage-40ac484af1e3",
+        "label": "Protokół magistralny:",
+        "value": "Protokół magistralny:"
+      },
+      {
+        "_key": "OfficesPage-e980fb728654",
+        "key": "OfficesPage-e980fb728654",
+        "label": "KNX TP (skrętka certyfikowana) + DALI-2",
+        "value": "KNX TP (skrętka certyfikowana) + DALI-2"
+      },
+      {
+        "_key": "OfficesPage-2105e9f04011",
+        "key": "OfficesPage-2105e9f04011",
+        "label": "Integracja HVAC:",
+        "value": "Integracja HVAC:"
+      },
+      {
+        "_key": "OfficesPage-6d26d0590226",
+        "key": "OfficesPage-6d26d0590226",
+        "label": "Bramki Modbus / BACnet do BMS obiektu",
+        "value": "Bramki Modbus / BACnet do BMS obiektu"
+      },
+      {
+        "_key": "OfficesPage-bcea7a7573ef",
+        "key": "OfficesPage-bcea7a7573ef",
+        "label": "Osprzęt sterujący:",
+        "value": "Osprzęt sterujący:"
+      },
+      {
+        "_key": "OfficesPage-12f4dc62c8ea",
+        "key": "OfficesPage-12f4dc62c8ea",
+        "label": "JUNG KNX F 40 / F 50 / czujniki obecności Mini",
+        "value": "JUNG KNX F 40 / F 50 / czujniki obecności Mini"
+      },
+      {
+        "_key": "OfficesPage-0215910666b1",
+        "key": "OfficesPage-0215910666b1",
+        "label": "Wpływ na zużycie energii:",
+        "value": "Wpływ na zużycie energii:"
+      },
+      {
+        "_key": "OfficesPage-11724ef447bf",
+        "key": "OfficesPage-11724ef447bf",
+        "label": "Potencjał oszczędności oceniany dla projektu",
+        "value": "Potencjał oszczędności oceniany dla projektu"
+      },
+      {
+        "_key": "OfficesPage-b536cd149c9d",
+        "key": "OfficesPage-b536cd149c9d",
+        "label": "Dla firm fit-out i generalnych wykonawców:",
+        "value": "Dla firm fit-out i generalnych wykonawców:"
+      },
+      {
+        "_key": "OfficesPage-def6fd0f8553",
+        "key": "OfficesPage-def6fd0f8553",
+        "label": "Dostarczamy gotowe schematy podłączenia rozdzielnic oraz wsparcie na budowie w Warszawie i",
+        "value": "Dostarczamy gotowe schematy podłączenia rozdzielnic oraz wsparcie na budowie w Warszawie i okolicach."
+      },
+      {
+        "_key": "OfficesPage-99d425f558d2",
+        "key": "OfficesPage-99d425f558d2",
+        "label": "Audyt i Wycena",
+        "value": "Audyt i Wycena"
+      },
+      {
+        "_key": "OfficesPage-47c23fafeb9e",
+        "key": "OfficesPage-47c23fafeb9e",
+        "label": "Prześlij rzuty biura do wstępnej analizy",
+        "value": "Prześlij rzuty biura do wstępnej analizy"
+      },
+      {
+        "_key": "OfficesPage-8c33acd67d79",
+        "key": "OfficesPage-8c33acd67d79",
+        "label": "Otrzymasz wstępną koncepcję magistrali KNX, podział na strefy DALI oraz szacunek kosztów w",
+        "value": "Otrzymasz wstępną koncepcję magistrali KNX, podział na strefy DALI oraz szacunek kosztów wdrożenia."
+      }
+    ],
+    "key": "OfficesPage",
+    "title": "Dla biur"
+  },
+  {
+    "_id": "page-PrivacyModal",
+    "_type": "pageContent",
+    "entries": [
+      {
+        "_key": "PrivacyModal-e7631951a578",
+        "key": "PrivacyModal-e7631951a578",
+        "label": "Informacje Prawne i Ochrona Danych",
+        "value": "Informacje Prawne i Ochrona Danych"
+      },
+      {
+        "_key": "PrivacyModal-cc127a4b9ece",
+        "key": "PrivacyModal-cc127a4b9ece",
+        "label": "Delitech Smart Spaces · Warszawa",
+        "value": "Delitech Smart Spaces · Warszawa"
+      },
+      {
+        "_key": "PrivacyModal-a91ce1f50126",
+        "key": "PrivacyModal-a91ce1f50126",
+        "label": "Zamknij okno",
+        "value": "Zamknij okno"
+      },
+      {
+        "_key": "PrivacyModal-8808f86b8025",
+        "key": "PrivacyModal-8808f86b8025",
+        "label": "Polityka Prywatności",
+        "value": "Polityka Prywatności"
+      },
+      {
+        "_key": "PrivacyModal-6bbf534ed904",
+        "key": "PrivacyModal-6bbf534ed904",
+        "label": "Klauzula Informacyjna RODO",
+        "value": "Klauzula Informacyjna RODO"
+      },
+      {
+        "_key": "PrivacyModal-b346e9b2797a",
+        "key": "PrivacyModal-b346e9b2797a",
+        "label": "Polityka Cookies",
+        "value": "Polityka Cookies"
+      },
+      {
+        "_key": "PrivacyModal-ac7ef1a08b76",
+        "key": "PrivacyModal-ac7ef1a08b76",
+        "label": "1. Administrator Danych Osobowych",
+        "value": "1. Administrator Danych Osobowych"
+      },
+      {
+        "_key": "PrivacyModal-2f08dd03cdeb",
+        "key": "PrivacyModal-2f08dd03cdeb",
+        "label": "Administratorem danych osobowych zbieranych za pośrednictwem portalu jest Delitech Smart S",
+        "value": "Administratorem danych osobowych zbieranych za pośrednictwem portalu jest Delitech Jasek spółka jawna z siedzibą przy ul. Myśliborskiej 85A/8, 03-185 Warszawa, NIP: 1132919580, e-mail: biuro@intelispaces.pl, tel: +48 505 260 715."
+      },
+      {
+        "_key": "PrivacyModal-840b225dd58f",
+        "key": "PrivacyModal-840b225dd58f",
+        "label": "2. Zakres i Cel Zbierania Danych",
+        "value": "2. Zakres i Cel Zbierania Danych"
+      },
+      {
+        "_key": "PrivacyModal-10a437d00b8e",
+        "key": "PrivacyModal-10a437d00b8e",
+        "label": "Przetwarzamy dane osobowe (imię, nazwisko, adres e-mail, numer telefonu, nazwa pracowni/fi",
+        "value": "Przetwarzamy dane osobowe (imię, nazwisko, adres e-mail, numer telefonu, nazwa pracowni/firmy, dokumentacja rzutów architektonicznych i instalacyjnych) wyłącznie w celach:"
+      },
+      {
+        "_key": "PrivacyModal-9b31e16f43f2",
+        "key": "PrivacyModal-9b31e16f43f2",
+        "label": "przygotowania analizy technicznej, audytu rzutów oraz oferty cenowo-funkcjonalnej automaty",
+        "value": "przygotowania analizy technicznej, audytu rzutów oraz oferty cenowo-funkcjonalnej automatyki KNX (art. 6 ust. 1 lit. b RODO),"
+      },
+      {
+        "_key": "PrivacyModal-65f2ffab4030",
+        "key": "PrivacyModal-65f2ffab4030",
+        "label": "kontaktu telefonicznego i mailowego w sprawie przesłanego zapytania (art. 6 ust. 1 lit. f ",
+        "value": "kontaktu telefonicznego i mailowego w sprawie przesłanego zapytania (art. 6 ust. 1 lit. f RODO — prawnie uzasadniony interes administratora),"
+      },
+      {
+        "_key": "PrivacyModal-2c96f6772b56",
+        "key": "PrivacyModal-2c96f6772b56",
+        "label": "realizacji umów wdrożeniowych, programistycznych i serwisowych.",
+        "value": "realizacji umów wdrożeniowych, programistycznych i serwisowych."
+      },
+      {
+        "_key": "PrivacyModal-d9c62206d133",
+        "key": "PrivacyModal-d9c62206d133",
+        "label": "3. Poufność Rzutów Architektonicznych",
+        "value": "3. Poufność Rzutów Architektonicznych"
+      },
+      {
+        "_key": "PrivacyModal-96d5f81d82df",
+        "key": "PrivacyModal-96d5f81d82df",
+        "label": "Wszelkie materiały projektowe (pliki DWG, PDF, modele BIM, specyfikacje techniczne) przesł",
+        "value": "Wszelkie materiały projektowe (pliki DWG, PDF, modele BIM, specyfikacje techniczne) przekazane do zespołu podlegają ścisłej tajemnicy zawodowej i nie są udostępniane podmiotom trzecim bez wyraźnej pisemnej zgody inwestora lub architekta."
+      },
+      {
+        "_key": "PrivacyModal-94efdee48af0",
+        "key": "PrivacyModal-94efdee48af0",
+        "label": "Prawa Osób, Których Dane Dotyczą",
+        "value": "Prawa Osób, Których Dane Dotyczą"
+      },
+      {
+        "_key": "PrivacyModal-c6cb96bdeb09",
+        "key": "PrivacyModal-c6cb96bdeb09",
+        "label": "Zgodnie z Rozporządzeniem Parlamentu Europejskiego i Rady (UE) 2016/679 (RODO), każdemu uż",
+        "value": "Zgodnie z Rozporządzeniem Parlamentu Europejskiego i Rady (UE) 2016/679 (RODO), każdemu użytkownikowi przysługuje prawo do:"
+      },
+      {
+        "_key": "PrivacyModal-6b0e0f043b11",
+        "key": "PrivacyModal-6b0e0f043b11",
+        "label": "Prawo dostępu do danych",
+        "value": "Prawo dostępu do danych"
+      },
+      {
+        "_key": "PrivacyModal-9b31358742d7",
+        "key": "PrivacyModal-9b31358742d7",
+        "label": "Możliwość uzyskania informacji o przetwarzanych danych i ich kopii.",
+        "value": "Możliwość uzyskania informacji o przetwarzanych danych i ich kopii."
+      },
+      {
+        "_key": "PrivacyModal-4a81a7dc25b7",
+        "key": "PrivacyModal-4a81a7dc25b7",
+        "label": "Prawo do sprostowania",
+        "value": "Prawo do sprostowania"
+      },
+      {
+        "_key": "PrivacyModal-1bb2d35bed70",
+        "key": "PrivacyModal-1bb2d35bed70",
+        "label": "Możliwość poprawienia nieprawidłowych lub nieaktualnych informacji.",
+        "value": "Możliwość poprawienia nieprawidłowych lub nieaktualnych informacji."
+      },
+      {
+        "_key": "PrivacyModal-6388d7997da6",
+        "key": "PrivacyModal-6388d7997da6",
+        "label": "Prawo do usunięcia danych",
+        "value": "Prawo do usunięcia danych"
+      },
+      {
+        "_key": "PrivacyModal-f3c3f1f4ffe4",
+        "key": "PrivacyModal-f3c3f1f4ffe4",
+        "label": "Prawo do bycia zapomnianym po zakończeniu procesu ofertowania/realizacji.",
+        "value": "Prawo do bycia zapomnianym po zakończeniu procesu ofertowania/realizacji."
+      },
+      {
+        "_key": "PrivacyModal-ffca9d84219c",
+        "key": "PrivacyModal-ffca9d84219c",
+        "label": "Prawo do sprzeciwu",
+        "value": "Prawo do sprzeciwu"
+      },
+      {
+        "_key": "PrivacyModal-7780b1f8484c",
+        "key": "PrivacyModal-7780b1f8484c",
+        "label": "Prawo do wniesienia sprzeciwu wobec przetwarzania na podstawie art. 6 ust. 1 lit. f RODO.",
+        "value": "Prawo do wniesienia sprzeciwu wobec przetwarzania na podstawie art. 6 ust. 1 lit. f RODO."
+      },
+      {
+        "_key": "PrivacyModal-1b253e40fe37",
+        "key": "PrivacyModal-1b253e40fe37",
+        "label": "W celu realizacji powyższych praw prosimy o kontakt pod adresem:",
+        "value": "W celu realizacji powyższych praw prosimy o kontakt pod adresem: "
+      },
+      {
+        "_key": "PrivacyModal-82142b8e52d7",
+        "key": "PrivacyModal-82142b8e52d7",
+        "label": "rodo@delitech.pl",
+        "value": "rodo@delitech.pl"
+      },
+      {
+        "_key": "PrivacyModal-4a10bca78fec",
+        "key": "PrivacyModal-4a10bca78fec",
+        "label": "Zasady Wykorzystywania Plików Cookies",
+        "value": "Zasady Wykorzystywania Plików Cookies"
+      },
+      {
+        "_key": "PrivacyModal-4713631384e6",
+        "key": "PrivacyModal-4713631384e6",
+        "label": "Nasz portal wykorzystuje niezbędne pliki cookies służące do prawidłowego działania sesji, ",
+        "value": "Nasz portal wykorzystuje niezbędne pliki cookies służące do prawidłowego działania sesji, zapamiętywania preferencji nawigacji oraz anonimowych pomiarów wydajnościowych."
+      },
+      {
+        "_key": "PrivacyModal-8a9308c71944",
+        "key": "PrivacyModal-8a9308c71944",
+        "label": "Cookies techniczne (niezbędne):",
+        "value": "Cookies techniczne (niezbędne):"
+      },
+      {
+        "_key": "PrivacyModal-d6dfa591a2b6",
+        "key": "PrivacyModal-d6dfa591a2b6",
+        "label": "Umożliwiają poprawne renderowanie podstron, zapamiętanie statusu formularza oraz polityki ",
+        "value": "Umożliwiają poprawne renderowanie podstron, zapamiętanie statusu formularza oraz polityki cookies."
+      },
+      {
+        "_key": "PrivacyModal-45033d58fc47",
+        "key": "PrivacyModal-45033d58fc47",
+        "label": "Brak inwazyjnego śledzenia reklamowego:",
+        "value": "Brak inwazyjnego śledzenia reklamowego:"
+      },
+      {
+        "_key": "PrivacyModal-4e946688adad",
+        "key": "PrivacyModal-4e946688adad",
+        "label": "Nie profilujemy użytkowników komercyjnie ani nie przekazujemy danych brokerom behawioralny",
+        "value": "Nie profilujemy użytkowników komercyjnie ani nie przekazujemy danych brokerom behawioralnym."
+      },
+      {
+        "_key": "PrivacyModal-00b8d851752c",
+        "key": "PrivacyModal-00b8d851752c",
+        "label": "Zamknij",
+        "value": "Zamknij"
+      }
+    ],
+    "key": "PrivacyModal",
+    "title": "Informacje prawne"
+  },
+  {
+    "_id": "page-ProjectPreparation",
+    "_type": "pageContent",
+    "entries": [
+      {
+        "_key": "ProjectPreparation-befed8b7a4f6",
+        "key": "ProjectPreparation-befed8b7a4f6",
+        "label": "Przed pierwszą rozmową",
+        "value": "Przed pierwszą rozmową"
+      },
+      {
+        "_key": "ProjectPreparation-f7715470da57",
+        "key": "ProjectPreparation-f7715470da57",
+        "label": "Dobry brief ułatwia dobrą wycenę.",
+        "value": "Dobry brief ułatwia dobrą wycenę."
+      },
+      {
+        "_key": "ProjectPreparation-1907266f708c",
+        "key": "ProjectPreparation-1907266f708c",
+        "label": "Nie musisz znać nazw urządzeń. Wystarczy opis tego, jak chcesz korzystać z przestrzeni.",
+        "value": "Nie musisz znać nazw urządzeń. Wystarczy opis tego, jak chcesz korzystać z przestrzeni."
+      },
+      {
+        "_key": "ProjectPreparation-f4ec19bacd1a",
+        "key": "ProjectPreparation-f4ec19bacd1a",
+        "label": "Rzut i etap inwestycji",
+        "value": "Rzut i etap inwestycji"
+      },
+      {
+        "_key": "ProjectPreparation-dddb2487b7d1",
+        "key": "ProjectPreparation-dddb2487b7d1",
+        "label": "Układ pomieszczeń, lokalizacja i termin rozpoczęcia prac.",
+        "value": "Układ pomieszczeń, lokalizacja i termin rozpoczęcia prac."
+      },
+      {
+        "_key": "ProjectPreparation-a2159a4a55be",
+        "key": "ProjectPreparation-a2159a4a55be",
+        "label": "Funkcje, na których Ci zależy",
+        "value": "Funkcje, na których Ci zależy"
+      },
+      {
+        "_key": "ProjectPreparation-54a290e3a9be",
+        "key": "ProjectPreparation-54a290e3a9be",
+        "label": "Światło, rolety, temperatura, sceny i dostęp z aplikacji.",
+        "value": "Światło, rolety, temperatura, sceny i dostęp z aplikacji."
+      },
+      {
+        "_key": "ProjectPreparation-db2f43bbc180",
+        "key": "ProjectPreparation-db2f43bbc180",
+        "label": "Urządzenia do połączenia",
+        "value": "Urządzenia do połączenia"
+      },
+      {
+        "_key": "ProjectPreparation-f4cbd958fc7a",
+        "key": "ProjectPreparation-f4cbd958fc7a",
+        "label": "Znane modele HVAC, opraw, napędów i systemów AV.",
+        "value": "Znane modele HVAC, opraw, napędów i systemów AV."
+      },
+      {
+        "_key": "ProjectPreparation-ba4d4950cc89",
+        "key": "ProjectPreparation-ba4d4950cc89",
+        "label": "Priorytety i budżet",
+        "value": "Priorytety i budżet"
+      },
+      {
+        "_key": "ProjectPreparation-39041bcb44e9",
+        "key": "ProjectPreparation-39041bcb44e9",
+        "label": "Co jest potrzebne na start, a co można zostawić na kolejny etap.",
+        "value": "Co jest potrzebne na start, a co można zostawić na kolejny etap."
+      }
+    ],
+    "key": "ProjectPreparation",
+    "title": "Przygotowanie do rozmowy"
+  },
+  {
+    "_id": "page-ProjectsPage",
+    "_type": "pageContent",
+    "entries": [
+      {
+        "_key": "ProjectsPage-502eebeefb74",
+        "key": "ProjectsPage-502eebeefb74",
+        "label": "Dokumentacja i Zakresy Referencyjne",
+        "value": "Koncepcje do rozmowy o projekcie"
+      },
+      {
+        "_key": "ProjectsPage-9f744f97d4e8",
+        "key": "ProjectsPage-9f744f97d4e8",
+        "label": "Przykładowe zakresy realizacji",
+        "value": "Przykłady rozwiązań"
+      },
+      {
+        "_key": "ProjectsPage-f2366d05afdc",
+        "key": "ProjectsPage-f2366d05afdc",
+        "label": "Przedstawiamy przykładowe konfiguracje systemów KNX dla biur, domów i apartamentów. Ilustr",
+        "value": "Przykładowe konfiguracje dla domów, apartamentów i biur. To koncepcje i ilustracje poglądowe, a nie portfolio wykonanych obiektów. Zakres oraz dobór urządzeń ustalamy dla konkretnego projektu."
+      },
+      {
+        "_key": "ProjectsPage-5483592e6d19",
+        "key": "ProjectsPage-5483592e6d19",
+        "label": "Wszystkie opracowania",
+        "value": "Wszystkie opracowania"
+      },
+      {
+        "_key": "ProjectsPage-c4f6a547e920",
+        "key": "ProjectsPage-c4f6a547e920",
+        "label": "Biura i Fit-out",
+        "value": "Biura i Fit-out"
+      },
+      {
+        "_key": "ProjectsPage-28040a623393",
+        "key": "ProjectsPage-28040a623393",
+        "label": "Domy i Rezydencje",
+        "value": "Domy i Rezydencje"
+      },
+      {
+        "_key": "ProjectsPage-2bd7caa78cd2",
+        "key": "ProjectsPage-2bd7caa78cd2",
+        "label": "Apartamenty",
+        "value": "Apartamenty"
+      },
+      {
+        "_key": "ProjectsPage-1753d4e1e8c3",
+        "key": "ProjectsPage-1753d4e1e8c3",
+        "label": "Koncepcja architektoniczno-inżynierska",
+        "value": "Koncepcja architektoniczno-inżynierska"
+      },
+      {
+        "_key": "ProjectsPage-40290fa2a6c0",
+        "key": "ProjectsPage-40290fa2a6c0",
+        "label": "Podział na strefy instalacyjne:",
+        "value": "Podział na strefy instalacyjne:"
+      },
+      {
+        "_key": "ProjectsPage-71b26d6783d5",
+        "key": "ProjectsPage-71b26d6783d5",
+        "label": "Protokoły:",
+        "value": "Protokoły:"
+      },
+      {
+        "_key": "ProjectsPage-8d66941327ee",
+        "key": "ProjectsPage-8d66941327ee",
+        "label": "Osprzęt i moduły:",
+        "value": "Osprzęt i moduły:"
+      },
+      {
+        "_key": "ProjectsPage-fcd5abf229de",
+        "key": "ProjectsPage-fcd5abf229de",
+        "label": "Skonsultuj podobny zakres",
+        "value": "Skonsultuj podobny zakres"
+      },
+      {
+        "_key": "ProjectsPage-1571ee109283",
+        "key": "ProjectsPage-1571ee109283",
+        "label": "Prześlij rzuty do wyceny",
+        "value": "Prześlij rzuty do wyceny"
+      }
+    ],
+    "key": "ProjectsPage",
+    "title": "Realizacje — opisy strony"
+  },
+  {
+    "_id": "page-ShowroomPage",
+    "_type": "pageContent",
+    "entries": [
+      {
+        "_key": "ShowroomPage-v2-kicker",
+        "_type": "copyEntry",
+        "key": "ShowroomPage-v2-kicker",
+        "label": "Salon Delitech · Warszawa",
+        "value": "Salon Delitech · Warszawa"
+      },
+      {
+        "_key": "ShowroomPage-v2-title",
+        "_type": "copyEntry",
+        "key": "ShowroomPage-v2-title",
+        "label": "Spotkajmy się z projektem przy jednym stole.",
+        "value": "Spotkajmy się z projektem przy jednym stole."
+      },
+      {
+        "_key": "ShowroomPage-v2-intro",
+        "_type": "copyEntry",
+        "key": "ShowroomPage-v2-intro",
+        "label": "Architekt, inwestor i techniczne pytania o wnętrze. W salonie porozmawiamy o osprzęcie, sp",
+        "value": "Architekt, inwestor i techniczne pytania o wnętrze. W salonie porozmawiamy o osprzęcie, sposobie obsługi i decyzjach potrzebnych przed wykonaniem instalacji."
+      },
+      {
+        "_key": "ShowroomPage-v2-address",
+        "_type": "copyEntry",
+        "key": "ShowroomPage-v2-address",
+        "label": "ul. Konwaliowa 7 lok. 103",
+        "value": "ul. Konwaliowa 7 lok. 103"
+      },
+      {
+        "_key": "ShowroomPage-v2-city",
+        "_type": "copyEntry",
+        "key": "ShowroomPage-v2-city",
+        "label": "03-194 Warszawa",
+        "value": "03-194 Warszawa"
+      },
+      {
+        "_key": "ShowroomPage-v2-appointment",
+        "_type": "copyEntry",
+        "key": "ShowroomPage-v2-appointment",
+        "label": "Spotkania po wcześniejszym uzgodnieniu. Przed przyjazdem potwierdźmy termin, temat rozmowy",
+        "value": "Spotkania po wcześniejszym uzgodnieniu. Przed przyjazdem potwierdźmy termin, temat rozmowy oraz dostępność interesujących Cię próbek."
+      },
+      {
+        "_key": "ShowroomPage-v2-cta",
+        "_type": "copyEntry",
+        "key": "ShowroomPage-v2-cta",
+        "label": "Uzgodnij wizytę",
+        "value": "Uzgodnij wizytę"
+      },
+      {
+        "_key": "ShowroomPage-v2-map",
+        "_type": "copyEntry",
+        "key": "ShowroomPage-v2-map",
+        "label": "Sprawdź dojazd w Google Maps",
+        "value": "Sprawdź dojazd w Google Maps"
+      },
+      {
+        "_key": "ShowroomPage-v2-prepare",
+        "_type": "copyEntry",
+        "key": "ShowroomPage-v2-prepare",
+        "label": "Co warto zabrać na spotkanie?",
+        "value": "Co warto zabrać na spotkanie?"
+      },
+      {
+        "_key": "ShowroomPage-v2-plans-title",
+        "_type": "copyEntry",
+        "key": "ShowroomPage-v2-plans-title",
+        "label": "Rzut lub szkic",
+        "value": "Rzut lub szkic"
+      },
+      {
+        "_key": "ShowroomPage-v2-plans-body",
+        "_type": "copyEntry",
+        "key": "ShowroomPage-v2-plans-body",
+        "label": "Wstępna koncepcja wystarczy, żeby zacząć rozmowę. Zaznacz miejsca, które budzą pytania.",
+        "value": "Wstępna koncepcja wystarczy, żeby zacząć rozmowę. Zaznacz miejsca, które budzą pytania."
+      },
+      {
+        "_key": "ShowroomPage-v2-materials-title",
+        "_type": "copyEntry",
+        "key": "ShowroomPage-v2-materials-title",
+        "label": "Materiały i inspiracje",
+        "value": "Materiały i inspiracje"
+      },
+      {
+        "_key": "ShowroomPage-v2-materials-body",
+        "_type": "copyEntry",
+        "key": "ShowroomPage-v2-materials-body",
+        "label": "Kolory ścian, próbki mebli lub zdjęcia wnętrza pomogą porównać wygląd osprzętu. Wybrane mo",
+        "value": "Kolory ścian, próbki mebli lub zdjęcia wnętrza pomogą porównać wygląd osprzętu. Wybrane modele i wykończenia uzgodnijmy wcześniej."
+      },
+      {
+        "_key": "ShowroomPage-v2-functions-title",
+        "_type": "copyEntry",
+        "key": "ShowroomPage-v2-functions-title",
+        "label": "Kilka codziennych sytuacji",
+        "value": "Kilka codziennych sytuacji"
+      },
+      {
+        "_key": "ShowroomPage-v2-functions-body",
+        "_type": "copyEntry",
+        "key": "ShowroomPage-v2-functions-body",
+        "label": "Co ma się dziać rano, przy wyjściu lub wieczorem? Wspólnie uporządkujemy funkcje, zamiast ",
+        "value": "Co ma się dziać rano, przy wyjściu lub wieczorem? Wspólnie uporządkujemy funkcje, zamiast zaczynać od listy urządzeń."
+      },
+      {
+        "_key": "ShowroomPage-v2-pack-title",
+        "_type": "copyEntry",
+        "key": "ShowroomPage-v2-pack-title",
+        "label": "Przygotuj brief przed wizytą",
+        "value": "Przygotuj brief przed wizytą"
+      },
+      {
+        "_key": "ShowroomPage-v2-pack-body",
+        "_type": "copyEntry",
+        "key": "ShowroomPage-v2-pack-body",
+        "label": "Skorzystaj z przykładowej karty pomieszczenia i listy pytań z pakietu dla architekta.",
+        "value": "Skorzystaj z przykładowej karty pomieszczenia i listy pytań z pakietu dla architekta."
+      },
+      {
+        "_key": "ShowroomPage-v2-pack-cta",
+        "_type": "copyEntry",
+        "key": "ShowroomPage-v2-pack-cta",
+        "label": "Otwórz pakiet",
+        "value": "Otwórz pakiet"
+      }
+    ],
+    "key": "ShowroomPage",
+    "title": "Salon w Warszawie"
+  },
+  {
+    "_id": "page-SolutionsPage",
+    "_type": "pageContent",
+    "entries": [
+      {
+        "_key": "SolutionsPage-ab058c26c5a6",
+        "key": "SolutionsPage-ab058c26c5a6",
+        "label": "Oświetlenie i DALI-2",
+        "value": "Oświetlenie i DALI-2"
+      },
+      {
+        "_key": "SolutionsPage-d53d68007960",
+        "key": "SolutionsPage-d53d68007960",
+        "label": "Do 64 adresów urządzeń wykonawczych na jednej magistrali DALI",
+        "value": "Do 64 adresów urządzeń wykonawczych na jednej magistrali DALI"
+      },
+      {
+        "_key": "SolutionsPage-8de3a5e94249",
+        "key": "SolutionsPage-8de3a5e94249",
+        "label": "Sterowanie Tunable White (HCL — Human Centric Lighting)",
+        "value": "Sterowanie Tunable White (HCL — Human Centric Lighting)"
+      },
+      {
+        "_key": "SolutionsPage-0a12eff07c8b",
+        "key": "SolutionsPage-0a12eff07c8b",
+        "label": "Stała kontrola natężenia światła (Constant Light Control)",
+        "value": "Stała kontrola natężenia światła (Constant Light Control)"
+      },
+      {
+        "_key": "SolutionsPage-98f427fcbf0b",
+        "key": "SolutionsPage-98f427fcbf0b",
+        "label": "Weryfikacja ściemniania i pracy zasilaczy z wybraną oprawą",
+        "value": "Weryfikacja ściemniania i pracy zasilaczy z wybraną oprawą"
+      },
+      {
+        "_key": "SolutionsPage-25cdc3409002",
+        "key": "SolutionsPage-25cdc3409002",
+        "label": "Rolety, żaluzje i fasady",
+        "value": "Rolety, żaluzje i fasady"
+      },
+      {
+        "_key": "SolutionsPage-6bf397e0e155",
+        "key": "SolutionsPage-6bf397e0e155",
+        "label": "Automatyczny kąt lameli żaluzji fasadowych w zależności od azymutu słońca",
+        "value": "Automatyczny kąt lameli żaluzji fasadowych w zależności od azymutu słońca"
+      },
+      {
+        "_key": "SolutionsPage-f3177a00da8a",
+        "key": "SolutionsPage-f3177a00da8a",
+        "label": "Zabezpieczenie przed silnym wiatrem, oblodzeniem i gradem",
+        "value": "Zabezpieczenie przed silnym wiatrem, oblodzeniem i gradem"
+      },
+      {
+        "_key": "SolutionsPage-14ac4aebbc8e",
+        "key": "SolutionsPage-14ac4aebbc8e",
+        "label": "Ciche sterowanie roletami screen, zasłonami i karniszami elektrycznymi",
+        "value": "Ciche sterowanie roletami screen, zasłonami i karniszami elektrycznymi"
+      },
+      {
+        "_key": "SolutionsPage-fde65cdbaf38",
+        "key": "SolutionsPage-fde65cdbaf38",
+        "label": "Zintegrowane sceny prywatności o zmroku",
+        "value": "Zintegrowane sceny prywatności o zmroku"
+      },
+      {
+        "_key": "SolutionsPage-143651b18ad4",
+        "key": "SolutionsPage-143651b18ad4",
+        "label": "HVAC: Ogrzewanie, Chłodzenie i Wentylacja",
+        "value": "HVAC: Ogrzewanie, Chłodzenie i Wentylacja"
+      },
+      {
+        "_key": "SolutionsPage-d70a440f98ae",
+        "key": "SolutionsPage-d70a440f98ae",
+        "label": "Dobór strefy neutralnej i blokada równoczesnego grzania i chłodzenia",
+        "value": "Dobór strefy neutralnej i blokada równoczesnego grzania i chłodzenia"
+      },
+      {
+        "_key": "SolutionsPage-d19638fdd801",
+        "key": "SolutionsPage-d19638fdd801",
+        "label": "Automatyczne obniżenie nastawy temperatury po otwarciu okna (kontaktrony)",
+        "value": "Automatyczne obniżenie nastawy temperatury po otwarciu okna (kontaktrony)"
+      },
+      {
+        "_key": "SolutionsPage-e55bda41c3b5",
+        "key": "SolutionsPage-e55bda41c3b5",
+        "label": "Kontrola wilgotności powietrza i stężenia CO2 (sterowanie nawiewem)",
+        "value": "Kontrola wilgotności powietrza i stężenia CO2 (sterowanie nawiewem)"
+      },
+      {
+        "_key": "SolutionsPage-c9a6a961443c",
+        "key": "SolutionsPage-c9a6a961443c",
+        "label": "Zdalna zmiana harmonogramu przed powrotem do domu lub biura",
+        "value": "Zdalna zmiana harmonogramu przed powrotem do domu lub biura"
+      },
+      {
+        "_key": "SolutionsPage-8fb68d4ebce9",
+        "key": "SolutionsPage-8fb68d4ebce9",
+        "label": "Sceny i sterowanie",
+        "value": "Sceny i sterowanie"
+      },
+      {
+        "_key": "SolutionsPage-20303676987b",
+        "key": "SolutionsPage-20303676987b",
+        "label": "Programowanie scen dopasowanych do stylu życia i procedur biurowych",
+        "value": "Programowanie scen dopasowanych do stylu życia i procedur biurowych"
+      },
+      {
+        "_key": "SolutionsPage-a03022b2f2d3",
+        "key": "SolutionsPage-a03022b2f2d3",
+        "label": "Klawiatury wielofunkcyjne JUNG z grawerowanymi symbolami lub tekstem",
+        "value": "Klawiatury wielofunkcyjne JUNG z grawerowanymi symbolami lub tekstem"
+      },
+      {
+        "_key": "SolutionsPage-8007b8675da2",
+        "key": "SolutionsPage-8007b8675da2",
+        "label": "Dotykowe panele ścienne z podglądem całego obiektu",
+        "value": "Dotykowe panele ścienne z podglądem całego obiektu"
+      },
+      {
+        "_key": "SolutionsPage-40a5dbe28ca3",
+        "key": "SolutionsPage-40a5dbe28ca3",
+        "label": "Możliwość samodzielnej modyfikacji poziomów scen przez użytkownika",
+        "value": "Możliwość samodzielnej modyfikacji poziomów scen przez użytkownika"
+      },
+      {
+        "_key": "SolutionsPage-935f0e97ddca",
+        "key": "SolutionsPage-935f0e97ddca",
+        "label": "Energia i pomiary",
+        "value": "Energia i pomiary"
+      },
+      {
+        "_key": "SolutionsPage-26e8202f14e8",
+        "key": "SolutionsPage-26e8202f14e8",
+        "label": "Pomiar energii elektrycznej z podziałem na obwody (oświetlenie, HVAC, gniazda)",
+        "value": "Pomiar energii elektrycznej z podziałem na obwody (oświetlenie, HVAC, gniazda)"
+      },
+      {
+        "_key": "SolutionsPage-3a550c26b8c1",
+        "key": "SolutionsPage-3a550c26b8c1",
+        "label": "Zarządzanie obciążeniem (Load Shedding) — ochrona przed przekroczeniem mocy umownej",
+        "value": "Zarządzanie obciążeniem (Load Shedding) — ochrona przed przekroczeniem mocy umownej"
+      },
+      {
+        "_key": "SolutionsPage-175a1ed00656",
+        "key": "SolutionsPage-175a1ed00656",
+        "label": "Integracja z falownikami fotowoltaicznymi i magazynami energii",
+        "value": "Integracja z falownikami fotowoltaicznymi i magazynami energii"
+      },
+      {
+        "_key": "SolutionsPage-1e7b1dd01007",
+        "key": "SolutionsPage-1e7b1dd01007",
+        "label": "Raporty zużycia energii do analizy; zakres uzgadniany z doradcą certyfikacji",
+        "value": "Raporty zużycia energii do analizy; zakres uzgadniany z doradcą certyfikacji"
+      },
+      {
+        "_key": "SolutionsPage-89b5fa134015",
+        "key": "SolutionsPage-89b5fa134015",
+        "label": "Bezpieczeństwo i monitoring",
+        "value": "Bezpieczeństwo i monitoring"
+      },
+      {
+        "_key": "SolutionsPage-d46b51ad1fee",
+        "key": "SolutionsPage-d46b51ad1fee",
+        "label": "Automatyczne odcięcie wody po detekcji zalania",
+        "value": "Automatyczne odcięcie wody po detekcji zalania"
+      },
+      {
+        "_key": "SolutionsPage-ddb5f2282585",
+        "key": "SolutionsPage-ddb5f2282585",
+        "label": "Współpraca z centralami alarmowymi Satel / DSC",
+        "value": "Współpraca z centralami alarmowymi Satel / DSC"
+      },
+      {
+        "_key": "SolutionsPage-80cbde7ef716",
+        "key": "SolutionsPage-80cbde7ef716",
+        "label": "Symulacja obecności oparta na realnych nawykach oświetleniowych",
+        "value": "Symulacja obecności oparta na realnych nawykach oświetleniowych"
+      },
+      {
+        "_key": "SolutionsPage-c57d57c30bdb",
+        "key": "SolutionsPage-c57d57c30bdb",
+        "label": "Oświetlenie ewakuacyjne i odblokowanie rolet w razie alarmu pożarowego",
+        "value": "Oświetlenie ewakuacyjne i odblokowanie rolet w razie alarmu pożarowego"
+      },
+      {
+        "_key": "SolutionsPage-bb60753791ef",
+        "key": "SolutionsPage-bb60753791ef",
+        "label": "Integracje systemowe i IoT",
+        "value": "Integracje systemowe i IoT"
+      },
+      {
+        "_key": "SolutionsPage-fed4b9fb036e",
+        "key": "SolutionsPage-fed4b9fb036e",
+        "label": "Bramki KNX-IP z szyfrowaniem KNX Secure",
+        "value": "Bramki KNX-IP z szyfrowaniem KNX Secure"
+      },
+      {
+        "_key": "SolutionsPage-9d7ef876ff09",
+        "key": "SolutionsPage-9d7ef876ff09",
+        "label": "Natywne wsparcie Apple HomeKit, Google Assistant, Amazon Alexa",
+        "value": "Natywne wsparcie Apple HomeKit, Google Assistant, Amazon Alexa"
+      },
+      {
+        "_key": "SolutionsPage-da06eb91d428",
+        "key": "SolutionsPage-da06eb91d428",
+        "label": "Integracja systemów audio-wideo i sal spotkań",
+        "value": "Integracja systemów audio-wideo i sal spotkań"
+      },
+      {
+        "_key": "SolutionsPage-e77821d061c7",
+        "key": "SolutionsPage-e77821d061c7",
+        "label": "API do autorskich systemów rezerwacji biurowej",
+        "value": "API do autorskich systemów rezerwacji biurowej"
+      },
+      {
+        "_key": "SolutionsPage-cbaca6d64e44",
+        "key": "SolutionsPage-cbaca6d64e44",
+        "label": "Inżynieria systemów budynkowych",
+        "value": "Inżynieria systemów budynkowych"
+      },
+      {
+        "_key": "SolutionsPage-e4413b21dc89",
+        "key": "SolutionsPage-e4413b21dc89",
+        "label": "Rozwiązania technologiczne KNX",
+        "value": "Rozwiązania technologiczne KNX"
+      },
+      {
+        "_key": "SolutionsPage-d217c02949f8",
+        "key": "SolutionsPage-d217c02949f8",
+        "label": "Zobacz poszczególne elementy układanki. Każdy moduł projektujemy z dbałością o najwyższą n",
+        "value": "Zobacz poszczególne elementy układanki. Każdy moduł projektujemy z dbałością o najwyższą niezawodność, ergonomię użytkowania oraz kompatybilność na dekady."
+      },
+      {
+        "_key": "SolutionsPage-7e56743ab504",
+        "key": "SolutionsPage-7e56743ab504",
+        "label": "Standardy inżynierskie Delitech:",
+        "value": "Standardy inżynierskie Delitech:"
+      },
+      {
+        "_key": "SolutionsPage-10469bf95cab",
+        "key": "SolutionsPage-10469bf95cab",
+        "label": "Skonsultuj rozwiązanie z inżynierem",
+        "value": "Skonsultuj rozwiązanie z inżynierem"
+      },
+      {
+        "_key": "SolutionsPage-72d391b9ba2f",
+        "key": "SolutionsPage-72d391b9ba2f",
+        "label": "Prześlij specyfikację",
+        "value": "Prześlij specyfikację"
+      },
+      {
+        "_key": "SolutionsPage-ff2901b7bb49",
+        "key": "SolutionsPage-ff2901b7bb49",
+        "label": "Integracja w obiekcie",
+        "value": "Integracja w obiekcie"
+      },
+      {
+        "_key": "SolutionsPage-3a143dc1140d",
+        "key": "SolutionsPage-3a143dc1140d",
+        "label": "Uporządkowana instalacja:",
+        "value": "Uporządkowana instalacja:"
+      },
+      {
+        "_key": "SolutionsPage-af6fbd7ae93b",
+        "key": "SolutionsPage-af6fbd7ae93b",
+        "label": "Moduły automatyki umieszczamy w opisanej rozdzielnicy, z miejscem na serwis i uzgodnioną r",
+        "value": " Moduły automatyki umieszczamy w opisanej rozdzielnicy, z miejscem na serwis i uzgodnioną rezerwą na rozbudowę."
+      },
+      {
+        "_key": "SolutionsPage-476c03569127",
+        "key": "SolutionsPage-476c03569127",
+        "label": "Serwis:",
+        "value": "Serwis:"
+      },
+      {
+        "_key": "SolutionsPage-cee9a991bd83",
+        "key": "SolutionsPage-cee9a991bd83",
+        "label": "Zakres odpowiedzialności, warunki gwarancji i obsługę powdrożeniową określamy w umowie.",
+        "value": " Zakres odpowiedzialności, warunki gwarancji i obsługę powdrożeniową określamy w umowie."
+      },
+      {
+        "_key": "SolutionsPage-9829bdf387cc",
+        "key": "SolutionsPage-9829bdf387cc",
+        "label": "Dokumentacja:",
+        "value": "Dokumentacja:"
+      },
+      {
+        "_key": "SolutionsPage-6cc276fdc260",
+        "key": "SolutionsPage-6cc276fdc260",
+        "label": "Każdy obwód, adres DALI i adres fizyczny KNX otrzymuje dokładne oznaczenie na schemacie po",
+        "value": " Każdy obwód, adres DALI i adres fizyczny KNX otrzymuje dokładne oznaczenie na schemacie powykonawczym."
+      }
+    ],
+    "key": "SolutionsPage",
+    "title": "Rozwiązania"
+  },
+  {
+    "_id": "project-apartament-1",
+    "_type": "project",
+    "hardware": [
+      "JUNG LS ZERO",
+      "Bramka Intesis KNX-VRF",
+      "Aktory ściemniające LED 24V"
+    ],
+    "id": "apartament-1",
+    "image": {
+      "_type": "image",
+      "asset": {
+        "_ref": "image-ce9197c16adf4f0e0d5f040b280a05752d8e7071-441x662-webp",
+        "_type": "reference"
+      }
+    },
+    "order": 2,
+    "protocols": [
+      "KNX TP",
+      "DALI-2 Tunable White",
+      "Integracja klimatyzacji kanałowej VRF"
+    ],
+    "subtitle": "Apartament z tarasem · Warszawa Śródmieście · ~180 m²",
+    "summary": "Kompaktowa, wyrafinowana rozdzielnica KNX ukryta w szafie gospodarczej. Pełna eliminacja termostatów ściennych i włączników wieloramkowych na rzecz pojedynczych manipulatorów JUNG LS ZERO zlicowanych ze strukturą tynku.",
+    "title": "Przykładowy zakres: Apartament penthouse — strefy DALI i zintegrowany HVAC",
+    "type": "apartament",
+    "zones": [
+      "Salon z aneksem kuchennym: sceny świetlne do gotowania, kolacji i seansów filmowych",
+      "Master bedroom: sterowanie żaluzjami zaciemniającymi blackout i klimatyzacją",
+      "Taras widokowy: ogrzewanie promiennikowe i oświetlenie obwodowe"
+    ]
+  },
+  {
+    "_id": "project-biuro-1",
+    "_type": "project",
+    "hardware": [
+      "JUNG KNX F 40",
+      "Bramki DALI-2 IP",
+      "Sensory obecności Theben PlanoSpot"
+    ],
+    "id": "biuro-1",
+    "image": {
+      "_type": "image",
+      "asset": {
+        "_ref": "image-87c6260263bcc404fbf67dca96409392f0a7f46e-1200x896-jpg",
+        "_type": "reference"
+      }
+    },
+    "order": 0,
+    "protocols": [
+      "KNX TP",
+      "DALI-2",
+      "BACnet/IP do BMS obiektu",
+      "Modbus RTU dla liczników energii"
+    ],
+    "subtitle": "Powierzchnia biurowa fit-out · Warszawa Wola · ~850 m²",
+    "summary": "Architektura systemu obejmująca centralne zarządzanie oświetleniem DALI-2, koordynację 28 klimakonwektorów 4-rurowych, integrację sal konferencyjnych z systemem wideokonferencji oraz automatyczne procedury redukcji poboru mocy po godzinach pracy.",
+    "title": "Przykładowy zakres: Biuro — światło, sale spotkań i komfort stref",
+    "type": "biuro",
+    "zones": [
+      "Open space: 4 strefy pracy ciągłej z pomiarem światła dziennego",
+      "Sale konferencyjne: 3 sale z panelami scen prezentacji i czujnikami CO2",
+      "Gabinet prezesa: dyskretne sterowanie klimatem i roletami",
+      "Strefa kuchenna i chillout: oświetlenie nastrojowe i nagłośnienie"
+    ]
+  },
+  {
+    "_id": "project-dom-1",
+    "_type": "project",
+    "hardware": [
+      "JUNG LS 990 Mosiądz Antyczny",
+      "Stacja pogodowa KNX GPS",
+      "Zawory termoelektryczne 24V"
+    ],
+    "id": "dom-1",
+    "image": {
+      "_type": "image",
+      "asset": {
+        "_ref": "image-859570b46500d5c1a66a8875d0830a8c99dd2b2e-1200x896-jpg",
+        "_type": "reference"
+      }
+    },
+    "order": 1,
+    "protocols": [
+      "KNX TP",
+      "DALI-2",
+      "Bramka KNX-Modbus do pompy ciepła",
+      "Interfejs Apple HomeKit"
+    ],
+    "subtitle": "Dom jednorodzinny · przykładowy zakres · ~420 m²",
+    "summary": "Zintegrowana automatyka willi jednorodzinnej. Połączenie sterowania strefami podłogówki, sufitów chłodzących, stacji pogodowej ze śledzeniem pozycji słońca oraz designerskiego osprzętu JUNG w wykończeniu z ciemnego mosiądzu i aluminium.",
+    "title": "Przykładowy zakres: Dom — światło, rolety i temperatura",
+    "type": "dom",
+    "zones": [
+      "Strefa dzienna: salon o podwójnej wysokości z wieloobwodowym oświetleniem DALI",
+      "Sypialnie i garderoby: indywidualne harmonogramy termiczne i ciche karnisze",
+      "Strefa SPA / basen: kontrola wilgotności, temperatury i oświetlenia relaksacyjnego",
+      "Ogród i taras: automatyka nawadniania, oświetlenie zmierzchowe i markizy"
+    ]
+  },
+  {
+    "_id": "image-heroDelitechArch",
+    "_type": "siteImage",
+    "image": {
+      "_type": "image",
+      "asset": {
+        "_ref": "image-32cd5762e1504dae48f294ce256e5b452191c32b-1376x768-jpg",
+        "_type": "reference"
+      }
+    },
+    "key": "heroDelitechArch",
+    "title": "Strona główna — biuro"
+  },
+  {
+    "_id": "image-jungLsZero",
+    "_type": "siteImage",
+    "image": {
+      "_type": "image",
+      "asset": {
+        "_ref": "image-ce9197c16adf4f0e0d5f040b280a05752d8e7071-441x662-webp",
+        "_type": "reference"
+      }
+    },
+    "key": "jungLsZero",
+    "title": "JUNG LS ZERO — fotografia producenta"
+  },
+  {
+    "_id": "image-officeCommSpace",
+    "_type": "siteImage",
+    "image": {
+      "_type": "image",
+      "asset": {
+        "_ref": "image-87c6260263bcc404fbf67dca96409392f0a7f46e-1200x896-jpg",
+        "_type": "reference"
+      }
+    },
+    "key": "officeCommSpace",
+    "title": "Przestrzeń biurowa"
+  },
+  {
+    "_id": "image-residentialResidence",
+    "_type": "siteImage",
+    "image": {
+      "_type": "image",
+      "asset": {
+        "_ref": "image-859570b46500d5c1a66a8875d0830a8c99dd2b2e-1200x896-jpg",
+        "_type": "reference"
+      }
+    },
+    "key": "residentialResidence",
+    "title": "Dom — ilustracja poglądowa"
+  }
+]

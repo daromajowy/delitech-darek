@@ -1,3 +1,4 @@
+import {useCmsContent} from './cms/content.ts';
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
@@ -20,10 +21,13 @@ import { ArchitectsPage } from './pages/ArchitectsPage.tsx';
 import { KNXPage } from './pages/KNXPage.tsx';
 import { ProjectsPage } from './pages/ProjectsPage.tsx';
 import { KnowledgePage } from './pages/KnowledgePage.tsx';
+import { guides } from './content/guides.ts';
 import { AboutPage } from './pages/AboutPage.tsx';
 import { ContactPage } from './pages/ContactPage.tsx';
+import { ShowroomPage } from './pages/ShowroomPage.tsx';
 
 export default function App() {
+  const cms = useCmsContent();
   const [currentPage, setCurrentPage] = useState<PageId>('home');
   const [currentHash, setCurrentHash] = useState<string | undefined>(undefined);
 
@@ -36,8 +40,8 @@ export default function App() {
   // Page titles and meta descriptions map for SEO compliance
   const pageMetadata: Record<PageId, { title: string; desc: string }> = {
     home: {
-      title: 'Delitech Smart Spaces – Automatyka budynku KNX | Warszawa & Polska',
-      desc: 'Projektowanie, wykonawstwo i programowanie automatyki budynkowej KNX w Warszawie i całej Polsce dla biur komercyjnych, domów oraz apartamentów premium.',
+      title: 'Delitech Smart Spaces – KNX dla architektów i inwestorów | Warszawa',
+      desc: 'Wsparcie architektów i inwestorów w planowaniu automatyki KNX. Scenariusze, dobór sterowania, pakiet projektowy i salon w Warszawie.',
     },
     offices: {
       title: 'Automatyka dla biur i fit-out KNX | Delitech Smart Spaces Warszawa',
@@ -53,14 +57,14 @@ export default function App() {
     },
     architects: {
       title: 'Strefa architekta i projektanta instalacji | Delitech Smart Spaces',
-      desc: 'Wsparcie koncepcyjne, wytyczne tras kablowych, modele BIM oraz wzorniki architektonicznego osprzętu JUNG LS 990 i LS ZERO dla pracowni.',
+      desc: 'Pakiet dla architekta: karta pomieszczenia, brief i lista uzgodnień. Dobór sterowania KNX do projektu wnętrza i konsultacje w Warszawie.',
     },
     knx: {
       title: 'Standard KNX – Dlaczego otwarty protokół? | Delitech Smart Spaces',
       desc: 'Poznaj zalety otwartego standardu KNX ISO/IEC 14543: brak uzależnienia od jednego producenta, magistrala przewodowa i 30+ lat trwałości.',
     },
     projects: {
-      title: 'Przykładowe zakresy realizacji KNX | Delitech Smart Spaces',
+      title: 'Przykłady rozwiązań KNX | Delitech Smart Spaces',
       desc: 'Wzorcowe opracowania instalacji dla powierzchni biurowych fit-out, rezydencji podmiejskich i apartamentów penthouse.',
     },
     knowledge: {
@@ -68,18 +72,23 @@ export default function App() {
       desc: 'Praktyczne poradniki inżynierskie dla inwestorów i architektów oraz odpowiedzi na najczęściej zadawane pytania o automatykę KNX i DALI.',
     },
     about: {
-      title: 'O Delitech Smart Spaces – Integrator KNX Warszawa',
-      desc: 'Poznaj zespół i standardy inżynierskie certyfikowanego integratora KNX Partner. Automatyka budynku, która pracuje dla ludzi i przestrzeni.',
+      title: 'Jak pracujemy – zakres, proces i odbiór | Delitech Smart Spaces',
+      desc: 'Od analizy potrzeb do uzgodnionego odbioru KNX. Poznaj etapy, podział odpowiedzialności i materiały do przygotowania projektu.',
+    },
+    showroom: {
+      title: 'Salon Delitech – Konwaliowa 7 lok. 103, Warszawa',
+      desc: 'Spotkanie z projektem w salonie Delitech. Konwaliowa 7 lok. 103, 03-194 Warszawa. Uzgodnij termin i dostępność interesujących Cię próbek.',
     },
     contact: {
       title: 'Prześlij rzuty i skontaktuj się | Delitech Smart Spaces Warszawa',
-      desc: 'Prześlij rzuty do analizy inżynierskiej. Biuro przy ul. Prostej 68 w Warszawie. Realizacje na terenie całej Polski.',
+      desc: 'Salon sprzedaży Delitech: ul. Konwaliowa 7 lok. 103, 03-194 Warszawa. Kontakt i analiza projektu automatyki KNX. Realizacje na terenie całej Polski.',
     },
   };
 
   // Sync title and meta description dynamically
   useEffect(() => {
-    const meta = pageMetadata[currentPage];
+    const guide = currentPage === 'knowledge' ? (cms.loaded ? cms.guides : guides).find(item => item.id === currentHash) : undefined;
+    const meta = guide ? {title: `${guide.title} | Delitech Smart Spaces`, desc: guide.summary} : pageMetadata[currentPage];
     if (meta) {
       document.title = meta.title;
       const metaDescriptionTag = document.querySelector('meta[name="description"]');
@@ -95,7 +104,7 @@ export default function App() {
         ogDescTag.setAttribute('content', meta.desc);
       }
     }
-  }, [currentPage]);
+  }, [currentPage, currentHash, cms]);
 
   // Read hash on mount
   useEffect(() => {
@@ -113,12 +122,16 @@ export default function App() {
           'projects',
           'knowledge',
           'about',
+          'showroom',
           'contact',
         ];
         if (validPages.includes(pagePart as PageId)) {
           setCurrentPage(pagePart as PageId);
           setCurrentHash(subPart);
         }
+      } else {
+        setCurrentPage('home');
+        setCurrentHash(undefined);
       }
     };
 
@@ -140,7 +153,7 @@ export default function App() {
   };
 
   const handleOpenConsultation = (topic?: string) => {
-    if (topic) setConsultationTopic(topic);
+    setConsultationTopic(topic || 'Rozmowa o projekcie automatyki KNX');
     setConsultationModalOpen(true);
   };
 
@@ -165,6 +178,7 @@ export default function App() {
 
         {currentPage === 'offices' && (
           <OfficesPage
+            key={currentHash || 'offices'}
             onNavigate={handleNavigate}
             onOpenConsultation={() => handleOpenConsultation('Konsultacja projektu biura / fit-out')}
             onOpenPrivacy={() => handleOpenPrivacy('privacy')}
@@ -174,6 +188,7 @@ export default function App() {
 
         {currentPage === 'homes' && (
           <HomesPage
+            key={currentHash || 'homes'}
             onNavigate={handleNavigate}
             onOpenConsultation={() => handleOpenConsultation('Konsultacja rezydencji / apartamentu')}
             onOpenPrivacy={() => handleOpenPrivacy('privacy')}
@@ -213,6 +228,7 @@ export default function App() {
 
         {currentPage === 'knowledge' && (
           <KnowledgePage
+            initialHash={currentHash}
             onNavigate={handleNavigate}
             onOpenConsultation={() => handleOpenConsultation('Pytanie techniczne do inżyniera KNX')}
           />
@@ -221,7 +237,7 @@ export default function App() {
         {currentPage === 'about' && (
           <AboutPage
             onNavigate={handleNavigate}
-            onOpenConsultation={() => handleOpenConsultation('Spotkanie w biurze Warszawa')}
+            onOpenConsultation={() => handleOpenConsultation('Zakres współpracy przy projekcie KNX')}
           />
         )}
 
@@ -231,6 +247,7 @@ export default function App() {
             onOpenConsultation={() => handleOpenConsultation()}
           />
         )}
+        {currentPage === 'showroom' && <ShowroomPage onOpenConsultation={() => handleOpenConsultation('Spotkanie w salonie przy Konwaliowej 7')} />}
       </main>
 
       {/* Editorial Footer */}

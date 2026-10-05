@@ -1,130 +1,17 @@
 import React from 'react';
-import { PageId } from '../types.ts';
-import { Award, ShieldCheck, CheckCircle2, MapPin, ArrowRight } from 'lucide-react';
-
-interface AboutPageProps {
-  onNavigate: (page: PageId, subHash?: string) => void;
-  onOpenConsultation: () => void;
-}
-
-export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate, onOpenConsultation }) => {
-  return (
-    <div className="space-y-0">
-      {/* Hero */}
-      <section className="bg-[#17211C] text-white py-16 lg:py-20 border-b border-white/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl space-y-4">
-            <span className="text-xs font-mono uppercase tracking-widest text-[#E6F15A] font-semibold block">
-              Inżynieria · Doświadczenie · Standard KNX
-            </span>
-            <h1 className="text-4xl sm:text-5xl font-extrabold font-display tracking-tight text-white">
-              O Delitech Smart Spaces
-            </h1>
-            <p className="text-base sm:text-lg text-[#EDE9DF]/80 leading-relaxed pt-2 font-display">
-              „Automatyka budynku, która pracuje dla ludzi i przestrzeni.”
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Brand Story & Positioning */}
-      <section className="py-16 sm:py-24 bg-white border-b border-[#17211C]/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-            <div className="lg:col-span-6 space-y-6">
-              <span className="text-xs font-mono uppercase tracking-widest text-[#0E4637] font-semibold block">
-                Kim jesteśmy
-              </span>
-              <h2 className="text-3xl font-bold font-display text-[#17211C] tracking-tight">
-                Integrator automatyki budynkowej nowej generacji
-              </h2>
-              <p className="text-sm sm:text-base text-[#17211C]/80 leading-relaxed">
-                Delitech Smart Spaces powstał z potrzeby wypełnienia luki pomiędzy światem ambitnej architektury a surową inżynierią instalacyjną. Nie pozycjonujemy się jako sprzedawca elektronicznych gadżetów smart home. Jesteśmy kompetentnym partnerem technicznym i projektowym dla inwestorów, architektów wnętrz, projektantów instalacji oraz generalnych wykonawców fit-out.
-              </p>
-              <p className="text-sm sm:text-base text-[#17211C]/80 leading-relaxed">
-                Stawiamy na międzynarodowy, otwarty standard KNX oraz protokół DALI-2. Łączymy komfort użytkowników z wymierną efektywnością energetyczną (ESG) oraz szlachetnym detalem wnętrza.
-              </p>
-
-              <div className="pt-2 flex items-center gap-3">
-                <div className="px-4 py-2 bg-[#F7F8F5] border border-[#17211C]/10 rounded-lg text-xs font-semibold text-[#0E4637] flex items-center gap-2">
-                  <Award className="w-4 h-4 text-[#0E4637]" />
-                  <span>KNX Partner Certified No. 104820</span>
-                </div>
-                <div className="px-4 py-2 bg-[#F7F8F5] border border-[#17211C]/10 rounded-lg text-xs font-semibold text-[#0E4637] flex items-center gap-2">
-                  <ShieldCheck className="w-4 h-4 text-[#0E4637]" />
-                  <span>DALI-2 Certified Specialist</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Right Card: Zakres odpowiedzialności */}
-            <div className="lg:col-span-6 bg-[#F7F8F5] border border-[#17211C]/15 rounded-2xl p-8 space-y-6">
-              <h3 className="text-xl font-bold font-display text-[#17211C]">
-                Pełny cykl życia inwestycji w naszych rękach:
-              </h3>
-
-              <div className="space-y-3 text-xs text-[#17211C]/80">
-                <div className="flex items-start gap-3 p-3 bg-white rounded-lg border border-[#17211C]/10">
-                  <CheckCircle2 className="w-4 h-4 text-[#0E4637] shrink-0 mt-0.5" />
-                  <div>
-                    <strong className="text-[#17211C] block text-sm">1. Doradztwo i audyt koncepcji:</strong>
-                    Analiza rzutów, weryfikacja założeń funkcjonalnych, optymalizacja budżetu inwestycji.
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-3 p-3 bg-white rounded-lg border border-[#17211C]/10">
-                  <CheckCircle2 className="w-4 h-4 text-[#0E4637] shrink-0 mt-0.5" />
-                  <div>
-                    <strong className="text-[#17211C] block text-sm">2. Dokumentacja wykonawcza:</strong>
-                    Trasy magistrali, schematy rozdzielnic, wytyczne dla elektryków i koordynacja HVAC.
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-3 p-3 bg-white rounded-lg border border-[#17211C]/10">
-                  <CheckCircle2 className="w-4 h-4 text-[#0E4637] shrink-0 mt-0.5" />
-                  <div>
-                    <strong className="text-[#17211C] block text-sm">3. Dostawa i prefabrykacja szaf:</strong>
-                    Własny warsztat prefabrykacji szaf KNX, certyfikowane komponenty i testy przedmontażowe.
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-3 p-3 bg-white rounded-lg border border-[#17211C]/10">
-                  <CheckCircle2 className="w-4 h-4 text-[#0E4637] shrink-0 mt-0.5" />
-                  <div>
-                    <strong className="text-[#17211C] block text-sm">4. Programowanie ETS i odbiory:</strong>
-                    Uruchomienie scen, integracje BMS, szkolenie zarządcy i asysta powdrożeniowa.
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Office Warsaw */}
-      <section className="py-16 sm:py-20 bg-[#F7F8F5]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="p-8 sm:p-12 rounded-2xl bg-[#17211C] text-white flex flex-col md:flex-row items-center justify-between gap-8">
-            <div className="space-y-3">
-              <span className="text-xs font-mono uppercase tracking-widest text-[#E6F15A] font-semibold">
-                Siedziba &amp; Realizacje
-              </span>
-              <h3 className="text-2xl sm:text-3xl font-bold font-display text-white">
-                Warszawa · Projekty w całej Polsce
-              </h3>
-              <p className="text-xs sm:text-sm text-[#EDE9DF]/75 max-w-xl leading-relaxed">
-                Nasze biuro projektowe i showroom osprzętu zlokalizowane są przy ul. Prostej 68 w Warszawie (Wola Center). Realizujemy wdrożenia biurowe i rezydencjalne na terenie całego kraju.
-              </p>
-            </div>
-            <button
-              onClick={onOpenConsultation}
-              className="px-6 py-3 bg-[#E6F15A] hover:bg-white text-[#0E4637] text-xs font-bold uppercase tracking-wider rounded-lg transition-colors whitespace-nowrap"
-            >
-              Spotkajmy się w Warszawie
-            </button>
-          </div>
-        </div>
-      </section>
-    </div>
-  );
+import {cmsText} from '../cms/content.ts';
+import {PageId} from '../types.ts';
+import {ArrowRight,CheckCircle2} from 'lucide-react';
+interface AboutPageProps {onNavigate:(page:PageId,subHash?:string)=>void;onOpenConsultation:()=>void}
+export const AboutPage:React.FC<AboutPageProps>=({onNavigate,onOpenConsultation})=>{
+ const steps=[
+  {title:cmsText('AboutPage-v2-step1','Rozpoznanie potrzeb'),body:cmsText('AboutPage-v2-step1-body','Rozmawiamy o etapie inwestycji, funkcjach pomieszczeń i priorytetach. Przyglądamy się dostępnym rzutom.'),result:cmsText('AboutPage-v2-step1-result','Do ustalenia: cele, materiały wejściowe i pytania do pozostałych branż.')},
+  {title:cmsText('AboutPage-v2-step2','Scenariusze i zakres'),body:cmsText('AboutPage-v2-step2-body','Zapisujemy sposób działania sterowania, dobieramy rozwiązania i określamy granice prac. Oddzielamy urządzenia od usług i elementów poza ofertą.'),result:cmsText('AboutPage-v2-step2-result','Do uzgodnienia: karta funkcji, zakres wyceny i podział odpowiedzialności.')},
+  {title:cmsText('AboutPage-v2-step3','Koordynacja i wykonanie'),body:cmsText('AboutPage-v2-step3-body','Uzgadniamy punkty sterowania oraz wymagania instalacji z architektem i wykonawcami. Dokumentacja, montaż i konfiguracja wynikają z przyjętego zakresu.'),result:cmsText('AboutPage-v2-step3-result','Do uzgodnienia: wytyczne, osoby odpowiedzialne i kolejność prac.')},
+  {title:cmsText('AboutPage-v2-step4','Sprawdzenie i przekazanie'),body:cmsText('AboutPage-v2-step4-body','Sprawdzamy uzgodnione scenariusze i sposób obsługi. Przed realizacją ustalamy listę przekazywanych materiałów oraz zasady późniejszego wsparcia.'),result:cmsText('AboutPage-v2-step4-result','Do uzgodnienia: testy odbiorowe, instruktaż, dokumentacja i pliki konfiguracyjne.')}
+ ];
+ return <div><section className="bg-[#17211C] text-white py-12 lg:py-16"><div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><p className="text-xs uppercase tracking-widest text-[#E6F15A] mb-4">{cmsText('AboutPage-v2-kicker','Delitech Smart Spaces · jak pracujemy')}</p><h1 className="text-4xl sm:text-5xl font-display font-bold max-w-3xl">{cmsText('AboutPage-v2-title','Jasny zakres. Wspólne decyzje. Sprawdzony sposób obsługi.')}</h1><p className="text-lg text-white/80 leading-relaxed max-w-3xl mt-6">{cmsText('AboutPage-v2-intro','Łączymy projekt wnętrza z funkcjami automatyki KNX. Wspieramy architektów, inwestorów i zespoły fit-out; zakres odpowiedzialności ustalamy dla konkretnej inwestycji.')}</p></div></section>
+ <section className="py-12 sm:py-16"><div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-5">{steps.map((s,i)=><article key={s.title} className="bg-white border border-[#17211C]/10 rounded-2xl p-7"><span className="text-[#0E4637] font-mono">0{i+1}</span><h2 className="font-display text-2xl font-bold mt-3 mb-4">{s.title}</h2><p className="text-sm leading-relaxed text-[#17211C]/75">{s.body}</p><p className="text-sm text-[#0E4637] border-t border-[#17211C]/10 mt-5 pt-5">{s.result}</p></article>)}</div></section>
+ <section className="bg-white border-y border-[#17211C]/10 py-12"><div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-10"><div><h2 className="font-display text-3xl font-bold">{cmsText('AboutPage-v2-handover-title','Co ustalić przed odbiorem instalacji?')}</h2><p className="text-[#17211C]/75 leading-relaxed mt-4">{cmsText('AboutPage-v2-handover-body','Otwarty standard daje wybór urządzeń. Możliwość późniejszej obsługi systemu zależy również od dokumentacji, konfiguracji i dostępu. Dlatego warto uzgodnić je na początku współpracy.')}</p><button onClick={()=>onNavigate('projects')} className="text-[#0E4637] font-semibold text-sm underline underline-offset-4 mt-6">{cmsText('AboutPage-v2-examples','Zobacz przykłady rozwiązań')}</button></div><ul className="space-y-4">{[cmsText('AboutPage-v2-check1','Lista funkcji i sposób ich sprawdzenia.'),cmsText('AboutPage-v2-check2','Spis urządzeń, schematy i uzgodniona dokumentacja powykonawcza.'),cmsText('AboutPage-v2-check3','Zakres przekazania pliku ETS, konfiguracji integracji i uprawnień.'),cmsText('AboutPage-v2-check4','Instrukcja obsługi, kopie konfiguracji i zasady zgłoszeń serwisowych.')].map(x=><li key={x} className="flex gap-3 text-sm text-[#17211C]/80"><CheckCircle2 className="text-[#0E4637] shrink-0" size={19}/>{x}</li>)}</ul></div></section>
+ <section className="py-12"><div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-10"><div><p className="text-xs uppercase tracking-widest text-[#0E4637] font-semibold mb-3">{cmsText('AboutPage-v2-company-kicker','Firma i kontakt')}</p><h2 className="text-2xl font-display font-bold">{cmsText('AboutPage-v2-company-title','Delitech Smart Spaces')}</h2><p className="mt-4 text-sm leading-relaxed text-[#17211C]/75">{cmsText('AboutPage-v2-company-body','Delitech Smart Spaces to oferta automatyki budynkowej Delitech Jasek spółka jawna, prezentowana pod adresem intelispaces.pl. Zapytania kierujesz bezpośrednio do naszego zespołu.')}</p><p className="mt-4 text-sm text-[#17211C]/65">{cmsText('AboutPage-v2-salon','Salon sprzedaży: ul. Konwaliowa 7 lok. 103, 03-194 Warszawa. Spotkania po wcześniejszym uzgodnieniu.')}</p></div><div className="bg-[#0E4637] text-white rounded-2xl p-7 space-y-5"><h2 className="text-2xl font-display font-semibold">{cmsText('AboutPage-v2-contact-title','Zacznijmy od zakresu Twojego projektu.')}</h2><p className="text-sm text-white/80">{cmsText('AboutPage-v2-contact-body','Powiedz, co jest już ustalone, a co wymaga decyzji. Dobierzemy kolejny krok do etapu inwestycji.')}</p><button onClick={onOpenConsultation} className="inline-flex items-center gap-2 bg-[#E6F15A] text-[#0E4637] rounded-lg px-5 py-3 font-semibold text-sm">{cmsText('AboutPage-v2-cta','Omów projekt')}<ArrowRight size={16}/></button></div></div></section></div>;
 };

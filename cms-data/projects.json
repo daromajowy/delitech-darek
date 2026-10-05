@@ -1,0 +1,75 @@
+[
+  {
+    "id": "biuro-1",
+    "type": "biuro",
+    "title": "Przykładowy zakres: Biuro — światło, sale spotkań i komfort stref",
+    "subtitle": "Powierzchnia biurowa fit-out · Warszawa Wola · ~850 m²",
+    "image": "officeCommSpace",
+    "summary": "Architektura systemu obejmująca centralne zarządzanie oświetleniem DALI-2, koordynację 28 klimakonwektorów 4-rurowych, integrację sal konferencyjnych z systemem wideokonferencji oraz automatyczne procedury redukcji poboru mocy po godzinach pracy.",
+    "zones": [
+      "Open space: 4 strefy pracy ciągłej z pomiarem światła dziennego",
+      "Sale konferencyjne: 3 sale z panelami scen prezentacji i czujnikami CO2",
+      "Gabinet prezesa: dyskretne sterowanie klimatem i roletami",
+      "Strefa kuchenna i chillout: oświetlenie nastrojowe i nagłośnienie"
+    ],
+    "protocols": [
+      "KNX TP",
+      "DALI-2",
+      "BACnet/IP do BMS obiektu",
+      "Modbus RTU dla liczników energii"
+    ],
+    "hardware": [
+      "JUNG KNX F 40",
+      "Bramki DALI-2 IP",
+      "Sensory obecności Theben PlanoSpot"
+    ]
+  },
+  {
+    "id": "dom-1",
+    "type": "dom",
+    "title": "Przykładowy zakres: Dom — światło, rolety i temperatura",
+    "subtitle": "Dom jednorodzinny · przykładowy zakres · ~420 m²",
+    "image": "residentialResidence",
+    "summary": "Zintegrowana automatyka willi jednorodzinnej. Połączenie sterowania strefami podłogówki, sufitów chłodzących, stacji pogodowej ze śledzeniem pozycji słońca oraz designerskiego osprzętu JUNG w wykończeniu z ciemnego mosiądzu i aluminium.",
+    "zones": [
+      "Strefa dzienna: salon o podwójnej wysokości z wieloobwodowym oświetleniem DALI",
+      "Sypialnie i garderoby: indywidualne harmonogramy termiczne i ciche karnisze",
+      "Strefa SPA / basen: kontrola wilgotności, temperatury i oświetlenia relaksacyjnego",
+      "Ogród i taras: automatyka nawadniania, oświetlenie zmierzchowe i markizy"
+    ],
+    "protocols": [
+      "KNX TP",
+      "DALI-2",
+      "Bramka KNX-Modbus do pompy ciepła",
+      "Interfejs Apple HomeKit"
+    ],
+    "hardware": [
+      "JUNG LS 990 Mosiądz Antyczny",
+      "Stacja pogodowa KNX GPS",
+      "Zawory termoelektryczne 24V"
+    ]
+  },
+  {
+    "id": "apartament-1",
+    "type": "apartament",
+    "title": "Przykładowy zakres: Apartament penthouse — strefy DALI i zintegrowany HVAC",
+    "subtitle": "Apartament z tarasem · Warszawa Śródmieście · ~180 m²",
+    "image": "jungLsZero",
+    "summary": "Kompaktowa, wyrafinowana rozdzielnica KNX ukryta w szafie gospodarczej. Pełna eliminacja termostatów ściennych i włączników wieloramkowych na rzecz pojedynczych manipulatorów JUNG LS ZERO zlicowanych ze strukturą tynku.",
+    "zones": [
+      "Salon z aneksem kuchennym: sceny świetlne do gotowania, kolacji i seansów filmowych",
+      "Master bedroom: sterowanie żaluzjami zaciemniającymi blackout i klimatyzacją",
+      "Taras widokowy: ogrzewanie promiennikowe i oświetlenie obwodowe"
+    ],
+    "protocols": [
+      "KNX TP",
+      "DALI-2 Tunable White",
+      "Integracja klimatyzacji kanałowej VRF"
+    ],
+    "hardware": [
+      "JUNG LS ZERO",
+      "Bramka Intesis KNX-VRF",
+      "Aktory ściemniające LED 24V"
+    ]
+  }
+]

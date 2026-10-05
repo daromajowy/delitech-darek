@@ -56,7 +56,7 @@
 .hero-video {
   position: relative;
   width: 100%;
-  height: clamp(192px, 34.4vw, 500px);
+  height: clamp(220px, 33vw, 460px);
   overflow: hidden;
   background: #17211C;
 }
@@ -72,4 +72,41 @@
 .hero-video__media::-webkit-media-controls,
 .hero-video__media::-webkit-media-controls-start-playback-button {
   display: none !important;
+}
+
+
+/* Shared presentation refinements. */
+body { overflow-wrap: break-word; }
+button, a, input, select, textarea, summary { -webkit-tap-highlight-color: transparent; }
+:where(button, a, input, select, textarea, summary):focus-visible { outline: 3px solid #719b69; outline-offset: 3px; }
+main :where(h1, h2) { text-wrap: balance; }
+main :where(p, li) { text-wrap: pretty; }
+main :where(img) { max-width: 100%; }
+main :where(.grid) > * { min-width: 0; }
+main .text-xs { line-height: 1.7; }
+main .text-\[11px\] { font-size: .75rem; }
+main .text-\[10px\] { font-size: .6875rem; }
+::placeholder { opacity: 1; }
+.guide-body { max-width: 72ch; }
+.guide-body p { margin: .8rem 0 1.2rem; color: #45564b; line-height: 1.85; }
+.guide-body h4 { font-size: 1rem; font-weight: 750; margin-top: 1.5rem; }
+.guide-body li { color: #45564b; margin: .5rem 0; line-height: 1.7; }
+.guide-body a { color: #0e4637; text-decoration: underline; text-underline-offset: 3px; }
+.guide-card[open] { border-color: #90ad87; grid-column: 1 / -1; }
+.guide-card > summary { list-style: none; }
+.guide-card > summary::-webkit-details-marker { display: none; }
+.guide-card .guide-close, .guide-card[open] .guide-open { display: none; }
+.guide-card[open] .guide-close { display: inline; }
+.preparation-list { counter-reset: preparation; }
+.preparation-list > li { counter-increment: preparation; display: flex; align-items: flex-start; gap: .75rem; }
+.preparation-list > li::before { content: '0' counter(preparation); font-family: monospace; font-weight: 700; color: #0e4637; background: #e7efdf; border-radius: .5rem; padding: .2rem .5rem; }
+@media (max-width: 639px) {
+  .site-header .text-\[11px\] { font-size: 9px; letter-spacing: 0; }
+  main h1 { font-size: clamp(1.9rem, 8vw, 2.5rem); }
+  main .text-3xl { font-size: 1.65rem; }
+  main .text-xs { font-size: .8rem; }
+  main .font-mono { overflow-wrap: anywhere; }
+  main .flex.justify-between { gap: .65rem; }
+  main :where(input:not([type="checkbox"]), select, textarea),
+  [role="dialog"] :where(input:not([type="checkbox"]), select, textarea) { font-size: 1rem; }
 }
