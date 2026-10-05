@@ -75,14 +75,7 @@ export const Logo: React.FC<LogoProps> = ({
               isDarkBg ? 'text-white' : 'text-[#0E4637]'
             }`}
           >
-            DELITECH
-          </span>
-          <span
-            className={`font-semibold uppercase tracking-[0.2em] mt-0.5 ${textSizes[size].subtitle} ${
-              isDarkBg ? 'text-[#CFE3C4]' : 'text-[#17211C]/70'
-            }`}
-          >
-            SMART SPACES
+            INTELISPACES
           </span>
         </div>
       )}

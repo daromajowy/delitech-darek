@@ -30,7 +30,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenPrivacy }) => 
 
             <div className="pt-2 text-xs text-[#EDE9DF]/50 space-y-0.5 font-mono">
               <p>NIP: 525-28-40-192 · REGON: 387129012</p>
-              <p>Delitech Smart Spaces Sp. z o.o.</p>
+              <p>INTELISPACES Sp. z o.o.</p>
             </div>
           </div>
 
@@ -230,7 +230,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenPrivacy }) => 
 
         {/* Bottom Bar */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#EDE9DF]/50">
-          <p>© {new Date().getFullYear()} Delitech Smart Spaces. Wszelkie prawa zastrzeżone.</p>
+          <p>© {new Date().getFullYear()} INTELISPACES. Wszelkie prawa zastrzeżone.</p>
 
           <div className="flex flex-wrap items-center gap-4">
             <button
