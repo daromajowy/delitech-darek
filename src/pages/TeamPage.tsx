@@ -121,7 +121,7 @@ export const TeamPage: React.FC<TeamPageProps> = ({ onNavigate, onOpenConsultati
               Poznaj nasz zespół
             </span>
             <h2 className="text-3xl sm:text-4xl font-bold font-display text-[#17211C] tracking-tight">
-              Inżynierowie za Twoją instalacją
+              Zespoół stojący za Twoją instalacją
             </h2>
             <p className="text-sm sm:text-base text-[#17211C]/75 leading-relaxed">
                Prezentację naszego zespołu. 
