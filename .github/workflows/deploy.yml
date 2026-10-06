@@ -46,6 +46,7 @@ jobs:
         run: |
           echo "=== Checking and building Darka branch ==="
           if git rev-parse --verify origin/Darka >/dev/null 2>&1; then
+          git clean -fd
             git checkout origin/Darka
             npm install --legacy-peer-deps
             npm run build
@@ -62,6 +63,7 @@ jobs:
         run: |
           echo "=== Checking and building Janka branch ==="
           if git rev-parse --verify origin/Janka >/dev/null 2>&1; then
+          git clean -fd
             git checkout origin/Janka
             npm install --legacy-peer-deps
             npm run build
