@@ -118,6 +118,7 @@ export default function App() {
           'projects',
           'knowledge',
           'about',
+          'team',
           'contact',
         ];
         if (validPages.includes(pagePart as PageId)) {
