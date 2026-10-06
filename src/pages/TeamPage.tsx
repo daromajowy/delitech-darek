@@ -2,6 +2,7 @@ import React from 'react';
 import { PageId } from '../types.ts';
 import { Users, Award, ShieldCheck, Mail, Phone, ArrowRight, Sparkles, Cpu, Layers } from 'lucide-react';
 import janekPhoto from '../assets/images/janek.jpg';
+import darekPhoto from '../assets/images/darek.jpg';
 
 interface TeamPageProps {
   onNavigate: (page: PageId, subHash?: string) => void;
@@ -30,6 +31,7 @@ export const TeamPage: React.FC<TeamPageProps> = ({ onNavigate, onOpenConsultati
       specialization: 'Automatyka komercyjna, integracje DALI-2',
       bio: 'Wieloletnie doświadczenie w branży IT, w zarządzaniu projektami w dużych korporacjach w srodkowisku ściśle regulowanym. Odpowiedzialny za wspópłprace z projektatnami,  koncepcje techniczne, konsutlacje z Inwestorem,  programowanie podzespołów KNX oraz nadzór nad wdrożeniami.',
       certifications: ['KNX Partner Advanced', 'DALI-2 Specialist', 'ETS Certified'],
+      photoUrl: darekPhoto,
       email: 'darek@intelispaces.pl',
       phone: '+48 885 253 934',
     },
