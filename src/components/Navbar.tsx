@@ -38,6 +38,7 @@ export const Navbar: React.FC<NavbarProps> = ({
       { label: 'Projekt i fit-out', hash: 'audyt' },
     ] },
     { id: 'about', label: 'Jak pracujemy', subItems: [
+      { label: 'Kim jesteśmy', page: 'team' },
       { label: 'Etapy i odpowiedzialność' },
       { label: 'Przykłady rozwiązań', page: 'projects' },
       { label: 'Technologie i integracje', page: 'solutions' },
