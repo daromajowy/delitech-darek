@@ -1,6 +1,7 @@
 import React from 'react';
 import { PageId } from '../types.ts';
 import { Users, Award, ShieldCheck, Mail, Phone, ArrowRight, Sparkles, Cpu, Layers } from 'lucide-react';
+import janekPhoto from '../assets/images/janek.jpg';
 
 interface TeamPageProps {
   onNavigate: (page: PageId, subHash?: string) => void;
@@ -39,6 +40,7 @@ export const TeamPage: React.FC<TeamPageProps> = ({ onNavigate, onOpenConsultati
       specialization: 'Współpraca z pracowniami architektonicznymi, dobór i doradztwo w osprzęcie KNX, Programowanie ETS, wizualizacje, logistyka dostaw, konsultacje i wsparcie dla Inwestorów',
       bio: 'Specjalista w zakresie programowania logiki sterowania, prefabrykacji szaf automatyki oraz uruchamiania instalacji na obiektach rezydencjalnych i biurowych. Dba o bezbłędny standard montażu.',
       certifications: ['KNX Cerified Partner'],
+      photoUrl: janekPhoto,
       email: 'janek@intelispaces.pl',
     },
     {
@@ -132,23 +134,33 @@ export const TeamPage: React.FC<TeamPageProps> = ({ onNavigate, onOpenConsultati
               >
                 <div>
                   {/* Kontener na zdjęcie / awatar */}
-                  <div className="aspect-[4/3] bg-gradient-to-br from-[#17211C] to-[#0E4637] relative flex items-center justify-center text-white overflow-hidden group">
+                  <div className="aspect-[3/4] bg-[#111613] relative flex items-center justify-center text-white overflow-hidden group">
                     {member.photoUrl ? (
                       <img
                         src={member.photoUrl}
                         alt={member.name}
-                        className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                        className="w-full h-full object-contain object-top group-hover:scale-102 transition-transform duration-300"
+                        onError={(e) => {
+                          // Obsługa gdy plik jeszcze nie został dodany lokalnie do public/assets/
+                          e.currentTarget.style.display = 'none';
+                          const fallback = e.currentTarget.nextElementSibling as HTMLElement;
+                          if (fallback) fallback.style.display = 'flex';
+                        }}
                       />
-                    ) : (
-                      <div className="flex flex-col items-center justify-center text-center p-6 space-y-2">
-                        <div className="w-20 h-20 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-2xl font-bold font-display text-[#E6F15A]">
-                          {member.name.split(' ').map((n) => n[0]).join('')}
-                        </div>
-                        <span className="text-[11px] font-mono text-[#CFE3C4]/70 uppercase tracking-wider">
-                          [ Miejsce na zdjęcie ]
-                        </span>
+                    ) : null}
+                    
+                    <div
+                      className={`flex flex-col items-center justify-center text-center p-6 space-y-2 ${
+                        member.photoUrl ? 'hidden' : 'flex'
+                      }`}
+                    >
+                      <div className="w-20 h-20 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-2xl font-bold font-display text-[#E6F15A]">
+                        {member.name.split(' ').map((n) => n[0]).join('')}
                       </div>
-                    )}
+                      <span className="text-[11px] font-mono text-[#CFE3C4]/70 uppercase tracking-wider">
+                        [ Miejsce na oryginalne zdjęcie ]
+                      </span>
+                    </div>
 
                     {/* Tag specjalizacji w rogu */}
                     <div className="absolute bottom-3 left-3 right-3 bg-black/60 backdrop-blur-md px-3 py-1.5 rounded-lg text-[11px] text-[#EDE9DF] border border-white/10 flex items-center gap-1.5">
