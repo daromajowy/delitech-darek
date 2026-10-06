@@ -21,7 +21,7 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Checkout main repository
+      - name: Checkout repository
         uses: actions/checkout@v4
         with:
           ref: 'main'
@@ -32,7 +32,7 @@ jobs:
         with:
           node-version: 22
 
-      # 1. ZBUDUJ STRONĘ GŁÓWNĄ (main)
+      # 1. ZBUDUJ STRONĘ GŁÓWNĄ (main) w katalogu głównym ./site
       - name: Build main (production)
         run: |
           echo "=== Building main branch ==="
@@ -41,36 +41,40 @@ jobs:
           mkdir -p ./site
           cp -r dist/* ./site/
 
-      # 2. ZBUDUJ PODGLĄD DARKA (jeśli branch istnieje)
+      # 2. ZBUDUJ PODGLĄD DARKA W ODRĘBNYM KATALOGU
       - name: Build Darka preview
         run: |
           echo "=== Checking and building Darka branch ==="
           if git rev-parse --verify origin/Darka >/dev/null 2>&1; then
-          git clean -fd
-            git checkout origin/Darka
+            mkdir -p /tmp/branch-darka
+            git archive origin/Darka | tar -x -C /tmp/branch-darka
+            cd /tmp/branch-darka
             npm install --legacy-peer-deps
             npm run build
             sed -i 's|<head>|<head><meta name="robots" content="noindex, nofollow">|' dist/index.html
-            mkdir -p ./site/Darka
-            cp -r dist/* ./site/Darka/
+            mkdir -p $GITHUB_WORKSPACE/site/Darka
+            cp -r dist/* $GITHUB_WORKSPACE/site/Darka/
             echo "DARKA_BUILT=true" >> $GITHUB_ENV
+            echo "Darka preview built successfully!"
           else
             echo "Branch Darka not found, skipping"
           fi
 
-      # 3. ZBUDUJ PODGLĄD JANKA (jeśli branch istnieje)
+      # 3. ZBUDUJ PODGLĄD JANKA W ODRĘBNYM KATALOGU
       - name: Build Janka preview
         run: |
           echo "=== Checking and building Janka branch ==="
           if git rev-parse --verify origin/Janka >/dev/null 2>&1; then
-          git clean -fd
-            git checkout origin/Janka
+            mkdir -p /tmp/branch-janka
+            git archive origin/Janka | tar -x -C /tmp/branch-janka
+            cd /tmp/branch-janka
             npm install --legacy-peer-deps
             npm run build
             sed -i 's|<head>|<head><meta name="robots" content="noindex, nofollow">|' dist/index.html
-            mkdir -p ./site/Janka
-            cp -r dist/* ./site/Janka/
+            mkdir -p $GITHUB_WORKSPACE/site/Janka
+            cp -r dist/* $GITHUB_WORKSPACE/site/Janka/
             echo "JANKA_BUILT=true" >> $GITHUB_ENV
+            echo "Janka preview built successfully!"
           else
             echo "Branch Janka not found, skipping"
           fi
