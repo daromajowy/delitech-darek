@@ -136,14 +136,13 @@ export const TeamPage: React.FC<TeamPageProps> = ({ onNavigate, onOpenConsultati
               >
                 <div>
                   {/* Kontener na zdjęcie / awatar */}
-                  <div className="aspect-[3/4] bg-[#111613] relative flex items-center justify-center text-white overflow-hidden group">
+                  <div className="aspect-[4/5] bg-[#17211C] relative flex items-center justify-center text-white overflow-hidden group">
                     {member.photoUrl ? (
                       <img
                         src={member.photoUrl}
                         alt={member.name}
-                        className="w-full h-full object-contain object-top group-hover:scale-102 transition-transform duration-300"
+                        className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
                         onError={(e) => {
-                          // Obsługa gdy plik jeszcze nie został dodany lokalnie do public/assets/
                           e.currentTarget.style.display = 'none';
                           const fallback = e.currentTarget.nextElementSibling as HTMLElement;
                           if (fallback) fallback.style.display = 'flex';
