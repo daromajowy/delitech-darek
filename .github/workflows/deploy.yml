@@ -2,10 +2,7 @@ name: Deploy Delitech to GitHub Pages
 
 on:
   push:
-    branches:
-      - main
-      - Darka
-      - Janka
+    branches: ['main', 'Darka', 'Janka']
   workflow_dispatch:
 
 permissions:
@@ -14,7 +11,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: pages
+  group: 'pages'
   cancel-in-progress: true
 
 jobs:
@@ -23,118 +20,81 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-
     steps:
-      - name: Checkout repository
+      - name: Checkout main repository
         uses: actions/checkout@v4
         with:
+          ref: 'main'
           fetch-depth: 0
-
-      - name: Fetch all remote branches
-        shell: bash
-        run: |
-          git fetch --no-tags --prune origin "+refs/heads/*:refs/remotes/origin/*"
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
 
-      - name: Build main site
-        shell: bash
+      # 1. ZBUDUJ STRONĘ GŁÓWNĄ (main)
+      - name: Build main (production)
         run: |
-          set -euo pipefail
-
           echo "=== Building main branch ==="
-          git checkout -B main origin/main
           npm install --legacy-peer-deps
           npm run build
+          mkdir -p ./site
+          cp -r dist/* ./site/
 
-          mkdir -p "$GITHUB_WORKSPACE/site"
-          cp -r dist/* "$GITHUB_WORKSPACE/site/"
-
+      # 2. ZBUDUJ PODGLĄD DARKA (jeśli branch istnieje)
       - name: Build Darka preview
-        shell: bash
-        env:
-          SITE_DIR: ${{ github.workspace }}/site
         run: |
-          set -euo pipefail
-
           echo "=== Checking and building Darka branch ==="
-          if git show-ref --verify --quiet refs/remotes/origin/Darka; then
-            rm -rf /tmp/branch-darka
-            mkdir -p /tmp/branch-darka
-            git archive origin/Darka | tar -x -C /tmp/branch-darka
-
-            cd /tmp/branch-darka
+          if git rev-parse --verify origin/Darka >/dev/null 2>&1; then
+            git checkout origin/Darka
             npm install --legacy-peer-deps
             npm run build
-
-            if [ -f dist/index.html ]; then
-              sed -i 's|<head>|<head><meta name="robots" content="noindex, nofollow">|' dist/index.html
-            fi
-
-            mkdir -p "$SITE_DIR/Darka"
-            cp -r dist/* "$SITE_DIR/Darka/"
-            echo "DARKA_BUILT=true" >> "$GITHUB_ENV"
-            echo "Darka preview built successfully!"
+            sed -i 's|<head>|<head><meta name="robots" content="noindex, nofollow">|' dist/index.html
+            mkdir -p ./site/Darka
+            cp -r dist/* ./site/Darka/
+            echo "DARKA_BUILT=true" >> $GITHUB_ENV
           else
             echo "Branch Darka not found, skipping"
           fi
 
+      # 3. ZBUDUJ PODGLĄD JANKA (jeśli branch istnieje)
       - name: Build Janka preview
-        shell: bash
-        env:
-          SITE_DIR: ${{ github.workspace }}/site
         run: |
-          set -euo pipefail
-
           echo "=== Checking and building Janka branch ==="
-          if git show-ref --verify --quiet refs/remotes/origin/Janka; then
-            rm -rf /tmp/branch-janka
-            mkdir -p /tmp/branch-janka
-            git archive origin/Janka | tar -x -C /tmp/branch-janka
-
-            cd /tmp/branch-janka
+          if git rev-parse --verify origin/Janka >/dev/null 2>&1; then
+            git checkout origin/Janka
             npm install --legacy-peer-deps
             npm run build
-
-            if [ -f dist/index.html ]; then
-              sed -i 's|<head>|<head><meta name="robots" content="noindex, nofollow">|' dist/index.html
-            fi
-
-            mkdir -p "$SITE_DIR/Janka"
-            cp -r dist/* "$SITE_DIR/Janka/"
-            echo "JANKA_BUILT=true" >> "$GITHUB_ENV"
-            echo "Janka preview built successfully!"
+            sed -i 's|<head>|<head><meta name="robots" content="noindex, nofollow">|' dist/index.html
+            mkdir -p ./site/Janka
+            cp -r dist/* ./site/Janka/
+            echo "JANKA_BUILT=true" >> $GITHUB_ENV
           else
             echo "Branch Janka not found, skipping"
           fi
 
-      - name: Setup GitHub Pages
+      # 4. WDROŻENIE NA GITHUB PAGES
+      - name: Setup Pages
         uses: actions/configure-pages@v5
 
-      - name: Upload Pages artifact
+      - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./site
+          path: './site'
 
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
 
-      - name: Write deployment summary
-        shell: bash
+      - name: Podsumowanie linkow
         env:
           PAGE_URL: ${{ steps.deployment.outputs.page_url }}
         run: |
           echo "### 🚀 Opublikowane wersje:" >> "$GITHUB_STEP_SUMMARY"
-          echo "- **Wersja Główna (main):** ${PAGE_URL}" >> "$GITHUB_STEP_SUMMARY"
-
-          if [ "${DARKA_BUILT:-}" = "true" ]; then
+          echo "- **Wersja Główna (main):** $PAGE_URL" >> "$GITHUB_STEP_SUMMARY"
+          if [ "$DARKA_BUILT" = "true" ]; then
             echo "- **Podgląd Darka (Darka):** ${PAGE_URL}Darka/" >> "$GITHUB_STEP_SUMMARY"
           fi
-
-          if [ "${JANKA_BUILT:-}" = "true" ]; then
+          if [ "$JANKA_BUILT" = "true" ]; then
             echo "- **Podgląd Janka (Janka):** ${PAGE_URL}Janka/" >> "$GITHUB_STEP_SUMMARY"
           fi
