@@ -23,8 +23,7 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-		 fetch-depth: 0
+        with: fetch-depth: 0
       - name: Fetch all remote branches
         run: |
           git fetch --no-tags --prune origin "+refs/heads/*:refs/remotes/origin/*"
