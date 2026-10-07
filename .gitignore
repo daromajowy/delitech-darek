@@ -6,3 +6,8 @@ coverage/
 *.log
 .env*
 !.env.example
+.ssr-app.mjs
+wordpress-release.tar.gz
+wordpress/intelispaces/media/
+wordpress/intelispaces/templates/
+__pycache__/

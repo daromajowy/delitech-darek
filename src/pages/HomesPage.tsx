@@ -1,3 +1,4 @@
+import { cmsText } from '../cms';
 import React, { useState } from 'react';
 import { PageId } from '../types.ts';
 import { ContactForm } from '../components/ContactForm.tsx';
@@ -39,22 +40,16 @@ export const HomesPage: React.FC<HomesPageProps> = ({
         <div className="absolute inset-0 bg-grid-dark-subtle opacity-50 pointer-events-none" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-3xl space-y-4">
-            <span className="text-xs font-mono uppercase tracking-widest text-[#E6F15A] font-semibold block">
-              Smart Home Premium · Warszawa &amp; Mazowsze
-            </span>
-            <h1 className="text-4xl sm:text-5xl font-extrabold font-display tracking-tight text-white">
-              Automatyka dla domów i apartamentów
-            </h1>
-            <p className="text-base sm:text-lg text-[#EDE9DF]/80 leading-relaxed pt-2">
-              „Komfort od pierwszego dotknięcia.” Tworzymy spójne instalacje KNX w domach jednorodzinnych, willach i luksusowych apartamentach. Zastępujemy baterie włączników na ścianach szlachetnymi manipulatorami JUNG i automatycznymi scenami.
-            </p>
+            <span className="text-xs font-mono uppercase tracking-widest text-[#E6F15A] font-semibold block">{cmsText("homespage.e667d94186", "Smart Home Premium · Warszawa & Mazowsze")}</span>
+            <h1 className="text-4xl sm:text-5xl font-extrabold font-display tracking-tight text-white">{cmsText("homespage.3f02aa9c45", "Automatyka dla domów i apartamentów")}</h1>
+            <p className="text-base sm:text-lg text-[#EDE9DF]/80 leading-relaxed pt-2">{cmsText("homespage.6f43c957f3", "„Komfort od pierwszego dotknięcia.” Tworzymy spójne instalacje KNX w domach jednorodzinnych, willach i luksusowych apartamentach. Zastępujemy baterie włączników na ścianach szlachetnymi manipulatorami JUNG i automatycznymi scenami.")}</p>
 
             <div className="pt-4 flex flex-wrap items-center gap-4">
               <button
                 onClick={onOpenConsultation}
                 className="px-6 py-3 bg-[#E6F15A] hover:bg-white text-[#0E4637] font-bold text-xs uppercase tracking-wider rounded-lg transition-colors flex items-center gap-2"
               >
-                <span>Umów konsultację rezydencji</span>
+                <span>{cmsText("homespage.2059edacb7", "Umów konsultację rezydencji")}</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
               <button
@@ -63,9 +58,7 @@ export const HomesPage: React.FC<HomesPageProps> = ({
                   el?.scrollIntoView({ behavior: 'smooth' });
                 }}
                 className="px-6 py-3 bg-white/10 hover:bg-white/15 text-white font-medium text-xs uppercase tracking-wider rounded-lg transition-colors border border-white/15"
-              >
-                Prześlij rzuty do analizy
-              </button>
+              >{cmsText("homespage.38178f3b3a", "Prześlij rzuty do analizy")}</button>
             </div>
           </div>
         </div>
@@ -84,7 +77,7 @@ export const HomesPage: React.FC<HomesPageProps> = ({
               }`}
             >
               <Home className="w-4 h-4" />
-              <span>Dom jednorodzinny / Rezydencja</span>
+              <span>{cmsText("homespage.541e3a6871", "Dom jednorodzinny / Rezydencja")}</span>
             </button>
             <button
               onClick={() => setActiveTab('apartament')}
@@ -95,7 +88,7 @@ export const HomesPage: React.FC<HomesPageProps> = ({
               }`}
             >
               <Building className="w-4 h-4" />
-              <span>Apartament i Penthouse</span>
+              <span>{cmsText("homespage.1e366709e8", "Apartament i Penthouse")}</span>
             </button>
             <button
               onClick={() => setActiveTab('modernizacja')}
@@ -106,7 +99,7 @@ export const HomesPage: React.FC<HomesPageProps> = ({
               }`}
             >
               <RefreshCw className="w-4 h-4" />
-              <span>Modernizacja instalacji</span>
+              <span>{cmsText("homespage.4c5e67702a", "Modernizacja instalacji")}</span>
             </button>
           </div>
 
@@ -114,32 +107,26 @@ export const HomesPage: React.FC<HomesPageProps> = ({
           {activeTab === 'dom' && (
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
               <div className="lg:col-span-6 space-y-6">
-                <span className="text-xs font-mono uppercase tracking-wider text-[#0E4637] font-semibold">
-                  Rezydencje od 200 do 1200+ m²
-                </span>
-                <h2 className="text-3xl sm:text-4xl font-bold font-display text-[#17211C]">
-                  Pełna kontrola nad domem i ogrodem
-                </h2>
-                <p className="text-sm sm:text-base text-[#17211C]/80 leading-relaxed">
-                  W dużym domu automatyka jest niezbędna, aby nie biegać po kondygnacjach sprawdzając, czy zgaszono światła, zamknięto rolety i opuszczono temperaturę. Jeden przycisk „Wyjście z domu” przy drzwiach lub bramie garażowej gasi wszystkie zbędne obwody, uzbraja alarm i przestawia rekuperację w tryb ekonomiczny.
-                </p>
+                <span className="text-xs font-mono uppercase tracking-wider text-[#0E4637] font-semibold">{cmsText("homespage.b125538f5d", "Rezydencje od 200 do 1200+ m²")}</span>
+                <h2 className="text-3xl sm:text-4xl font-bold font-display text-[#17211C]">{cmsText("homespage.66f6add5d5", "Pełna kontrola nad domem i ogrodem")}</h2>
+                <p className="text-sm sm:text-base text-[#17211C]/80 leading-relaxed">{cmsText("homespage.363747ada4", "W dużym domu automatyka jest niezbędna, aby nie biegać po kondygnacjach sprawdzając, czy zgaszono światła, zamknięto rolety i opuszczono temperaturę. Jeden przycisk „Wyjście z domu” przy drzwiach lub bramie garażowej gasi wszystkie zbędne obwody, uzbraja alarm i przestawia rekuperację w tryb ekonomiczny.")}</p>
 
                 <div className="space-y-3 pt-2">
                   <div className="flex items-start gap-2.5 text-xs text-[#17211C]/85">
                     <CheckCircle2 className="w-4 h-4 text-[#0E4637] shrink-0 mt-0.5" />
-                    <span>Zintegrowana stacja pogodowa KNX chroniąca żaluzje przed wiatrem i gradu</span>
+                    <span>{cmsText("homespage.c94de9bfb8", "Zintegrowana stacja pogodowa KNX chroniąca żaluzje przed wiatrem i gradu")}</span>
                   </div>
                   <div className="flex items-start gap-2.5 text-xs text-[#17211C]/85">
                     <CheckCircle2 className="w-4 h-4 text-[#0E4637] shrink-0 mt-0.5" />
-                    <span>Niezależna regulacja strefowa: sypialnie chłodniejsze w nocy, salon ciepły wieczorem</span>
+                    <span>{cmsText("homespage.920744d2d0", "Niezależna regulacja strefowa: sypialnie chłodniejsze w nocy, salon ciepły wieczorem")}</span>
                   </div>
                   <div className="flex items-start gap-2.5 text-xs text-[#17211C]/85">
                     <CheckCircle2 className="w-4 h-4 text-[#0E4637] shrink-0 mt-0.5" />
-                    <span>Oświetlenie elewacji i ogrodu powiązane z zegarem astronomicznym i zmierzchem</span>
+                    <span>{cmsText("homespage.c343d965de", "Oświetlenie elewacji i ogrodu powiązane z zegarem astronomicznym i zmierzchem")}</span>
                   </div>
                   <div className="flex items-start gap-2.5 text-xs text-[#17211C]/85">
                     <CheckCircle2 className="w-4 h-4 text-[#0E4637] shrink-0 mt-0.5" />
-                    <span>Integracja z pompą ciepła, rekuperacją, panelami fotowoltaicznymi i ładowarką auta</span>
+                    <span>{cmsText("homespage.e7b1ae13fd", "Integracja z pompą ciepła, rekuperacją, panelami fotowoltaicznymi i ładowarką auta")}</span>
                   </div>
                 </div>
 
@@ -147,9 +134,7 @@ export const HomesPage: React.FC<HomesPageProps> = ({
                   <button
                     onClick={onOpenConsultation}
                     className="px-6 py-3 bg-[#0E4637] text-[#E6F15A] text-xs font-semibold uppercase tracking-wider rounded-lg hover:bg-[#17211C] transition-colors"
-                  >
-                    Umów bezpłatną konsultację rzutów domu
-                  </button>
+                  >{cmsText("homespage.06e06939f2", "Umów bezpłatną konsultację rzutów domu")}</button>
                 </div>
               </div>
 
@@ -157,7 +142,7 @@ export const HomesPage: React.FC<HomesPageProps> = ({
                 <div className="rounded-2xl overflow-hidden border border-[#17211C]/15 shadow-xl bg-[#17211C] aspect-[4/3]">
                   <img
                     src={IMAGES.residentialResidence}
-                    alt="Nowoczesna rezydencja z automatyką KNX"
+                    alt={cmsText("homespage.1f350bd967", "Nowoczesna rezydencja z automatyką KNX")}
                     className="w-full h-full object-cover"
                     referrerPolicy="no-referrer"
                   />
@@ -169,32 +154,26 @@ export const HomesPage: React.FC<HomesPageProps> = ({
           {activeTab === 'apartament' && (
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
               <div className="lg:col-span-6 space-y-6">
-                <span className="text-xs font-mono uppercase tracking-wider text-[#0E4637] font-semibold">
-                  Apartamenty i Penthousy 90–400 m²
-                </span>
-                <h2 className="text-3xl sm:text-4xl font-bold font-display text-[#17211C]">
-                  Czyste ściany i wyrafinowana estetyka detalu
-                </h2>
-                <p className="text-sm sm:text-base text-[#17211C]/80 leading-relaxed">
-                  W apartamentach premium architekci walczą o każdy detal wykończenia. Zamiast rzędu 5 puszek elektrycznych (światło, rolety, termostat, klimatyzacja, audio) instalujemy pojedynczy szlachetny kontroler pokojowy JUNG F 40 lub F 50 o zlicowanym profilu.
-                </p>
+                <span className="text-xs font-mono uppercase tracking-wider text-[#0E4637] font-semibold">{cmsText("homespage.82b090318e", "Apartamenty i Penthousy 90–400 m²")}</span>
+                <h2 className="text-3xl sm:text-4xl font-bold font-display text-[#17211C]">{cmsText("homespage.f96a88bd72", "Czyste ściany i wyrafinowana estetyka detalu")}</h2>
+                <p className="text-sm sm:text-base text-[#17211C]/80 leading-relaxed">{cmsText("homespage.79495e5f9a", "W apartamentach premium architekci walczą o każdy detal wykończenia. Zamiast rzędu 5 puszek elektrycznych (światło, rolety, termostat, klimatyzacja, audio) instalujemy pojedynczy szlachetny kontroler pokojowy JUNG F 40 lub F 50 o zlicowanym profilu.")}</p>
 
                 <div className="space-y-3 pt-2">
                   <div className="flex items-start gap-2.5 text-xs text-[#17211C]/85">
                     <CheckCircle2 className="w-4 h-4 text-[#0E4637] shrink-0 mt-0.5" />
-                    <span>Dyskretny montaż rozdzielnicy KNX w szafie technicznej lub garderobie</span>
+                    <span>{cmsText("homespage.424d48ac00", "Dyskretny montaż rozdzielnicy KNX w szafie technicznej lub garderobie")}</span>
                   </div>
                   <div className="flex items-start gap-2.5 text-xs text-[#17211C]/85">
                     <CheckCircle2 className="w-4 h-4 text-[#0E4637] shrink-0 mt-0.5" />
-                    <span>Scenariusze nastrojowe: „Kolacja”, „Kino domowe”, „Relaks”, „Czystość”</span>
+                    <span>{cmsText("homespage.3f8d757d5d", "Scenariusze nastrojowe: „Kolacja”, „Kino domowe”, „Relaks”, „Czystość”")}</span>
                   </div>
                   <div className="flex items-start gap-2.5 text-xs text-[#17211C]/85">
                     <CheckCircle2 className="w-4 h-4 text-[#0E4637] shrink-0 mt-0.5" />
-                    <span>Wyciszone napędy zasłon elektrycznych i żaluzji wewnętrznych</span>
+                    <span>{cmsText("homespage.6a825e6258", "Wyciszone napędy zasłon elektrycznych i żaluzji wewnętrznych")}</span>
                   </div>
                   <div className="flex items-start gap-2.5 text-xs text-[#17211C]/85">
                     <CheckCircle2 className="w-4 h-4 text-[#0E4637] shrink-0 mt-0.5" />
-                    <span>Dostęp z intuicyjnej aplikacji na iOS/Android oraz Apple HomeKit / Siri</span>
+                    <span>{cmsText("homespage.6978cef840", "Dostęp z intuicyjnej aplikacji na iOS/Android oraz Apple HomeKit / Siri")}</span>
                   </div>
                 </div>
 
@@ -202,9 +181,7 @@ export const HomesPage: React.FC<HomesPageProps> = ({
                   <button
                     onClick={onOpenConsultation}
                     className="px-6 py-3 bg-[#0E4637] text-[#E6F15A] text-xs font-semibold uppercase tracking-wider rounded-lg hover:bg-[#17211C] transition-colors"
-                  >
-                    Porozmawiaj o automatyce apartamentu
-                  </button>
+                  >{cmsText("homespage.3cfc2a0a92", "Porozmawiaj o automatyce apartamentu")}</button>
                 </div>
               </div>
 
@@ -212,7 +189,7 @@ export const HomesPage: React.FC<HomesPageProps> = ({
                 <div className="rounded-2xl overflow-hidden border border-[#17211C]/15 shadow-xl bg-[#17211C] aspect-[4/3]">
                   <img
                     src={IMAGES.knxSwitchHardware}
-                    alt="Dotykowy osprzęt JUNG w minimalistycznym apartamencie"
+                    alt={cmsText("homespage.0767360274", "Dotykowy osprzęt JUNG w minimalistycznym apartamencie")}
                     className="w-full h-full object-cover"
                     referrerPolicy="no-referrer"
                   />
@@ -223,34 +200,22 @@ export const HomesPage: React.FC<HomesPageProps> = ({
 
           {activeTab === 'modernizacja' && (
             <div className="bg-[#F7F8F5] border border-[#17211C]/15 rounded-2xl p-8 sm:p-12 space-y-6">
-              <span className="text-xs font-mono uppercase tracking-wider text-[#0E4637] font-semibold">
-                Domy zamieszkałe i remonty kapitalne
-              </span>
-              <h2 className="text-3xl font-bold font-display text-[#17211C]">
-                Modernizacja instalacji bez niszczenia wnętrz
-              </h2>
-              <p className="text-sm sm:text-base text-[#17211C]/80 leading-relaxed max-w-3xl">
-                Kupiłeś dom z rynku wtórnego lub chcesz unowocześnić istniejącą instalację elektryczną? Standard KNX oferuje zarówno rozwiązania przewodowe (przy generalnym remoncie), jak i moduły radiowe KNX RF oraz hybrydowe, które instalujemy w istniejących puszkach podtynkowych.
-              </p>
+              <span className="text-xs font-mono uppercase tracking-wider text-[#0E4637] font-semibold">{cmsText("homespage.4e73d8d0d3", "Domy zamieszkałe i remonty kapitalne")}</span>
+              <h2 className="text-3xl font-bold font-display text-[#17211C]">{cmsText("homespage.2988e33032", "Modernizacja instalacji bez niszczenia wnętrz")}</h2>
+              <p className="text-sm sm:text-base text-[#17211C]/80 leading-relaxed max-w-3xl">{cmsText("homespage.fc43d5997c", "Kupiłeś dom z rynku wtórnego lub chcesz unowocześnić istniejącą instalację elektryczną? Standard KNX oferuje zarówno rozwiązania przewodowe (przy generalnym remoncie), jak i moduły radiowe KNX RF oraz hybrydowe, które instalujemy w istniejących puszkach podtynkowych.")}</p>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4">
                 <div className="p-5 bg-white rounded-xl border border-[#17211C]/10 space-y-2">
-                  <h4 className="font-bold text-sm text-[#17211C]">1. Audyt instalacji</h4>
-                  <p className="text-xs text-[#17211C]/70">
-                    Oceniamy stan rozdzielnicy głównej, przekroje przewodów i możliwości dołożenia magistrali.
-                  </p>
+                  <h4 className="font-bold text-sm text-[#17211C]">{cmsText("homespage.0dc24eff32", "1. Audyt instalacji")}</h4>
+                  <p className="text-xs text-[#17211C]/70">{cmsText("homespage.3fdc013dae", "Oceniamy stan rozdzielnicy głównej, przekroje przewodów i możliwości dołożenia magistrali.")}</p>
                 </div>
                 <div className="p-5 bg-white rounded-xl border border-[#17211C]/10 space-y-2">
-                  <h4 className="font-bold text-sm text-[#17211C]">2. Dobór rozwiązań hybrydowych</h4>
-                  <p className="text-xs text-[#17211C]/70">
-                    Łączymy przewodową rozdzielnicę z bezprzewodowymi przyciskami KNX RF tam, gdzie brakuje kabli.
-                  </p>
+                  <h4 className="font-bold text-sm text-[#17211C]">{cmsText("homespage.779fc90aa9", "2. Dobór rozwiązań hybrydowych")}</h4>
+                  <p className="text-xs text-[#17211C]/70">{cmsText("homespage.8eddd529ff", "Łączymy przewodową rozdzielnicę z bezprzewodowymi przyciskami KNX RF tam, gdzie brakuje kabli.")}</p>
                 </div>
                 <div className="p-5 bg-white rounded-xl border border-[#17211C]/10 space-y-2">
-                  <h4 className="font-bold text-sm text-[#17211C]">3. Nowe funkcje bez kurzu</h4>
-                  <p className="text-xs text-[#17211C]/70">
-                    Zyskujesz sceny, sterowanie smartfonem i oszczędność na ogrzewaniu w ciągu zaledwie kilku dni.
-                  </p>
+                  <h4 className="font-bold text-sm text-[#17211C]">{cmsText("homespage.cfa1df1953", "3. Nowe funkcje bez kurzu")}</h4>
+                  <p className="text-xs text-[#17211C]/70">{cmsText("homespage.0db35e6c92", "Zyskujesz sceny, sterowanie smartfonem i oszczędność na ogrzewaniu w ciągu zaledwie kilku dni.")}</p>
                 </div>
               </div>
             </div>
@@ -262,15 +227,9 @@ export const HomesPage: React.FC<HomesPageProps> = ({
       <section id="dom-kontakt" className="py-16 sm:py-24 bg-[#F7F8F5]">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
-            <span className="text-xs font-mono uppercase tracking-widest text-[#0E4637] font-semibold block mb-2">
-              Wycena Rezydencji
-            </span>
-            <h2 className="text-3xl font-bold font-display text-[#17211C]">
-              Prześlij rzuty domu lub apartamentu
-            </h2>
-            <p className="text-sm text-[#17211C]/70 mt-2">
-              Przeanalizujemy rozkład pomieszczeń, punkty świetlne i zaproponujemy optymalny zakres automatyki KNX.
-            </p>
+            <span className="text-xs font-mono uppercase tracking-widest text-[#0E4637] font-semibold block mb-2">{cmsText("homespage.0f25b06144", "Wycena Rezydencji")}</span>
+            <h2 className="text-3xl font-bold font-display text-[#17211C]">{cmsText("homespage.fb6d851c19", "Prześlij rzuty domu lub apartamentu")}</h2>
+            <p className="text-sm text-[#17211C]/70 mt-2">{cmsText("homespage.e11652ef18", "Przeanalizujemy rozkład pomieszczeń, punkty świetlne i zaproponujemy optymalny zakres automatyki KNX.")}</p>
           </div>
 
           <ContactForm

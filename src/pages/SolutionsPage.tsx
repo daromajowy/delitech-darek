@@ -1,3 +1,4 @@
+import { cmsText } from '../cms';
 import React, { useState } from 'react';
 import { PageId } from '../types.ts';
 import {
@@ -28,7 +29,7 @@ export const SolutionsPage: React.FC<SolutionsPageProps> = ({
   const solutions = [
     {
       id: 'dali',
-      title: 'Oświetlenie i DALI-2',
+      title: cmsText("solutionspage.d92581a326", "Oświetlenie i DALI-2"),
       badge: 'Architektura światła',
       icon: SunMedium,
       lead: 'Profesjonalne sterowanie oprawami architektonicznymi bez migotania i z płynną regulacją.',
@@ -43,7 +44,7 @@ export const SolutionsPage: React.FC<SolutionsPageProps> = ({
     },
     {
       id: 'fasady',
-      title: 'Rolety, żaluzje i fasady',
+      title: cmsText("solutionspage.725ce06bc2", "Rolety, żaluzje i fasady"),
       badge: 'Komfort termiczny i optyczny',
       icon: Sliders,
       lead: 'Automatyczna ochrona przed przegrzewaniem wnętrza latem i ucieczką ciepła zimą.',
@@ -58,7 +59,7 @@ export const SolutionsPage: React.FC<SolutionsPageProps> = ({
     },
     {
       id: 'hvac',
-      title: 'HVAC: Ogrzewanie, Chłodzenie i Wentylacja',
+      title: cmsText("solutionspage.14ebf7a537", "HVAC: Ogrzewanie, Chłodzenie i Wentylacja"),
       badge: 'Klimat pod pełną kontrolą',
       icon: Wind,
       lead: 'Harmonia pomiędzy podłogówką, klimatyzacją kanałową i rekuperacją.',
@@ -73,7 +74,7 @@ export const SolutionsPage: React.FC<SolutionsPageProps> = ({
     },
     {
       id: 'sceny',
-      title: 'Sceny i sterowanie',
+      title: cmsText("solutionspage.6f2df42f97", "Sceny i sterowanie"),
       badge: 'Intuicyjna obsługa przestrzeni',
       icon: Sparkles,
       lead: 'Zamiast dziesięciu włączników — jeden czytelny gest.',
@@ -88,7 +89,7 @@ export const SolutionsPage: React.FC<SolutionsPageProps> = ({
     },
     {
       id: 'energia',
-      title: 'Energia i pomiary',
+      title: cmsText("solutionspage.f6b4e20525", "Energia i pomiary"),
       badge: 'Efektywność i oszczędności',
       icon: Zap,
       lead: 'Dokładny wgląd w zużycie prądu, wody i ciepła dla inwestora i zarządcy.',
@@ -103,7 +104,7 @@ export const SolutionsPage: React.FC<SolutionsPageProps> = ({
     },
     {
       id: 'bezpieczenstwo',
-      title: 'Bezpieczeństwo i monitoring',
+      title: cmsText("solutionspage.c87a253249", "Bezpieczeństwo i monitoring"),
       badge: 'Ochrona mienia i instalacji',
       icon: ShieldCheck,
       lead: 'Działania prewencyjne: czujniki zalania, dymu, kontaktrony i symulacja obecności.',
@@ -118,7 +119,7 @@ export const SolutionsPage: React.FC<SolutionsPageProps> = ({
     },
     {
       id: 'integracje',
-      title: 'Integracje systemowe i IoT',
+      title: cmsText("solutionspage.225265f4ae", "Integracje systemowe i IoT"),
       badge: 'Otwartość na przyszłość',
       icon: Cpu,
       lead: 'Połączenie niezawodnej magistrali przewodowej z nowoczesnym ekosystemem IP.',
@@ -139,15 +140,9 @@ export const SolutionsPage: React.FC<SolutionsPageProps> = ({
       <section className="bg-[#17211C] text-white py-16 lg:py-20 border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl space-y-4">
-            <span className="text-xs font-mono uppercase tracking-widest text-[#E6F15A] font-semibold block">
-              Inżynieria systemów budynkowych
-            </span>
-            <h1 className="text-4xl sm:text-5xl font-extrabold font-display tracking-tight text-white">
-              Rozwiązania technologiczne KNX
-            </h1>
-            <p className="text-base sm:text-lg text-[#EDE9DF]/80 leading-relaxed pt-2">
-              Zobacz poszczególne elementy układanki. Każdy moduł projektujemy z dbałością o najwyższą niezawodność, ergonomię użytkowania oraz kompatybilność na dekady.
-            </p>
+            <span className="text-xs font-mono uppercase tracking-widest text-[#E6F15A] font-semibold block">{cmsText("solutionspage.14b61789af", "Inżynieria systemów budynkowych")}</span>
+            <h1 className="text-4xl sm:text-5xl font-extrabold font-display tracking-tight text-white">{cmsText("solutionspage.41e077f003", "Rozwiązania technologiczne KNX")}</h1>
+            <p className="text-base sm:text-lg text-[#EDE9DF]/80 leading-relaxed pt-2">{cmsText("solutionspage.1521050492", "Zobacz poszczególne elementy układanki. Każdy moduł projektujemy z dbałością o najwyższą niezawodność, ergonomię użytkowania oraz kompatybilność na dekady.")}</p>
           </div>
         </div>
       </section>
@@ -210,9 +205,7 @@ export const SolutionsPage: React.FC<SolutionsPageProps> = ({
                       </p>
 
                       <div className="pt-2 space-y-2.5">
-                        <span className="text-xs font-bold uppercase tracking-wider text-[#17211C] block mb-2">
-                          Standardy inżynierskie Delitech:
-                        </span>
+                        <span className="text-xs font-bold uppercase tracking-wider text-[#17211C] block mb-2">{cmsText("solutionspage.8e860db887", "Standardy inżynierskie Delitech:")}</span>
                         {s.features.map((f, i) => (
                           <div key={i} className="flex items-start gap-2.5 text-xs text-[#17211C]/85">
                             <CheckCircle2 className="w-4 h-4 text-[#0E4637] shrink-0 mt-0.5" />
@@ -226,32 +219,25 @@ export const SolutionsPage: React.FC<SolutionsPageProps> = ({
                           onClick={onOpenConsultation}
                           className="px-5 py-2.5 bg-[#0E4637] hover:bg-[#17211C] text-[#E6F15A] text-xs font-semibold uppercase tracking-wider rounded-lg transition-colors flex items-center gap-2"
                         >
-                          <span>Skonsultuj rozwiązanie z inżynierem</span>
+                          <span>{cmsText("solutionspage.ded62dbccd", "Skonsultuj rozwiązanie z inżynierem")}</span>
                           <ArrowRight className="w-4 h-4" />
                         </button>
                         <button
                           onClick={() => onNavigate('contact')}
                           className="text-xs font-semibold text-[#0E4637] hover:underline"
-                        >
-                          Prześlij specyfikację
-                        </button>
+                        >{cmsText("solutionspage.7af88ae6ef", "Prześlij specyfikację")}</button>
                       </div>
                     </div>
 
                     <div className="lg:col-span-4 bg-white rounded-xl p-6 border border-[#17211C]/10 space-y-4">
-                      <h3 className="text-xs font-bold uppercase tracking-wider text-[#17211C] pb-2 border-b border-[#17211C]/10">
-                        Integracja w obiekcie
-                      </h3>
+                      <h3 className="text-xs font-bold uppercase tracking-wider text-[#17211C] pb-2 border-b border-[#17211C]/10">{cmsText("solutionspage.33d17c7e17", "Integracja w obiekcie")}</h3>
                       <div className="text-xs text-[#17211C]/75 space-y-3">
                         <p>
-                          <strong className="text-[#17211C]">Niezależność:</strong> Wszystkie moduły montujemy w certyfikowanych szafach rozdzielczych, przetestowanych przed dostarczeniem na budowę.
-                        </p>
+                          <strong className="text-[#17211C]">{cmsText("solutionspage.ae8f084842", "Niezależność:")}</strong>{cmsText("solutionspage.bf79141901", " Wszystkie moduły montujemy w certyfikowanych szafach rozdzielczych, przetestowanych przed dostarczeniem na budowę.")}</p>
                         <p>
-                          <strong className="text-[#17211C]">Gwarancja:</strong> Udzielamy pełnej rękojmi inżynierskiej oraz prowadzimy serwis pogwarancyjny w Warszawie i całej Polsce.
-                        </p>
+                          <strong className="text-[#17211C]">{cmsText("solutionspage.93cf2daf53", "Gwarancja:")}</strong>{cmsText("solutionspage.88a03a6137", " Udzielamy pełnej rękojmi inżynierskiej oraz prowadzimy serwis pogwarancyjny w Warszawie i całej Polsce.")}</p>
                         <p>
-                          <strong className="text-[#17211C]">Dokumentacja:</strong> Każdy obwód, adres DALI i adres fizyczny KNX otrzymuje dokładne oznaczenie na schemacie powykonawczym.
-                        </p>
+                          <strong className="text-[#17211C]">{cmsText("solutionspage.d7eb6e59ea", "Dokumentacja:")}</strong>{cmsText("solutionspage.48660ecb7b", " Każdy obwód, adres DALI i adres fizyczny KNX otrzymuje dokładne oznaczenie na schemacie powykonawczym.")}</p>
                       </div>
                     </div>
                   </div>

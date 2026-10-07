@@ -4,6 +4,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
+import { cms } from './cms';
 import { PageId } from './types.ts';
 import { Navbar } from './components/Navbar.tsx';
 import { Footer } from './components/Footer.tsx';
@@ -25,7 +26,7 @@ import { TeamPage } from './pages/TeamPage.tsx';
 import { ContactPage } from './pages/ContactPage.tsx';
 
 export default function App() {
-  const [currentPage, setCurrentPage] = useState<PageId>('home');
+  const [currentPage, setCurrentPage] = useState<PageId>(() => { const page=cms()?.page; return !page || page==='custom' ? 'home' : page; });
   const [currentHash, setCurrentHash] = useState<string | undefined>(undefined);
 
   // Modals state
@@ -78,13 +79,14 @@ export default function App() {
     },
     contact: {
       title: 'Prześlij rzuty i skontaktuj się | Delitech Smart Spaces Warszawa',
-      desc: 'Prześlij rzuty do analizy inżynierskiej. Biuro przy ul. Prostej 68 w Warszawie. Realizacje na terenie całej Polski.',
+      desc: 'Prześlij rzuty do analizy inżynierskiej. Biuro przy ul. Konwaliowej 7 lok. 103 w Warszawie. Realizacje na terenie całej Polski.',
     },
   };
 
   // Sync title and meta description dynamically
   useEffect(() => {
-    const meta = pageMetadata[currentPage];
+    const base = pageMetadata[currentPage];
+    const meta = cms() ? {title: cms()!.title || base.title, desc: cms()!.description || base.desc} : base;
     if (meta) {
       document.title = meta.title;
       const metaDescriptionTag = document.querySelector('meta[name="description"]');
@@ -105,6 +107,12 @@ export default function App() {
   // Read hash on mount
   useEffect(() => {
     const handleHashChange = () => {
+      if (cms()) {
+        const legacy = window.location.hash.slice(1).split('/');
+        if (cms()?.urls[legacy[0]]) { window.location.replace(cms()!.urls[legacy[0]] + (legacy[1] ? '#' + legacy[1] : '')); return; }
+        setCurrentHash(window.location.hash.slice(1) || undefined);
+        return;
+      }
       const rawHash = window.location.hash.replace('#', '');
       if (rawHash) {
         const [pagePart, subPart] = rawHash.split('/');
@@ -134,6 +142,7 @@ export default function App() {
   }, []);
 
   const handleNavigate = (page: PageId, subHash?: string) => {
+    if (cms()?.urls[page]) { window.location.assign(cms()!.urls[page] + (subHash ? '#' + subHash : '')); return; }
     setCurrentPage(page);
     setCurrentHash(subHash);
     window.location.hash = subHash ? `${page}/${subHash}` : page === 'home' ? '' : page;
@@ -160,8 +169,8 @@ export default function App() {
       />
 
       {/* Main Content Viewport */}
-      <main className="flex-grow">
-        {currentPage === 'home' && (
+      <main id="main-content" className="flex-grow">
+        {currentPage === 'home' && cms()?.page !== 'custom' && (
           <HomePage
             onNavigate={handleNavigate}
             onOpenConsultation={() => handleOpenConsultation()}
@@ -244,6 +253,7 @@ export default function App() {
             onOpenConsultation={() => handleOpenConsultation()}
           />
         )}
+        {cms()?.additional && <div className="cms-additional max-w-7xl mx-auto px-6 py-10" dangerouslySetInnerHTML={{__html: cms()!.additional!}} />}
       </main>
 
       {/* Editorial Footer */}

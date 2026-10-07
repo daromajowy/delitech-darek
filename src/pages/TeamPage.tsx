@@ -1,3 +1,4 @@
+import { cmsText, cmsImage } from '../cms';
 import React from 'react';
 import { PageId } from '../types.ts';
 import { Users, Award, ShieldCheck, Mail, Phone, ArrowRight, Sparkles, Cpu, Layers } from 'lucide-react';
@@ -26,33 +27,33 @@ export const TeamPage: React.FC<TeamPageProps> = ({ onNavigate, onOpenConsultati
   const teamMembers: TeamMember[] = [
     {
       id: 'darek',
-      name: 'Darek Maj',
-      role: 'Integrator i koordynator wdrożen KNX',
-      specialization: 'Automatyka komercyjna, integracje DALI-2',
-      bio: 'Wieloletnie doświadczenie w branży IT, w zarządzaniu projektami w dużych korporacjach w srodkowisku ściśle regulowanym. Odpowiedzialny za wspópłprace z projektatnami,  koncepcje techniczne, konsutlacje z Inwestorem,  programowanie podzespołów KNX oraz nadzór nad wdrożeniami.',
-      certifications: ['KNX Partner Advanced', 'DALI-2 Specialist', 'ETS Certified'],
-      photoUrl: darekPhoto,
-      email: 'darek@intelispaces.pl',
+      name: cmsText("teampage.4abfa4b0b3", "Darek Maj"),
+      role: cmsText("teampage.1923d56770", "Integrator i koordynator wdrożen KNX"),
+      specialization: cmsText("teampage.5977fa9c6b", "Automatyka komercyjna, integracje DALI-2"),
+      bio: cmsText("teampage.bb533aeb9a", "Wieloletnie doświadczenie w branży IT, w zarządzaniu projektami w dużych korporacjach w srodkowisku ściśle regulowanym. Odpowiedzialny za wspópłprace z projektatnami,  koncepcje techniczne, konsutlacje z Inwestorem,  programowanie podzespołów KNX oraz nadzór nad wdrożeniami."),
+      certifications: [cmsText("teampage.cfe06877bb", "KNX Partner Advanced"), cmsText("teampage.4e08738b3e", "DALI-2 Specialist"), cmsText("teampage.3ed63aaa33", "ETS Certified")],
+      photoUrl: cmsImage('image.darek', darekPhoto),
+      email: cmsText("teampage.8646c5971c", "darek@intelispaces.pl"),
       phone: '+48 885 253 934',
     },
     {
       id: 'janek',
-      name: 'Jan Jasek',
-      role: 'głowny Architekt,Integrator i koordynator Integracji instalacji KNX ',
-      specialization: 'Współpraca z pracowniami architektonicznymi, dobór i doradztwo w osprzęcie KNX, Programowanie ETS, wizualizacje, logistyka dostaw, konsultacje i wsparcie dla Inwestorów',
-      bio: 'Specjalista w zakresie programowania logiki sterowania, prefabrykacji szaf automatyki oraz uruchamiania instalacji na obiektach rezydencjalnych i biurowych. Posiada ogromne doświadczenie w ofercie podzespołów systemów automatyki oraz przykłada wiele  dbałości o bezbłędny standard montażu.',
-      certifications: ['KNX Cerified Partner'],
-      photoUrl: janekPhoto,
-      email: 'janek@intelispaces.pl',
+      name: cmsText("teampage.8a47deae90", "Jan Jasek"),
+      role: cmsText("teampage.bad00b93d1", "głowny Architekt,Integrator i koordynator Integracji instalacji KNX "),
+      specialization: cmsText("teampage.58a51cfd0b", "Współpraca z pracowniami architektonicznymi, dobór i doradztwo w osprzęcie KNX, Programowanie ETS, wizualizacje, logistyka dostaw, konsultacje i wsparcie dla Inwestorów"),
+      bio: cmsText("teampage.762edda26e", "Specjalista w zakresie programowania logiki sterowania, prefabrykacji szaf automatyki oraz uruchamiania instalacji na obiektach rezydencjalnych i biurowych. Posiada ogromne doświadczenie w ofercie podzespołów systemów automatyki oraz przykłada wiele  dbałości o bezbłędny standard montażu."),
+      certifications: [cmsText("teampage.10c3e2b793", "KNX Cerified Partner")],
+      photoUrl: cmsImage('image.janek', janekPhoto),
+      email: cmsText("teampage.4bc4499e79", "janek@intelispaces.pl"),
     },
     {
       id: 'Marek',
-      name: 'Marek XX',
-      role: 'Certifikowany porjektant i wykonawca Instalacji Elektrycznych i magistrali KNX',
-      specialization: 'xxx',
-      bio: 'Tutaj możesz dodać kolejną osobę z zespołu – np. projektanta tras kablowych, kierownika robót elektrycznych lub doradcę klienta premium.',
-      certifications: ['xxxx', 'xxx'],
-      email: 'marek@intelispaces.pl',
+      name: cmsText("teampage.8393ff4427", "Marek XX"),
+      role: cmsText("teampage.2f34569488", "Certifikowany porjektant i wykonawca Instalacji Elektrycznych i magistrali KNX"),
+      specialization: cmsText("teampage.50722d9122", "xxx"),
+      bio: cmsText("teampage.78ad9a29e7", "Tutaj możesz dodać kolejną osobę z zespołu – np. projektanta tras kablowych, kierownika robót elektrycznych lub doradcę klienta premium."),
+      certifications: [cmsText("teampage.5bc76eca90", "xxxx"), cmsText("teampage.0aabfbd6f3", "xxx")],
+      email: cmsText("teampage.9bfa3a8e7a", "marek@intelispaces.pl"),
     },
   ];
 
@@ -64,14 +65,10 @@ export const TeamPage: React.FC<TeamPageProps> = ({ onNavigate, onOpenConsultati
           <div className="max-w-3xl space-y-4">
             <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#0E4637] border border-[#CFE3C4]/20 rounded-full text-xs font-mono uppercase tracking-wider text-[#E6F15A]">
               <Users className="w-3.5 h-3.5" />
-              <span>Ludzie · Wiedza · Inżynieria</span>
+              <span>{cmsText("teampage.5d3db34834", "Ludzie · Wiedza · Inżynieria")}</span>
             </div>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold font-display tracking-tight text-white">
-              Kim jesteśmy
-            </h1>
-            <p className="text-base sm:text-lg text-[#EDE9DF]/80 leading-relaxed font-display">
-              Poznaj zespół inżynierów i specjalistów INTELISPACES. Łączymy precyzyjną wiedzę instalacyjną, certyfikację standardu KNX oraz wrażliwość na architekturę wnętrz.
-            </p>
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold font-display tracking-tight text-white">{cmsText("teampage.8b7896e772", "Kim jesteśmy")}</h1>
+            <p className="text-base sm:text-lg text-[#EDE9DF]/80 leading-relaxed font-display">{cmsText("teampage.b0df7ace17", "Poznaj zespół inżynierów i specjalistów INTELISPACES. Łączymy precyzyjną wiedzę instalacyjną, certyfikację standardu KNX oraz wrażliwość na architekturę wnętrz.")}</p>
           </div>
         </div>
       </section>
@@ -84,30 +81,24 @@ export const TeamPage: React.FC<TeamPageProps> = ({ onNavigate, onOpenConsultati
               <div className="w-10 h-10 rounded-lg bg-[#0E4637] text-[#E6F15A] flex items-center justify-center font-bold">
                 <ShieldCheck className="w-5 h-5" />
               </div>
-              <h3 className="font-bold text-lg font-display text-[#17211C]">Certyfikowana wiedza</h3>
-              <p className="text-xs sm:text-sm text-[#17211C]/75 leading-relaxed">
-                Każdy projekt prowadzimy zgodnie z międzynarodowymi normami KNX i standardami bezpieczeństwa instalacji.
-              </p>
+              <h3 className="font-bold text-lg font-display text-[#17211C]">{cmsText("teampage.d853fd7a14", "Certyfikowana wiedza")}</h3>
+              <p className="text-xs sm:text-sm text-[#17211C]/75 leading-relaxed">{cmsText("teampage.697bb7ecd2", "Każdy projekt prowadzimy zgodnie z międzynarodowymi normami KNX i standardami bezpieczeństwa instalacji.")}</p>
             </div>
 
             <div className="p-6 rounded-xl bg-[#F7F8F5] border border-[#17211C]/10 space-y-3">
               <div className="w-10 h-10 rounded-lg bg-[#0E4637] text-[#E6F15A] flex items-center justify-center font-bold">
                 <Cpu className="w-5 h-5" />
               </div>
-              <h3 className="font-bold text-lg font-display text-[#17211C]">Własna prefabrykacja</h3>
-              <p className="text-xs sm:text-sm text-[#17211C]/75 leading-relaxed">
-                Nie zlecamy szaf automatyki podwykonawcom. Montujemy i testujemy rozdzielnice we własnym punkcie w Warszawie.
-              </p>
+              <h3 className="font-bold text-lg font-display text-[#17211C]">{cmsText("teampage.2cf4456039", "Własna prefabrykacja")}</h3>
+              <p className="text-xs sm:text-sm text-[#17211C]/75 leading-relaxed">{cmsText("teampage.5172cc2d38", "Nie zlecamy szaf automatyki podwykonawcom. Montujemy i testujemy rozdzielnice we własnym punkcie w Warszawie.")}</p>
             </div>
 
             <div className="p-6 rounded-xl bg-[#F7F8F5] border border-[#17211C]/10 space-y-3">
               <div className="w-10 h-10 rounded-lg bg-[#0E4637] text-[#E6F15A] flex items-center justify-center font-bold">
                 <Layers className="w-5 h-5" />
               </div>
-              <h3 className="font-bold text-lg font-display text-[#17211C]">Partner dla architektów</h3>
-              <p className="text-xs sm:text-sm text-[#17211C]/75 leading-relaxed">
-                Mówimy językiem projektantów i wspomagamy ich pracę. Dbamy o spójność detali, wzornictwo osprzętu i czytelne wytyczne dla instalatorów.
-              </p>
+              <h3 className="font-bold text-lg font-display text-[#17211C]">{cmsText("teampage.89ce8d3817", "Partner dla architektów")}</h3>
+              <p className="text-xs sm:text-sm text-[#17211C]/75 leading-relaxed">{cmsText("teampage.b84edd0ea4", "Mówimy językiem projektantów i wspomagamy ich pracę. Dbamy o spójność detali, wzornictwo osprzętu i czytelne wytyczne dla instalatorów.")}</p>
             </div>
           </div>
         </div>
@@ -117,15 +108,9 @@ export const TeamPage: React.FC<TeamPageProps> = ({ onNavigate, onOpenConsultati
       <section className="py-16 sm:py-24 bg-[#F7F8F5]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
           <div className="max-w-2xl space-y-3">
-            <span className="text-xs font-mono uppercase tracking-widest text-[#0E4637] font-semibold block">
-              Poznaj nasz zespół
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-bold font-display text-[#17211C] tracking-tight">
-              Zespół stojący za Twoją instalacją
-            </h2>
-            <p className="text-sm sm:text-base text-[#17211C]/75 leading-relaxed">
-               Prezentację naszego zespołu. 
-            </p>
+            <span className="text-xs font-mono uppercase tracking-widest text-[#0E4637] font-semibold block">{cmsText("teampage.cf848a1160", "Poznaj nasz zespół")}</span>
+            <h2 className="text-3xl sm:text-4xl font-bold font-display text-[#17211C] tracking-tight">{cmsText("teampage.b60a69ac7e", "Zespół stojący za Twoją instalacją")}</h2>
+            <p className="text-sm sm:text-base text-[#17211C]/75 leading-relaxed">{cmsText("teampage.306a99510b", "Prezentację naszego zespołu.")}</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -158,9 +143,7 @@ export const TeamPage: React.FC<TeamPageProps> = ({ onNavigate, onOpenConsultati
                       <div className="w-20 h-20 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-2xl font-bold font-display text-[#E6F15A]">
                         {member.name.split(' ').map((n) => n[0]).join('')}
                       </div>
-                      <span className="text-[11px] font-mono text-[#CFE3C4]/70 uppercase tracking-wider">
-                        [ Miejsce na oryginalne zdjęcie ]
-                      </span>
+                      <span className="text-[11px] font-mono text-[#CFE3C4]/70 uppercase tracking-wider">{cmsText("teampage.1196846ce9", "[ Miejsce na oryginalne zdjęcie ]")}</span>
                     </div>
 
                     {/* Tag specjalizacji w rogu */}
@@ -231,29 +214,19 @@ export const TeamPage: React.FC<TeamPageProps> = ({ onNavigate, onOpenConsultati
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="p-8 sm:p-12 rounded-2xl bg-[#0E4637] text-white flex flex-col md:flex-row items-center justify-between gap-8">
             <div className="space-y-3">
-              <span className="text-xs font-mono uppercase tracking-widest text-[#E6F15A] font-semibold">
-                Dołącz do grona zadowolonych inwestorów
-              </span>
-              <h3 className="text-2xl sm:text-3xl font-bold font-display text-white">
-                Porozmawiajmy o Twojej inwestycji
-              </h3>
-              <p className="text-xs sm:text-sm text-[#CFE3C4] max-w-xl leading-relaxed">
-                Skontaktuj się bezpośrednio z naszym zespołem. Przeanalizujemy rzuty architektoniczne i przygotujemy propozycję automatyki dopasowaną do potrzeb.
-              </p>
+              <span className="text-xs font-mono uppercase tracking-widest text-[#E6F15A] font-semibold">{cmsText("teampage.5632c97d36", "Dołącz do grona zadowolonych inwestorów")}</span>
+              <h3 className="text-2xl sm:text-3xl font-bold font-display text-white">{cmsText("teampage.d4e565f544", "Porozmawiajmy o Twojej inwestycji")}</h3>
+              <p className="text-xs sm:text-sm text-[#CFE3C4] max-w-xl leading-relaxed">{cmsText("teampage.17384ca372", "Skontaktuj się bezpośrednio z naszym zespołem. Przeanalizujemy rzuty architektoniczne i przygotujemy propozycję automatyki dopasowaną do potrzeb.")}</p>
             </div>
             <div className="flex flex-col sm:flex-row items-center gap-3">
               <button
                 onClick={onOpenConsultation}
                 className="w-full sm:w-auto px-6 py-3 bg-[#E6F15A] hover:bg-white text-[#0E4637] text-xs font-bold uppercase tracking-wider rounded-lg transition-colors whitespace-nowrap"
-              >
-                Umów rozmowę z inżynierem
-              </button>
+              >{cmsText("teampage.15a31862a1", "Umów rozmowę z inżynierem")}</button>
               <button
                 onClick={() => onNavigate('contact')}
                 className="w-full sm:w-auto px-6 py-3 border border-white/20 hover:bg-white/10 text-white text-xs font-semibold uppercase tracking-wider rounded-lg transition-colors whitespace-nowrap"
-              >
-                Przejdź do kontaktu
-              </button>
+              >{cmsText("teampage.d7069bd17e", "Przejdź do kontaktu")}</button>
             </div>
           </div>
         </div>

@@ -1,0 +1,75 @@
+name: WordPress - validate and publish to CyberFolks
+
+on:
+  push:
+    branches: [main, Darka]
+  pull_request:
+    branches: [main, Darka]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: wordpress-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run build:wordpress
+      - name: PHP syntax and deployment safety tests
+        run: |
+          find wordpress -name '*.php' -print0 | xargs -0 -n1 php -l
+          python3 -m unittest discover -s tests -v
+      - name: Validate release contents
+        env:
+          RELEASE_COMMIT: ${{ github.sha }}
+        run: python3 scripts/package-wordpress.py
+
+  publish:
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    needs: validate
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build:wordpress
+      - name: Package the exact main commit
+        env:
+          RELEASE_COMMIT: ${{ github.sha }}
+        run: python3 scripts/package-wordpress.py
+      - name: Publish deployment package
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_COMMIT: ${{ github.sha }}
+        run: |
+          tag="cf-$RELEASE_COMMIT"
+          if ! gh release view "$tag" >/dev/null 2>&1; then
+            gh release create "$tag" build/site.tar.gz build/site.sha256 \
+              --target "$RELEASE_COMMIT" --title "CF $RELEASE_COMMIT" \
+              --notes "Validated WordPress theme and backend. CF applies only the current main commit. CMS data is preserved." \
+              --latest=false
+          fi
+      - name: Confirm deployment on CF (up to 8 minutes)
+        env:
+          RELEASE_COMMIT: ${{ github.sha }}
+        run: python3 scripts/wait-for-cf.py
