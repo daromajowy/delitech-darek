@@ -1,4 +1,4 @@
-import { cmsText } from '../cms';
+import { cmsText, plannerUrl } from '../cms';
 import React, { useState } from 'react';
 import { Logo } from './Logo.tsx';
 import { PageId } from '../types.ts';
@@ -10,7 +10,7 @@ interface NavbarProps {
   onOpenConsultation: () => void;
 }
 
-type SubItem = { label: string; hash?: string; page?: PageId };
+type SubItem = { label: string; hash?: string; page?: PageId; href?: string };
 type NavItem = { id: PageId; label: string; subItems?: SubItem[] };
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -24,6 +24,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   // Mirrors the production intelispaces.pl navigation hierarchy.
   const navItems: NavItem[] = [
     { id: 'architects', label: cmsText("navbar.c1f15d86d4", "Dla architektów"), subItems: [
+      { label: 'Projektant KNX', href: plannerUrl() },
       { label: cmsText("navbar.79b9370bb2", "Wsparcie projektowe"), hash: 'wsparcie' },
       { label: cmsText("navbar.4a4882c09a", "Pakiet dla architekta"), hash: 'pakiet' },
       { label: cmsText("navbar.3c7ef07972", "Osprzęt i materiały"), hash: 'jung' },
@@ -93,7 +94,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 </button>
                 {activeDropdown === item.id && (
                   <div className="absolute top-full left-0 w-64 pt-2 shadow-xl z-50"><div className="bg-white border border-[#17211C]/10 rounded-xl p-2 shadow-lg backdrop-blur-sm">
-                    {item.subItems?.map((sub) => <button key={`${sub.page || item.id}/${sub.hash || sub.label}`} onClick={() => handleNavClick(sub.page || item.id, sub.hash)} className="w-full text-left px-3 py-2 text-xs font-medium text-[#17211C]/85 hover:text-[#0E4637] hover:bg-[#F7F8F5] rounded-lg transition-colors flex items-center justify-between group"><span>{sub.label}</span><span className="w-1 h-1 rounded-full bg-transparent group-hover:bg-[#E6F15A] transition-colors" /></button>)}
+                    {item.subItems?.map((sub) => <button key={`${sub.page || item.id}/${sub.hash || sub.label}`} onClick={() => sub.href ? location.assign(sub.href) : handleNavClick(sub.page || item.id, sub.hash)} className="w-full text-left px-3 py-2 text-xs font-medium text-[#17211C]/85 hover:text-[#0E4637] hover:bg-[#F7F8F5] rounded-lg transition-colors flex items-center justify-between group"><span>{sub.label}</span><span className="w-1 h-1 rounded-full bg-transparent group-hover:bg-[#E6F15A] transition-colors" /></button>)}
                   </div></div>
                 )}
               </div>
@@ -112,7 +113,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           <div className="flex flex-col space-y-1">
             {navItems.map((item) => <div key={item.id} className="py-1">
               <button onClick={() => handleNavClick(item.id)} className={`w-full text-left px-3 py-2 text-sm font-semibold rounded-lg flex items-center justify-between ${currentPage === item.id ? 'bg-[#0E4637] text-white' : 'text-[#17211C] hover:bg-black/5'}`}><span>{item.label}</span></button>
-              {item.subItems && <div className="pl-4 mt-1 space-y-1 border-l border-[#0E4637]/20 ml-3">{item.subItems.map((sub) => <button key={`${sub.page || item.id}/${sub.hash || sub.label}`} onClick={() => handleNavClick(sub.page || item.id, sub.hash)} className="w-full text-left px-3 py-1.5 text-xs text-[#17211C]/75 hover:text-[#0E4637] rounded-md transition-colors">{sub.label}</button>)}</div>}
+              {item.subItems && <div className="pl-4 mt-1 space-y-1 border-l border-[#0E4637]/20 ml-3">{item.subItems.map((sub) => <button key={`${sub.page || item.id}/${sub.hash || sub.label}`} onClick={() => sub.href ? location.assign(sub.href) : handleNavClick(sub.page || item.id, sub.hash)} className="w-full text-left px-3 py-1.5 text-xs text-[#17211C]/75 hover:text-[#0E4637] rounded-md transition-colors">{sub.label}</button>)}</div>}
             </div>)}
             <div className="pt-4 mt-3 border-t border-[#17211C]/10 flex flex-col gap-2">
               <button onClick={() => { setMobileMenuOpen(false); onOpenConsultation(); }} className="w-full py-3 bg-[#0E4637] text-[#E6F15A] font-semibold text-xs uppercase tracking-wider rounded-lg text-center flex items-center justify-center gap-2"><PhoneCall className="w-4 h-4" /><span>{cmsText("navbar.31fb46f4fe", "Omów projekt")}</span></button>

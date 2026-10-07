@@ -1,4 +1,4 @@
-import { cmsText } from '../cms';
+import { cmsText, plannerUrl } from '../cms';
 import React from 'react';
 import { PageId } from '../types.ts';
 import { ContactForm } from '../components/ContactForm.tsx';
@@ -38,6 +38,9 @@ export const ArchitectsPage: React.FC<ArchitectsPageProps> = ({
             <p className="text-base sm:text-lg text-[#EDE9DF]/80 leading-relaxed pt-2">{cmsText("architectspage.eaae85cbc9", "Jesteśmy technicznym partnerem Twojej pracowni. Dbamy o to, aby instalacja automatyki i sterowania nie popsuła czystości Twojej architektury. Przejmujemy koordynację branżową i przygotowujemy precyzyjne wytyczne podtynkowe.")}</p>
 
             <div className="pt-4 flex flex-wrap items-center gap-4">
+              <a href={plannerUrl()} className="px-6 py-3 bg-[#0E4637] text-[#E6F15A] font-bold text-xs uppercase tracking-wider rounded-lg border border-[#E6F15A]/40 inline-flex items-center gap-2">
+                Otwórz projektant KNX <Sliders className="w-4 h-4" />
+              </a>
               <button
                 onClick={onOpenConsultation}
                 className="px-6 py-3 bg-[#E6F15A] hover:bg-white text-[#0E4637] font-bold text-xs uppercase tracking-wider rounded-lg transition-colors flex items-center gap-2"

@@ -46,3 +46,22 @@ Node 22: `npm ci`, `npm run lint`, `npm run build:wordpress`.
 Python: `python -m unittest discover -s tests -v`.
 Paczka: `python scripts/package-wordpress.py`.
 Pełny test formularzy na stagingu: zgodnie z `WORDPRESS.md`.
+
+## Projektant KNX: Laravel + Filament
+
+Źródłem frontendowym są Janka oraz rozwinięcie punktów/klawiszy/PDF z prac PS9 ELDSGN. Jest ono przeniesione jako kod; hosting PS9 i Elektrodesign nie jest modyfikowany. Stary kontroler PHP ze wspólnym hasłem został zastąpiony osobnymi kontami Laravel.
+
+- Frontend: `planner/`, Node 24. Backend: `knx-backend/`, PHP 8.4, Composer, Laravel 13, Filament 5.
+- Adres testowy: `https://horcwnciix.cfolks.pl/projektant-knx/`; panel `/admin`, edytor `/editor`.
+- W menu WordPressa: Dla architektów → Projektant KNX. Adres można zmienić opcją WP `is_knx_url`.
+- Prywatna aplikacja: `public_html/.knx-laravel/releases/<sha>-<czas>`, symlink `current`; trwałe `.env` i `storage` w `shared/`. Ze względu na open_basedir CF prywatny katalog jest wewnątrz public_html, z bezwzględną blokadą HTTP przez `.htaccess`. Bez tej ochrony instalacja jest niedopuszczalna.
+- Publicznie dostępne są tylko front controller i statyczne zasoby w `public_html/projektant-knx/`. Dane projektu/plików wymagają zalogowania.
+- Osobna baza `horcwnciix_knx` na instancji MariaDB 10.11. Konto WordPress nie jest automatycznie kontem KNX. Administrator zarządza użytkownikami w Filament.
+
+CI wykonuje testy modelu React, testy Laravel na izolowanym SQLite oraz walidację paczek. Release `cf-<sha>` zawiera dodatkowo `knx.tar.gz` i `knx.sha256` bez `.env`, danych, storage i testowych projektów. `scripts/cf-deploy-knx.py` jest drugim kontrolerem CF, z osobną blokadą procesu i stanem `deployed-knx.json`. Wspólny plik `PAUSED` zatrzymuje oba kontrolery; `KNX_PAUSED` zatrzymuje tylko KNX. Kontrolery nie aktualizują się automatycznie.
+
+Przed wydaniem KNX wykonywany jest dump bazy oraz archiwum prywatnych plików z SHA-256 w `intelispaces-deploy/knx-backups/`. Poprzednie wydanie kodu i publiczne zasoby pozostają dostępne do cofnięcia. Aktualizacja podmienia kod, wykonuje migracje i sprawdza logowanie oraz odmowę anonimowego dostępu do API. Dopiero potem publikuje `/projektant-knx/release.json`. Workflow potwierdza **oba** znaczniki: WordPress i KNX.
+
+Migracje wdrażane automatycznie muszą być addytywne i zgodne wstecz. Nie wolno automatycznie importować starej bazy ani usuwać kolumn/danych podczas powrotu do poprzedniego kodu. Przy niepowodzeniu przeanalizuj log i stan migracji przed ponowieniem.
+
+Aktualne kopie wdrożeniowe są na tym samym koncie CF; nie zastępują kopii poza hostingiem ani ustalonej retencji. Integracja nie przełącza DNS intelispaces.pl. Wysyłka maili, publiczna rejestracja i połączenie z kontami WordPressa nie są włączone.
