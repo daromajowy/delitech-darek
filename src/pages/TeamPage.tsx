@@ -40,7 +40,7 @@ export const TeamPage: React.FC<TeamPageProps> = ({ onNavigate, onOpenConsultati
       name: 'Jan Jasek',
       role: 'głowny Architekt,Integrator i koordynator Integracji instalacji KNX ',
       specialization: 'Współpraca z pracowniami architektonicznymi, dobór i doradztwo w osprzęcie KNX, Programowanie ETS, wizualizacje, logistyka dostaw, konsultacje i wsparcie dla Inwestorów',
-      bio: 'Specjalista w zakresie programowania logiki sterowania, prefabrykacji szaf automatyki oraz uruchamiania instalacji na obiektach rezydencjalnych i biurowych. Posiada ogromne doświadczenie w ofercie podzespołów systemów automatyki oraz przykłada wiele  dbałości o bezbłędny standard montażu.,
+      bio: 'Specjalista w zakresie programowania logiki sterowania, prefabrykacji szaf automatyki oraz uruchamiania instalacji na obiektach rezydencjalnych i biurowych. Posiada ogromne doświadczenie w ofercie podzespołów systemów automatyki oraz przykłada wiele  dbałości o bezbłędny standard montażu.',
       certifications: ['KNX Cerified Partner'],
       photoUrl: janekPhoto,
       email: 'janek@intelispaces.pl',
