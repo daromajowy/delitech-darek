@@ -6,8 +6,8 @@ import urllib.request
 
 commit = os.environ['RELEASE_COMMIT']
 urls = [
-    'https://horcwnciix.cfolks.pl/wordpress/wp-content/themes/intelispaces/release.json',
-    'https://horcwnciix.cfolks.pl/projektant-knx/release.json',
+    'https://intelispaces.pl/wp-content/themes/intelispaces/release.json',
+    'https://intelispaces.pl/projektant-knx/release.json',
 ]
 for attempt in range(24):
     try:

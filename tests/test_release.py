@@ -6,11 +6,55 @@ from pathlib import Path
 import tarfile
 import tempfile
 import unittest
+from unittest.mock import MagicMock, patch
 
 spec = importlib.util.spec_from_file_location('deploy', Path(__file__).resolve().parents[1] / 'scripts/cf-deploy.py')
 deploy = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(deploy)
 SHA = 'a' * 40
+
+class DeploymentTargetTests(unittest.TestCase):
+    def config(self, environment):
+        root, url = deploy.TARGETS[environment]
+        return {'root': root, 'url': url, 'environment': environment}
+
+    def test_production_requires_exact_domain_and_root(self):
+        config = self.config('production')
+        self.assertEqual(deploy.deployment_target(config)[1], 'production')
+        for changed in ({'root': '/home/another-account/public_html'},
+                        {'url': 'https://other.example/'}, {'environment': 'staging'}):
+            with self.subTest(changed=changed), self.assertRaises(ValueError):
+                deploy.deployment_target({**config, **changed})
+
+    def test_existing_staging_config_remains_private(self):
+        config = self.config('staging')
+        del config['environment']
+        self.assertEqual(deploy.deployment_target(config)[1], 'staging')
+        response = MagicMock(status=200, url=config['url'])
+        response.read.return_value = b'<div id="root">__INTELISPACES__</div>'
+        with patch.object(deploy.urllib.request, 'urlopen') as request:
+            request.return_value.__enter__.return_value = response
+            with self.assertRaises(ValueError):
+                deploy.verify_http_health(config)
+
+    def test_production_rejects_login_redirect_and_empty_page(self):
+        config = self.config('production')
+        for url, body in [(config['url']+'wp-login.php', b'user_login'),
+                          (config['url'], b'Hosting placeholder')]:
+            response = MagicMock(status=200, url=url)
+            response.read.return_value = body
+            with patch.object(deploy.urllib.request, 'urlopen') as request:
+                request.return_value.__enter__.return_value = response
+                with self.assertRaises(ValueError):
+                    deploy.verify_http_health(config)
+
+    def test_production_accepts_our_public_site(self):
+        config = self.config('production')
+        response = MagicMock(status=200, url=config['url'])
+        response.read.return_value = b'<div id="root"></div><script>__INTELISPACES__ = {}</script>'
+        with patch.object(deploy.urllib.request, 'urlopen') as request:
+            request.return_value.__enter__.return_value = response
+            deploy.verify_http_health(config)
 
 class ReleaseSafetyTests(unittest.TestCase):
     def archive(self, extra=None, change=None, commit=SHA):

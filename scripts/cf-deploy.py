@@ -22,6 +22,30 @@ MAX_UNPACKED = 180 * 1024 * 1024
 REQUIRED = {'intelispaces/style.css', 'intelispaces/functions.php', 'intelispaces/index.php',
             'intelispaces/dist/.vite/manifest.json', 'intelispaces/templates/home.html',
             'intelispaces-backend/intelispaces-backend.php'}
+TARGETS = {
+    'staging': ('/home/horcwnciix/domains/horcwnciix.cfolks.pl/public_html/wordpress',
+                'https://horcwnciix.cfolks.pl/wordpress/'),
+    'production': ('/home/horcwnciix/domains/intelispaces.pl/public_html',
+                   'https://intelispaces.pl/'),
+}
+
+def deployment_target(config):
+    environment = config.get('environment', 'staging')
+    expected = TARGETS.get(environment)
+    if expected is None or (config.get('root'), config.get('url')) != expected:
+        raise ValueError('Unexpected WordPress target or environment')
+    return Path(expected[0]), environment
+
+def verify_http_health(config):
+    _, environment = deployment_target(config)
+    with urllib.request.urlopen(config['url'], timeout=30) as response:
+        body = response.read(1024 * 1024).decode('utf-8', 'replace')
+        if environment == 'staging':
+            if 'wp-login.php' not in response.url or 'user_login' not in body:
+                raise ValueError('Staging HTTP health check failed')
+        elif (response.status != 200 or response.url.rstrip('/') != config['url'].rstrip('/')
+              or '__INTELISPACES__' not in body or 'id="root"' not in body):
+            raise ValueError('Production HTTP health check failed')
 
 def download(url, limit=2 * 1024 * 1024):
     request = urllib.request.Request(url, headers={'User-Agent': 'InteliSpaces-CF-Deploy/1.0', 'Accept': 'application/vnd.github+json'})
@@ -78,15 +102,15 @@ def command(args, cwd=None):
     return result.stdout.strip()
 
 def apply_release(config, work, archive, commit):
+    expected, environment = deployment_target(config)
     root = Path(config['root']).resolve()
-    expected = Path('/home/horcwnciix/domains/horcwnciix.cfolks.pl/public_html/wordpress')
     if root != expected or not (root / 'wp-config.php').is_file():
         raise ValueError('Unexpected WordPress target')
     if command(['id', '-un']) != 'horcwnciix' or command(['hostname']) != 's78.cyber-folks.pl':
         raise ValueError('Wrong host or account')
     wp = ['/usr/local/bin/wp', '--path=' + str(root)]
-    if command(wp + ['config', 'get', 'WP_ENVIRONMENT_TYPE']) != 'staging':
-        raise ValueError('Expected the existing staging instance')
+    if command(wp + ['config', 'get', 'WP_ENVIRONMENT_TYPE']) != environment:
+        raise ValueError('WordPress environment differs from the deployment target')
     if command(wp + ['theme', 'list', '--status=active', '--field=name']) != 'intelispaces':
         raise ValueError('Unexpected active theme')
     if (root / '.maintenance').exists():
@@ -122,11 +146,7 @@ def apply_release(config, work, archive, commit):
                 (prepared / name).rename(target)
             command(wp + ['eval', 'if (!function_exists("is_cms_config") || !function_exists("is_save_inquiry") || count(is_routes()) !== 11) { exit(3); } echo "CMS_OK";'])
             command(wp + ['maintenance-mode', 'deactivate'])
-            # Endpoint is protected by login; an unauthenticated request must land at wp-login.
-            with urllib.request.urlopen(config['url'], timeout=30) as response:
-                body = response.read(1024 * 1024).decode('utf-8', 'replace')
-                if 'wp-login.php' not in response.url or 'user_login' not in body:
-                    raise ValueError('Staging HTTP health check failed')
+            verify_http_health(config)
             # Publish the commit marker last, after health checks pass.
             marker = {'schema': 1, 'commit': commit, 'deployed_at': datetime.now(timezone.utc).isoformat()}
             (root / 'wp-content/themes/intelispaces/release.json').write_text(json.dumps(marker), encoding='utf-8')

@@ -5,9 +5,9 @@
 - Repozytorium: `daromajowy/delitech-darek`.
 - `Darka`: prace Darka i Claude Code. Po synchronizacji zawiera tę samą wersję WordPressa co `main`.
 - `main`: zatwierdzony kod, z którego CF pobiera paczkę po testach.
-- Codex pracuje na `codex/<zadanie>` utworzonej ze świeżego `main`; zadania przechodzą przez pull request do `main`. Po przyjęciu zmian Darek scala `main` do swojej gałęzi.
+- Codex pracuje na `Janka`, a Darek na `Darka`. Zatwierdzone zmiany trafiają do `main`; tylko `main` jest automatycznie wdrażany na CF.
 - Historia obu gałęzi sprzed migracji: `backup/main-before-wordpress-20261007` i `backup/darka-before-wordpress-20261007`.
-- `Janka` nie jest zmieniana w tej synchronizacji. Zawiera wcześniejsze, osobne prace; nie używaj jej starego workflow Pages do publikacji WordPressa.
+- Stare wersje GitHub Pages zostały zastąpione przekierowaniami na `https://intelispaces.pl/`. Workflow `retire-pages.yml` publikuje wyłącznie przekierowania, bez kodu starej aplikacji. Gałęzie robocze nie mają obecnie osobnych publicznych podglądów.
 
 ## Co jest w Git, a co w bazie
 
@@ -24,7 +24,11 @@ Teksty i zdjęcia zmieniane w CMS, konta użytkowników, zapytania, prywatne dok
 5. Po kontroli WordPressa publikuje identyfikator wdrożenia. W razie błędu wraca poprzedni kod; baza i uploads nie są podmieniane.
 6. Workflow sprawdza identyfikator na CF. Zielony etap „Confirm deployment” oznacza potwierdzenie aktualizacji hostingu.
 
-Aktualny cel: **https://horcwnciix.cfolks.pl/wordpress/**, czyli utworzona instancja testowa. Proces nie przełącza domeny intelispaces.pl i nie dotyka PS9. Zmiana celu produkcyjnego będzie osobnym wdrożeniem.
+Aktualny cel: **https://intelispaces.pl/**, katalog `/home/horcwnciix/domains/intelispaces.pl/public_html`, środowisko WordPress `production`. Domena korzysta z certyfikatu Let's Encrypt dla adresu głównego i `www`; odnowienie uruchamia codzienny cron ACME, a ograniczony do SSL i DNS klucz DirectAdmin działa wyłącznie z adresów serwera. PS9 pozostaje poza zakresem.
+
+Przełączenie domeny: kopia plików, obu baz i kontrolerów znajduje się w `/home/horcwnciix/intelispaces-cutover-20261007T222206Z/`; archiwum i sumy SHA-256 zostały sprawdzone. WordPress został sklonowany przez Installatron do docelowej domeny z bazą `horcwnciix_bly41`. Projekty KNX nadal korzystają z istniejącej bazy `horcwnciix_knx`; prywatny magazyn plików przeniesiono do katalogu nowej domeny. Stary adres CF przekierowuje na nowy. Kopia źródłowa WordPressa pozostaje zabezpieczona jako materiał do odzyskania, bez automatycznych wdrożeń.
+
+`config.json` kontrolera zawiera `environment: production`, docelowy `root` i `url`. Kontrolery akceptują wyłącznie jawnie dozwoloną parę katalogu i domeny dla produkcji lub dawnego stagingu. Kontrola produkcji wymaga publicznej strony InteliSpaces; kontrola stagingu nadal wymaga przekierowania do logowania. Konfigurator zachowuje odrębne uwierzytelnianie w obu środowiskach.
 
 Nie ma hasła SSH ani klucza hostingu w GitHubie. Używany jest krótkotrwały `GITHUB_TOKEN` do publikacji paczki w tym samym repozytorium; CF pobiera publiczne paczki przez HTTPS. Dlatego repozytorium musi pozostawać publiczne, dopóki nie zostanie skonfigurowany osobny mechanizm uwierzytelniania. Tylko zatwierdzony kod należy scalać do `main` — PHP motywu i wtyczki działa z uprawnieniami konta WordPressa.
 
@@ -52,7 +56,7 @@ Pełny test formularzy na stagingu: zgodnie z `WORDPRESS.md`.
 Źródłem frontendowym są Janka oraz rozwinięcie punktów/klawiszy/PDF z prac PS9 ELDSGN. Jest ono przeniesione jako kod; hosting PS9 i Elektrodesign nie jest modyfikowany. Stary kontroler PHP ze wspólnym hasłem został zastąpiony osobnymi kontami Laravel.
 
 - Frontend: `planner/`, Node 24. Backend: `knx-backend/`, PHP 8.4, Composer, Laravel 13, Filament 5.
-- Adres testowy: `https://horcwnciix.cfolks.pl/projektant-knx/`; panel `/admin`, edytor `/editor`.
+- Adres: `https://intelispaces.pl/projektant-knx/`; panel `/admin`, edytor `/editor`.
 - W menu WordPressa: Dla architektów → Projektant KNX. Adres można zmienić opcją WP `is_knx_url`.
 - Prywatna aplikacja: `public_html/.knx-laravel/releases/<sha>-<czas>`, symlink `current`; trwałe `.env` i `storage` w `shared/`. Ze względu na open_basedir CF prywatny katalog jest wewnątrz public_html, z bezwzględną blokadą HTTP przez `.htaccess`. Bez tej ochrony instalacja jest niedopuszczalna.
 - Publicznie dostępne są tylko front controller i statyczne zasoby w `public_html/projektant-knx/`. Dane projektu/plików wymagają zalogowania.
@@ -64,4 +68,4 @@ Przed wydaniem KNX wykonywany jest dump bazy oraz archiwum prywatnych plików z 
 
 Migracje wdrażane automatycznie muszą być addytywne i zgodne wstecz. Nie wolno automatycznie importować starej bazy ani usuwać kolumn/danych podczas powrotu do poprzedniego kodu. Przy niepowodzeniu przeanalizuj log i stan migracji przed ponowieniem.
 
-Aktualne kopie wdrożeniowe są na tym samym koncie CF; nie zastępują kopii poza hostingiem ani ustalonej retencji. Integracja nie przełącza DNS intelispaces.pl. Wysyłka maili, publiczna rejestracja i połączenie z kontami WordPressa nie są włączone.
+Aktualne kopie wdrożeniowe są na tym samym koncie CF; nie zastępują kopii poza hostingiem ani ustalonej retencji. Wysyłka maili z KNX, publiczna rejestracja i połączenie z kontami WordPressa nie są włączone. Kontrolery nie zmieniają DNS; zmiana domeny wymaga osobnej operacji, takiej jak opisane powyżej przełączenie.

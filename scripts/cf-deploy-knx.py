@@ -10,6 +10,7 @@ import re
 import shutil
 import tarfile
 import urllib.error
+import urllib.parse
 import urllib.request
 
 spec = importlib.util.spec_from_file_location('wp_deployment', Path(__file__).with_name('cf-deploy.py'))
@@ -20,6 +21,15 @@ WEB = Path('/home/horcwnciix/domains/horcwnciix.cfolks.pl/public_html')
 URL = 'https://horcwnciix.cfolks.pl/projektant-knx'
 REQUIRED = {'artisan', 'composer.lock', 'vendor/autoload.php', 'public/planner/.vite/manifest.json',
             'app/Http/Controllers/PlannerController.php', 'resources/views/planner.blade.php'}
+
+
+def configure_target(work):
+    global WEB, URL
+    config = json.loads((work / 'config.json').read_text())
+    root, environment = common.deployment_target(config)
+    WEB = root.parent if environment == 'staging' else root
+    location = urllib.parse.urlsplit(config['url'])
+    URL = location.scheme + '://' + location.netloc + '/projektant-knx'
 
 
 def validate_archive(path, commit):
@@ -154,6 +164,7 @@ def main():
     work = Path(args.work).resolve()
     if work != Path('/home/horcwnciix/intelispaces-deploy'):
         raise ValueError('Unexpected deployment directory')
+    configure_target(work)
     with (work / 'knx-deploy.lock').open('w') as lock:
         try:
             fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
