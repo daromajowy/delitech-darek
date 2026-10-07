@@ -3,3 +3,4 @@ dist/
 .env*
 !\.env.example
 qa-output/
+public/pdf-assets/

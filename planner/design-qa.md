@@ -75,3 +75,9 @@ P3 follow-up: a denser optional scene table and product-specific photographs for
 - [x] PDF/XLSX content and rendered PDF inspection
 - [x] Protected deployment with parent-site integrity check
 - [x] No credentials or project data in repository
+
+## Laravel/Filament integration (2026-10-07)
+
+The preceding sections describe the historical Janka/shared-password release, not the current authentication architecture. Current runtime: `https://horcwnciix.cfolks.pl/projektant-knx/`. Individual accounts, scoped project access and private files are enforced by Laravel; administration is in Filament.
+
+Current checks: 13 frontend model tests; 20 Laravel tests (88 assertions); 12 deployment/archive tests. Browser verification covered setting a separate long-press target, dragging P01/P02 from the room list onto the supplied PDF, moving an existing marker, panning, zooming and restoring the saved data after reload. Generated PDF has six brief pages with photos/key descriptions plus one original vector plan page with the two sensor markers. The user's PDF and generated output are excluded from Git.

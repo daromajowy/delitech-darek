@@ -1,8 +1,19 @@
-import { cmsText } from '../cms/content.ts';
-import React, { useEffect } from 'react';
+import { cmsText, plannerUrl } from '../cms';
+import React from 'react';
 import { PageId } from '../types.ts';
+import { ContactForm } from '../components/ContactForm.tsx';
 import { IMAGES } from '../assets.ts';
-import { ArrowRight, CheckCircle2, Compass, FileText, Layers, Mail, MapPin, Phone, Sliders } from 'lucide-react';
+import {
+  Compass,
+  FileCode2,
+  Sliders,
+  CheckCircle2,
+  PhoneCall,
+  Sparkles,
+  Download,
+  ArrowRight,
+  Layers,
+} from 'lucide-react';
 
 interface ArchitectsPageProps {
   onNavigate: (page: PageId, subHash?: string) => void;
@@ -10,138 +21,184 @@ interface ArchitectsPageProps {
   onOpenPrivacy: () => void;
 }
 
-const packageHref = `${import.meta.env.BASE_URL}materialy/pakiet-architekta.html`;
-
-export const ArchitectsPage: React.FC<ArchitectsPageProps> = ({ onOpenConsultation }) => {
-  useEffect(() => {
-    let frame = 0;
-    const scrollToSection = () => {
-      const [page, section] = window.location.hash.slice(1).split('/');
-      if (page !== 'architects' || !section) return;
-      const anchors: Record<string, string> = {
-        pakiet: 'arch-pakiet', wsparcie: 'arch-karta', wytyczne: 'arch-wytyczne',
-        jung: 'arch-jung', konsultacja: 'arch-kontakt',
-        'arch-pakiet': 'arch-pakiet', 'arch-karta': 'arch-karta', 'arch-kontakt': 'arch-kontakt',
-      };
-      const anchor = anchors[section];
-      if (!anchor) return;
-      cancelAnimationFrame(frame);
-      frame = requestAnimationFrame(() => document.getElementById(anchor)?.scrollIntoView({ behavior: 'auto' }));
-    };
-    scrollToSection();
-    window.addEventListener('hashchange', scrollToSection);
-    return () => { cancelAnimationFrame(frame); window.removeEventListener('hashchange', scrollToSection); };
-  }, []);
-
+export const ArchitectsPage: React.FC<ArchitectsPageProps> = ({
+  onNavigate,
+  onOpenConsultation,
+  onOpenPrivacy,
+}) => {
   return (
     <div className="space-y-0">
-      <section className="bg-[#17211C] text-white py-12 lg:py-16 border-b border-white/10 relative overflow-hidden">
+      {/* Hero */}
+      <section className="bg-[#17211C] text-white py-16 lg:py-20 border-b border-white/10 relative overflow-hidden">
         <div className="absolute inset-0 bg-grid-dark-subtle opacity-50 pointer-events-none" />
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 grid lg:grid-cols-12 gap-10 items-center">
-          <div className="lg:col-span-8 space-y-5">
-            <span className="text-xs font-mono uppercase tracking-widest text-[#E6F15A] font-semibold block">{cmsText('ArchitectsPage-v2-eyebrow', 'Dla architektów i projektantów wnętrz')}</span>
-            <h1 className="text-3xl sm:text-5xl font-extrabold font-display tracking-tight text-white leading-tight">{cmsText('ArchitectsPage-v2-title', 'Projektujesz wnętrze. My pomagamy zaplanować, jak będzie działać.')}</h1>
-            <p className="text-base sm:text-lg text-[#EDE9DF]/80 leading-relaxed max-w-3xl">{cmsText('ArchitectsPage-v2-intro', 'Zaczynamy od rzutu, codziennych sytuacji i detalu na ścianie. Wspólnie porządkujemy sposób sterowania światłem, osłonami i temperaturą, zanim decyzje trafią na budowę.')}</p>
-            <div className="pt-2 flex flex-wrap gap-3">
-              <button onClick={onOpenConsultation} className="px-6 py-3 bg-[#E6F15A] hover:bg-white text-[#0E4637] font-bold text-sm rounded-lg transition-colors flex items-center gap-2">{cmsText('ArchitectsPage-v2-main-cta', 'Omów projekt')}<ArrowRight className="w-4 h-4" aria-hidden="true" /></button>
-              <button onClick={() => document.getElementById('arch-pakiet')?.scrollIntoView({ behavior: 'smooth' })} className="px-6 py-3 bg-white/10 hover:bg-white/15 text-white font-medium text-sm rounded-lg transition-colors border border-white/20">{cmsText('ArchitectsPage-v2-package-cta', 'Zobacz pakiet architekta')}</button>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="max-w-3xl space-y-4">
+            <span className="text-xs font-mono uppercase tracking-widest text-[#E6F15A] font-semibold block">{cmsText("architectspage.1bda08b583", "Strefa Współpracy Projektowej")}</span>
+            <h1 className="text-4xl sm:text-5xl font-extrabold font-display tracking-tight text-white">{cmsText("architectspage.ffdd3f0cd1", "Wsparcie dla architektów wnętrz i projektantów instalacji")}</h1>
+            <p className="text-base sm:text-lg text-[#EDE9DF]/80 leading-relaxed pt-2">{cmsText("architectspage.eaae85cbc9", "Jesteśmy technicznym partnerem Twojej pracowni. Dbamy o to, aby instalacja automatyki i sterowania nie popsuła czystości Twojej architektury. Przejmujemy koordynację branżową i przygotowujemy precyzyjne wytyczne podtynkowe.")}</p>
+
+            <div className="pt-4 flex flex-wrap items-center gap-4">
+              <a href={plannerUrl()} className="px-6 py-3 bg-[#0E4637] text-[#E6F15A] font-bold text-xs uppercase tracking-wider rounded-lg border border-[#E6F15A]/40 inline-flex items-center gap-2">
+                Otwórz projektant KNX <Sliders className="w-4 h-4" />
+              </a>
+              <button
+                onClick={onOpenConsultation}
+                className="px-6 py-3 bg-[#E6F15A] hover:bg-white text-[#0E4637] font-bold text-xs uppercase tracking-wider rounded-lg transition-colors flex items-center gap-2"
+              >
+                <span>{cmsText("architectspage.fbf2b886f7", "Umów konsultację projektu")}</span>
+                <ArrowRight className="w-4 h-4" />
+              </button>
+              <button
+                onClick={() => {
+                  const el = document.getElementById('arch-kontakt');
+                  el?.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className="px-6 py-3 bg-white/10 hover:bg-white/15 text-white font-medium text-xs uppercase tracking-wider rounded-lg transition-colors border border-white/15"
+              >{cmsText("architectspage.a58847c487", "Prześlij rzuty koncepcyjne")}</button>
             </div>
           </div>
-          <aside className="lg:col-span-4 rounded-2xl border border-white/20 bg-white/5 p-6">
-            <FileText className="w-7 h-7 text-[#E6F15A] mb-4" aria-hidden="true" />
-            <h2 className="text-xl font-display font-bold">{cmsText('ArchitectsPage-v2-hero-card-title', 'Zacznij od jednego pomieszczenia')}</h2>
-            <p className="mt-3 text-sm text-white/75 leading-relaxed">{cmsText('ArchitectsPage-v2-hero-card-text', 'Przygotowaliśmy przykładową kartę salonu i listę decyzji do wspólnego ustalenia. Otworzysz je bez zakładania konta.')}</p>
-            <a href={packageHref} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 mt-5 text-sm font-semibold text-[#E6F15A] underline underline-offset-4">{cmsText('ArchitectsPage-v2-hero-card-link', 'Otwórz materiał do druku')}<ArrowRight className="w-4 h-4" aria-hidden="true" /></a>
-          </aside>
         </div>
       </section>
 
-      <section id="arch-pakiet" className="py-12 sm:py-16 bg-white border-b border-[#17211C]/10 scroll-mt-28">
+      {/* 4 Pillars of Architect Support */}
+      <section className="py-16 sm:py-24 bg-white border-b border-[#17211C]/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mb-8">
-            <span className="text-xs font-mono uppercase tracking-widest text-[#0E4637] font-semibold block mb-2">{cmsText('ArchitectsPage-v2-package-eyebrow', 'Materiał do wspólnej pracy')}</span>
-            <h2 className="text-3xl font-bold font-display text-[#17211C]">{cmsText('ArchitectsPage-v2-package-title', 'Pakiet architekta. Konkret na początek rozmowy.')}</h2>
-            <p className="text-base text-[#17211C]/75 mt-3 leading-relaxed">{cmsText('ArchitectsPage-v2-package-intro', 'Cztery części, które pomagają nazwać potrzeby i zapisać uzgodnienia. To wzór roboczy; dokumentację i zakres współpracy dobieramy osobno do inwestycji.')}</p>
+          <div className="max-w-3xl mb-14">
+            <span className="text-xs font-mono uppercase tracking-widest text-[#0E4637] font-semibold block mb-2">{cmsText("architectspage.0caa80f9f1", "Bezpieczeństwo koncepcji")}</span>
+            <h2 className="text-3xl font-bold font-display text-[#17211C]">{cmsText("architectspage.c7ea772be7", "Jak wspieramy pracownie na każdym etapie projektu")}</h2>
+            <p className="text-sm text-[#17211C]/70 mt-2">{cmsText("architectspage.3d68ffd5b3", "Włączamy się w proces w momencie, kiedy decydują się kluczowe trasy i punkty na ścianach.")}</p>
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {[
-              { icon: Compass, title: cmsText('ArchitectsPage-v2-pack-brief-title', '01. Brief inwestycji'), text: cmsText('ArchitectsPage-v2-pack-brief-text', 'Etap prac, domownicy, priorytety i decyzje, których jeszcze brakuje.') },
-              { icon: Sliders, title: cmsText('ArchitectsPage-v2-pack-room-title', '02. Karta pomieszczenia'), text: cmsText('ArchitectsPage-v2-pack-room-text', 'Przykład salonu: cztery sceny, punkty sterowania i pytania do inwestora.') },
-              { icon: Layers, title: cmsText('ArchitectsPage-v2-pack-coordination-title', '03. Przed instalacją'), text: cmsText('ArchitectsPage-v2-pack-coordination-text', 'Lista uzgodnień dotyczących światła, osłon, temperatury i przycisków.') },
-              { icon: FileText, title: cmsText('ArchitectsPage-v2-pack-handover-title', '04. Przy przekazaniu'), text: cmsText('ArchitectsPage-v2-pack-handover-text', 'Pytania o testy, dokumentację, konfigurację, dostępy i późniejszy serwis.') },
-            ].map(({ icon: Icon, title, text }) => (
-              <div key={title} className="rounded-2xl bg-[#F7F8F5] border border-[#17211C]/10 p-5"><Icon className="w-6 h-6 text-[#0E4637] mb-4" aria-hidden="true" /><h3 className="font-bold text-[#17211C]">{title}</h3><p className="text-sm text-[#17211C]/75 mt-2 leading-relaxed">{text}</p></div>
-            ))}
-          </div>
-          <div className="flex flex-wrap gap-3 mt-6">
-            <a href={packageHref} target="_blank" rel="noopener noreferrer" className="px-5 py-3 bg-[#0E4637] hover:bg-[#17211C] text-white font-semibold text-sm rounded-lg transition-colors">{cmsText('ArchitectsPage-v2-pack-open', 'Otwórz pakiet i wydrukuj')}</a>
-            <a href="https://intelispaces.pl/projektant-knx/" className="px-5 py-3 bg-[#0E4637] hover:bg-[#17211C] text-white font-semibold text-sm rounded-lg transition-colors">Projektant KNX</a>
-            <a href={packageHref} download="Delitech-pakiet-architekta.html" className="px-5 py-3 border border-[#0E4637]/25 hover:bg-[#F7F8F5] text-[#0E4637] font-semibold text-sm rounded-lg transition-colors">{cmsText('ArchitectsPage-v2-pack-download', 'Pobierz plik HTML')}</a>
-          </div>
-          <p className="text-xs text-[#53635A] mt-3">{cmsText('ArchitectsPage-v2-pack-format', 'Wersja do druku lub zapisania jako PDF z przeglądarki. Przykład koncepcyjny, nie projekt wykonawczy.')}</p>
-        </div>
-      </section>
 
-      <section id="arch-karta" className="py-12 sm:py-16 bg-[#F7F8F5] border-b border-[#17211C]/10 scroll-mt-28">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-12 gap-8">
-          <div className="lg:col-span-4">
-            <span className="text-xs font-mono uppercase tracking-widest text-[#0E4637] font-semibold block mb-2">{cmsText('ArchitectsPage-v2-room-eyebrow', 'Zajrzyj do pakietu')}</span>
-            <h2 className="text-3xl font-bold font-display text-[#17211C]">{cmsText('ArchitectsPage-v2-room-title', 'Jedno pomieszczenie. Cztery zwykłe sytuacje.')}</h2>
-            <p className="text-sm text-[#17211C]/75 mt-4 leading-relaxed">{cmsText('ArchitectsPage-v2-room-intro', 'Salon z jadalnią. Zamiast wybierać urządzenia w ciemno, najpierw zapisujemy, co ma się wydarzyć. Poziomy światła i zachowanie osłon ustalamy z użytkownikiem.')}</p>
-            <p className="mt-4 rounded-lg border border-[#0E4637]/15 bg-white p-4 text-xs text-[#53635A] leading-relaxed">{cmsText('ArchitectsPage-v2-room-note', 'To ilustracja sposobu planowania, nie opis wykonanej realizacji ani gotowe ustawienia do skopiowania do instalacji.')}</p>
-          </div>
-          <div className="lg:col-span-8 grid sm:grid-cols-2 gap-4">
-            {[
-              { number: '01', title: cmsText('ArchitectsPage-v2-scene-dinner-title', 'Kolacja'), action: cmsText('ArchitectsPage-v2-scene-dinner-action', 'Światło nad stołem i delikatne tło. Reszta strefy wyciszona.'), question: cmsText('ArchitectsPage-v2-scene-dinner-question', 'Do ustalenia: które oprawy można ściemniać i skąd wywołać scenę?') },
-              { number: '02', title: cmsText('ArchitectsPage-v2-scene-film-title', 'Film'), action: cmsText('ArchitectsPage-v2-scene-film-action', 'Mniej światła przy ekranie, subtelne światło orientacyjne.'), question: cmsText('ArchitectsPage-v2-scene-film-question', 'Do ustalenia: czy scena ma obejmować osłony okien i sprzęt AV?') },
-              { number: '03', title: cmsText('ArchitectsPage-v2-scene-clean-title', 'Sprzątanie'), action: cmsText('ArchitectsPage-v2-scene-clean-action', 'Jasne oświetlenie wszystkich potrzebnych stref.'), question: cmsText('ArchitectsPage-v2-scene-clean-question', 'Do ustalenia: wygodne wywołanie i powrót do poprzedniej sceny.') },
-              { number: '04', title: cmsText('ArchitectsPage-v2-scene-leave-title', 'Wyjście'), action: cmsText('ArchitectsPage-v2-scene-leave-action', 'Wyłączenie wskazanych świateł jednym poleceniem.'), question: cmsText('ArchitectsPage-v2-scene-leave-question', 'Do ustalenia: wyjątki, potwierdzenie i zachowanie pozostałych systemów.') },
-            ].map(({ number, title, action, question }) => (
-              <article key={number} className="bg-white rounded-2xl border border-[#17211C]/10 p-5"><div className="flex items-center gap-3 mb-3"><span className="font-mono text-xs text-[#0E4637] bg-[#E6F15A]/70 px-2 py-1 rounded">{number}</span><h3 className="font-bold text-lg text-[#17211C]">{title}</h3></div><p className="text-sm text-[#17211C]/80 leading-relaxed">{action}</p><p className="text-xs text-[#53635A] mt-3 pt-3 border-t border-[#17211C]/10 leading-relaxed">{question}</p></article>
-            ))}
-          </div>
-        </div>
-      </section>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {/* 1. Wsparcie projektowe */}
+            <div className="p-8 rounded-2xl bg-[#F7F8F5] border border-[#17211C]/10 space-y-4">
+              <div className="w-10 h-10 rounded-xl bg-[#0E4637] text-[#E6F15A] flex items-center justify-center">
+                <Compass className="w-5 h-5" />
+              </div>
+              <h3 className="text-xl font-bold font-display text-[#17211C]">{cmsText("architectspage.75b477de08", "01. Wsparcie koncepcyjne i scenariusze")}</h3>
+              <p className="text-xs sm:text-sm text-[#17211C]/75 leading-relaxed">{cmsText("architectspage.7841c2882a", "Wspólnie z architektem tworzymy logiczną matrycę działania przestrzeni. Zamiast pytać klienta o setki technicznych parametrów, proponujemy gotowe, sprawdzone w biurach i rezydencjach schematy sterowania oświetleniem, roletami i HVAC.")}</p>
+              <ul className="text-xs text-[#17211C]/80 space-y-1.5 pt-2">
+                <li className="flex items-center gap-2">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-[#0E4637]" />
+                  <span>{cmsText("architectspage.4f99071c9c", "Redukcja liczby manipulatorów ściennych do minimum")}</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-[#0E4637]" />
+                  <span>{cmsText("architectspage.260ccf4306", "Konsultacje stacjonarne w Warszawie lub wideorozmowy")}</span>
+                </li>
+              </ul>
+            </div>
 
-      <section id="arch-wytyczne" className="py-12 sm:py-16 bg-white border-b border-[#17211C]/10 scroll-mt-28">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mb-8"><h2 className="text-3xl font-bold font-display text-[#17211C]">{cmsText('ArchitectsPage-v2-roles-title', 'Dobry detal potrzebuje dobrych uzgodnień.')}</h2><p className="text-base text-[#17211C]/75 mt-3 leading-relaxed">{cmsText('ArchitectsPage-v2-roles-intro', 'Na początku ustalamy, kto projektuje, kto wykonuje i kto zatwierdza. Poniższy podział porządkuje rozmowę; ostateczne obowiązki zapisujemy w zakresie współpracy.')}</p></div>
-          <div className="grid md:grid-cols-3 gap-5">
-            {[
-              { title: cmsText('ArchitectsPage-v2-role-architect', 'Architekt + inwestor'), text: cmsText('ArchitectsPage-v2-role-architect-text', 'Układ wnętrza, sposób korzystania z pomieszczeń, materiały i akceptacja scenariuszy. Przyciski mają pasować do projektu i być zrozumiałe dla domowników.') },
-              { title: cmsText('ArchitectsPage-v2-role-integrator', 'Integrator automatyki'), text: cmsText('ArchitectsPage-v2-role-integrator-text', 'Logika działania, dobór rozwiązań sterowania oraz uzgodnienie punktów styku z oświetleniem, osłonami i instalacjami. Zakres projektu, programowania i wsparcia wymaga ustalenia.') },
-              { title: cmsText('ArchitectsPage-v2-role-trades', 'Projektanci i wykonawcy branżowi'), text: cmsText('ArchitectsPage-v2-role-trades-text', 'Projekty, dobór i wykonanie instalacji w swoim zakresie oraz potwierdzenie zgodności urządzeń z uzgodnionym sterowaniem. Odbiory i pomiary wymagają właściwych kompetencji.') },
-            ].map(({ title, text }) => (<article key={title} className="p-6 rounded-2xl border border-[#17211C]/10 bg-[#F7F8F5]"><CheckCircle2 className="w-5 h-5 text-[#0E4637] mb-3" aria-hidden="true" /><h3 className="font-bold text-lg text-[#17211C]">{title}</h3><p className="mt-3 text-sm text-[#17211C]/75 leading-relaxed">{text}</p></article>))}
-          </div>
-          <div className="mt-6 p-5 rounded-xl bg-[#E6F15A]/20 border border-[#0E4637]/10"><h3 className="font-bold text-[#0E4637]">{cmsText('ArchitectsPage-v2-wall-title', 'Zanim zatwierdzisz punkty na ścianie')}</h3><p className="text-sm text-[#17211C]/80 leading-relaxed mt-2">{cmsText('ArchitectsPage-v2-wall-text', 'Uzgodnij funkcję każdego przycisku, czytelne oznaczenia, wysokości, otwieranie drzwi, zabudowy i technologię montażu. Liczba klawiszy powinna wynikać z użytecznych funkcji, a nie z liczby obwodów.')}</p></div>
-        </div>
-      </section>
+            {/* 2. Wytyczne dla instalacji */}
+            <div className="p-8 rounded-2xl bg-[#F7F8F5] border border-[#17211C]/10 space-y-4">
+              <div className="w-10 h-10 rounded-xl bg-[#0E4637] text-[#E6F15A] flex items-center justify-center">
+                <FileCode2 className="w-5 h-5" />
+              </div>
+              <h3 className="text-xl font-bold font-display text-[#17211C]">{cmsText("architectspage.5eb64600ee", "02. Wytyczne dla instalacji i koordynacja branżowa")}</h3>
+              <p className="text-xs sm:text-sm text-[#17211C]/75 leading-relaxed">{cmsText("architectspage.3045a2f4df", "Przygotowujemy precyzyjną dokumentację wykonawczą dla elektryka i hydraulika: rzuty tras magistrali zielonej KNX, zasilania DALI, puszki montażowe, zasilacze w szafach zamiast za kartongipsem.")}</p>
+              <ul className="text-xs text-[#17211C]/80 space-y-1.5 pt-2">
+                <li className="flex items-center gap-2">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-[#0E4637]" />
+                  <span>{cmsText("architectspage.b90469684f", "Formaty DWG, DXF, PDF oraz modele BIM")}</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-[#0E4637]" />
+                  <span>{cmsText("architectspage.16baca9d9d", "Koordynacja z branżą HVAC — eliminacja sporów na budowie")}</span>
+                </li>
+              </ul>
+            </div>
 
-      <section id="arch-jung" className="py-12 sm:py-16 bg-[#F7F8F5] border-b border-[#17211C]/10 scroll-mt-28">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-          <figure><div className="rounded-2xl overflow-hidden border border-[#17211C]/15 aspect-[4/3] bg-[#17211C]"><img loading="lazy" decoding="async" src={IMAGES.jungLsZero} alt={cmsText('ArchitectsPage-v2-jung-alt', 'JUNG LS ZERO — osprzęt zlicowany z powierzchnią ściany. Fotografia JUNG.')} className="w-full h-full object-cover" referrerPolicy="no-referrer" /></div><figcaption className="text-xs text-[#53635A] mt-3">{cmsText('ArchitectsPage-v2-jung-credit', 'Fotografia: JUNG · ')}<a href="https://www.jung-group.com/en-UK/Products/Switch-Ranges/LS-ZERO/" target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">{cmsText('ArchitectsPage-v2-jung-source', 'Zobacz kolekcję LS ZERO')}</a></figcaption></figure>
-          <div className="space-y-5">
-            <span className="text-xs font-mono uppercase tracking-widest text-[#0E4637] font-semibold">{cmsText('ArchitectsPage-v2-detail-eyebrow', 'Funkcja spotyka materiał')}</span>
-            <h2 className="text-3xl sm:text-4xl font-bold font-display text-[#17211C]">{cmsText('ArchitectsPage-v2-detail-title', 'Przycisk jest częścią wnętrza.')}</h2>
-            <p className="text-base text-[#17211C]/80 leading-relaxed">{cmsText('ArchitectsPage-v2-detail-text', 'Dobór osprzętu to forma, wykończenie i sposób obsługi. Porozmawiajmy o JUNG LS 990 i LS ZERO w kontekście konkretnej ściany, materiału i funkcji pomieszczenia. Możliwości zależą od wybranego modelu.')}</p>
-            <p className="text-sm text-[#53635A] leading-relaxed">{cmsText('ArchitectsPage-v2-detail-samples', 'Chcesz porównać próbki z inwestorem? Przed spotkaniem potwierdzimy dostępność interesujących Cię wzorników i produktów.')}</p>
-            <button onClick={onOpenConsultation} className="px-5 py-3 bg-[#0E4637] text-white text-sm font-semibold rounded-lg hover:bg-[#17211C] transition-colors">{cmsText('ArchitectsPage-v2-detail-cta', 'Zapytaj o próbki i spotkanie')}</button>
-          </div>
-        </div>
-      </section>
+            {/* 3. Osprzęt premium JUNG */}
+            <div className="p-8 rounded-2xl bg-[#F7F8F5] border border-[#17211C]/10 space-y-4">
+              <div className="w-10 h-10 rounded-xl bg-[#0E4637] text-[#E6F15A] flex items-center justify-center">
+                <Sliders className="w-5 h-5" />
+              </div>
+              <h3 className="text-xl font-bold font-display text-[#17211C]">{cmsText("architectspage.c91ce0b2ce", "03. Osprzęt premium JUNG i wzorniki materiałowe")}</h3>
+              <p className="text-xs sm:text-sm text-[#17211C]/75 leading-relaxed">{cmsText("architectspage.cfadeff53c", "Dostarczamy pełne próbniki i wzorniki niemieckiego osprzętu architektonicznego JUNG (serie LS 990, LS ZERO, LS 1912, A 550) w autentycznych metalach: aluminium, stal szlachetna, mosiądz antyczny, ciemny brąz oraz kolorystyce Les Couleurs® Le Corbusier.")}</p>
+              <ul className="text-xs text-[#17211C]/80 space-y-1.5 pt-2">
+                <li className="flex items-center gap-2">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-[#0E4637]" />
+                  <span>{cmsText("architectspage.3372da19c1", "Wypożyczenie walizki ze wzornikami na spotkanie z inwestorem")}</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-[#0E4637]" />
+                  <span>{cmsText("architectspage.c597457a4d", "Zlicowany montaż LS ZERO bez wystających ramek")}</span>
+                </li>
+              </ul>
+            </div>
 
-      <section id="arch-kontakt" className="py-12 sm:py-16 bg-white scroll-mt-28">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-12 gap-8">
-          <div className="lg:col-span-7">
-            <span className="text-xs font-mono uppercase tracking-widest text-[#0E4637] font-semibold block mb-2">{cmsText('ArchitectsPage-v2-contact-eyebrow', 'Zacznijmy od Twojego projektu')}</span>
-            <h2 className="text-3xl font-bold font-display text-[#17211C]">{cmsText('ArchitectsPage-v2-contact-title', 'Masz rzut albo pierwsze pytania?')}</h2>
-            <p className="text-base text-[#17211C]/75 mt-4 leading-relaxed">{cmsText('ArchitectsPage-v2-contact-intro', 'Napisz, jaki obiekt projektujesz, na jakim etapie są prace i co chcesz uzgodnić. Rzut koncepcyjny możesz dołączyć do wiadomości e-mail. Ustalimy dalszy krok i zakres pomocy.')}</p>
-            <div className="flex flex-wrap gap-3 mt-6">
-              <a href="mailto:biuro@intelispaces.pl?subject=Projekt%20do%20om%C3%B3wienia%20%E2%80%94%20architekt" className="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-[#0E4637] text-white font-semibold text-sm hover:bg-[#17211C] transition-colors"><Mail className="w-4 h-4" aria-hidden="true" />{cmsText('ArchitectsPage-v2-email', 'biuro@intelispaces.pl')}</a>
-              <a href="tel:+48505260715" className="inline-flex items-center gap-2 px-5 py-3 rounded-lg border border-[#0E4637]/25 text-[#0E4637] font-semibold text-sm hover:bg-[#F7F8F5] transition-colors"><Phone className="w-4 h-4" aria-hidden="true" />{cmsText('ArchitectsPage-v2-phone', '+48 505 260 715')}</a>
+            {/* 4. Konsultacja techniczna */}
+            <div className="p-8 rounded-2xl bg-[#F7F8F5] border border-[#17211C]/10 space-y-4">
+              <div className="w-10 h-10 rounded-xl bg-[#0E4637] text-[#E6F15A] flex items-center justify-center">
+                <Layers className="w-5 h-5" />
+              </div>
+              <h3 className="text-xl font-bold font-display text-[#17211C]">{cmsText("architectspage.9a79dfb317", "04. Nadzór inżynierski i asysta na budowie")}</h3>
+              <p className="text-xs sm:text-sm text-[#17211C]/75 leading-relaxed">{cmsText("architectspage.30ea80ae36", "Nie zostawiamy architekta samego z ekipami budowlanymi. Uczestniczymy w kluczowych naradach koordynacyjnych, odbieramy ułożenie okablowania przed zamknięciem ścian i sufitów podwieszanych.")}</p>
+              <ul className="text-xs text-[#17211C]/80 space-y-1.5 pt-2">
+                <li className="flex items-center gap-2">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-[#0E4637]" />
+                  <span>{cmsText("architectspage.adb5fec006", "Odbiór magistrali pomiarami certyfikacyjnymi")}</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-[#0E4637]" />
+                  <span>{cmsText("architectspage.c9a949f4fb", "Programowanie scen oświetleniowych w obecności architekta")}</span>
+                </li>
+              </ul>
             </div>
           </div>
-          <aside className="lg:col-span-5 p-6 rounded-2xl bg-[#F7F8F5] border border-[#17211C]/10"><MapPin className="w-6 h-6 text-[#0E4637] mb-3" aria-hidden="true" /><h3 className="text-lg font-bold text-[#17211C]">{cmsText('ArchitectsPage-v2-showroom-title', 'Spotkanie z architektem i inwestorem')}</h3><p className="text-sm text-[#17211C]/75 leading-relaxed mt-3">{cmsText('ArchitectsPage-v2-showroom-text', 'Salon sprzedaży w Warszawie: ul. Konwaliowa 7 lok. 103, 03-194 Warszawa. Skontaktuj się przed wizytą, aby ustalić termin i potrzebne materiały.')}</p><a href="https://maps.google.com/?q=Konwaliowa+7+lok.+103%2C+03-194+Warszawa" target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex items-center gap-2 text-sm text-[#0E4637] font-semibold underline underline-offset-4">{cmsText('ArchitectsPage-v2-showroom-map', 'Zobacz dojazd')}<ArrowRight className="w-4 h-4" aria-hidden="true" /></a></aside>
+        </div>
+      </section>
+
+      {/* JUNG Visual Spotlight */}
+      <section className="py-16 sm:py-20 bg-[#F7F8F5] border-b border-[#17211C]/10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+            <div className="lg:col-span-6">
+              <div className="rounded-2xl overflow-hidden border border-[#17211C]/15 shadow-xl aspect-square bg-[#17211C]">
+                <img
+                  src={IMAGES.knxSwitchHardware}
+                  alt={cmsText("architectspage.b0bb5b80ed", "Architektoniczny osprzęt KNX JUNG LS 990")}
+                  className="w-full h-full object-cover"
+                  referrerPolicy="no-referrer"
+                />
+              </div>
+            </div>
+
+            <div className="lg:col-span-6 space-y-6">
+              <span className="text-xs font-mono uppercase tracking-wider text-[#0E4637] font-semibold">{cmsText("architectspage.19f99b1e93", "Detal Architektoniczny")}</span>
+              <h2 className="text-3xl sm:text-4xl font-bold font-display text-[#17211C]">{cmsText("architectspage.89c306c1b5", "Ikona designu JUNG LS 990 i montaż bezramkowy LS ZERO")}</h2>
+              <p className="text-sm sm:text-base text-[#17211C]/80 leading-relaxed">{cmsText("architectspage.6b78c78f84", "Klasyczny kwadratowy kształt z wąską ramką stworzony ponad 50 lat temu w Niemczech. W połączeniu z modułami przyciskowymi KNX jeden element zastępuje skomplikowane baterie włączników, oferując precyzyjny skok klawisza, dyskretne diody orientacyjne RGB i indywidualny grawer laserowy.")}</p>
+
+              <div className="p-4 bg-white rounded-xl border border-[#17211C]/10 space-y-2 text-xs">
+                <span className="font-bold text-[#17211C] block">{cmsText("architectspage.752f7773f5", "Dostępne materiały i kolekcje:")}</span>
+                <p className="text-[#17211C]/70">{cmsText("architectspage.7c81808536", "Stal szlachetna, Aluminium naturalne, Mosiądz Classic / Antyczny, Ciemny grafit matowy, Barwy Les Couleurs® Le Corbusier (63 odcienie stworzone dla architektury).")}</p>
+              </div>
+
+              <div>
+                <button
+                  onClick={onOpenConsultation}
+                  className="px-6 py-3 bg-[#0E4637] text-[#E6F15A] text-xs font-semibold uppercase tracking-wider rounded-lg hover:bg-[#17211C] transition-colors"
+                >{cmsText("architectspage.20cfb7694f", "Zamów wzorniki do pracowni")}</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Architect Contact Form Anchor */}
+      <section id="arch-kontakt" className="py-16 sm:py-24 bg-white">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-10">
+            <span className="text-xs font-mono uppercase tracking-widest text-[#0E4637] font-semibold block mb-2">{cmsText("architectspage.2817c83f3a", "Konsultacja Projektu")}</span>
+            <h2 className="text-3xl font-bold font-display text-[#17211C]">{cmsText("architectspage.6aa3c8cc52", "Prześlij rzuty koncepcyjne do konsultacji")}</h2>
+            <p className="text-sm text-[#17211C]/70 mt-2">{cmsText("architectspage.4373f8d107", "Przeanalizujemy rzuty, wskażemy optymalne lokalizacje czujników i manipulatorów, przygotujemy wykaz urządzeń.")}</p>
+          </div>
+
+          <ContactForm
+            onOpenPrivacy={onOpenPrivacy}
+            defaultType="biuro"
+            sourceContext="Strefa Architekta i Projektanta"
+          />
         </div>
       </section>
     </div>

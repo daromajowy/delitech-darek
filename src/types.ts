@@ -8,7 +8,7 @@ export type PageId =
   | 'projects'
   | 'knowledge'
   | 'about'
-  | 'showroom'
+  | 'team'
   | 'contact';
 
 export interface NavItem {

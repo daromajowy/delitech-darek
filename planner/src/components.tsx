@@ -1,6 +1,8 @@
 import React, { useEffect, useRef } from "react";
 import { iconMap } from "./icons";
-import { attachmentUrl, type Project } from "./model";
+import { type Project } from "./model";
+import { documentBlob } from "./documents";
+import { websiteUrl } from "./api";
 export function Icon({ name, size = 20 }: { name: string; size?: number }) {
   const Component = iconMap[name as keyof typeof iconMap] || iconMap.Circle;
   return <Component size={size} strokeWidth={1.7} aria-hidden={true} />;
@@ -120,7 +122,7 @@ export function Brand() {
   return (
     <a
       className="brand"
-      href="https://intelispaces.pl/"
+      href={websiteUrl}
       aria-label="InteliSpaces - strona główna"
     >
       INTELI<span>SPACES</span>
@@ -176,11 +178,15 @@ export function Files({
       <h3>Dokumentacja</h3>
       {project.attachments.map((a) => (
         <div className="file-row" key={a.id}>
-          <a
+          <button
             className="file"
-            href={attachmentUrl(project.id, a.id)}
-            target="_blank"
-            rel="noreferrer"
+            onClick={async () => {
+              try {
+                const url = URL.createObjectURL(await documentBlob(project.id, a.id));
+                const link = document.createElement("a"); link.href = url; link.download = a.name; link.click();
+                setTimeout(() => URL.revokeObjectURL(url), 10000);
+              } catch (error) { alert(error instanceof Error ? error.message : "Nie można pobrać dokumentu."); }
+            }}
           >
             <Icon name={a.mime === "application/pdf" ? "FileText" : "Image"} />
             <span>
@@ -188,7 +194,7 @@ export function Files({
               <small>{(a.size / 1024 / 1024).toFixed(1)} MB</small>
             </span>
             <Icon name="Download" size={17} />
-          </a>
+          </button>
           <Tool
             icon="X"
             label={`Odepnij ${a.name}`}

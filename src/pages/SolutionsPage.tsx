@@ -1,4 +1,4 @@
-import { cmsText } from '../cms/content.ts';
+import { cmsText } from '../cms';
 import React, { useState } from 'react';
 import { PageId } from '../types.ts';
 import {
@@ -29,107 +29,107 @@ export const SolutionsPage: React.FC<SolutionsPageProps> = ({
   const solutions = [
     {
       id: 'dali',
-      title: cmsText("SolutionsPage-ab058c26c5a6", "Oświetlenie i DALI-2"),
+      title: cmsText("solutionspage.d92581a326", "Oświetlenie i DALI-2"),
       badge: 'Architektura światła',
       icon: SunMedium,
-      lead: 'Sterowanie oświetleniem dopasowane do opraw, ich zasilaczy i sposobu użytkowania wnętrza.',
+      lead: 'Profesjonalne sterowanie oprawami architektonicznymi bez migotania i z płynną regulacją.',
       content:
-        'DALI umożliwia adresowanie urządzeń sterujących oświetleniem oraz tworzenie grup i scen. Minimalny poziom ściemniania, jakość światła i diagnostyka zależą od wybranych urządzeń. Tunable White wymaga zgodnych opraw, zasilaczy (np. DT8 Tc) i bramki KNX–DALI.',
+        'Standard DALI (Digital Addressable Lighting Interface) połączony z magistralą KNX to złoty standard nowoczesnych wnętrz. Pozwala na indywidualne adresowanie każdej oprawy, płynne ściemnianie do 0,1%, regulację temperatury barwowej Tunable White (zgodnie z cyklem dobowym człowieka) oraz pełną diagnostykę stanu zasilaczy LED.',
       features: [
-        cmsText("SolutionsPage-d53d68007960", "Do 64 adresów urządzeń wykonawczych na jednej magistrali DALI"),
-        cmsText("SolutionsPage-8de3a5e94249", "Sterowanie Tunable White (HCL — Human Centric Lighting)"),
-        cmsText("SolutionsPage-0a12eff07c8b", "Stała kontrola natężenia światła (Constant Light Control)"),
-        cmsText("SolutionsPage-98f427fcbf0b", "Weryfikacja ściemniania i pracy zasilaczy z wybraną oprawą"),
+        'Adresowanie do 64 opraw na jednym kanale DALI',
+        'Sterowanie Tunable White (HCL — Human Centric Lighting)',
+        'Stała kontrola natężenia światła (Constant Light Control)',
+        'Wyciszenie zasilaczy i brak zjawiska piszczenia przetwornic',
       ],
     },
     {
       id: 'fasady',
-      title: cmsText("SolutionsPage-25cdc3409002", "Rolety, żaluzje i fasady"),
+      title: cmsText("solutionspage.725ce06bc2", "Rolety, żaluzje i fasady"),
       badge: 'Komfort termiczny i optyczny',
       icon: Sliders,
       lead: 'Automatyczna ochrona przed przegrzewaniem wnętrza latem i ucieczką ciepła zimą.',
       content:
         'Żaluzje zewnętrzne i fasadowe nie służą tylko do zasłaniania okien. System KNX wyposażony w stację meteorologiczną na dachu śledzi dokładną pozycję słońca (Sun Tracking) i ustawia lamele pod optymalnym kątem — tak, aby wpuścić naturalne dzienne światło, ale zatrzymać bezpośrednie promieniowanie cieplne.',
       features: [
-        cmsText("SolutionsPage-6bf397e0e155", "Automatyczny kąt lameli żaluzji fasadowych w zależności od azymutu słońca"),
-        cmsText("SolutionsPage-f3177a00da8a", "Zabezpieczenie przed silnym wiatrem, oblodzeniem i gradem"),
-        cmsText("SolutionsPage-14ac4aebbc8e", "Ciche sterowanie roletami screen, zasłonami i karniszami elektrycznymi"),
-        cmsText("SolutionsPage-fde65cdbaf38", "Zintegrowane sceny prywatności o zmroku"),
+        'Automatyczny kąt lameli żaluzji fasadowych w zależności od azymutu słońca',
+        'Zabezpieczenie przed silnym wiatrem, oblodzeniem i gradem',
+        'Ciche sterowanie roletami screen, zasłonami i karniszami elektrycznymi',
+        'Zintegrowane sceny prywatności o zmroku',
       ],
     },
     {
       id: 'hvac',
-      title: cmsText("SolutionsPage-143651b18ad4", "HVAC: Ogrzewanie, Chłodzenie i Wentylacja"),
+      title: cmsText("solutionspage.14ebf7a537", "HVAC: Ogrzewanie, Chłodzenie i Wentylacja"),
       badge: 'Klimat pod pełną kontrolą',
       icon: Wind,
       lead: 'Harmonia pomiędzy podłogówką, klimatyzacją kanałową i rekuperacją.',
       content:
         'W tradycyjnych instalacjach klimatyzacja często chłodzi przestrzeń, podczas gdy grzejniki lub podłogówka dogrzewają pomieszczenie. Integracja KNX eliminuje ten konflikt (Deadband Control). Jeden estetyczny regulator zarządza zaworami grzewczymi, siłownikami, klimakonwektorami i centralą wentylacyjną.',
       features: [
-        cmsText("SolutionsPage-d70a440f98ae", "Dobór strefy neutralnej i blokada równoczesnego grzania i chłodzenia"),
-        cmsText("SolutionsPage-d19638fdd801", "Automatyczne obniżenie nastawy temperatury po otwarciu okna (kontaktrony)"),
-        cmsText("SolutionsPage-e55bda41c3b5", "Kontrola wilgotności powietrza i stężenia CO2 (sterowanie nawiewem)"),
-        cmsText("SolutionsPage-c9a6a961443c", "Zdalna zmiana harmonogramu przed powrotem do domu lub biura"),
+        'Eliminacja martwych stref i jednoczesnego grzania i chłodzenia',
+        'Automatyczne obniżenie nastawy temperatury po otwarciu okna (kontaktrony)',
+        'Kontrola wilgotności powietrza i stężenia CO2 (sterowanie nawiewem)',
+        'Zdalna zmiana harmonogramu przed powrotem do domu lub biura',
       ],
     },
     {
       id: 'sceny',
-      title: cmsText("SolutionsPage-8fb68d4ebce9", "Sceny i sterowanie"),
+      title: cmsText("solutionspage.6f2df42f97", "Sceny i sterowanie"),
       badge: 'Intuicyjna obsługa przestrzeni',
       icon: Sparkles,
       lead: 'Zamiast dziesięciu włączników — jeden czytelny gest.',
       content:
         'Sceny to sedno automatyki budynkowej. Zamiast manualnego ustawiania kilkunastu obwodów, rolet i temperatury, użytkownik naciska jeden klawisz lub wybiera scenę w telefonie. „Spotkanie zarządu”, „Kino domowe”, „Kolacja z przyjaciółmi”, „Wyjście z obiektu” — cała przestrzeń reaguje synchronicznie.',
       features: [
-        cmsText("SolutionsPage-20303676987b", "Programowanie scen dopasowanych do stylu życia i procedur biurowych"),
-        cmsText("SolutionsPage-a03022b2f2d3", "Klawiatury wielofunkcyjne JUNG z grawerowanymi symbolami lub tekstem"),
-        cmsText("SolutionsPage-8007b8675da2", "Dotykowe panele ścienne z podglądem całego obiektu"),
-        cmsText("SolutionsPage-40a5dbe28ca3", "Możliwość samodzielnej modyfikacji poziomów scen przez użytkownika"),
+        'Programowanie scen dopasowanych do stylu życia i procedur biurowych',
+        'Klawiatury wielofunkcyjne JUNG z grawerowanymi symbolami lub tekstem',
+        'Dotykowe panele ścienne z podglądem całego obiektu',
+        'Możliwość samodzielnej modyfikacji poziomów scen przez użytkownika',
       ],
     },
     {
       id: 'energia',
-      title: cmsText("SolutionsPage-935f0e97ddca", "Energia i pomiary"),
+      title: cmsText("solutionspage.f6b4e20525", "Energia i pomiary"),
       badge: 'Efektywność i oszczędności',
       icon: Zap,
       lead: 'Dokładny wgląd w zużycie prądu, wody i ciepła dla inwestora i zarządcy.',
       content:
         'Instalujemy certyfikowane liczniki energii na magistralę KNX / Modbus. W biurach umożliwia to dokładne rozliczenie poszczególnych najemców i generowanie raportów ESG. W domach — inteligentne kierowanie nadwyżek z fotowoltaiki do ładowania auta elektrycznego lub podgrzewania bufora ciepła.',
       features: [
-        cmsText("SolutionsPage-26e8202f14e8", "Pomiar energii elektrycznej z podziałem na obwody (oświetlenie, HVAC, gniazda)"),
-        cmsText("SolutionsPage-3a550c26b8c1", "Zarządzanie obciążeniem (Load Shedding) — ochrona przed przekroczeniem mocy umownej"),
-        cmsText("SolutionsPage-175a1ed00656", "Integracja z falownikami fotowoltaicznymi i magazynami energii"),
-        cmsText("SolutionsPage-1e7b1dd01007", "Raporty zużycia energii do analizy; zakres uzgadniany z doradcą certyfikacji"),
+        'Pomiar energii elektrycznej z podziałem na obwody (oświetlenie, HVAC, gniazda)',
+        'Zarządzanie obciążeniem (Load Shedding) — ochrona przed przekroczeniem mocy umownej',
+        'Integracja z falownikami fotowoltaicznymi i magazynami energii',
+        'Raporty miesięczne i roczne w formatach zgodnych z BREEAM',
       ],
     },
     {
       id: 'bezpieczenstwo',
-      title: cmsText("SolutionsPage-89b5fa134015", "Bezpieczeństwo i monitoring"),
+      title: cmsText("solutionspage.c87a253249", "Bezpieczeństwo i monitoring"),
       badge: 'Ochrona mienia i instalacji',
       icon: ShieldCheck,
       lead: 'Działania prewencyjne: czujniki zalania, dymu, kontaktrony i symulacja obecności.',
       content:
         'System KNX współpracuje z instalacją alarmową (SSWiN) i przeciwpożarową. W przypadku wykrycia wycieku wody, system automatycznie odcina główny elektrozawór i wysyła powiadomienie. Podczas urlopu system odtwarza realistyczną symulację obecności domowników.',
       features: [
-        cmsText("SolutionsPage-d46b51ad1fee", "Automatyczne odcięcie wody po detekcji zalania"),
-        cmsText("SolutionsPage-ddb5f2282585", "Współpraca z centralami alarmowymi Satel / DSC"),
-        cmsText("SolutionsPage-80cbde7ef716", "Symulacja obecności oparta na realnych nawykach oświetleniowych"),
-        cmsText("SolutionsPage-c57d57c30bdb", "Oświetlenie ewakuacyjne i odblokowanie rolet w razie alarmu pożarowego"),
+        'Automatyczne odcięcie wody po detekcji zalania',
+        'Współpraca z centralami alarmowymi Satel / DSC',
+        'Symulacja obecności oparta na realnych nawykach oświetleniowych',
+        'Oświetlenie ewakuacyjne i odblokowanie rolet w razie alarmu pożarowego',
       ],
     },
     {
       id: 'integracje',
-      title: cmsText("SolutionsPage-bb60753791ef", "Integracje systemowe i IoT"),
+      title: cmsText("solutionspage.225265f4ae", "Integracje systemowe i IoT"),
       badge: 'Otwartość na przyszłość',
       icon: Cpu,
       lead: 'Połączenie niezawodnej magistrali przewodowej z nowoczesnym ekosystemem IP.',
       content:
         'Łączymy stabilność standardu KNX z aplikacjami mobilnymi, Apple HomeKit, asystentami głosowymi, systemami multiroom audio (Sonos, Bluesound) oraz protokołami automatyki budynkowej BMS (BACnet, Modbus, MQTT).',
       features: [
-        cmsText("SolutionsPage-fed4b9fb036e", "Bramki KNX-IP z szyfrowaniem KNX Secure"),
-        cmsText("SolutionsPage-9d7ef876ff09", "Natywne wsparcie Apple HomeKit, Google Assistant, Amazon Alexa"),
-        cmsText("SolutionsPage-da06eb91d428", "Integracja systemów audio-wideo i sal spotkań"),
-        cmsText("SolutionsPage-e77821d061c7", "API do autorskich systemów rezerwacji biurowej"),
+        'Bramki KNX-IP z szyfrowaniem KNX Secure',
+        'Natywne wsparcie Apple HomeKit, Google Assistant, Amazon Alexa',
+        'Integracja systemów audio-wideo i sal spotkań',
+        'API do autorskich systemów rezerwacji biurowej',
       ],
     },
   ];
@@ -137,18 +137,18 @@ export const SolutionsPage: React.FC<SolutionsPageProps> = ({
   return (
     <div className="space-y-0">
       {/* Hero */}
-      <section className="bg-[#17211C] text-white py-12 lg:py-16 border-b border-white/10">
+      <section className="bg-[#17211C] text-white py-16 lg:py-20 border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl space-y-4">
-            <span className="text-xs font-mono uppercase tracking-widest text-[#E6F15A] font-semibold block">{cmsText("SolutionsPage-cbaca6d64e44", "Inżynieria systemów budynkowych")}</span>
-            <h1 className="text-3xl sm:text-5xl font-extrabold font-display tracking-tight text-white">{cmsText("SolutionsPage-e4413b21dc89", "Rozwiązania technologiczne KNX")}</h1>
-            <p className="text-base sm:text-lg text-[#EDE9DF]/80 leading-relaxed pt-2">{cmsText("SolutionsPage-d217c02949f8", "Zobacz poszczególne elementy układanki. Każdy moduł projektujemy z dbałością o najwyższą niezawodność, ergonomię użytkowania oraz kompatybilność na dekady.")}</p>
+            <span className="text-xs font-mono uppercase tracking-widest text-[#E6F15A] font-semibold block">{cmsText("solutionspage.14b61789af", "Inżynieria systemów budynkowych")}</span>
+            <h1 className="text-4xl sm:text-5xl font-extrabold font-display tracking-tight text-white">{cmsText("solutionspage.41e077f003", "Rozwiązania technologiczne KNX")}</h1>
+            <p className="text-base sm:text-lg text-[#EDE9DF]/80 leading-relaxed pt-2">{cmsText("solutionspage.1521050492", "Zobacz poszczególne elementy układanki. Każdy moduł projektujemy z dbałością o najwyższą niezawodność, ergonomię użytkowania oraz kompatybilność na dekady.")}</p>
           </div>
         </div>
       </section>
 
       {/* Interactive Solutions Browser */}
-      <section className="py-12 sm:py-16 bg-white border-b border-[#17211C]/10">
+      <section className="py-16 sm:py-24 bg-white border-b border-[#17211C]/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Pills / tabs */}
           <div className="flex flex-wrap gap-2 mb-12 border-b border-[#17211C]/10 pb-4">
@@ -205,7 +205,7 @@ export const SolutionsPage: React.FC<SolutionsPageProps> = ({
                       </p>
 
                       <div className="pt-2 space-y-2.5">
-                        <span className="text-xs font-bold uppercase tracking-wider text-[#17211C] block mb-2">{cmsText("SolutionsPage-7e56743ab504", "Standardy inżynierskie Delitech:")}</span>
+                        <span className="text-xs font-bold uppercase tracking-wider text-[#17211C] block mb-2">{cmsText("solutionspage.8e860db887", "Standardy inżynierskie Delitech:")}</span>
                         {s.features.map((f, i) => (
                           <div key={i} className="flex items-start gap-2.5 text-xs text-[#17211C]/85">
                             <CheckCircle2 className="w-4 h-4 text-[#0E4637] shrink-0 mt-0.5" />
@@ -219,25 +219,25 @@ export const SolutionsPage: React.FC<SolutionsPageProps> = ({
                           onClick={onOpenConsultation}
                           className="px-5 py-2.5 bg-[#0E4637] hover:bg-[#17211C] text-[#E6F15A] text-xs font-semibold uppercase tracking-wider rounded-lg transition-colors flex items-center gap-2"
                         >
-                          <span>{cmsText("SolutionsPage-10469bf95cab", "Skonsultuj rozwiązanie z inżynierem")}</span>
+                          <span>{cmsText("solutionspage.ded62dbccd", "Skonsultuj rozwiązanie z inżynierem")}</span>
                           <ArrowRight className="w-4 h-4" />
                         </button>
                         <button
                           onClick={() => onNavigate('contact')}
                           className="text-xs font-semibold text-[#0E4637] hover:underline"
-                        >{cmsText("SolutionsPage-72d391b9ba2f", "Prześlij specyfikację")}</button>
+                        >{cmsText("solutionspage.7af88ae6ef", "Prześlij specyfikację")}</button>
                       </div>
                     </div>
 
                     <div className="lg:col-span-4 bg-white rounded-xl p-6 border border-[#17211C]/10 space-y-4">
-                      <h3 className="text-xs font-bold uppercase tracking-wider text-[#17211C] pb-2 border-b border-[#17211C]/10">{cmsText("SolutionsPage-ff2901b7bb49", "Integracja w obiekcie")}</h3>
+                      <h3 className="text-xs font-bold uppercase tracking-wider text-[#17211C] pb-2 border-b border-[#17211C]/10">{cmsText("solutionspage.33d17c7e17", "Integracja w obiekcie")}</h3>
                       <div className="text-xs text-[#17211C]/75 space-y-3">
                         <p>
-                          <strong className="text-[#17211C]">{cmsText("SolutionsPage-3a143dc1140d", "Uporządkowana instalacja:")}</strong>{cmsText("SolutionsPage-af6fbd7ae93b", " Moduły automatyki umieszczamy w opisanej rozdzielnicy, z miejscem na serwis i uzgodnioną rezerwą na rozbudowę.")}</p>
+                          <strong className="text-[#17211C]">{cmsText("solutionspage.ae8f084842", "Niezależność:")}</strong>{cmsText("solutionspage.bf79141901", " Wszystkie moduły montujemy w certyfikowanych szafach rozdzielczych, przetestowanych przed dostarczeniem na budowę.")}</p>
                         <p>
-                          <strong className="text-[#17211C]">{cmsText("SolutionsPage-476c03569127", "Serwis:")}</strong>{cmsText("SolutionsPage-cee9a991bd83", " Zakres odpowiedzialności, warunki gwarancji i obsługę powdrożeniową określamy w umowie.")}</p>
+                          <strong className="text-[#17211C]">{cmsText("solutionspage.93cf2daf53", "Gwarancja:")}</strong>{cmsText("solutionspage.88a03a6137", " Udzielamy pełnej rękojmi inżynierskiej oraz prowadzimy serwis pogwarancyjny w Warszawie i całej Polsce.")}</p>
                         <p>
-                          <strong className="text-[#17211C]">{cmsText("SolutionsPage-9829bdf387cc", "Dokumentacja:")}</strong>{cmsText("SolutionsPage-6cc276fdc260", " Każdy obwód, adres DALI i adres fizyczny KNX otrzymuje dokładne oznaczenie na schemacie powykonawczym.")}</p>
+                          <strong className="text-[#17211C]">{cmsText("solutionspage.d7eb6e59ea", "Dokumentacja:")}</strong>{cmsText("solutionspage.48660ecb7b", " Każdy obwód, adres DALI i adres fizyczny KNX otrzymuje dokładne oznaczenie na schemacie powykonawczym.")}</p>
                       </div>
                     </div>
                   </div>

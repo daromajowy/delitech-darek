@@ -20,6 +20,22 @@ export interface Binding {
   id: string;
   target: string;
   action: string;
+  label?: string;
+  notes?: string;
+  hold?: { target: string; action: string };
+}
+export interface Placement {
+  documentId: string;
+  page: number;
+  x: number;
+  y: number;
+}
+export interface PlanView {
+  documentId: string;
+  page: number;
+  zoom: number;
+  centerX: number;
+  centerY: number;
 }
 export interface Point {
   id: string;
@@ -31,6 +47,11 @@ export interface Point {
   status: string;
   notes: string;
   bindings: Binding[];
+  code?: string;
+  deviceType?: string;
+  model?: string;
+  photoId?: string;
+  placement?: Placement;
 }
 export interface Scene {
   id: string;
@@ -79,6 +100,8 @@ export interface Project {
   integrations: Integration[];
   attachments: Attachment[];
   submissions: { id: string; revision: number; createdAt: string }[];
+  nextPointNumber?: number;
+  planView?: PlanView;
 }
 export const categories: Category[] = [
   "Oświetlenie",
@@ -165,6 +188,7 @@ export const newPoint = (roomId: string): Point => ({
   finish: "Biały",
   height: 110,
   status: "Propozycja",
+  deviceType: "Sensor KNX",
   notes: "",
   bindings: Array.from({ length: 4 }, () => ({
     id: uid(),
@@ -336,14 +360,17 @@ export function duplicateRoom(p: Project, roomId: string): Project {
         ...structuredClone(pt),
         id: uid(),
         roomId: room.id,
+        code: undefined,
+        placement: undefined,
         bindings: pt.bindings.map((b) => ({
           ...b,
           id: uid(),
           target: ids.get(b.target) ?? b.target,
+          hold: b.hold ? { ...b.hold, target: ids.get(b.hold.target) ?? b.hold.target } : undefined,
         })),
       })),
   );
-  return copy;
+  return normalizeProject(copy);
 }
 export function removeTargets(p: Project, ids: string[]): Project {
   const n = structuredClone(p),
@@ -351,6 +378,7 @@ export function removeTargets(p: Project, ids: string[]): Project {
   n.points.forEach((pt) =>
     pt.bindings.forEach((b) => {
       if (invalid.has(b.target)) b.target = "";
+      if (b.hold && invalid.has(b.hold.target)) b.hold.target = "";
     }),
   );
   n.scenes.forEach((s) =>
@@ -394,7 +422,7 @@ export function issues(p: Project): string[] {
       .forEach((c) => result.push(`${r.name}: ${c.name} - parametry / model`));
   });
   p.points.forEach((pt) => {
-    if (pt.height === null || pt.bindings.some((b) => !b.target))
+    if (pt.height === null || pt.bindings.some((b) => !b.target || (b.hold && !b.hold.target)))
       result.push(`${pt.name}: wysokość / przypisania klawiszy`);
   });
   p.scenes.forEach((s) => {
@@ -412,3 +440,45 @@ export function issues(p: Project): string[] {
 }
 export const attachmentUrl = (project: string, id: string) =>
   `index.php?api=file&project=${encodeURIComponent(project)}&id=${encodeURIComponent(id)}`;
+
+export const deviceTypes = ["Sensor KNX", "Przycisk", "Panel dotykowy", "Czujnik", "Inne"];
+export const keyActions = ["Włącz / wyłącz", "Włącz", "Wyłącz", "Ściemnianie", "Rozjaśnij", "Przyciemnij", "Otwórz / zamknij", "Otwórz", "Zamknij", "Stop", "Temperatura", "Uruchom scenę", "Inna funkcja", "Do ustalenia"];
+
+// Codes are persistent identities shared by the floor plan and the brief, not array indexes.
+export function normalizeProject(source: Project): Project {
+  const p = structuredClone(source);
+  let next = Math.max(1, p.nextPointNumber ?? 1, ...p.points.map(pt => Number(pt.code?.match(/^P(\d+)$/)?.[1] ?? 0) + 1));
+  const seen = new Set<string>();
+  p.points.forEach(pt => {
+    if (!pt.code || !/^P\d{2,}$/.test(pt.code) || seen.has(pt.code)) pt.code = `P${String(next++).padStart(2, "0")}`;
+    seen.add(pt.code);
+    pt.deviceType ??= pt.sensor === "JUNG LS TOUCH" ? "Panel dotykowy" : "Sensor KNX";
+  });
+  p.nextPointNumber = next;
+  return p;
+}
+
+export function addControlPoint(p: Project, roomId: string, source?: Point): Point {
+  const pt = source ? { ...structuredClone(source), id: uid(), name: `${source.name} (kopia)`, roomId,
+    code: undefined, placement: undefined, bindings: source.bindings.map(b => ({ ...structuredClone(b), id: uid() })) } : newPoint(roomId);
+  const numbered = normalizeProject({ ...p, points: [...p.points, pt] });
+  p.points = numbered.points;
+  p.nextPointNumber = numbered.nextPointNumber;
+  return p.points[p.points.length - 1];
+}
+
+export function detachDocument(p: Project, id: string) {
+  p.attachments = p.attachments.filter(a => a.id !== id);
+  p.points.forEach(pt => {
+    if (pt.placement?.documentId === id) delete pt.placement;
+    if (pt.photoId === id) delete pt.photoId;
+  });
+  if (p.planView?.documentId === id) delete p.planView;
+}
+
+export function normalizedDrop(clientX: number, clientY: number, rect: { left: number; top: number; width: number; height: number }) {
+  if (!rect.width || !rect.height) return null;
+  const x = (clientX - rect.left) / rect.width, y = (clientY - rect.top) / rect.height;
+  if (![x, y].every(Number.isFinite) || x < 0 || x > 1 || y < 0 || y > 1) return null;
+  return { x, y };
+}

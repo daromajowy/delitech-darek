@@ -1,5 +1,13 @@
 import type { Project } from "./model";
-let csrf = "";
+const meta = (name: string) => typeof document === 'undefined' ? undefined : document.querySelector<HTMLMetaElement>(`meta[name="${name}"]`)?.content;
+let csrf = meta('csrf-token') || '';
+const base = meta('knx-api') || '/projektant-knx/api';
+export const panelUrl = meta('knx-panel') || '/projektant-knx/admin';
+export const websiteUrl = meta('knx-website') || '/wordpress/';
+export async function apiFetch(endpoint: string, init: RequestInit = {}) {
+  return fetch(`${base}?api=${endpoint}`, { ...init, credentials: 'same-origin',
+    headers: { 'Accept': 'application/json', ...init.headers } });
+}
 export class ApiError extends Error {
   constructor(
     message: string,
@@ -14,9 +22,8 @@ export async function request<T>(
   body?: unknown,
 ): Promise<T> {
   const form = body instanceof FormData;
-  const response = await fetch(`index.php?api=${endpoint}`, {
+  const response = await apiFetch(endpoint, {
     method,
-    credentials: "same-origin",
     headers: {
       ...(method !== "GET" ? { "X-CSRF-Token": csrf } : {}),
       ...(!form && body ? { "Content-Type": "application/json" } : {}),
@@ -27,7 +34,7 @@ export async function request<T>(
     .json()
     .catch(() => ({ error: "Nieprawidłowa odpowiedź serwera." }));
   if (!response.ok)
-    throw new ApiError(data.error || "Błąd połączenia.", response.status);
+    throw new ApiError(data.error || data.message || "Błąd połączenia.", response.status);
   return data as T;
 }
 export async function session() {

@@ -1,4 +1,3 @@
-import { cmsText } from '../cms/content.ts';
 import React from 'react';
 
 interface LogoProps {
@@ -23,9 +22,9 @@ export const Logo: React.FC<LogoProps> = ({
   };
 
   const textSizes = {
-    sm: { title: "text-sm tracking-tight", subtitle: "text-[9px] tracking-[0.18em]" },
-    md: { title: "text-base tracking-tight", subtitle: "text-[10px] tracking-[0.2em]" },
-    lg: { title: "text-xl tracking-tight", subtitle: "text-xs tracking-[0.22em]" },
+    sm: { title: 'text-sm tracking-tight', subtitle: 'text-[9px] tracking-[0.18em]' },
+    md: { title: 'text-base tracking-tight', subtitle: 'text-[10px] tracking-[0.2em]' },
+    lg: { title: 'text-xl tracking-tight', subtitle: 'text-xs tracking-[0.22em]' },
   };
 
   return (
@@ -75,12 +74,9 @@ export const Logo: React.FC<LogoProps> = ({
             className={`font-extrabold uppercase ${textSizes[size].title} ${
               isDarkBg ? 'text-white' : 'text-[#0E4637]'
             }`}
-          >{cmsText("Logo-d8885d3ddbc2", "DELITECH")}</span>
-          <span
-            className={`font-semibold uppercase tracking-[0.2em] mt-0.5 ${textSizes[size].subtitle} ${
-              isDarkBg ? 'text-[#CFE3C4]' : 'text-[#17211C]/70'
-            }`}
-          >{cmsText("Logo-537f0e44799d", "SMART SPACES")}</span>
+          >
+            INTELISPACES
+          </span>
         </div>
       )}
     </div>

@@ -9,6 +9,10 @@ import {
   removeTargets,
   summary,
   targets,
+  normalizeProject,
+  addControlPoint,
+  normalizedDrop,
+  detachDocument,
 } from "../src/model";
 test("new project is empty and does not claim zero unresolved specifications", () => {
   const p = newProject();
@@ -81,4 +85,60 @@ test("empty room scope is unresolved, not silently complete", () => {
   const p = exampleProject();
   assert.ok(issues(p).includes("Kuchnia: zakres funkcji"));
   assert.ok(!issues(p).includes("Salon: zakres funkcji"));
+});
+
+test('point codes survive deletes, edits and normalizing old projects', () => {
+  const p = normalizeProject(exampleProject());
+  assert.deepEqual(p.points.map(x => x.code), ['P01', 'P02', 'P03']);
+  p.points.splice(1, 1);
+  addControlPoint(p, p.rooms[0].id);
+  assert.deepEqual(p.points.map(x => x.code), ['P01', 'P03', 'P04']);
+  assert.deepEqual(normalizeProject(p), p);
+  p.points[1].code = 'P01';
+  const fixed = normalizeProject(p);
+  assert.equal(new Set(fixed.points.map(x => x.code)).size, fixed.points.length);
+});
+
+test('room and point duplicates clear placement and remap long presses', () => {
+  const p = normalizeProject(exampleProject()), pt = p.points[0];
+  pt.bindings[0].hold = { target: p.rooms[0].circuits[1].id, action: 'Ściemnianie' };
+  pt.placement = { documentId: 'floorplan', page: 1, x: 0.45, y: 0.7 };
+  const copy = duplicateRoom(p, p.rooms[0].id);
+  const duplicate = copy.points.find(x => x.roomId === copy.rooms.at(-1)!.id)!;
+  assert.notEqual(duplicate.code, pt.code);
+  assert.equal(duplicate.placement, undefined);
+  assert.equal(duplicate.bindings[0].hold!.target, copy.rooms.at(-1)!.circuits[1].id);
+  const pointCopy = addControlPoint(p, pt.roomId, pt);
+  assert.equal(pointCopy.placement, undefined);
+  assert.notEqual(pointCopy.code, pt.code);
+  assert.notEqual(pointCopy.bindings[0].id, pt.bindings[0].id);
+});
+
+test('removed targets also clear and report long-press references', () => {
+  const p = normalizeProject(exampleProject());
+  p.points[0].bindings[0].hold = {target: p.rooms[0].circuits[4].id, action: 'Zamknij'};
+  const next = removeTargets(p, [p.rooms[0].circuits[4].id]);
+  assert.equal(next.points[0].bindings[0].hold!.target, '');
+  assert.ok(issues(next).includes(`${next.points[0].name}: wysokość / przypisania klawiszy`));
+});
+
+test('drop coordinates remain normalized at different zoom and pan levels', () => {
+  assert.deepEqual(normalizedDrop(250, 200, {left:50, top:100, width:400, height:200}), {x:0.5,y:0.5});
+  assert.deepEqual(normalizedDrop(250, 200, {left:-150, top:0, width:800, height:400}), {x:0.5,y:0.5});
+  assert.equal(normalizedDrop(900, 200, {left:0, top:0, width:800, height:400}), null);
+  assert.equal(normalizedDrop(0, 0, {left:0, top:0, width:0, height:400}), null);
+});
+
+test('document removal clears photo, position and view without deleting the sensor', () => {
+  const p = normalizeProject(exampleProject());
+  p.attachments = [{id:'plan', name:'plan.pdf', mime:'application/pdf',size:120}];
+  p.planView = {documentId:'plan',page:1,zoom:2,centerX:0.4,centerY:0.7};
+  p.points[0].placement = {documentId:'plan',page:1,x:0.4,y:0.7};
+  p.points[1].photoId = 'plan';
+  detachDocument(p, 'plan');
+  assert.equal(p.attachments.length, 0);
+  assert.equal(p.points.length, 3);
+  assert.equal(p.points[0].placement, undefined);
+  assert.equal(p.points[1].photoId, undefined);
+  assert.equal(p.planView, undefined);
 });

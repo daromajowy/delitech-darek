@@ -1,4 +1,6 @@
 import {
+  GripVertical, MapPin, MapPinCheck, MapPinPlus, MapPinOff, Map, ListTree, Settings2,
+  ChevronLeft, ChevronRight, Maximize2, Minimize2, Hand, Scan, Minus, FileUp, LockKeyhole,
   ArrowLeft,
   ArrowRight,
   Armchair,
@@ -56,6 +58,8 @@ import {
   X,
 } from "lucide-react";
 export const iconMap = {
+  GripVertical, MapPin, MapPinCheck, MapPinPlus, MapPinOff, Map, ListTree, Settings2,
+  ChevronLeft, ChevronRight, Maximize2, Minimize2, Hand, Scan, Minus, FileUp, LockKeyhole,
   ArrowLeft,
   ArrowRight,
   Armchair,

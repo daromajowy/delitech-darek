@@ -1,12 +1,12 @@
 @font-face {
   font-family: Planner;
-  src: url("/media/NotoSans-Regular.ttf") format("truetype");
+  src: url("../public/media/NotoSans-Regular.ttf") format("truetype");
   font-weight: 100 500;
   font-display: swap;
 }
 @font-face {
   font-family: Planner;
-  src: url("/media/NotoSans-Bold.ttf") format("truetype");
+  src: url("../public/media/NotoSans-Bold.ttf") format("truetype");
   font-weight: 600 900;
   font-display: swap;
 }
@@ -229,6 +229,12 @@ input[type="month"] {
   align-items: center;
   margin-left: auto;
   gap: 16px;
+}
+.top-actions .panel-link { display: inline-flex; align-items: center; gap: 6px; }
+@media (max-width: 480px) {
+  .topbar .app-name { display: none; }
+  .top-actions .quiet, .top-actions .tool { flex-shrink: 0; }
+  .top-actions .panel-link span { display: none; }
 }
 .avatar {
   display: flex;

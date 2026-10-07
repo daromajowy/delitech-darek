@@ -4,6 +4,8 @@ import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { iconMap } from "./icons";
 import { issues, sensors, summary, targets, type Project } from "./model";
+import { pointPhoto } from "./documents";
+import { appendPlans } from "./plan-export";
 
 async function base64(url: string) {
   const r = await fetch(url);
@@ -197,55 +199,32 @@ export async function buildPdf(p: Project): Promise<Blob> {
   );
   page();
   title("Sensory i punkty sterowania");
-  const chosen = sensors.filter((s) =>
-    p.points.some((pt) => pt.sensor === s.name),
-  );
-  if (chosen.length) {
-    ensure(57);
-    for (let i = 0; i < chosen.length; i++) {
-      const sensor = chosen[i];
-      const x = 18 + i * 58;
-      doc.addImage(
-        await raster(`media/${sensor.image}`),
-        "PNG",
-        x + 8,
-        y,
-        36,
-        36,
-      );
-      doc.setFont("Noto", "bold");
-      doc.setFontSize(8);
-      doc.setTextColor("#344b56");
-      doc.text(sensor.name, x + 26, y + 41, { align: "center" });
-      doc.setFont("Noto", "normal");
-      doc.setFontSize(7);
-      doc.text(
-        `${p.points.filter((pt) => pt.sensor === sensor.name).length} pkt · zdjęcie referencyjne`,
-        x + 26,
-        y + 47,
-        { align: "center" },
-      );
-    }
-    y += 57;
-  }
   const lookup = new Map(targets(p).map((t) => [t.id, t.label]));
-  for (const [i, pt] of p.points.entries()) {
-    ensure(Math.min(105, 30 + pt.bindings.length * 8));
-    title(
-      `P${String(i + 1).padStart(2, "0")} · ${p.rooms.find((r) => r.id === pt.roomId)?.name} · ${pt.name}`,
-    );
-    text(
-      `${pt.sensor} · ${pt.finish} · montaż ${pt.height ?? "do ustalenia"} cm · ${pt.status}`,
-      8,
-    );
-    table(
-      ["Pole", "Obwód / scena", "Funkcja"],
-      pt.bindings.map((b, i) => [
-        i + 1,
-        lookup.get(b.target) ?? "Do ustalenia",
-        b.action,
-      ]),
-    );
+  for (const pt of p.points) {
+    const rows = pt.bindings.reduce((n, b) => n + 1 + (b.hold ? 1 : 0) + Math.ceil((b.notes?.length ?? 0) / 95), 0);
+    ensure(Math.min(230, 63 + rows * 9));
+    title(`${pt.code} · ${p.rooms.find(r => r.id === pt.roomId)?.name} · ${pt.name}`);
+    const top = y;
+    const photo = await pointPhoto(p, pt);
+    if (photo) {
+      try { doc.addImage(await raster(photo.url), "PNG", 18, top, 33, 33); }
+      finally { photo.release(); }
+    }
+    doc.setFont("Noto", "bold"); doc.setFontSize(10); doc.setTextColor("#20333d");
+    const device = doc.splitTextToSize(pt.model || pt.sensor, 124);
+    doc.text(device, 66, top + 6);
+    doc.setFont("Noto", "normal"); doc.setFontSize(8); doc.setTextColor("#647984");
+    const meta = [pt.deviceType || "Sensor KNX", `Wykończenie: ${pt.finish}`, `Montaż: ${pt.height ?? "do ustalenia"} cm · ${pt.status}`,
+      pt.placement ? `Rzut: ${p.attachments.find(a => a.id === pt.placement!.documentId)?.name} · strona ${pt.placement.page}` : "Pozycja na rzucie: do ustalenia"];
+    let my = top + 9 + device.length * 5;
+    for (const line of meta) { const lines = doc.splitTextToSize(line, 124); doc.text(lines, 66, my); my += lines.length * 4 + 2; }
+    y = Math.max(top + 37, my + 3);
+    table([`${pt.code} · Klawisz / opis`, "Naciśnięcie", "Obwód / scena i działanie"], pt.bindings.flatMap((binding, index) => {
+      const name = `${index + 1}${binding.label ? ` · ${binding.label}` : ""}`;
+      const rows = [[name, "Krótkie", `${lookup.get(binding.target) ?? "Do ustalenia"}\n${binding.action}${binding.notes ? `\n${binding.notes}` : ""}`]];
+      if (binding.hold) rows.push([name, "Długie", `${lookup.get(binding.hold.target) ?? "Do ustalenia"}\n${binding.hold.action}`]);
+      return rows;
+    }), true);
     if (pt.notes) text(pt.notes, 8);
   }
   if (!p.points.length) text("Punkty sterowania do ustalenia.");
@@ -346,9 +325,9 @@ export async function buildPdf(p: Project): Promise<Blob> {
       18,
       288,
     );
-    doc.text(`${n} / ${doc.getNumberOfPages()}`, 192, 288, { align: "right" });
+    doc.text(`Brief ${n} / ${doc.getNumberOfPages()}`, 192, 288, { align: "right" });
   }
-  return doc.output("blob");
+  return appendPlans(doc.output("blob"), p);
 }
 export async function buildXlsx(p: Project): Promise<Blob> {
   const { default: ExcelJS } = await import("exceljs");
@@ -444,17 +423,20 @@ export async function buildXlsx(p: Project): Promise<Blob> {
       "Uwagi",
     ],
     p.points.flatMap((pt) =>
-      pt.bindings.map((b, i) => [
+      pt.bindings.flatMap((b, i) => [
+        [
         p.rooms.find((r) => r.id === pt.roomId)?.name ?? "",
-        pt.name,
-        pt.sensor,
+        `${pt.code} · ${pt.name}`,
+        pt.model || pt.sensor,
         pt.finish,
         pt.height,
         pt.status,
-        i + 1,
+        `${i + 1} · ${b.label || "Krótkie naciśnięcie"}`,
         lookup.get(b.target) ?? "Do ustalenia",
         b.action,
-        pt.notes,
+        [pt.notes, b.notes || "", pt.placement ? `Rzut: ${p.attachments.find(a => a.id === pt.placement!.documentId)?.name}, str. ${pt.placement.page}, x=${pt.placement.x.toFixed(4)}, y=${pt.placement.y.toFixed(4)}` : "Bez pozycji na rzucie"].join("\n"),
+        ],
+        ...(b.hold ? [[p.rooms.find(r => r.id === pt.roomId)?.name ?? "", `${pt.code} · ${pt.name}`, pt.model || pt.sensor, pt.finish, pt.height, pt.status, `${i + 1} · Długie naciśnięcie`, lookup.get(b.hold.target) ?? "Do ustalenia", b.hold.action, b.notes || ""]] : []),
       ]),
     ),
   );

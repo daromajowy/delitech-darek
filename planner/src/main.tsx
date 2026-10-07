@@ -1,9 +1,10 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
-import { App } from "./App";
+import { Access } from "./Access";
 import "./style.css";
+import "./control.css";
 createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <App />
+    <Access />
   </React.StrictMode>,
 );

@@ -1,4 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
+import { ControlWorkspace } from "./ControlWorkspace";
+import { RoomPoints } from "./RoomPoints";
 import {
   ApiError,
   businessData,
@@ -6,6 +8,7 @@ import {
   request,
   saveProject,
   session,
+  panelUrl,
 } from "./api";
 import {
   Brand,
@@ -21,6 +24,9 @@ import {
 } from "./components";
 import {
   categories,
+  normalizeProject,
+  addControlPoint,
+  detachDocument,
   controls,
   duplicateRoom,
   emptyRoom,
@@ -93,9 +99,10 @@ export function App() {
       e instanceof Error ? e.message : "Nie udało się wykonać operacji.",
     );
     setPaused(true);
-    if (e instanceof ApiError && e.status === 401) setAuthExpired(true);
+    if (e instanceof ApiError && [401, 419].includes(e.status)) setAuthExpired(true);
   };
   const adopt = (p: Project) => {
+    p = normalizeProject(p);
     current.current = p;
     setProject(p);
     lastSaved.current = businessData(p);
@@ -120,7 +127,8 @@ export function App() {
       .then(async (rows) => {
         if (!mounted) return;
         setReady(true);
-        const last = sessionStorage.getItem("knx-last-project");
+        const params = new URLSearchParams(location.search);
+        const last = params.has('new') ? null : params.get('project') || sessionStorage.getItem("knx-last-project");
         if (last && rows.some((r) => r.id === last)) {
           const r = await loadProject(last);
           if (mounted) adopt(r.project);
@@ -261,8 +269,10 @@ export function App() {
       setBusy(true);
       const form = new FormData();
       form.append("file", file);
+      form.append("revision", String(current.current!.revision));
+      const attachmentId = uid();
       const result = await request<{ project: Project }>(
-        `upload&project=${current.current!.id}&id=${uid()}`,
+        `upload&project=${current.current!.id}&id=${attachmentId}`,
         "POST",
         form,
       );
@@ -275,6 +285,7 @@ export function App() {
       current.current = merged;
       setProject(merged);
       setNotice("Dodano dokument.");
+      return result.project.attachments.find(a => a.id === attachmentId);
     } catch (e) {
       report(e);
     } finally {
@@ -324,6 +335,7 @@ export function App() {
           revision: result.project.revision,
           updatedAt: result.project.updatedAt,
         };
+        detachDocument(merged, id);
         current.current = merged;
         setProject(merged);
       }
@@ -390,8 +402,9 @@ export function App() {
       go(1);
       return;
     }
-    const pt = newPoint(room?.id ?? project.rooms[0].id);
-    edit((p) => p.points.push(pt));
+    const copy = structuredClone(project);
+    const pt = addControlPoint(copy, room?.id ?? project.rooms[0].id);
+    edit((p) => { p.points = copy.points; p.nextPointNumber = copy.nextPointNumber; });
     setPointId(pt.id);
   };
   const allTargets = project ? targets(project) : [];
@@ -500,7 +513,7 @@ export function App() {
             <Icon name="FolderOpen" />
             <span>Projekty zespołu</span>
           </button>
-          <span className="avatar">IS</span>
+          <a href={panelUrl} className="quiet panel-link" aria-label="Panel i konto" title="Panel i konto" onClick={e => { if (dirty && !confirm('Masz niezapisane zmiany. Przejść do panelu?')) e.preventDefault(); }}><Icon name="Settings2" /><span>Panel i konto</span></a>
           <Tool
             icon="LogOut"
             label="Wyloguj"
@@ -527,7 +540,7 @@ export function App() {
             </button>
           )}
           {authExpired && (
-            <a href="./" target="_blank" rel="noreferrer">
+            <a href={panelUrl} target="_blank" rel="noreferrer">
               Zaloguj w nowej karcie
             </a>
           )}
@@ -1175,6 +1188,7 @@ export function App() {
                           />
                         </Field>
                       )}
+                      <RoomPoints project={project} room={room} edit={edit} configure={id => { setPointId(id); go(2); }} />
                       <Field label="Uwagi do pomieszczenia">
                         <textarea
                           value={room.notes}
@@ -1250,233 +1264,7 @@ export function App() {
               </div>
             )}
             {step === 2 && (
-              <div className="three-columns control-columns">
-                <aside className="left-panel">
-                  <div className="row spread">
-                    <h3>Punkty sterowania</h3>
-                    <Tool
-                      icon="Plus"
-                      label="Dodaj punkt sterowania"
-                      onClick={addPoint}
-                    />
-                  </div>
-                  {project.rooms
-                    .filter((r) =>
-                      project.points.some((pt) => pt.roomId === r.id),
-                    )
-                    .map((r) => (
-                      <section className="nav-group" key={r.id}>
-                        <h4>{r.name}</h4>
-                        {project.points
-                          .filter((pt) => pt.roomId === r.id)
-                          .map((pt, i) => (
-                            <button
-                              key={pt.id}
-                              className={`nav-entry ${point?.id === pt.id ? "selected" : ""}`}
-                              onClick={() => setPointId(pt.id)}
-                            >
-                              <Icon name="PanelTop" />
-                              <span>
-                                <small>P{String(i + 1).padStart(2, "0")}</small>
-                                {pt.name}
-                              </span>
-                            </button>
-                          ))}
-                      </section>
-                    ))}
-                  <button className="outline" onClick={addPoint}>
-                    <Icon name="Plus" />
-                    Dodaj punkt
-                  </button>
-                </aside>
-                {point ? (
-                  <>
-                    <section className="main-panel">
-                      <div className="row spread section-heading">
-                        <div>
-                          <h2>{point.name}</h2>
-                          <span className="muted">
-                            {
-                              project.rooms.find((r) => r.id === point.roomId)
-                                ?.name
-                            }{" "}
-                            · punkt sterowania
-                          </span>
-                        </div>
-                        <Tool
-                          icon="Trash2"
-                          label="Usuń punkt sterowania"
-                          onClick={() => {
-                            if (window.confirm("Usunąć ten punkt sterowania?"))
-                              edit(
-                                (p) =>
-                                  (p.points = p.points.filter(
-                                    (pt) => pt.id !== point.id,
-                                  )),
-                              );
-                          }}
-                        />
-                      </div>
-                      <div className="form-grid">
-                        <Field label="Nazwa punktu">
-                          <input
-                            value={point.name}
-                            onChange={(e) =>
-                              pointEdit((p) => (p.name = e.target.value))
-                            }
-                          />
-                        </Field>
-                        <Field label="Pomieszczenie">
-                          <select
-                            value={point.roomId}
-                            onChange={(e) =>
-                              pointEdit((p) => (p.roomId = e.target.value))
-                            }
-                          >
-                            {project.rooms.map((r) => (
-                              <option value={r.id} key={r.id}>
-                                {r.name}
-                              </option>
-                            ))}
-                          </select>
-                        </Field>
-                      </div>
-                      <div className="sensor-preview">
-                        <img
-                          src={`media/${sensors.find((s) => s.name === point.sensor)?.image ?? sensors[0].image}`}
-                          alt={`${point.sensor}, zdjęcie referencyjne w białym wykończeniu`}
-                        />
-                        <span>Zdjęcie referencyjne · biały</span>
-                      </div>
-                      <div className="form-grid">
-                        <Field label="Seria sensora">
-                          <Select
-                            value={point.sensor}
-                            options={sensors.map((s) => s.name)}
-                            onChange={(v) =>
-                              pointEdit((p) => {
-                                p.sensor = v;
-                                if (
-                                  !sensors
-                                    .find((s) => s.name === v)!
-                                    .finishes.includes(p.finish)
-                                )
-                                  p.finish = "Biały";
-                              })
-                            }
-                          />
-                        </Field>
-                        <Field label="Liczba funkcji / pól">
-                          <Select
-                            value={String(point.bindings.length)}
-                            options={["1", "2", "4", "6", "8"]}
-                            onChange={(v) => {
-                              if (
-                                Number(v) < point.bindings.length &&
-                                !window.confirm(
-                                  "Zmniejszyć liczbę pól i usunąć ostatnie przypisania?",
-                                )
-                              )
-                                return;
-                              pointEdit((p) => {
-                                p.bindings = Array.from(
-                                  { length: Number(v) },
-                                  (_, i) =>
-                                    p.bindings[i] ?? {
-                                      id: uid(),
-                                      target: "",
-                                      action: "Włącz / wyłącz",
-                                    },
-                                );
-                              });
-                            }}
-                          />
-                        </Field>
-                        <div className="wide field">
-                          <span>
-                            Preferowane wykończenie:{" "}
-                            <strong>{point.finish}</strong>
-                          </span>
-                          <div className="swatches">
-                            {sensors
-                              .find((s) => s.name === point.sensor)!
-                              .finishes.map((f) => (
-                                <button
-                                  className={
-                                    point.finish === f ? "selected" : ""
-                                  }
-                                  style={{ backgroundColor: finishes[f] }}
-                                  key={f}
-                                  title={f}
-                                  aria-label={`Wykończenie ${f}`}
-                                  aria-pressed={point.finish === f}
-                                  onClick={() =>
-                                    pointEdit((p) => (p.finish = f))
-                                  }
-                                >
-                                  {point.finish === f && (
-                                    <Icon name="Check" size={16} />
-                                  )}
-                                </button>
-                              ))}
-                          </div>
-                        </div>
-                        <Field label="Wysokość montażu (cm)">
-                          <NumberInput
-                            value={point.height}
-                            max={500}
-                            onChange={(v) => pointEdit((p) => (p.height = v))}
-                          />
-                        </Field>
-                        <Field label="Status uzgodnienia">
-                          <Select
-                            value={point.status}
-                            options={[
-                              "Propozycja",
-                              "Zaakceptowane",
-                              "Do ustalenia",
-                            ]}
-                            onChange={(v) => pointEdit((p) => (p.status = v))}
-                          />
-                        </Field>
-                      </div>
-                      <Field label="Uwagi do punktu">
-                        <textarea
-                          value={point.notes}
-                          onChange={(e) =>
-                            pointEdit((p) => (p.notes = e.target.value))
-                          }
-                          placeholder="Miejsce montażu, grawerowanie, obsługa…"
-                        />
-                      </Field>
-                      <p className="small muted">
-                        Liczba pól i wykończenie określają oczekiwania. Wariant
-                        urządzenia i dostępność potwierdza zespół InteliSpaces.
-                      </p>
-                    </section>
-                    <aside className="right-panel">
-                      <h3>Funkcje przycisków</h3>
-                      {bindingEditor(point.bindings, (b) =>
-                        pointEdit((p) => (p.bindings = b)),
-                      )}
-                      <Files
-                        project={project}
-                        upload={upload}
-                        remove={removeFile}
-                        busy={busy}
-                      />
-                    </aside>
-                  </>
-                ) : (
-                  <section className="empty-inline">
-                    <Icon name="MousePointer2" size={38} />
-                    <h2>Zaplanuj sterowanie</h2>
-                    <button className="primary" onClick={addPoint}>
-                      Dodaj punkt sterowania
-                    </button>
-                  </section>
-                )}
-              </div>
+              <ControlWorkspace key={project.id} project={project} pointId={pointId} select={setPointId} edit={edit} upload={upload} busy={busy} goRooms={() => go(1)} />
             )}
             {step === 3 && (
               <>
@@ -2085,8 +1873,8 @@ export function App() {
             )}
           </div>
           <p className="small muted">
-            Wspólny obszar roboczy. Projekty są widoczne dla wszystkich osób z
-            hasłem dostępu.
+            Widzisz swoje projekty oraz projekty udostępnione Twojemu kontu.
+            Współpracowników dodasz w panelu. Administrator InteliSpaces ma dostęp do briefów i projektów.
           </p>
         </Modal>
       )}

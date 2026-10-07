@@ -5,7 +5,7 @@ import heroVideoUrl from '../assets/jung-ls-touch-3-23.mp4';
 export const HeroVideo = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [reduceMotion, setReduceMotion] = useState(
-    () => window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+    () => false,
   );
 
   useEffect(() => {

@@ -1,10 +1,10 @@
-import {useCmsContent} from './cms/content.ts';
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
  */
 
 import React, { useState, useEffect } from 'react';
+import { cms } from './cms';
 import { PageId } from './types.ts';
 import { Navbar } from './components/Navbar.tsx';
 import { Footer } from './components/Footer.tsx';
@@ -21,14 +21,12 @@ import { ArchitectsPage } from './pages/ArchitectsPage.tsx';
 import { KNXPage } from './pages/KNXPage.tsx';
 import { ProjectsPage } from './pages/ProjectsPage.tsx';
 import { KnowledgePage } from './pages/KnowledgePage.tsx';
-import { guides } from './content/guides.ts';
 import { AboutPage } from './pages/AboutPage.tsx';
+import { TeamPage } from './pages/TeamPage.tsx';
 import { ContactPage } from './pages/ContactPage.tsx';
-import { ShowroomPage } from './pages/ShowroomPage.tsx';
 
 export default function App() {
-  const cms = useCmsContent();
-  const [currentPage, setCurrentPage] = useState<PageId>('home');
+  const [currentPage, setCurrentPage] = useState<PageId>(() => { const page=cms()?.page; return !page || page==='custom' ? 'home' : page; });
   const [currentHash, setCurrentHash] = useState<string | undefined>(undefined);
 
   // Modals state
@@ -40,8 +38,8 @@ export default function App() {
   // Page titles and meta descriptions map for SEO compliance
   const pageMetadata: Record<PageId, { title: string; desc: string }> = {
     home: {
-      title: 'Delitech Smart Spaces – KNX dla architektów i inwestorów | Warszawa',
-      desc: 'Wsparcie architektów i inwestorów w planowaniu automatyki KNX. Scenariusze, dobór sterowania, pakiet projektowy i salon w Warszawie.',
+      title: 'Delitech Smart Spaces – Automatyka budynku KNX | Warszawa & Polska',
+      desc: 'Projektowanie, wykonawstwo i programowanie automatyki budynkowej KNX w Warszawie i całej Polsce dla biur komercyjnych, domów oraz apartamentów premium.',
     },
     offices: {
       title: 'Automatyka dla biur i fit-out KNX | Delitech Smart Spaces Warszawa',
@@ -57,14 +55,14 @@ export default function App() {
     },
     architects: {
       title: 'Strefa architekta i projektanta instalacji | Delitech Smart Spaces',
-      desc: 'Pakiet dla architekta: karta pomieszczenia, brief i lista uzgodnień. Dobór sterowania KNX do projektu wnętrza i konsultacje w Warszawie.',
+      desc: 'Wsparcie koncepcyjne, wytyczne tras kablowych, modele BIM oraz wzorniki architektonicznego osprzętu JUNG LS 990 i LS ZERO dla pracowni.',
     },
     knx: {
       title: 'Standard KNX – Dlaczego otwarty protokół? | Delitech Smart Spaces',
       desc: 'Poznaj zalety otwartego standardu KNX ISO/IEC 14543: brak uzależnienia od jednego producenta, magistrala przewodowa i 30+ lat trwałości.',
     },
     projects: {
-      title: 'Przykłady rozwiązań KNX | Delitech Smart Spaces',
+      title: 'Przykładowe zakresy realizacji KNX | Delitech Smart Spaces',
       desc: 'Wzorcowe opracowania instalacji dla powierzchni biurowych fit-out, rezydencji podmiejskich i apartamentów penthouse.',
     },
     knowledge: {
@@ -72,23 +70,23 @@ export default function App() {
       desc: 'Praktyczne poradniki inżynierskie dla inwestorów i architektów oraz odpowiedzi na najczęściej zadawane pytania o automatykę KNX i DALI.',
     },
     about: {
-      title: 'Jak pracujemy – zakres, proces i odbiór | Delitech Smart Spaces',
-      desc: 'Od analizy potrzeb do uzgodnionego odbioru KNX. Poznaj etapy, podział odpowiedzialności i materiały do przygotowania projektu.',
+      title: 'O firmie – Integrator KNX Warszawa | INTELISPACES',
+      desc: 'Poznaj standardy inżynierskie certyfikowanego integratora KNX Partner. Automatyka budynku, która pracuje dla ludzi i przestrzeni.',
     },
-    showroom: {
-      title: 'Salon Delitech – Konwaliowa 7 lok. 103, Warszawa',
-      desc: 'Spotkanie z projektem w salonie Delitech. Konwaliowa 7 lok. 103, 03-194 Warszawa. Uzgodnij termin i dostępność interesujących Cię próbek.',
+    team: {
+      title: 'Kim jesteśmy – Zespół inżynierów i integratorów KNX | INTELISPACES',
+      desc: 'Poznaj zespół INTELISPACES: certyfikowani inżynierowie KNX, specjaliści DALI-2 i prefabrykacji szaf sterowniczych w Warszawie.',
     },
     contact: {
       title: 'Prześlij rzuty i skontaktuj się | Delitech Smart Spaces Warszawa',
-      desc: 'Salon sprzedaży Delitech: ul. Konwaliowa 7 lok. 103, 03-194 Warszawa. Kontakt i analiza projektu automatyki KNX. Realizacje na terenie całej Polski.',
+      desc: 'Prześlij rzuty do analizy inżynierskiej. Biuro przy ul. Konwaliowej 7 lok. 103 w Warszawie. Realizacje na terenie całej Polski.',
     },
   };
 
   // Sync title and meta description dynamically
   useEffect(() => {
-    const guide = currentPage === 'knowledge' ? (cms.loaded ? cms.guides : guides).find(item => item.id === currentHash) : undefined;
-    const meta = guide ? {title: `${guide.title} | Delitech Smart Spaces`, desc: guide.summary} : pageMetadata[currentPage];
+    const base = pageMetadata[currentPage];
+    const meta = cms() ? {title: cms()!.title || base.title, desc: cms()!.description || base.desc} : base;
     if (meta) {
       document.title = meta.title;
       const metaDescriptionTag = document.querySelector('meta[name="description"]');
@@ -104,11 +102,17 @@ export default function App() {
         ogDescTag.setAttribute('content', meta.desc);
       }
     }
-  }, [currentPage, currentHash, cms]);
+  }, [currentPage]);
 
   // Read hash on mount
   useEffect(() => {
     const handleHashChange = () => {
+      if (cms()) {
+        const legacy = window.location.hash.slice(1).split('/');
+        if (cms()?.urls[legacy[0]]) { window.location.replace(cms()!.urls[legacy[0]] + (legacy[1] ? '#' + legacy[1] : '')); return; }
+        setCurrentHash(window.location.hash.slice(1) || undefined);
+        return;
+      }
       const rawHash = window.location.hash.replace('#', '');
       if (rawHash) {
         const [pagePart, subPart] = rawHash.split('/');
@@ -122,16 +126,13 @@ export default function App() {
           'projects',
           'knowledge',
           'about',
-          'showroom',
+          'team',
           'contact',
         ];
         if (validPages.includes(pagePart as PageId)) {
           setCurrentPage(pagePart as PageId);
           setCurrentHash(subPart);
         }
-      } else {
-        setCurrentPage('home');
-        setCurrentHash(undefined);
       }
     };
 
@@ -141,6 +142,7 @@ export default function App() {
   }, []);
 
   const handleNavigate = (page: PageId, subHash?: string) => {
+    if (cms()?.urls[page]) { window.location.assign(cms()!.urls[page] + (subHash ? '#' + subHash : '')); return; }
     setCurrentPage(page);
     setCurrentHash(subHash);
     window.location.hash = subHash ? `${page}/${subHash}` : page === 'home' ? '' : page;
@@ -153,7 +155,7 @@ export default function App() {
   };
 
   const handleOpenConsultation = (topic?: string) => {
-    setConsultationTopic(topic || 'Rozmowa o projekcie automatyki KNX');
+    if (topic) setConsultationTopic(topic);
     setConsultationModalOpen(true);
   };
 
@@ -167,8 +169,8 @@ export default function App() {
       />
 
       {/* Main Content Viewport */}
-      <main className="flex-grow">
-        {currentPage === 'home' && (
+      <main id="main-content" className="flex-grow">
+        {currentPage === 'home' && cms()?.page !== 'custom' && (
           <HomePage
             onNavigate={handleNavigate}
             onOpenConsultation={() => handleOpenConsultation()}
@@ -178,7 +180,6 @@ export default function App() {
 
         {currentPage === 'offices' && (
           <OfficesPage
-            key={currentHash || 'offices'}
             onNavigate={handleNavigate}
             onOpenConsultation={() => handleOpenConsultation('Konsultacja projektu biura / fit-out')}
             onOpenPrivacy={() => handleOpenPrivacy('privacy')}
@@ -188,7 +189,6 @@ export default function App() {
 
         {currentPage === 'homes' && (
           <HomesPage
-            key={currentHash || 'homes'}
             onNavigate={handleNavigate}
             onOpenConsultation={() => handleOpenConsultation('Konsultacja rezydencji / apartamentu')}
             onOpenPrivacy={() => handleOpenPrivacy('privacy')}
@@ -228,7 +228,6 @@ export default function App() {
 
         {currentPage === 'knowledge' && (
           <KnowledgePage
-            initialHash={currentHash}
             onNavigate={handleNavigate}
             onOpenConsultation={() => handleOpenConsultation('Pytanie techniczne do inżyniera KNX')}
           />
@@ -237,7 +236,14 @@ export default function App() {
         {currentPage === 'about' && (
           <AboutPage
             onNavigate={handleNavigate}
-            onOpenConsultation={() => handleOpenConsultation('Zakres współpracy przy projekcie KNX')}
+            onOpenConsultation={() => handleOpenConsultation('Spotkanie w biurze Warszawa')}
+          />
+        )}
+
+        {currentPage === 'team' && (
+          <TeamPage
+            onNavigate={handleNavigate}
+            onOpenConsultation={() => handleOpenConsultation('Konsultacja z inżynierem INTELISPACES')}
           />
         )}
 
@@ -247,7 +253,7 @@ export default function App() {
             onOpenConsultation={() => handleOpenConsultation()}
           />
         )}
-        {currentPage === 'showroom' && <ShowroomPage onOpenConsultation={() => handleOpenConsultation('Spotkanie w salonie przy Konwaliowej 7')} />}
+        {cms()?.additional && <div className="cms-additional max-w-7xl mx-auto px-6 py-10" dangerouslySetInnerHTML={{__html: cms()!.additional!}} />}
       </main>
 
       {/* Editorial Footer */}
