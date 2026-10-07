@@ -36,7 +36,7 @@ jobs:
       - name: Build main (production)
         run: |
           echo "=== Building main branch ==="
-          npm install --legacy-peer-deps
+          npm install --legacy-peer-deps --no-package-lock
           npm run build
           mkdir -p ./site
           cp -r dist/* ./site/
@@ -47,7 +47,7 @@ jobs:
           echo "=== Checking and building Darka branch ==="
           if git rev-parse --verify origin/Darka >/dev/null 2>&1; then
             git checkout origin/Darka
-            npm install --legacy-peer-deps
+            npm install --legacy-peer-deps --no-package-lock
             npm run build
             sed -i 's|<head>|<head><meta name="robots" content="noindex, nofollow">|' dist/index.html
             mkdir -p ./site/Darka
@@ -63,7 +63,7 @@ jobs:
           echo "=== Checking and building Janka branch ==="
           if git rev-parse --verify origin/Janka >/dev/null 2>&1; then
             git checkout origin/Janka
-            npm install --legacy-peer-deps
+            npm ci --legacy-peer-deps
             npm run build
             sed -i 's|<head>|<head><meta name="robots" content="noindex, nofollow">|' dist/index.html
             mkdir -p ./site/Janka
