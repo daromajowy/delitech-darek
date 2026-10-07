@@ -1,4 +1,4 @@
-name: WordPress - validate and publish to CyberFolks
+name: WordPress and KNX - validate and publish to CyberFolks
 
 on:
   push:
@@ -23,11 +23,30 @@ jobs:
           persist-credentials: false
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
-          node-version: 22
+          node-version: 24
           cache: npm
       - run: npm ci
       - run: npm run lint
       - run: npm run build:wordpress
+      - uses: shivammathur/setup-php@f3e473d116dcccaddc5834248c87452386958240 # v2
+        with:
+          php-version: '8.4'
+          extensions: intl, mbstring, pdo_sqlite, gd, zip
+          coverage: none
+      - name: Build and test KNX planner
+        run: |
+          npm ci --prefix planner
+          npm test --prefix planner
+          npm run build --prefix planner
+          mkdir -p knx-backend/public/planner
+          cp -R planner/dist/. knx-backend/public/planner/
+      - name: Test Laravel authorization and persistence
+        working-directory: knx-backend
+        run: |
+          cp .env.example .env
+          composer install --prefer-dist --no-interaction --no-progress
+          php artisan key:generate --no-interaction
+          php artisan test --compact
       - name: PHP syntax and deployment safety tests
         run: |
           find wordpress -name '*.php' -print0 | xargs -0 -n1 php -l
@@ -49,14 +68,28 @@ jobs:
           persist-credentials: false
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
-          node-version: 22
+          node-version: 24
           cache: npm
       - run: npm ci
       - run: npm run build:wordpress
+      - uses: shivammathur/setup-php@f3e473d116dcccaddc5834248c87452386958240 # v2
+        with:
+          php-version: '8.4'
+          extensions: intl, mbstring, pdo_mysql, gd, zip
+          coverage: none
+      - name: Build KNX production package
+        run: |
+          npm ci --prefix planner
+          npm run build --prefix planner
+          mkdir -p knx-backend/public/planner
+          cp -R planner/dist/. knx-backend/public/planner/
+          composer install --working-dir=knx-backend --no-dev --prefer-dist --no-interaction --no-progress --optimize-autoloader
       - name: Package the exact main commit
         env:
           RELEASE_COMMIT: ${{ github.sha }}
-        run: python3 scripts/package-wordpress.py
+        run: |
+          python3 scripts/package-wordpress.py
+          python3 scripts/package-knx.py
       - name: Publish deployment package
         env:
           GH_TOKEN: ${{ github.token }}
@@ -64,9 +97,9 @@ jobs:
         run: |
           tag="cf-$RELEASE_COMMIT"
           if ! gh release view "$tag" >/dev/null 2>&1; then
-            gh release create "$tag" build/site.tar.gz build/site.sha256 \
+            gh release create "$tag" build/site.tar.gz build/site.sha256 build/knx.tar.gz build/knx.sha256 \
               --target "$RELEASE_COMMIT" --title "CF $RELEASE_COMMIT" \
-              --notes "Validated WordPress theme and backend. CF applies only the current main commit. CMS data is preserved." \
+              --notes "Validated WordPress and Laravel/Filament KNX. CF applies only the current main commit. CMS content, accounts, projects and private uploads are preserved." \
               --latest=false
           fi
       - name: Confirm deployment on CF (up to 8 minutes)

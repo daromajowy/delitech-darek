@@ -30,7 +30,7 @@ function is_cms_config() {
     $ids=get_posts(['post_type'=>'page','post_status'=>'publish','meta_key'=>'_is_route','meta_value'=>$route,'numberposts'=>1,'fields'=>'ids']);
     if($ids) $urls[$route]=get_permalink($ids[0]);
   }
-  return ['page'=>$page,'values'=>$values,'urls'=>$urls,'additional'=>$extra,'title'=>html_entity_decode(wp_get_document_title(),ENT_QUOTES,'UTF-8'),'description'=>get_the_excerpt($post),'endpoint'=>rest_url('intelispaces/v1/inquiries'),'nonce'=>wp_create_nonce('is_inquiry'),'restNonce'=>wp_create_nonce('wp_rest')];
+  return ['plannerUrl'=>get_option('is_knx_url', wp_parse_url(home_url(), PHP_URL_SCHEME).'://'.wp_parse_url(home_url(), PHP_URL_HOST).'/projektant-knx/'),'page'=>$page,'values'=>$values,'urls'=>$urls,'additional'=>$extra,'title'=>html_entity_decode(wp_get_document_title(),ENT_QUOTES,'UTF-8'),'description'=>get_the_excerpt($post),'endpoint'=>rest_url('intelispaces/v1/inquiries'),'nonce'=>wp_create_nonce('is_inquiry'),'restNonce'=>wp_create_nonce('wp_rest')];
 }
 add_action('wp_enqueue_scripts',function(){
   $manifest=json_decode(file_get_contents(__DIR__.'/dist/.vite/manifest.json'),true);
