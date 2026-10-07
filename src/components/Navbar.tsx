@@ -19,10 +19,11 @@ export const Navbar: React.FC<NavbarProps> = ({
   const mobileToggleRef = useRef<HTMLButtonElement>(null);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
 
-  const navItems: {id:PageId;label:string;subItems?:{label:string;hash:string;page?:PageId}[]}[] = [
+  const navItems: {id:PageId;label:string;subItems?:{label:string;hash:string;page?:PageId;href?:string}[]}[] = [
     {id:'architects',label:cmsText('Navbar-v2-architects','Dla architektów'),subItems:[
       {label:cmsText('Navbar-v2-support','Wsparcie projektowe'),hash:'wsparcie'},
       {label:cmsText('Navbar-v2-pack','Pakiet dla architekta'),hash:'pakiet'},
+      {label:'Projektant KNX',hash:'projektant-knx',href:'https://intelispaces.pl/projektant-knx/'},
       {label:cmsText('Navbar-v2-jung','Osprzęt i materiały'),hash:'jung'}
     ]},
     {id:'homes',label:cmsText('Navbar-v2-homes','Domy i apartamenty'),subItems:[
@@ -128,8 +129,8 @@ export const Navbar: React.FC<NavbarProps> = ({
                         {item.subItems?.map((sub) => (
                           <a
                             key={(sub.page || item.id) + '/' + sub.hash}
-                            href={`#${sub.page || item.id}${sub.hash ? '/' + sub.hash : ''}`}
-                            onClick={event => {event.preventDefault();handleNavClick(sub.page || item.id, sub.hash);}}
+                            href={sub.href || `#${sub.page || item.id}${sub.hash ? '/' + sub.hash : ''}`}
+                            onClick={event => {if (!sub.href) {event.preventDefault();handleNavClick(sub.page || item.id, sub.hash);}}}
                             className="w-full text-left px-3 py-2 text-xs font-medium text-[#17211C]/85 hover:text-[#0E4637] hover:bg-[#F7F8F5] rounded-lg transition-colors flex items-center justify-between group"
                           >
                             <span>{sub.label}</span>
@@ -204,8 +205,8 @@ export const Navbar: React.FC<NavbarProps> = ({
                     {item.subItems.map((sub) => (
                       <a
                         key={(sub.page || item.id) + '/' + sub.hash}
-                        href={`#${sub.page || item.id}${sub.hash ? '/' + sub.hash : ''}`}
-                        onClick={event => {event.preventDefault();handleNavClick(sub.page || item.id, sub.hash);}}
+                        href={sub.href || `#${sub.page || item.id}${sub.hash ? '/' + sub.hash : ''}`}
+                        onClick={event => {if (!sub.href) {event.preventDefault();handleNavClick(sub.page || item.id, sub.hash);}}}
                         className="block w-full text-left px-3 py-1.5 text-xs text-[#17211C]/75 hover:text-[#0E4637] rounded-md transition-colors"
                       >
                         {sub.label}

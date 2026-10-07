@@ -75,6 +75,7 @@ export const ArchitectsPage: React.FC<ArchitectsPageProps> = ({ onOpenConsultati
           </div>
           <div className="flex flex-wrap gap-3 mt-6">
             <a href={packageHref} target="_blank" rel="noopener noreferrer" className="px-5 py-3 bg-[#0E4637] hover:bg-[#17211C] text-white font-semibold text-sm rounded-lg transition-colors">{cmsText('ArchitectsPage-v2-pack-open', 'Otwórz pakiet i wydrukuj')}</a>
+            <a href="https://intelispaces.pl/projektant-knx/" className="px-5 py-3 bg-[#0E4637] hover:bg-[#17211C] text-white font-semibold text-sm rounded-lg transition-colors">Projektant KNX</a>
             <a href={packageHref} download="Delitech-pakiet-architekta.html" className="px-5 py-3 border border-[#0E4637]/25 hover:bg-[#F7F8F5] text-[#0E4637] font-semibold text-sm rounded-lg transition-colors">{cmsText('ArchitectsPage-v2-pack-download', 'Pobierz plik HTML')}</a>
           </div>
           <p className="text-xs text-[#53635A] mt-3">{cmsText('ArchitectsPage-v2-pack-format', 'Wersja do druku lub zapisania jako PDF z przeglądarki. Przykład koncepcyjny, nie projekt wykonawczy.')}</p>
