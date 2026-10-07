@@ -21,6 +21,7 @@ import { KNXPage } from './pages/KNXPage.tsx';
 import { ProjectsPage } from './pages/ProjectsPage.tsx';
 import { KnowledgePage } from './pages/KnowledgePage.tsx';
 import { AboutPage } from './pages/AboutPage.tsx';
+import { TeamPage } from './pages/TeamPage.tsx';
 import { ContactPage } from './pages/ContactPage.tsx';
 
 export default function App() {
@@ -68,8 +69,12 @@ export default function App() {
       desc: 'Praktyczne poradniki inżynierskie dla inwestorów i architektów oraz odpowiedzi na najczęściej zadawane pytania o automatykę KNX i DALI.',
     },
     about: {
-      title: 'O Delitech Smart Spaces – Integrator KNX Warszawa',
-      desc: 'Poznaj zespół i standardy inżynierskie certyfikowanego integratora KNX Partner. Automatyka budynku, która pracuje dla ludzi i przestrzeni.',
+      title: 'O firmie – Integrator KNX Warszawa | INTELISPACES',
+      desc: 'Poznaj standardy inżynierskie certyfikowanego integratora KNX Partner. Automatyka budynku, która pracuje dla ludzi i przestrzeni.',
+    },
+    team: {
+      title: 'Kim jesteśmy – Zespół inżynierów i integratorów KNX | INTELISPACES',
+      desc: 'Poznaj zespół INTELISPACES: certyfikowani inżynierowie KNX, specjaliści DALI-2 i prefabrykacji szaf sterowniczych w Warszawie.',
     },
     contact: {
       title: 'Prześlij rzuty i skontaktuj się | Delitech Smart Spaces Warszawa',
@@ -113,6 +118,7 @@ export default function App() {
           'projects',
           'knowledge',
           'about',
+          'team',
           'contact',
         ];
         if (validPages.includes(pagePart as PageId)) {
@@ -222,6 +228,13 @@ export default function App() {
           <AboutPage
             onNavigate={handleNavigate}
             onOpenConsultation={() => handleOpenConsultation('Spotkanie w biurze Warszawa')}
+          />
+        )}
+
+        {currentPage === 'team' && (
+          <TeamPage
+            onNavigate={handleNavigate}
+            onOpenConsultation={() => handleOpenConsultation('Konsultacja z inżynierem INTELISPACES')}
           />
         )}
 
