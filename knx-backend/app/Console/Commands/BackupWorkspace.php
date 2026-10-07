@@ -39,7 +39,8 @@ class BackupWorkspace extends Command
         }
         file_put_contents($defaults, $settings);
         try {
-            $process = proc_open(['/usr/bin/mysqldump', '--defaults-extra-file='.$defaults, '--single-transaction', '--quick', '--skip-lock-tables', $connection['database']],
+            // CF's /usr/bin wrapper prepends options; defaults-extra-file must be first.
+            $process = proc_open(['/usr/local/mariadb1011/bin/mariadb-dump', '--defaults-extra-file='.$defaults, '--single-transaction', '--quick', '--skip-lock-tables', $connection['database']],
                 [0 => ['file', '/dev/null', 'r'], 1 => ['file', $dump, 'w'], 2 => ['file', $directory.'/dump-error.log', 'w']], $pipes);
             if (! is_resource($process) || proc_close($process) !== 0) {
                 throw new \RuntimeException('Database backup failed.');
