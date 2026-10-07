@@ -153,7 +153,7 @@ export function PlanBoard({ project, point, select, edit, upload, busy, dragging
         initialPositionX={size.width / 2 - pageWidth * initialScale * (savedView?.centerX ?? 0.5)}
         initialPositionY={size.height / 2 - pageHeight * initialScale * (savedView?.centerY ?? 0.5)}
         panning={{ disabled: dragging || mode === "place", excluded: ["plan-marker"], velocityDisabled: true }}
-        doubleClick={{ disabled: true }} wheel={{ step: 0.12 }} onTransform={persistView}
+        doubleClick={{ disabled: true }} smooth={false} wheel={{ step: fit * 0.1 }} onTransform={persistView}
         onInit={persistView}>
         <TransformComponent wrapperStyle={{ width: "100%", height: "100%" }}>
           <div ref={sheet} className="plan-sheet" style={{ width: pageWidth, height: pageHeight }} onClick={e => { if (mode === "place" && point) place(point.id, e.clientX, e.clientY); }}>

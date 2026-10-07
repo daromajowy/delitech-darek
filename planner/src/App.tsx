@@ -492,12 +492,44 @@ export function App() {
   }
   return (
     <div className="app">
-      <header className="topbar">
+      <header className={`topbar${project ? " has-project" : ""}`}>
         <Brand />
         <div className="app-name">
           <strong>Projektant KNX</strong>
           <span>PRZESTRZEŃ DLA ARCHITEKTÓW</span>
         </div>
+        {project && (
+          <>
+            <div className="project-identity">
+              <h1 title={project.name}>{project.name}</h1>
+              <span title={project.studio || "Pracownia do uzupełnienia"}>
+                {project.studio || "Pracownia do uzupełnienia"}
+              </span>
+            </div>
+            <div className="save-area">
+              <button
+                className={`save-state ${dirty ? "unsaved" : ""}`}
+                onClick={() => persist().catch(report)}
+                disabled={busy}
+                aria-label={busy ? "Zapisywanie…" : dirty ? "Zapisz zmiany" : "Zapisano"}
+              >
+                <Icon
+                  name={busy ? "LoaderCircle" : dirty ? "Save" : "CircleCheck"}
+                  size={18}
+                />
+                <span>{busy ? "Zapisywanie…" : dirty ? "Zapisz zmiany" : "Zapisano"}</span>
+              </button>
+              <div className="version">
+                <strong>Wersja {String(project.revision).padStart(2, "0")}</strong>
+                <span>
+                  {project.updatedAt
+                    ? new Date(project.updatedAt).toLocaleDateString("pl-PL")
+                    : ""}
+                </span>
+              </div>
+            </div>
+          </>
+        )}
         <div className="top-actions">
           <button
             className="quiet"
@@ -592,35 +624,6 @@ export function App() {
         </main>
       ) : (
         <>
-          <div className="project-strip">
-            <div>
-              <h1>{project.name}</h1>
-              <span>{project.studio || "Pracownia do uzupełnienia"}</span>
-            </div>
-            <div className="save-area">
-              <button
-                className={`save-state ${dirty ? "unsaved" : ""}`}
-                onClick={() => persist().catch(report)}
-                disabled={busy}
-              >
-                <Icon
-                  name={busy ? "LoaderCircle" : dirty ? "Save" : "CircleCheck"}
-                  size={18}
-                />
-                {busy ? "Zapisywanie…" : dirty ? "Zapisz zmiany" : "Zapisano"}
-              </button>
-              <div className="version">
-                <strong>
-                  Wersja {String(project.revision).padStart(2, "0")}
-                </strong>
-                <span>
-                  {project.updatedAt
-                    ? new Date(project.updatedAt).toLocaleDateString("pl-PL")
-                    : ""}
-                </span>
-              </div>
-            </div>
-          </div>
           <nav className="steps" aria-label="Etapy projektu">
             {steps.map((s, i) => (
               <button

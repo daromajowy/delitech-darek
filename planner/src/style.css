@@ -188,8 +188,12 @@ input[type="month"] {
   align-items: center;
   padding: 0 32px;
   border-bottom: 1px solid var(--line);
-  gap: 28px;
+  gap: 20px;
   background: white;
+}
+.topbar > .brand,
+.topbar > .app-name {
+  flex-shrink: 0;
 }
 .brand {
   font-size: 21px;
@@ -213,12 +217,12 @@ input[type="month"] {
   border-radius: 1px;
 }
 .app-name {
-  padding-left: 28px;
+  padding-left: 20px;
   border-left: 1px solid #cbd7dd;
   display: flex;
   flex-direction: column;
   gap: 4px;
-  font-size: 16px;
+  font-size: 15px;
 }
 .app-name span {
   font-size: 10px;
@@ -228,7 +232,34 @@ input[type="month"] {
   display: flex;
   align-items: center;
   margin-left: auto;
-  gap: 16px;
+  gap: 12px;
+  flex-shrink: 0;
+}
+.has-project .top-actions {
+  margin-left: 0;
+  border-left: 1px solid #cbd7dd;
+  padding-left: 18px;
+}
+.project-identity {
+  flex: 1;
+  min-width: 0;
+  padding-left: 20px;
+  border-left: 1px solid #cbd7dd;
+}
+.project-identity h1,
+.project-identity > span {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.project-identity h1 {
+  font-size: 16px;
+  margin-bottom: 4px;
+}
+.project-identity > span {
+  font-size: 11px;
+  color: var(--muted);
 }
 .top-actions .panel-link { display: inline-flex; align-items: center; gap: 6px; }
 @media (max-width: 480px) {
@@ -301,24 +332,13 @@ input[type="month"] {
   background: var(--soft);
   color: var(--accent);
 }
-.project-strip {
-  padding: 16px 34px;
-  background: #f7f9fa;
-  border-bottom: 1px solid var(--line);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-  min-height: 83px;
-}
-.project-strip > div > span {
-  font-size: 13px;
-  color: var(--muted);
-}
 .save-area {
   display: flex;
   align-items: center;
-  gap: 28px;
+  flex-shrink: 0;
+  gap: 18px;
+  border-left: 1px solid #cbd7dd;
+  padding-left: 18px;
 }
 .save-state {
   color: var(--green);
@@ -327,18 +347,21 @@ input[type="month"] {
   gap: 8px;
   font-size: 12px;
   white-space: nowrap;
+  min-height: 36px;
+  padding: 4px 0;
 }
 .save-state.unsaved {
   color: #946705;
 }
 .version {
   border-left: 1px solid #ccd7df;
-  padding-left: 27px;
+  padding-left: 18px;
   display: flex;
   flex-direction: column;
-  font-size: 12px;
+  font-size: 11px;
   gap: 2px;
   color: var(--muted);
+  white-space: nowrap;
 }
 .version strong {
   color: #405260;
@@ -1298,10 +1321,23 @@ td small {
     padding: 26px;
   }
   .app-name {
-    padding-left: 20px;
+    padding-left: 12px;
   }
   .topbar {
-    gap: 20px;
+    gap: 12px;
+  }
+  .project-identity,
+  .save-area,
+  .version,
+  .has-project .top-actions {
+    padding-left: 12px;
+  }
+  .save-area,
+  .top-actions {
+    gap: 12px;
+  }
+  .top-actions .quiet span {
+    display: none;
   }
   .circuit-table {
     min-width: 490px;
@@ -1364,8 +1400,8 @@ td small {
     gap: 10px;
     font-size: 12px;
   }
-  .project-strip {
-    padding: 16px 24px;
+  .topbar.has-project .app-name {
+    display: none;
   }
 }
 @media (max-width: 720px) {
@@ -1404,28 +1440,48 @@ td small {
   .top-actions .tool {
     width: 28px;
   }
-  .project-strip {
-    padding: 15px;
-    gap: 12px;
-    align-items: flex-start;
-  }
   h1 {
     font-size: 18px;
   }
-  .project-strip > div > span {
+  .topbar.has-project {
+    height: auto;
+    min-height: 96px;
+    padding: 8px 15px 10px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 6px 12px;
+  }
+  .has-project > .brand {
+    grid-area: 1 / 1;
+  }
+  .has-project .top-actions {
+    grid-area: 1 / 2;
+    justify-self: end;
+    border: 0;
+    padding: 0;
+  }
+  .project-identity {
+    grid-area: 2 / 1;
+    border: 0;
+    padding: 0;
+  }
+  .project-identity h1 {
+    font-size: 14px;
+    margin-bottom: 3px;
+  }
+  .project-identity > span {
     font-size: 11px;
   }
   .save-area {
+    grid-area: 2 / 2;
     gap: 8px;
-    align-items: flex-end;
-    flex-direction: column;
+    padding-left: 10px;
+    align-items: center;
   }
   .version {
-    border: 0;
-    padding: 0;
+    padding-left: 8px;
     font-size: 9px;
-    flex-direction: row;
-    gap: 6px;
+    gap: 2px;
   }
   .save-state {
     font-size: 10px;
