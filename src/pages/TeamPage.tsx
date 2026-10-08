@@ -48,10 +48,10 @@ export const TeamPage: React.FC<TeamPageProps> = ({ onNavigate, onOpenConsultati
     },
     {
       id: 'Marek',
-      name: cmsText("teampage.8393ff4427", "Marek XX"),
-      role: cmsText("teampage.2f34569488", "Certifikowany porjektant i wykonawca Instalacji Elektrycznych i magistrali KNX"),
+      name: cmsText("teampage.8393ff4427", "Marek Sakowski"),
+      role: cmsText("teampage.2f34569488", "Specjalista ds. instalacji elektrycznych i automatyki budynkowej"),
       specialization: cmsText("teampage.50722d9122", "xxx"),
-      bio: cmsText("teampage.78ad9a29e7", "Tutaj możesz dodać kolejną osobę z zespołu – np. projektanta tras kablowych, kierownika robót elektrycznych lub doradcę klienta premium."),
+      bio: cmsText("teampage.78ad9a29e7", "20 lat doświadczenia w realizacji instalacji elektrycznych, automatyki budynkowej KNX, monitoringu, systemów alarmowych i fotowoltaiki. Łączy praktyczną wiedzę z dbałością o bezpieczeństwo, niezawodność i precyzję wykonania. Posiada pełne uprawnienia elektryczne, wykonuje pomiary i przeprowadza odbiory instalacji. Zapewnia fachowe wsparcie na każdym etapie realizacji — od doboru rozwiązań, przez montaż i uruchomienie, po końcową weryfikację poprawności działania."),
       certifications: [cmsText("teampage.5bc76eca90", "xxxx"), cmsText("teampage.0aabfbd6f3", "xxx")],
       email: cmsText("teampage.9bfa3a8e7a", "marek@intelispaces.pl"),
     },
