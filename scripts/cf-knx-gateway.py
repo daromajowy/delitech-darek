@@ -21,7 +21,8 @@ def install(app, url):
         'index.php': '<?php\n// ' + SIGNATURE + '\nrequire __DIR__.\'/app/public/index.php\';\n',
         '.htaccess': '# ' + SIGNATURE + '\nOptions -Indexes\nRewriteEngine On\n'
         + 'RewriteCond %{HTTP_HOST} !^' + re.escape(host) + '$ [NC]\nRewriteRule ^index\\.php$ - [F,END]\n'
-        + 'RewriteCond %{HTTP_HOST} !^' + re.escape(host) + '$ [NC]\nRewriteRule ^ - [L]\n'
+        + 'RewriteCond %{HTTP_HOST} !^' + re.escape(host) + '$ [NC]\nRewriteRule ^ - '
+        + ('[F,END]\n' if host.startswith('knx-staging.') else '[L]\n')
         + 'RewriteRule ^(?:app|cgi-bin)(?:/|$) - [F,END]\nRewriteRule (^|/)\\. - [F,END]\n'
         + 'RewriteCond %{HTTP:Authorization} .\nRewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]\n'
         + 'RewriteCond %{HTTP:x-xsrf-token} .\nRewriteRule .* - [E=HTTP_X_XSRF_TOKEN:%{HTTP:X-XSRF-Token}]\n'

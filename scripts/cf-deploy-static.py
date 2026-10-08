@@ -72,6 +72,9 @@ def prepare_environment(folder, config, commit):
     htaccess = folder / '.htaccess'
     text = htaccess.read_text(encoding='utf-8').replace('https://knx.intelispaces.pl', config['knx_url'])
     text = text.replace('https://intelispaces.pl', config['url'].rstrip('/')).replace('intelispaces\\.pl', 'staging\\.intelispaces\\.pl')
+    # CF also exposes subdomain directories beneath the main site's root.
+    # Reject that alias in this directory, where its own rewrite rules apply.
+    text = text.replace('RewriteRule ^ - [L]\n', 'RewriteRule ^ - [F,END]\n', 1)
     text += '\n<IfModule mod_headers.c>\nHeader always set X-Robots-Tag "noindex, nofollow, noarchive"\nHeader always set Cache-Control "no-store"\n</IfModule>\n'
     htaccess.write_text(text, encoding='utf-8')
 
