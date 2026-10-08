@@ -1,4 +1,4 @@
-"""Deploy validated main releases to the dedicated InteliSpaces account."""
+"""Validated static deployment; main goes to staging, production needs promotion."""
 import argparse
 from datetime import datetime, timezone
 import hashlib
@@ -14,6 +14,15 @@ import urllib.request
 ROOT = Path('/home/horcwnciix/domains/intelispaces.pl/public_html')
 WORK = Path('/home/horcwnciix/intelispaces-deploy')
 URL = 'https://intelispaces.pl/'
+TARGETS = {
+    'production': {'root': str(ROOT), 'url': URL, 'knx_root': str(ROOT / 'knx/app'),
+                   'knx_url': 'https://knx.intelispaces.pl', 'work': str(WORK),
+                   'database': 'horcwnciix_knx', 'trigger': 'manual-promotion'},
+    'staging': {'root': str(ROOT / 'staging'), 'url': 'https://staging.intelispaces.pl/',
+                'knx_root': str(ROOT / 'knx-staging/app'), 'knx_url': 'https://knx-staging.intelispaces.pl',
+                'work': '/home/horcwnciix/intelispaces-staging-deploy',
+                'database': 'horcwnciix_knxstage', 'trigger': 'main'},
+}
 TOP_LEVEL = {'index.html', '404.html', 'robots.txt', 'sitemap.xml', '.htaccess', 'assets', 'media',
              'architects', 'homes', 'offices', 'about', 'team', 'projects', 'solutions', 'knowledge', 'knx', 'contact'}
 REQUIRED = {'index.html', '.htaccess', 'robots.txt', 'sitemap.xml', '404.html'} | {
@@ -22,11 +31,49 @@ MANAGED = (TOP_LEVEL - {'knx'}) | {'knx/index.html', 'static-manifest.json'}
 
 
 def deployment_target(config):
-    if (config.get('application') != 'static-laravel' or config.get('root') != str(ROOT)
-            or config.get('url') != URL or config.get('environment') != 'production'
+    environment = config.get('environment')
+    target = TARGETS.get(environment)
+    if (not target or config.get('application') != 'static-laravel'
+            or any(config.get(key) != target[key] for key in ['root', 'url', 'knx_root', 'knx_url', 'trigger'])
             or config.get('repository') != 'daromajowy/delitech-darek' or config.get('branch') != 'main'):
         raise ValueError('Unexpected deployment target or source')
-    return ROOT, 'production'
+    return Path(target['root']), environment
+
+
+def staging_banner(commit):
+    if not re.fullmatch(r'[a-f0-9]{40}', commit):
+        raise ValueError('Invalid staging version')
+    return ('<details data-staging-banner style="position:fixed;bottom:12px;left:12px;z-index:2147483600;'
+            'max-width:calc(100vw - 24px);padding:9px 13px;background:#713f12;color:#fff;border:1px solid #fbbf24;'
+            'border-radius:10px;box-shadow:0 3px 16px #0003;font:13px/1.6 system-ui">'
+            '<summary style="cursor:pointer;font-weight:700">InteliSpaces Staging · wersja '
+            + commit[:12] + '</summary><p style="margin:8px 0">Środowisko testowe · osobna baza · e-maile wyłączone.</p>'
+            '<p style="margin:8px 0">Wersja do publikacji: <code style="user-select:all">' + commit[:12]
+            + '</code></p><a style="color:#fff;text-decoration:underline" target="_blank" rel="noopener" '
+            'href="https://github.com/daromajowy/delitech-darek/actions/workflows/promote.yml">'
+            'Publikuj sprawdzoną wersję na produkcji →</a></details>')
+
+
+def prepare_environment(folder, config, commit):
+    """Specialize only URLs and the test label; promote the same immutable archive."""
+    _, environment = deployment_target(config)
+    if environment != 'staging':
+        return
+    for file in folder.rglob('*.html'):
+        text = file.read_text(encoding='utf-8')
+        text = text.replace('https://knx.intelispaces.pl', config['knx_url'])
+        text = text.replace('https://intelispaces.pl', config['url'].rstrip('/'))
+        text = text.replace('</head>', '<meta name="robots" content="noindex,nofollow,noarchive"></head>')
+        text = text.replace('</body>', staging_banner(commit) + '</body>')
+        file.write_text(text, encoding='utf-8')
+    (folder / 'robots.txt').write_text('User-agent: *\nDisallow: /\n')
+    sitemap = folder / 'sitemap.xml'
+    sitemap.write_text(sitemap.read_text().replace('https://intelispaces.pl', config['url'].rstrip('/')))
+    htaccess = folder / '.htaccess'
+    text = htaccess.read_text(encoding='utf-8').replace('https://knx.intelispaces.pl', config['knx_url'])
+    text = text.replace('https://intelispaces.pl', config['url'].rstrip('/')).replace('intelispaces\\.pl', 'staging\\.intelispaces\\.pl')
+    text += '\n<IfModule mod_headers.c>\nHeader always set X-Robots-Tag "noindex, nofollow, noarchive"\nHeader always set Cache-Control "no-store"\n</IfModule>\n'
+    htaccess.write_text(text, encoding='utf-8')
 
 
 def command(args, cwd=None):
@@ -92,9 +139,10 @@ def unpack(path, destination):
 
 def verify_http_health(config):
     deployment_target(config)
-    with urllib.request.urlopen(URL, timeout=30) as response:
+    url = config['url']
+    with urllib.request.urlopen(url, timeout=30) as response:
         body = response.read(1024 * 1024).decode('utf-8', 'replace')
-        if (response.status != 200 or response.url.rstrip('/') != URL.rstrip('/')
+        if (response.status != 200 or response.url.rstrip('/') != url.rstrip('/')
                 or '__INTELISPACES__' not in body or 'id="root"' not in body or '/wp-content/' in body):
             raise ValueError('Static site health check failed')
 
@@ -112,6 +160,7 @@ def apply_release(config, work, archive, commit):
     with tempfile.TemporaryDirectory(prefix='static-', dir=work) as folder:
         prepared = Path(folder)
         unpack(archive, prepared)
+        prepare_environment(prepared, config, commit)
         (prepared / 'release.json').rename(prepared / 'static-manifest.json')
         names = MANAGED
         with tarfile.open(backup / 'site-before.tar.gz', 'w:gz') as saved:
@@ -139,7 +188,9 @@ def apply_release(config, work, archive, commit):
                     candidate.rename(current)
                     installed.append(name)
             verify_http_health(config)
-            marker = {'schema': 2, 'kind': 'static', 'commit': commit, 'deployed_at': datetime.now(timezone.utc).isoformat()}
+            marker = {'schema': 2, 'kind': 'static', 'commit': commit, 'environment': config['environment'],
+                      'archive_sha256': hashlib.sha256(archive.read_bytes()).hexdigest(),
+                      'deployed_at': datetime.now(timezone.utc).isoformat()}
             (root / 'release.json').write_text(json.dumps(marker))
             (work / 'deployed.json').write_text(json.dumps(marker, indent=2))
             print('STATIC_DEPLOYED ' + commit, flush=True)
@@ -153,49 +204,15 @@ def apply_release(config, work, archive, commit):
 
 
 def main():
-    import fcntl
+    # Compatibility entry point: production still goes through the promotion gate.
+    import importlib.util
     parser = argparse.ArgumentParser()
     parser.add_argument('--config', required=True)
     args = parser.parse_args()
-    config_path = Path(args.config).resolve()
-    if config_path != WORK / 'config.json':
-        raise ValueError('Unexpected configuration path')
-    config = json.loads(config_path.read_text())
-    deployment_target(config)
-    with (WORK / 'deploy.lock').open('w') as lock:
-        try:
-            fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
-        except BlockingIOError:
-            return
-        if (WORK / 'PAUSED').exists():
-            return
-        api = 'https://api.github.com/repos/daromajowy/delitech-darek'
-        commit = read_json(api + '/git/ref/heads/main')['object']['sha']
-        if not re.fullmatch(r'[a-f0-9]{40}', commit):
-            raise ValueError('Invalid main SHA')
-        state = WORK / 'deployed.json'
-        if state.exists() and json.loads(state.read_text()).get('commit') == commit:
-            return
-        try:
-            release = read_json(api + '/releases/tags/cf-' + commit)
-        except urllib.error.HTTPError as error:
-            if error.code == 404:
-                return
-            raise
-        if release.get('draft') or release.get('tag_name') != 'cf-' + commit:
-            raise ValueError('Unexpected release')
-        if not {'site.tar.gz', 'site.sha256'} <= {asset['name'] for asset in release['assets']}:
-            return
-        base = 'https://github.com/daromajowy/delitech-darek/releases/download/cf-' + commit + '/'
-        checksum = download(base + 'site.sha256', 256).decode('ascii').split()[0]
-        data = download(base + 'site.tar.gz', 100 * 1024 * 1024)
-        if not re.fullmatch(r'[a-f0-9]{64}', checksum) or hashlib.sha256(data).hexdigest() != checksum:
-            raise ValueError('Static archive checksum differs')
-        archive = WORK / 'incoming.tar.gz'
-        archive.write_bytes(data)
-        validate_archive(archive, commit)
-        if read_json(api + '/git/ref/heads/main')['object']['sha'] == commit:
-            apply_release(config, WORK, archive, commit)
+    spec = importlib.util.spec_from_file_location('paired_release', Path(__file__).with_name('cf-deploy-release.py'))
+    controller = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(controller)
+    controller.run(Path(args.config))
 
 
 if __name__ == '__main__':

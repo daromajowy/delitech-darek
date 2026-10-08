@@ -15,7 +15,7 @@ SHA = 'a' * 40
 
 class DeploymentTargetTests(unittest.TestCase):
     def config(self, environment):
-        return {'root': str(deploy.ROOT), 'url': deploy.URL, 'environment': environment,
+        return {**deploy.TARGETS['production'], 'environment': environment,
                 'application': 'static-laravel', 'repository': 'daromajowy/delitech-darek', 'branch': 'main'}
 
     def test_production_requires_exact_domain_and_root(self):
@@ -31,6 +31,36 @@ class DeploymentTargetTests(unittest.TestCase):
         config = self.config('staging')
         with self.assertRaises(ValueError):
             deploy.deployment_target(config)
+
+    def test_staging_has_its_own_root_backend_and_trigger(self):
+        config = {**self.config('staging'), **deploy.TARGETS['staging']}
+        self.assertEqual(deploy.deployment_target(config)[1], 'staging')
+        for key in ['root', 'url', 'knx_root', 'knx_url', 'trigger']:
+            with self.subTest(key=key), self.assertRaises(ValueError):
+                deploy.deployment_target({**config, key: deploy.TARGETS['production'][key]})
+
+    def test_production_rejects_old_automatic_main_trigger(self):
+        with self.assertRaises(ValueError):
+            deploy.deployment_target({**self.config('production'), 'trigger': 'main'})
+
+    def test_staging_rewrites_forms_and_links_without_changing_production_package(self):
+        with tempfile.TemporaryDirectory() as directory:
+            folder = Path(directory)
+            html = '<head></head><body>https://knx.intelispaces.pl/api/inquiries https://intelispaces.pl/contact/</body>'
+            (folder / 'index.html').write_text(html, encoding='utf-8')
+            (folder / 'sitemap.xml').write_text('https://intelispaces.pl/contact/')
+            (folder / '.htaccess').write_text('https://intelispaces.pl https://knx.intelispaces.pl intelispaces\\.pl')
+            deploy.prepare_environment(folder, self.config('production'), SHA)
+            self.assertEqual((folder / 'index.html').read_text(encoding='utf-8'), html)
+            config = {**self.config('staging'), **deploy.TARGETS['staging']}
+            deploy.prepare_environment(folder, config, SHA)
+            result = (folder / 'index.html').read_text(encoding='utf-8')
+            self.assertIn('https://knx-staging.intelispaces.pl/api/inquiries', result)
+            self.assertIn('https://staging.intelispaces.pl/contact/', result)
+            self.assertIn('data-staging-banner', result)
+            self.assertIn('noindex,nofollow,noarchive', result)
+            self.assertNotIn('https://knx.intelispaces.pl', result)
+            self.assertEqual((folder / 'robots.txt').read_text(), 'User-agent: *\nDisallow: /\n')
 
     def test_production_rejects_login_redirect_and_empty_page(self):
         config = self.config('production')

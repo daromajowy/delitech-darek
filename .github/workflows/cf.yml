@@ -1,4 +1,4 @@
-name: InteliSpaces and KNX - validate and publish to CyberFolks
+name: InteliSpaces and KNX - main to CF staging
 
 on:
   push:
@@ -98,10 +98,16 @@ jobs:
           if ! gh release view "$tag" >/dev/null 2>&1; then
             gh release create "$tag" build/site.tar.gz build/site.sha256 build/knx.tar.gz build/knx.sha256 \
               --target "$RELEASE_COMMIT" --title "CF $RELEASE_COMMIT" \
-              --notes "Validated static InteliSpaces website and Laravel/Filament KNX. CF deploys only the current main commit; accounts, projects and private files remain on CF." \
+              --notes "Validated website and KNX packages. Main deploys to InteliSpaces Staging. Production requires the manual promotion workflow; each environment keeps its own database and private files." \
               --latest=false
           fi
-      - name: Confirm both applications on CF (up to 8 minutes)
+      - name: Confirm website and KNX on CF staging
         env:
           RELEASE_COMMIT: ${{ github.sha }}
+          RELEASE_ENV: staging
         run: python3 scripts/wait-for-cf.py
+      - name: Check readiness for manual promotion (does not deploy production)
+        env:
+          EXPECTED_COMMIT: ${{ github.sha }}
+          GH_TOKEN: ${{ github.token }}
+        run: python3 scripts/prepare-promotion.py

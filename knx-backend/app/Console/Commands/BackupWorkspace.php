@@ -19,7 +19,12 @@ class BackupWorkspace extends Command
             return self::FAILURE;
         }
         $connection = config('database.connections.'.config('database.default'));
-        if ($connection['driver'] !== 'mysql' || $connection['database'] !== 'horcwnciix_knx') {
+        $expectedDatabase = match (config('app.env')) {
+            'production' => 'horcwnciix_knx',
+            'staging' => 'horcwnciix_knxstage',
+            default => null,
+        };
+        if ($expectedDatabase === null || $connection['driver'] !== 'mysql' || $connection['database'] !== $expectedDatabase) {
             $this->error('Unexpected database; refusing export.');
 
             return self::FAILURE;
