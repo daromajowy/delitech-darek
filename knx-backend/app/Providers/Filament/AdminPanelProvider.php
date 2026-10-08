@@ -30,7 +30,8 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
-            ->brandName('InteliSpaces · Projekty KNX')
+            ->brandName(app()->environment('staging') ? 'InteliSpaces Staging · Projekty KNX' : 'InteliSpaces · Projekty KNX')
+            ->renderHook('panels::body.end', fn () => view('staging-banner'))
             ->profile()
             ->multiFactorAuthentication([AppAuthentication::make()->recoverable()])
             ->navigationItems([

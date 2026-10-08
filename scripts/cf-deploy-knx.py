@@ -16,20 +16,23 @@ import urllib.request
 spec = importlib.util.spec_from_file_location('site_deployment', Path(__file__).with_name('cf-deploy-static.py'))
 common = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(common)
+spec = importlib.util.spec_from_file_location('knx_gateway', Path(__file__).with_name('cf-knx-gateway.py'))
+gateway = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(gateway)
 PHP = '/opt/alt/php84/usr/bin/php'
 WEB = Path('/home/horcwnciix/domains/intelispaces.pl/public_html')
+APP = WEB / 'knx/app'
 URL = 'https://knx.intelispaces.pl'
 REQUIRED = {'artisan', 'composer.lock', 'vendor/autoload.php', 'public/planner/.vite/manifest.json',
             'app/Http/Controllers/PlannerController.php', 'resources/views/planner.blade.php'}
 
 
 def configure_target(work):
-    global WEB, URL
+    global WEB, URL, APP
     config = json.loads((work / 'config.json').read_text())
     root, _ = common.deployment_target(config)
-    if config.get('knx_root') != str(root / 'knx/app') or config.get('knx_url') != 'https://knx.intelispaces.pl':
-        raise ValueError('Unexpected KNX target')
     WEB = root
+    APP = Path(config['knx_root'])
     URL = config['knx_url']
 
 
@@ -81,7 +84,7 @@ def health():
 def apply_release(work, archive, commit):
     if common.command(['id', '-un']) != 'horcwnciix' or common.command(['hostname']) != 's78.cyber-folks.pl':
         raise ValueError('Wrong host or account for KNX')
-    app = WEB / 'knx/app'
+    app = APP
     if (app.is_symlink() or not (app / '.env').is_file() or (app / 'storage').is_symlink()
             or not (app / 'storage').is_dir() or 'Require all denied' not in (app / '.htaccess').read_text()):
         raise ValueError('Unexpected KNX installation')
@@ -89,7 +92,7 @@ def apply_release(work, archive, commit):
         raise ValueError('Another KNX maintenance is active')
     validate_archive(archive, commit)
     stamp = datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ')
-    candidate = WEB / 'knx' / ('.knx-next-' + stamp)
+    candidate = app.parent / ('.knx-next-' + stamp)
     candidate.mkdir(mode=0o755)
     (candidate / '.htaccess').write_text('Require all denied\n')
     common.unpack(archive, candidate)
@@ -122,12 +125,16 @@ def apply_release(work, archive, commit):
         app.rename(backup / 'application-previous')
         swapped = True
         candidate.rename(app)
+        gateway.install(app, URL)
         # Compile caches only after the application reaches its permanent path.
         common.command([PHP, str(app / 'artisan'), 'config:cache'])
         common.command([PHP, str(app / 'artisan'), 'view:cache'])
         common.command([PHP, str(app / 'artisan'), 'up'])
         health()
-        marker = {'schema': 2, 'kind': 'knx', 'commit': commit, 'deployed_at': datetime.now(timezone.utc).isoformat()}
+        config = json.loads((work / 'config.json').read_text())
+        marker = {'schema': 2, 'kind': 'knx', 'commit': commit, 'environment': config['environment'],
+                  'archive_sha256': hashlib.sha256(archive.read_bytes()).hexdigest(),
+                  'deployed_at': datetime.now(timezone.utc).isoformat()}
         (app / 'public/release.json').write_text(json.dumps(marker))
         (work / 'deployed-knx.json').write_text(json.dumps(marker, indent=2))
         print('KNX_DEPLOYED ' + commit, flush=True)
@@ -145,50 +152,15 @@ def apply_release(work, archive, commit):
 
 
 def main():
-    import fcntl
+    # Compatibility entry point: production still goes through the promotion gate.
+    import importlib.util
     parser = argparse.ArgumentParser()
     parser.add_argument('--work', required=True)
     args = parser.parse_args()
-    work = Path(args.work).resolve()
-    if work != Path('/home/horcwnciix/intelispaces-deploy'):
-        raise ValueError('Unexpected deployment directory')
-    configure_target(work)
-    with (work / 'knx-deploy.lock').open('w') as lock:
-        try:
-            fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
-        except BlockingIOError:
-            return
-        if (work / 'PAUSED').exists() or (work / 'KNX_PAUSED').exists():
-            return
-        api = 'https://api.github.com/repos/daromajowy/delitech-darek'
-        commit = common.read_json(api + '/git/ref/heads/main')['object']['sha']
-        if not re.fullmatch(r'[0-9a-f]{40}', commit):
-            raise ValueError('Invalid main commit')
-        state = work / 'deployed-knx.json'
-        if state.exists() and json.loads(state.read_text())['commit'] == commit:
-            return
-        try:
-            release = common.read_json(api + '/releases/tags/cf-' + commit)
-        except urllib.error.HTTPError as error:
-            if error.code == 404:
-                return
-            raise
-        if release.get('draft') or release.get('tag_name') != 'cf-' + commit:
-            raise ValueError('Unexpected release')
-        assets = {asset['name'] for asset in release['assets']}
-        if not {'knx.tar.gz', 'knx.sha256'} <= assets:
-            return
-        base = 'https://github.com/daromajowy/delitech-darek/releases/download/cf-' + commit + '/'
-        checksum = common.download(base + 'knx.sha256', 256).decode('ascii').split()[0]
-        data = common.download(base + 'knx.tar.gz', 130 * 1024 * 1024)
-        if not re.fullmatch(r'[a-f0-9]{64}', checksum) or hashlib.sha256(data).hexdigest() != checksum:
-            raise ValueError('KNX archive checksum differs')
-        archive = work / 'incoming-knx.tar.gz'
-        archive.write_bytes(data)
-        validate_archive(archive, commit)
-        if common.read_json(api + '/git/ref/heads/main')['object']['sha'] != commit:
-            return
-        apply_release(work, archive, commit)
+    spec = importlib.util.spec_from_file_location('paired_release', Path(__file__).with_name('cf-deploy-release.py'))
+    controller = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(controller)
+    controller.run(Path(args.work) / "config.json")
 
 
 if __name__ == '__main__':

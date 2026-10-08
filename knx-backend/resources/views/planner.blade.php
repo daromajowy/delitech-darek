@@ -14,5 +14,5 @@
     @foreach($entry['css'] ?? [] as $css)<link rel="stylesheet" href="{{ asset('planner/'.$css) }}">@endforeach
     <script type="module" src="{{ asset('planner/'.$entry['file']) }}"></script>
 </head>
-<body><div id="root"></div><noscript>Włącz JavaScript, aby otworzyć projektant KNX.</noscript></body>
+<body><div id="root"></div><noscript>Włącz JavaScript, aby otworzyć projektant KNX.</noscript>@include('staging-banner')</body>
 </html>
