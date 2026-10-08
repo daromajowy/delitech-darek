@@ -8,39 +8,35 @@ import tempfile
 import unittest
 from unittest.mock import MagicMock, patch
 
-spec = importlib.util.spec_from_file_location('deploy', Path(__file__).resolve().parents[1] / 'scripts/cf-deploy.py')
+spec = importlib.util.spec_from_file_location('deploy', Path(__file__).resolve().parents[1] / 'scripts/cf-deploy-static.py')
 deploy = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(deploy)
 SHA = 'a' * 40
 
 class DeploymentTargetTests(unittest.TestCase):
     def config(self, environment):
-        root, url = deploy.TARGETS[environment]
-        return {'root': root, 'url': url, 'environment': environment}
+        return {'root': str(deploy.ROOT), 'url': deploy.URL, 'environment': environment,
+                'application': 'static-laravel', 'repository': 'daromajowy/delitech-darek', 'branch': 'main'}
 
     def test_production_requires_exact_domain_and_root(self):
         config = self.config('production')
         self.assertEqual(deploy.deployment_target(config)[1], 'production')
         for changed in ({'root': '/home/another-account/public_html'},
-                        {'url': 'https://other.example/'}, {'environment': 'staging'}):
+                        {'url': 'https://other.example/'}, {'environment': 'staging'},
+                        {'branch': 'Janka'}, {'repository': 'another/repository'}, {'application': 'wordpress'}):
             with self.subTest(changed=changed), self.assertRaises(ValueError):
                 deploy.deployment_target({**config, **changed})
 
-    def test_existing_staging_config_remains_private(self):
+    def test_old_staging_config_is_not_a_deployment_target(self):
         config = self.config('staging')
-        del config['environment']
-        self.assertEqual(deploy.deployment_target(config)[1], 'staging')
-        response = MagicMock(status=200, url=config['url'])
-        response.read.return_value = b'<div id="root">__INTELISPACES__</div>'
-        with patch.object(deploy.urllib.request, 'urlopen') as request:
-            request.return_value.__enter__.return_value = response
-            with self.assertRaises(ValueError):
-                deploy.verify_http_health(config)
+        with self.assertRaises(ValueError):
+            deploy.deployment_target(config)
 
     def test_production_rejects_login_redirect_and_empty_page(self):
         config = self.config('production')
         for url, body in [(config['url']+'wp-login.php', b'user_login'),
-                          (config['url'], b'Hosting placeholder')]:
+                          (config['url'], b'Hosting placeholder'),
+                          (config['url'], b'<div id="root">__INTELISPACES__ /wp-content/</div>')]:
             response = MagicMock(status=200, url=url)
             response.read.return_value = body
             with patch.object(deploy.urllib.request, 'urlopen') as request:
@@ -62,7 +58,7 @@ class ReleaseSafetyTests(unittest.TestCase):
         self.addCleanup(folder.cleanup)
         path = Path(folder.name) / 'site.tar.gz'
         files = {name: b'test-content' for name in deploy.REQUIRED}
-        manifest = {'schema': 1, 'commit': commit, 'files': {name: hashlib.sha256(body).hexdigest() for name, body in files.items()}}
+        manifest = {'schema': 2, 'kind': 'static', 'commit': commit, 'files': {name: hashlib.sha256(body).hexdigest() for name, body in files.items()}}
         if change:
             change(files, manifest)
         with tarfile.open(path, 'w:gz') as archive:
@@ -86,7 +82,7 @@ class ReleaseSafetyTests(unittest.TestCase):
             deploy.validate_archive(self.archive(tarfile.TarInfo('/tmp/payload')), SHA)
 
     def test_rejects_symlink(self):
-        link = tarfile.TarInfo('intelispaces/link')
+        link = tarfile.TarInfo('assets/link')
         link.type, link.linkname = tarfile.SYMTYPE, '/home/horcwnciix'
         with self.assertRaises(ValueError):
             deploy.validate_archive(self.archive(link), SHA)
@@ -97,19 +93,28 @@ class ReleaseSafetyTests(unittest.TestCase):
 
     def test_rejects_modified_file(self):
         with self.assertRaises(ValueError):
-            deploy.validate_archive(self.archive(change=lambda files, manifest: files.update({'intelispaces/index.php': b'modified'})), SHA)
+            deploy.validate_archive(self.archive(change=lambda files, manifest: files.update({'index.html': b'modified'})), SHA)
 
     def test_rejects_database_dump(self):
         with self.assertRaises(ValueError):
-            deploy.validate_archive(self.archive(tarfile.TarInfo('intelispaces/database.sql')), SHA)
+            deploy.validate_archive(self.archive(tarfile.TarInfo('assets/database.sql')), SHA)
 
     def test_rejects_duplicate_entry(self):
         with self.assertRaises(ValueError):
-            deploy.validate_archive(self.archive(tarfile.TarInfo('intelispaces/index.php')), SHA)
+            deploy.validate_archive(self.archive(tarfile.TarInfo('index.html')), SHA)
 
     def test_rejects_missing_runtime_file(self):
         with self.assertRaises(ValueError):
-            deploy.validate_archive(self.archive(change=lambda files, manifest: files.pop('intelispaces/index.php')), SHA)
+            deploy.validate_archive(self.archive(change=lambda files, manifest: files.pop('index.html')), SHA)
+
+    def test_static_release_cannot_replace_knx_or_install_executable_files(self):
+        for name in ['knx-app/.env', 'knx/app/artisan', 'knx/app/.env', 'assets/upload.php', 'media/.htaccess', 'assets/.env', 'assets\\escape']:
+            with self.subTest(path=name), self.assertRaises(ValueError):
+                deploy.validate_archive(self.archive(tarfile.TarInfo(name)), SHA)
+
+    def test_static_deployment_never_replaces_knx_container(self):
+        self.assertNotIn('knx', deploy.MANAGED)
+        self.assertIn('knx/index.html', deploy.MANAGED)
 
 if __name__ == '__main__':
     unittest.main()

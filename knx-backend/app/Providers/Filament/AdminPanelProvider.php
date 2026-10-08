@@ -35,7 +35,7 @@ class AdminPanelProvider extends PanelProvider
             ->multiFactorAuthentication([AppAuthentication::make()->recoverable()])
             ->navigationItems([
                 NavigationItem::make('Otwórz konfigurator')->url(fn () => route('planner'))->icon('heroicon-o-squares-2x2')->sort(-10),
-                NavigationItem::make('Strona InteliSpaces')->url('/wordpress/')->icon('heroicon-o-home')->sort(100),
+                NavigationItem::make('Strona InteliSpaces')->url(fn () => config('app.website_url'))->icon('heroicon-o-home')->sort(100),
             ])
             ->colors([
                 'primary' => Color::Teal,

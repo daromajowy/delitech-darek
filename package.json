@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite --port=3000 --host=0.0.0.0",
-    "build": "vite build",
-    "build:wordpress": "node scripts/build-wordpress.mjs",
+    "build": "node scripts/build-site.mjs",
+    "build:preview": "node scripts/build-site.mjs --preview",
     "preview": "vite preview",
     "clean": "rm -rf dist server.js",
     "lint": "tsc --noEmit"

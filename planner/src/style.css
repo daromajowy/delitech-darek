@@ -1738,3 +1738,4 @@ td small {
     transition: none !important;
   }
 }
+.demo-banner{background:#164f54;color:#fff;text-align:center;padding:7px 16px;font:12px/1.4 system-ui}.demo-banner a{color:#fff;text-decoration:underline}

@@ -1,10 +1,15 @@
 import type { Project } from "./model";
 const meta = (name: string) => typeof document === 'undefined' ? undefined : document.querySelector<HTMLMetaElement>(`meta[name="${name}"]`)?.content;
 let csrf = meta('csrf-token') || '';
-const base = meta('knx-api') || '/projektant-knx/api';
-export const panelUrl = meta('knx-panel') || '/projektant-knx/admin';
-export const websiteUrl = meta('knx-website') || '/wordpress/';
+export const isDemo = import.meta.env?.VITE_KNX_DEMO === '1';
+const base = meta('knx-api') || '/api';
+export const panelUrl = meta('knx-panel') || (isDemo ? 'https://knx.intelispaces.pl/admin' : '/admin');
+export const websiteUrl = meta('knx-website') || 'https://intelispaces.pl/';
 export async function apiFetch(endpoint: string, init: RequestInit = {}) {
+  if (import.meta.env?.VITE_KNX_DEMO === '1') {
+    const { demoFetch } = await import('./demo');
+    return demoFetch(endpoint, init);
+  }
   return fetch(`${base}?api=${endpoint}`, { ...init, credentials: 'same-origin',
     headers: { 'Accept': 'application/json', ...init.headers } });
 }

@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'website_url' => env('WEBSITE_URL', '/wordpress/'),
+    'website_url' => env('WEBSITE_URL', 'https://intelispaces.pl/'),
 
     /*
     |--------------------------------------------------------------------------

@@ -1,6 +1,6 @@
 # Backend Projektanta KNX
 
-Laravel 13 + Filament 5, PHP 8.4. Interfejs projektanta pozostaje w `../planner`, a WordPress zarządza treściami strony. KNX ma własną bazę danych, konta i prywatne dokumenty.
+Laravel 13 + Filament 5, PHP 8.4. Interfejs projektanta jest w `../planner`, a publiczna strona jest generowana statycznie z Git. KNX ma własną bazę danych, konta i prywatne dokumenty.
 
 ## Uruchomienie deweloperskie
 
@@ -16,7 +16,7 @@ php artisan serve
 
 Komenda pierwszego administratora jest dostępna tylko w pustej bazie; zapisuje dane dostępowe w prywatnym pliku zamiast wypisywać hasło. Panel: `/admin`, edytor: `/editor`. Nie publikuj pliku dostępowego.
 
-W `.env` skonfiguruj `APP_URL`, `WEBSITE_URL`, bazę oraz bezpieczne ciasteczka. Przy podkatalogu CF sesja ma ścieżkę `/projektant-knx`. Na środowisku z TLS używaj `SESSION_SECURE_COOKIE=true`, `SESSION_ENCRYPT=true`, `APP_DEBUG=false`. Pocztę skonfiguruj osobno; aktualna instalacja nie wysyła zaproszeń ani powiadomień.
+W `.env` skonfiguruj `APP_URL`, `WEBSITE_URL`, bazę i ciasteczka. Produkcja działa na `https://knx.intelispaces.pl`, sesja ma ścieżkę `/`, bez współdzielenia domeny, i nazwę `__Host-knx_session`. Na TLS używaj `SESSION_SECURE_COOKIE=true`, `SESSION_ENCRYPT=true`, `APP_DEBUG=false`. Pocztę skonfiguruj osobno; aktualna instalacja nie wysyła zaproszeń ani powiadomień.
 
 ## Uprawnienia i trwałość
 
@@ -32,4 +32,4 @@ W `.env` skonfiguruj `APP_URL`, `WEBSITE_URL`, bazę oraz bezpieczne ciasteczka.
 
 ## Wdrożenie CF
 
-Zobacz `../DEPLOYMENT.md`. Kod i vendor są wersjonowanym artefaktem, a `.env` i `storage` są współdzielone między wydaniami na serwerze. Migracje muszą być zgodne ze starszym kodem i nie usuwać istniejących danych. Automat tworzy kopię bazy i prywatnych plików przed zmianą. Powrót kodu nie przywraca starej bazy.
+Zobacz `../DEPLOYMENT.md`. Kod i vendor są wersjonowanym artefaktem. `.env` i `storage` są zachowywane podczas wymiany katalogu aplikacji w trybie konserwacji. Migracje muszą być zgodne ze starszym kodem i nie usuwać danych. Automat tworzy kopię bazy i prywatnych plików przed zmianą. Powrót kodu nie przywraca starej bazy.

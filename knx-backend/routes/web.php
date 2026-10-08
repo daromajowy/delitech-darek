@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\InquiryController;
 use App\Http\Controllers\PlannerController;
 use App\Http\Middleware\WorkspaceAccess;
 use App\Models\Project;
@@ -8,6 +9,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', fn () => redirect()->route('planner'));
 Route::middleware(['auth', 'auth.session', WorkspaceAccess::class])->group(function () {
+    Route::get('/inquiries/{inquiry}', [InquiryController::class, 'show'])->name('inquiries.show');
+    Route::get('/inquiries/{inquiry}/files/{index}', [InquiryController::class, 'download'])->name('inquiries.download');
     Route::get('/editor', fn () => view('planner'))->name('planner');
     Route::match(['GET', 'PUT', 'POST'], '/api', [PlannerController::class, 'dispatch'])->middleware('throttle:180,1');
     Route::get('/projects/{project}/download', function (Request $r, string $project) {

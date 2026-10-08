@@ -32,7 +32,7 @@ npm run build
 
 Wynik `dist/` trafia do `knx-backend/public/planner/`. Laravel renderuje stronę edytora z adresem API i tokenem CSRF. Sam `npm run dev` jest tylko podglądem interfejsu; pełny przepływ wymaga backendu. Nie zastępuj logowania sprawdzaniem hasła w JavaScript.
 
-Kod publikujemy przez PR do `main`. Automat buduje WordPress i konfigurator, a CF pobiera oba artefakty bieżącego commita. Szczegóły i ograniczenia są w `../DEPLOYMENT.md`. Bazy, hasła, pliki projektantów i wygenerowane briefy nie trafiają do Git.
+Kod publikujemy przez PR do `main`. Automat buduje statyczną stronę i konfigurator, a CF pobiera oba artefakty bieżącego commita. Gałęzie `Janka`, `Darka` i `main` mają podgląd Pages z `VITE_KNX_DEMO=1`: przykład i pliki istnieją wyłącznie w pamięci karty, bez dostępu do prawdziwych projektów. Szczegóły są w `../DEPLOYMENT.md`. Bazy, hasła, pliki projektantów i wygenerowane briefy nie trafiają do Git.
 
 ## Materiały
 

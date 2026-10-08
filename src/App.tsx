@@ -161,6 +161,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen flex flex-col bg-[#F7F8F5] text-[#17211C]">
+      {cms()?.preview && <div role="status" className="bg-[#17211C] text-white text-center text-xs py-2 px-4">Podgląd roboczy · formularze nie wysyłają danych. <a className="underline" href="https://intelispaces.pl/">Otwórz stronę produkcyjną</a></div>}
       {/* Sticky Header & Navigation */}
       <Navbar
         currentPage={currentPage}

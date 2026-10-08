@@ -6,8 +6,8 @@ import urllib.request
 
 commit = os.environ['RELEASE_COMMIT']
 urls = [
-    'https://intelispaces.pl/wp-content/themes/intelispaces/release.json',
-    'https://intelispaces.pl/projektant-knx/release.json',
+    'https://intelispaces.pl/release.json',
+    'https://knx.intelispaces.pl/release.json',
 ]
 for attempt in range(24):
     try:
@@ -17,7 +17,7 @@ for attempt in range(24):
             with urllib.request.urlopen(request, timeout=15) as response:
                 deployed.append(json.load(response).get('commit'))
         if all(value == commit for value in deployed):
-            print('CF deployed WordPress and KNX: ' + commit)
+            print('CF deployed static website and KNX: ' + commit)
             break
     except (OSError, ValueError):
         pass

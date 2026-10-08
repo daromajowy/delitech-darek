@@ -1,17 +1,17 @@
-name: WordPress and KNX - validate and publish to CyberFolks
+name: InteliSpaces and KNX - validate and publish to CyberFolks
 
 on:
   push:
-    branches: [main, Darka]
+    branches: [main, Darka, Janka]
   pull_request:
-    branches: [main, Darka]
+    branches: [main, Darka, Janka]
   workflow_dispatch:
 
 permissions:
   contents: read
 
 concurrency:
-  group: wordpress-${{ github.ref }}
+  group: cf-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -27,7 +27,7 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run lint
-      - run: npm run build:wordpress
+      - run: npm run build
       - uses: shivammathur/setup-php@f3e473d116dcccaddc5834248c87452386958240 # v2
         with:
           php-version: '8.4'
@@ -40,21 +40,20 @@ jobs:
           npm run build --prefix planner
           mkdir -p knx-backend/public/planner
           cp -R planner/dist/. knx-backend/public/planner/
-      - name: Test Laravel authorization and persistence
+      - name: Test Laravel authorization, forms and persistence
         working-directory: knx-backend
         run: |
           cp .env.example .env
           composer install --prefer-dist --no-interaction --no-progress
           php artisan key:generate --no-interaction
           php artisan test --compact
-      - name: PHP syntax and deployment safety tests
-        run: |
-          find wordpress -name '*.php' -print0 | xargs -0 -n1 php -l
-          python3 -m unittest discover -s tests -v
-      - name: Validate release contents
+          vendor/bin/pint --test --format agent
+      - name: Test deployment boundaries and archive validation
+        run: python3 -m unittest discover -s tests -v
+      - name: Validate the static release
         env:
           RELEASE_COMMIT: ${{ github.sha }}
-        run: python3 scripts/package-wordpress.py
+        run: python3 scripts/package-site.py
 
   publish:
     if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
@@ -71,13 +70,13 @@ jobs:
           node-version: 24
           cache: npm
       - run: npm ci
-      - run: npm run build:wordpress
+      - run: npm run build
       - uses: shivammathur/setup-php@f3e473d116dcccaddc5834248c87452386958240 # v2
         with:
           php-version: '8.4'
           extensions: intl, mbstring, pdo_mysql, gd, zip
           coverage: none
-      - name: Build KNX production package
+      - name: Build production KNX
         run: |
           npm ci --prefix planner
           npm run build --prefix planner
@@ -88,9 +87,9 @@ jobs:
         env:
           RELEASE_COMMIT: ${{ github.sha }}
         run: |
-          python3 scripts/package-wordpress.py
+          python3 scripts/package-site.py
           python3 scripts/package-knx.py
-      - name: Publish deployment package
+      - name: Publish deployment packages
         env:
           GH_TOKEN: ${{ github.token }}
           RELEASE_COMMIT: ${{ github.sha }}
@@ -99,10 +98,10 @@ jobs:
           if ! gh release view "$tag" >/dev/null 2>&1; then
             gh release create "$tag" build/site.tar.gz build/site.sha256 build/knx.tar.gz build/knx.sha256 \
               --target "$RELEASE_COMMIT" --title "CF $RELEASE_COMMIT" \
-              --notes "Validated WordPress and Laravel/Filament KNX. CF applies only the current main commit. CMS content, accounts, projects and private uploads are preserved." \
+              --notes "Validated static InteliSpaces website and Laravel/Filament KNX. CF deploys only the current main commit; accounts, projects and private files remain on CF." \
               --latest=false
           fi
-      - name: Confirm deployment on CF (up to 8 minutes)
+      - name: Confirm both applications on CF (up to 8 minutes)
         env:
           RELEASE_COMMIT: ${{ github.sha }}
         run: python3 scripts/wait-for-cf.py
