@@ -1,4 +1,3 @@
-import { cmsText } from '../cms';
 import React, { useState } from 'react';
 import { PageId } from '../types.ts';
 import { ContactForm } from '../components/ContactForm.tsx';
@@ -32,9 +31,9 @@ export const ContactPage: React.FC<ContactPageProps> = ({
       <section className="bg-[#17211C] text-white py-16 lg:py-20 border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl space-y-4">
-            <span className="text-xs font-mono uppercase tracking-widest text-[#E6F15A] font-semibold block">{cmsText("contactpage.6634d276f4", "Centrum Zapytań Projektowych")}</span>
-            <h1 className="text-4xl sm:text-5xl font-extrabold font-display tracking-tight text-white">{cmsText("contactpage.4c3fd313e9", "Prześlij rzuty. Wrócimy z konkretnymi pytaniami.")}</h1>
-            <p className="text-base sm:text-lg text-[#EDE9DF]/80 leading-relaxed pt-2">{cmsText("contactpage.fd6c93c11c", "Warszawa i okolice · realizacje w całej Polsce. Przeanalizujemy rzuty architektoniczne, wskażemy optymalne rozwiązania instalacji KNX i przygotujemy rzeczowy kosztorys.")}</p>
+            <span className="text-xs font-mono uppercase tracking-widest text-[#E6F15A] font-semibold block">{"Centrum Zapytań Projektowych"}</span>
+            <h1 className="text-4xl sm:text-5xl font-extrabold font-display tracking-tight text-white">{"Prześlij rzuty. Wrócimy z konkretnymi pytaniami."}</h1>
+            <p className="text-base sm:text-lg text-[#EDE9DF]/80 leading-relaxed pt-2">{"Warszawa i okolice · realizacje w całej Polsce. Przeanalizujemy rzuty architektoniczne, wskażemy optymalne rozwiązania instalacji KNX i przygotujemy rzeczowy kosztorys."}</p>
           </div>
         </div>
       </section>
@@ -47,23 +46,23 @@ export const ContactPage: React.FC<ContactPageProps> = ({
             <div className="lg:col-span-5 space-y-6">
               {/* Direct Details Card */}
               <div className="bg-white rounded-2xl p-6 sm:p-8 border border-[#17211C]/10 shadow-sm space-y-6">
-                <h2 className="text-xl font-bold font-display text-[#17211C]">{cmsText("contactpage.a480f72ecb", "Biuro inżynierskie w Warszawie")}</h2>
+                <h2 className="text-xl font-bold font-display text-[#17211C]">{"Biuro inżynierskie w Warszawie"}</h2>
 
                 <div className="space-y-4 text-xs text-[#17211C]/80">
                   <div className="flex items-start gap-3">
                     <MapPin className="w-5 h-5 text-[#0E4637] shrink-0 mt-0.5" />
                     <div>
-                      <p className="font-semibold text-sm text-[#17211C]">{cmsText("contactpage.99974db6b9", "Delitech Sp.j.")}</p>
-                      <p>{cmsText("contactpage.69a1a7fe78", "ul. Konwaliowa 7 lok. 103")}</p>
-                      <p>{cmsText("contactpage.afab1c4cf2", "03-194 Warszawa, Polska")}</p>
-                      <p className="text-[#17211C]/60 text-[11px] mt-0.5">{cmsText("contactpage.488f937856", "Dojazd: sprawdź trasę do salonu w Google Maps.")}</p>
+                      <p className="font-semibold text-sm text-[#17211C]">{"Delitech Sp.j."}</p>
+                      <p>{"ul. Konwaliowa 7 lok. 103"}</p>
+                      <p>{"03-194 Warszawa, Polska"}</p>
+                      <p className="text-[#17211C]/60 text-[11px] mt-0.5">{"Dojazd: sprawdź trasę do salonu w Google Maps."}</p>
                     </div>
                   </div>
 
                   <div className="flex items-center gap-3">
                     <Phone className="w-5 h-5 text-[#0E4637] shrink-0" />
                     <div>
-                      <span className="text-[11px] text-[#17211C]/60 block">{cmsText("contactpage.27c4ea7043", "Infolinia techniczna / Biuro:")}</span>
+                      <span className="text-[11px] text-[#17211C]/60 block">{"Infolinia techniczna / Biuro:"}</span>
                       <a href="tel:+48505260715" className="font-mono text-sm font-semibold text-[#0E4637] hover:underline">
                         +48 505 260 715
                       </a>
@@ -73,36 +72,36 @@ export const ContactPage: React.FC<ContactPageProps> = ({
                   <div className="flex items-center gap-3">
                     <Mail className="w-5 h-5 text-[#0E4637] shrink-0" />
                     <div>
-                      <span className="text-[11px] text-[#17211C]/60 block">{cmsText("contactpage.c2fb3b374e", "Adres dla zapytań i rzutów:")}</span>
-                      <a href="mailto:kontakt@delitech.pl" className="font-mono text-sm font-semibold text-[#0E4637] hover:underline">{cmsText("contactpage.fdd965bfd6", "kontakt@delitech.pl")}</a>
+                      <span className="text-[11px] text-[#17211C]/60 block">{"Adres dla zapytań i rzutów:"}</span>
+                      <a href="mailto:kontakt@delitech.pl" className="font-mono text-sm font-semibold text-[#0E4637] hover:underline">{"kontakt@delitech.pl"}</a>
                     </div>
                   </div>
 
                   <div className="flex items-center gap-3">
                     <Clock className="w-5 h-5 text-[#0E4637] shrink-0" />
                     <div>
-                      <span className="text-[11px] text-[#17211C]/60 block">{cmsText("contactpage.2c367258ee", "Godziny pracy inżynierów:")}</span>
-                      <span className="font-medium">{cmsText("contactpage.e32e0b8f82", "Poniedziałek – Piątek: 08:30 – 17:30")}</span>
+                      <span className="text-[11px] text-[#17211C]/60 block">{"Godziny pracy inżynierów:"}</span>
+                      <span className="font-medium">{"Poniedziałek – Piątek: 08:30 – 17:30"}</span>
                     </div>
                   </div>
                 </div>
 
                 <div className="pt-4 border-t border-[#17211C]/10 text-[11px] font-mono text-[#17211C]/60 space-y-0.5">
-                  <p>{cmsText("contactpage.7b3eca3364", "NIP: 1132919580")}</p>
-                  <p>{cmsText("contactpage.853b2a8836", "Dane do płatności przekazujemy wraz z ofertą.")}</p>
+                  <p>{"NIP: 1132919580"}</p>
+                  <p>{"Dane do płatności przekazujemy wraz z ofertą."}</p>
                 </div>
               </div>
 
               {/* Stylized Google Maps Area */}
               <div className="bg-white rounded-2xl overflow-hidden border border-[#17211C]/10 shadow-sm">
                 <div className="p-4 bg-[#F7F8F5] border-b border-[#17211C]/10 flex items-center justify-between">
-                  <span className="text-xs font-semibold text-[#17211C]">{cmsText("contactpage.6123e809c7", "Lokalizacja: Warszawa")}</span>
+                  <span className="text-xs font-semibold text-[#17211C]">{"Lokalizacja: Warszawa"}</span>
                   <a
                     href="https://maps.google.com/?q=Konwaliowa+7,+Warszawa"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-[11px] text-[#0E4637] font-semibold hover:underline"
-                  >{cmsText("contactpage.c72b8587e1", "Otwórz w Google Maps →")}</a>
+                  >{"Otwórz w Google Maps →"}</a>
                 </div>
 
                 <div className="h-64 bg-[#17211C] relative flex items-center justify-center p-6 text-center text-white overflow-hidden">
@@ -113,9 +112,9 @@ export const ContactPage: React.FC<ContactPageProps> = ({
                     <div className="w-10 h-10 mx-auto bg-[#0E4637] border-2 border-[#E6F15A] rounded-full flex items-center justify-center shadow-xl">
                       <MapPin className="w-5 h-5 text-[#E6F15A]" />
                     </div>
-                    <p className="font-bold text-sm text-white">{cmsText("contactpage.73091b2d52", "Delitech Smart Spaces")}</p>
-                    <p className="text-xs text-[#EDE9DF]/70">{cmsText("contactpage.3f521cb8a1", "ul. Konwaliowa 7 lok. 103, 03-194 Warszawa")}</p>
-                    <span className="inline-block text-[10px] font-mono bg-white/10 px-2.5 py-0.5 rounded text-[#CFE3C4]">{cmsText("contactpage.c099adef81", "ul. Konwaliowa 7 lok. 103")}</span>
+                    <p className="font-bold text-sm text-white">{"Delitech Smart Spaces"}</p>
+                    <p className="text-xs text-[#EDE9DF]/70">{"ul. Konwaliowa 7 lok. 103, 03-194 Warszawa"}</p>
+                    <span className="inline-block text-[10px] font-mono bg-white/10 px-2.5 py-0.5 rounded text-[#CFE3C4]">{"ul. Konwaliowa 7 lok. 103"}</span>
                   </div>
                 </div>
               </div>
@@ -124,12 +123,12 @@ export const ContactPage: React.FC<ContactPageProps> = ({
               <div className="bg-white rounded-2xl p-6 border border-[#17211C]/10 shadow-sm space-y-4">
                 <div className="flex items-center gap-2 text-xs font-mono uppercase font-semibold text-[#0E4637]">
                   <Calculator className="w-4 h-4" />
-                  <span>{cmsText("contactpage.a654f75c72", "Wstępny estymator skali instalacji")}</span>
+                  <span>{"Wstępny estymator skali instalacji"}</span>
                 </div>
 
                 <div className="space-y-3 text-xs">
                   <div>
-                    <label className="block font-semibold mb-1 text-[#17211C]">{cmsText("contactpage.0209c0ea5c", "Typ obiektu:")}</label>
+                    <label className="block font-semibold mb-1 text-[#17211C]">{"Typ obiektu:"}</label>
                     <div className="grid grid-cols-3 gap-1.5">
                       {(['biuro', 'dom', 'apartament'] as const).map((t) => (
                         <button
@@ -150,8 +149,8 @@ export const ContactPage: React.FC<ContactPageProps> = ({
 
                   <div>
                     <div className="flex justify-between font-semibold mb-1 text-[#17211C]">
-                      <span>{cmsText("contactpage.3d70baaf7e", "Powierzchnia użytkowa:")}</span>
-                      <span className="font-mono text-[#0E4637]">{calcArea}{cmsText("contactpage.be91fd2520", " m²")}</span>
+                      <span>{"Powierzchnia użytkowa:"}</span>
+                      <span className="font-mono text-[#0E4637]">{calcArea}{" m²"}</span>
                     </div>
                     <input
                       type="range"
@@ -166,16 +165,16 @@ export const ContactPage: React.FC<ContactPageProps> = ({
 
                   <div className="p-3 bg-[#F7F8F5] rounded-xl border border-[#17211C]/10 space-y-1.5 text-[11px] font-mono">
                     <div className="flex justify-between">
-                      <span className="text-[#17211C]/60">{cmsText("contactpage.072eb76676", "Szacowana liczba stref regulacji:")}</span>
-                      <span className="font-bold text-[#17211C]">~{estimatedZones}{cmsText("contactpage.e54dae9f54", " stref")}</span>
+                      <span className="text-[#17211C]/60">{"Szacowana liczba stref regulacji:"}</span>
+                      <span className="font-bold text-[#17211C]">~{estimatedZones}{" stref"}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-[#17211C]/60">{cmsText("contactpage.1bf0b8e307", "Bramki magistrali DALI-2:")}</span>
-                      <span className="font-bold text-[#17211C]">{estimatedDaliBusses}{cmsText("contactpage.ec8737e40d", " magistrala(e)")}</span>
+                      <span className="text-[#17211C]/60">{"Bramki magistrali DALI-2:"}</span>
+                      <span className="font-bold text-[#17211C]">{estimatedDaliBusses}{" magistrala(e)"}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-[#17211C]/60">{cmsText("contactpage.a3005adc16", "Kanały wykonawcze KNX:")}</span>
-                      <span className="font-bold text-[#17211C]">~{estimatedKnxChannels}{cmsText("contactpage.eba1cc0ee6", " kanałów")}</span>
+                      <span className="text-[#17211C]/60">{"Kanały wykonawcze KNX:"}</span>
+                      <span className="font-bold text-[#17211C]">~{estimatedKnxChannels}{" kanałów"}</span>
                     </div>
                   </div>
                 </div>

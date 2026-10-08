@@ -1,4 +1,4 @@
-import { cmsText, plannerUrl } from '../cms';
+import { plannerUrl } from '../site';
 import React, { useState } from 'react';
 import { Logo } from './Logo.tsx';
 import { PageId } from '../types.ts';
@@ -23,35 +23,35 @@ export const Navbar: React.FC<NavbarProps> = ({
 
   // Mirrors the production intelispaces.pl navigation hierarchy.
   const navItems: NavItem[] = [
-    { id: 'architects', label: cmsText("navbar.c1f15d86d4", "Dla architektów"), subItems: [
+    { id: 'architects', label: "Dla architektów", subItems: [
       { label: 'Projektant KNX', href: plannerUrl() },
-      { label: cmsText("navbar.79b9370bb2", "Wsparcie projektowe"), hash: 'wsparcie' },
-      { label: cmsText("navbar.4a4882c09a", "Pakiet dla architekta"), hash: 'pakiet' },
-      { label: cmsText("navbar.3c7ef07972", "Osprzęt i materiały"), hash: 'jung' },
+      { label: "Wsparcie projektowe", hash: 'wsparcie' },
+      { label: "Pakiet dla architekta", hash: 'pakiet' },
+      { label: "Osprzęt i materiały", hash: 'jung' },
     ] },
-    { id: 'homes', label: cmsText("navbar.cf25798197", "Domy i apartamenty"), subItems: [
-      { label: cmsText("navbar.0deaca5646", "Dom jednorodzinny"), hash: 'dom' },
-      { label: cmsText("navbar.a3180392c9", "Apartament"), hash: 'apartament' },
-      { label: cmsText("navbar.4c5e67702a", "Modernizacja instalacji"), hash: 'modernizacja' },
+    { id: 'homes', label: "Domy i apartamenty", subItems: [
+      { label: "Dom jednorodzinny", hash: 'dom' },
+      { label: "Apartament", hash: 'apartament' },
+      { label: "Modernizacja instalacji", hash: 'modernizacja' },
     ] },
-    { id: 'offices', label: cmsText("navbar.a029fc6e59", "Biura"), subItems: [
-      { label: cmsText("navbar.e9b32691fc", "Strefy pracy"), hash: 'open-space' },
-      { label: cmsText("navbar.fc74c74a37", "Sale konferencyjne"), hash: 'konferencyjne' },
-      { label: cmsText("navbar.3f752324d7", "Projekt i fit-out"), hash: 'audyt' },
+    { id: 'offices', label: "Biura", subItems: [
+      { label: "Strefy pracy", hash: 'open-space' },
+      { label: "Sale konferencyjne", hash: 'konferencyjne' },
+      { label: "Projekt i fit-out", hash: 'audyt' },
     ] },
-    { id: 'about', label: cmsText("navbar.db9ccedb6f", "Jak pracujemy"), subItems: [
-      { label: cmsText("navbar.4f3fe46fe2", "Kim jesteśmy"), page: 'team' },
-      { label: cmsText("navbar.9a80916fdc", "Etapy i odpowiedzialność") },
-      { label: cmsText("navbar.892657a6d7", "Przykłady rozwiązań"), page: 'projects' },
-      { label: cmsText("navbar.fb13a4b389", "Technologie i integracje"), page: 'solutions' },
-      { label: cmsText("navbar.5e38953759", "Kontakt"), page: 'contact' },
+    { id: 'about', label: "Jak pracujemy", subItems: [
+      { label: "Kim jesteśmy", page: 'team' },
+      { label: "Etapy i odpowiedzialność" },
+      { label: "Przykłady rozwiązań", page: 'projects' },
+      { label: "Technologie i integracje", page: 'solutions' },
+      { label: "Kontakt", page: 'contact' },
     ] },
     // The production "Salon" route is represented by the existing projects page on Darka.
-    { id: 'projects', label: cmsText("navbar.1cca6dac67", "Salon") },
-    { id: 'knowledge', label: cmsText("navbar.9d69d963ea", "Wiedza"), subItems: [
-      { label: cmsText("navbar.6c822c95f6", "KNX dla inwestora"), hash: 'knx-dla-inwestora' },
-      { label: cmsText("navbar.d6e8620ad9", "Poznaj standard KNX"), page: 'knx' },
-      { label: cmsText("navbar.d1e6599a8c", "Wszystkie poradniki i FAQ") },
+    { id: 'projects', label: "Salon" },
+    { id: 'knowledge', label: "Wiedza", subItems: [
+      { label: "KNX dla inwestora", hash: 'knx-dla-inwestora' },
+      { label: "Poznaj standard KNX", page: 'knx' },
+      { label: "Wszystkie poradniki i FAQ" },
     ] },
   ];
 
@@ -67,21 +67,21 @@ export const Navbar: React.FC<NavbarProps> = ({
         <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-1.5 flex flex-row items-center justify-between gap-1 text-center sm:text-left">
           <div className="hidden sm:flex items-center gap-2">
             <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#E6F15A]" />
-            <span>{cmsText("navbar.65af5d83f2", "KNX dla architektów, inwestorów i biur")}</span>
+            <span>{"KNX dla architektów, inwestorów i biur"}</span>
           </div>
           <div className="flex w-full sm:w-auto items-center justify-between gap-3 text-[#CFE3C4]">
-            <span>{cmsText("navbar.2bb433b5de", "Warszawa · realizacje w całej Polsce")}</span><span aria-hidden="true">·</span>
+            <span>{"Warszawa · realizacje w całej Polsce"}</span><span aria-hidden="true">·</span>
             <a href="tel:+48505260715" className="hover:text-white transition-colors flex items-center gap-1 normal-case font-mono tracking-normal text-xs whitespace-nowrap">+48 505 260 715</a>
           </div>
         </div>
       </div>
 
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-        <button onClick={() => handleNavClick('home')} className="group shrink-0 flex items-center text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0E4637] rounded-md p-1 -m-1" aria-label={cmsText("navbar.5be607c6fd", "Delitech Smart Spaces - Strona główna")}>
+        <button onClick={() => handleNavClick('home')} className="group shrink-0 flex items-center text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0E4637] rounded-md p-1 -m-1" aria-label={"Delitech Smart Spaces - Strona główna"}>
           <Logo variant="light" size="md" />
         </button>
 
-        <nav className="hidden min-[1280px]:flex items-center gap-0.5 min-[1440px]:gap-1 text-[13px] font-medium tracking-tight text-[#17211C]" aria-label={cmsText("navbar.e78f4458cc", "Główne menu")}>
+        <nav className="hidden min-[1280px]:flex items-center gap-0.5 min-[1440px]:gap-1 text-[13px] font-medium tracking-tight text-[#17211C]" aria-label={"Główne menu"}>
           {navItems.map((item) => {
             const isActive = currentPage === item.id;
             const hasChildren = Boolean(item.subItems?.length);
@@ -103,7 +103,7 @@ export const Navbar: React.FC<NavbarProps> = ({
         </nav>
 
         <div className="flex items-center gap-3">
-          <button onClick={onOpenConsultation} className="hidden sm:inline-flex items-center gap-2 px-4 py-2.5 bg-[#0E4637] hover:bg-[#17211C] text-[#E6F15A] font-semibold text-xs uppercase tracking-wider rounded-lg transition-all duration-200 shadow-sm hover:shadow active:scale-[0.98] whitespace-nowrap"><PhoneCall className="w-3.5 h-3.5 text-[#E6F15A]" /><span>{cmsText("navbar.8fd7ce7e5c", "Omów projekt")}</span></button>
+          <button onClick={onOpenConsultation} className="hidden sm:inline-flex items-center gap-2 px-4 py-2.5 bg-[#0E4637] hover:bg-[#17211C] text-[#E6F15A] font-semibold text-xs uppercase tracking-wider rounded-lg transition-all duration-200 shadow-sm hover:shadow active:scale-[0.98] whitespace-nowrap"><PhoneCall className="w-3.5 h-3.5 text-[#E6F15A]" /><span>{"Omów projekt"}</span></button>
           <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="min-[1280px]:hidden p-2 rounded-lg text-[#17211C] hover:bg-black/5 focus:outline-none focus:ring-2 focus:ring-[#0E4637]" aria-expanded={mobileMenuOpen} aria-label={mobileMenuOpen ? 'Zamknij menu mobilne' : 'Otwórz menu mobilne'}>{mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}</button>
         </div>
       </div>
@@ -116,8 +116,8 @@ export const Navbar: React.FC<NavbarProps> = ({
               {item.subItems && <div className="pl-4 mt-1 space-y-1 border-l border-[#0E4637]/20 ml-3">{item.subItems.map((sub) => <button key={`${sub.page || item.id}/${sub.hash || sub.label}`} onClick={() => sub.href ? location.assign(sub.href) : handleNavClick(sub.page || item.id, sub.hash)} className="w-full text-left px-3 py-1.5 text-xs text-[#17211C]/75 hover:text-[#0E4637] rounded-md transition-colors">{sub.label}</button>)}</div>}
             </div>)}
             <div className="pt-4 mt-3 border-t border-[#17211C]/10 flex flex-col gap-2">
-              <button onClick={() => { setMobileMenuOpen(false); onOpenConsultation(); }} className="w-full py-3 bg-[#0E4637] text-[#E6F15A] font-semibold text-xs uppercase tracking-wider rounded-lg text-center flex items-center justify-center gap-2"><PhoneCall className="w-4 h-4" /><span>{cmsText("navbar.31fb46f4fe", "Omów projekt")}</span></button>
-              <button onClick={() => handleNavClick('contact')} className="w-full py-2.5 border border-[#0E4637]/20 text-[#0E4637] font-medium text-xs uppercase tracking-wider rounded-lg text-center">{cmsText("navbar.a8807095e8", "Prześlij rzuty do wyceny")}</button>
+              <button onClick={() => { setMobileMenuOpen(false); onOpenConsultation(); }} className="w-full py-3 bg-[#0E4637] text-[#E6F15A] font-semibold text-xs uppercase tracking-wider rounded-lg text-center flex items-center justify-center gap-2"><PhoneCall className="w-4 h-4" /><span>{"Omów projekt"}</span></button>
+              <button onClick={() => handleNavClick('contact')} className="w-full py-2.5 border border-[#0E4637]/20 text-[#0E4637] font-medium text-xs uppercase tracking-wider rounded-lg text-center">{"Prześlij rzuty do wyceny"}</button>
             </div>
           </div>
         </div>

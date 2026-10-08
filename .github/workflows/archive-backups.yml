@@ -1,0 +1,34 @@
+name: Archive approved backup branches as tags
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - scripts/backup-refs-20261008.json
+      - scripts/archive-backups.py
+      - .github/workflows/archive-backups.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: archive-backup-refs
+  cancel-in-progress: false
+
+jobs:
+  archive:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - run: python3 -m unittest discover -s tests -p test_archive_backups.py -v
+      - name: Preserve exact commits as tags, verify them, then remove unchanged backup branches
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 scripts/archive-backups.py

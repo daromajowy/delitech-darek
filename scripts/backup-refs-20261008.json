@@ -1,0 +1,74 @@
+{
+  "repository": "daromajowy/delitech-darek",
+  "backups": [
+    {
+      "branch": "backup/Darka-before-static-knx-20261008",
+      "tag": "archive/backup/Darka-before-static-knx-20261008",
+      "sha": "393355cf1df664516126d481c0e7cbdb1399e3c5"
+    },
+    {
+      "branch": "backup/Janka-before-static-knx-20261008",
+      "tag": "archive/backup/Janka-before-static-knx-20261008",
+      "sha": "8dde85f303ee89b1b77bbd3b28c73f76ad94a90d"
+    },
+    {
+      "branch": "backup/darka-before-wordpress-20261007",
+      "tag": "archive/backup/darka-before-wordpress-20261007",
+      "sha": "175c4a97f17af86119de7f660afaba5943689a49"
+    },
+    {
+      "branch": "backup/main-before-static-knx-20261008",
+      "tag": "archive/backup/main-before-static-knx-20261008",
+      "sha": "393355cf1df664516126d481c0e7cbdb1399e3c5"
+    },
+    {
+      "branch": "backup/main-before-wordpress-20261007",
+      "tag": "archive/backup/main-before-wordpress-20261007",
+      "sha": "ee5750433f3809dd1fe359f638bc252de2dce31c"
+    },
+    {
+      "branch": "codex/backup-before-knx-20261007",
+      "tag": "archive/codex/backup-before-knx-20261007",
+      "sha": "7057faf8f92a92c35cbf5612232549cd2460f464"
+    },
+    {
+      "branch": "codex/backup-before-staging-20261008",
+      "tag": "archive/codex/backup-before-staging-20261008",
+      "sha": "b508abf53d6f47dbcf0ed10b09b9f45bbdc04198"
+    },
+    {
+      "branch": "codex/backup-darka-before-knx-flow-20261008",
+      "tag": "archive/codex/backup-darka-before-knx-flow-20261008",
+      "sha": "23aaa06de697acd4596ad064b0ae83da9cddbd49"
+    },
+    {
+      "branch": "codex/backup-darka-before-sync-20261007T215204Z",
+      "tag": "archive/codex/backup-darka-before-sync-20261007T215204Z",
+      "sha": "393355cf1df664516126d481c0e7cbdb1399e3c5"
+    },
+    {
+      "branch": "codex/backup-janka-before-sync-20261007T215204Z",
+      "tag": "archive/codex/backup-janka-before-sync-20261007T215204Z",
+      "sha": "240c7fe3a699b180b99c939c4996ea4b2e7d90cf"
+    },
+    {
+      "branch": "codex/backup-main-before-knx-flow-20261008",
+      "tag": "archive/codex/backup-main-before-knx-flow-20261008",
+      "sha": "23aaa06de697acd4596ad064b0ae83da9cddbd49"
+    }
+  ],
+  "snapshots": [
+    {
+      "tag": "archive/before-source-editing-20261008/Darka",
+      "sha": "3c774f2f38ae17a099c9e908a802acce07491a32"
+    },
+    {
+      "tag": "archive/before-source-editing-20261008/Janka",
+      "sha": "bcaebcc9c23f4c707b99ab1ff5d78b2b2ea83c72"
+    },
+    {
+      "tag": "archive/before-source-editing-20261008/main",
+      "sha": "bcaebcc9c23f4c707b99ab1ff5d78b2b2ea83c72"
+    }
+  ]
+}

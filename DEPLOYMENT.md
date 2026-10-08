@@ -12,7 +12,7 @@
 ## Architektura i dane
 
 - `https://intelispaces.pl/`: 11 statycznych stron React/Vite, wygenerowanych także jako HTML. WordPress nie jest wymagany.
-- `content/site.json`: aktualne publiczne treści wyeksportowane z CMS przed migracją. Edytuj je i komponenty w Git. Obrazy oraz film są w `src/assets/`.
+- Teksty edytujemy bezpośrednio w `src/pages/` i `src/components/`; poradniki w `src/content/guides.ts`. Metadane i adresy są w `src/page-config.ts`, obrazy oraz film w `src/assets/`. Nie ma dodatkowej warstwy CMS ani JSON-u nadpisującego treść komponentów. Instrukcja pracy: `README.md`.
 - `https://knx.intelispaces.pl/`: jedna aplikacja React + Laravel 13 + Filament 5, PHP 8.4. Panel: `/admin`, edytor: `/editor`. Stary adres `intelispaces.pl/projektant-knx/` przekierowuje na nową subdomenę.
 - Konta, pracownie, projekty, rewizje i dokumenty pozostają w istniejącej bazie KNX i prywatnym magazynie CF.
 - Formularze strony trafiają do `/api/inquiries` w Laravel. Pola i metadane plików są szyfrowane kluczem aplikacji; załączniki pozostają prywatne. Odczytuje je wyłącznie aktywny administrator w panelu. Powiadomienia e-mail nie są częścią tego wdrożenia.

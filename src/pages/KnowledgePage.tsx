@@ -1,4 +1,3 @@
-import { cmsText } from '../cms';
 import React, { useState } from 'react';
 import { PageId } from '../types.ts';
 import { ChevronDown, Search, BookOpen, HelpCircle, FileText, ArrowRight } from 'lucide-react';
@@ -18,73 +17,73 @@ export const KnowledgePage: React.FC<KnowledgePageProps> = ({
 
   const faqs = [
     {
-      q: cmsText("knowledgepage.faa5f53cf2", "Na jakim etapie inwestycji należy rozpocząć projektowanie automatyki KNX?"),
-      a: cmsText("knowledgepage.d7f3f09730", "Optymalnym momentem jest faza koncepcji architektonicznej lub projektu budowlanego/wykonawczego, ZANIM elektryk rozpocznie układanie tras kablowych. KNX wymaga topologii magistralnej (przewód zielony KNX YCYM) doprowadzonej do włączników i czujników oraz sprowadzenia obwodów wykonawczych do rozdzielnicy głównej. Wczesne zaangażowanie pozwala uniknąć prucia ścian i niepotrzebnych kosztów tradycyjnego okablowania."),
+      q: "Na jakim etapie inwestycji należy rozpocząć projektowanie automatyki KNX?",
+      a: "Optymalnym momentem jest faza koncepcji architektonicznej lub projektu budowlanego/wykonawczego, ZANIM elektryk rozpocznie układanie tras kablowych. KNX wymaga topologii magistralnej (przewód zielony KNX YCYM) doprowadzonej do włączników i czujników oraz sprowadzenia obwodów wykonawczych do rozdzielnicy głównej. Wczesne zaangażowanie pozwala uniknąć prucia ścian i niepotrzebnych kosztów tradycyjnego okablowania.",
     },
     {
-      q: cmsText("knowledgepage.635a6ea378", "Czym różni się standard KNX od popularnych bezprzewodowych systemów smart home?"),
-      a: cmsText("knowledgepage.413e152fb2", "KNX to certyfikowany międzynarodowy standard przemysłowy (ISO/IEC 14543) oparty na magistrali przewodowej. Nie ma tu baterii wymagających wymiany, zrywania łączności Wi-Fi przez grube ściany ani uzależnienia od chmury jednego producenta (który może zbankrutować lub wyłączyć serwery). KNX działa autonomicznie przez 30+ lat i łączy urządzenia ponad 500 niezależnych fabryk."),
+      q: "Czym różni się standard KNX od popularnych bezprzewodowych systemów smart home?",
+      a: "KNX to certyfikowany międzynarodowy standard przemysłowy (ISO/IEC 14543) oparty na magistrali przewodowej. Nie ma tu baterii wymagających wymiany, zrywania łączności Wi-Fi przez grube ściany ani uzależnienia od chmury jednego producenta (który może zbankrutować lub wyłączyć serwery). KNX działa autonomicznie przez 30+ lat i łączy urządzenia ponad 500 niezależnych fabryk.",
     },
     {
-      q: cmsText("knowledgepage.0acffb6c06", "Dlaczego warto łączyć oświetlenie DALI z automatyką KNX?"),
-      a: cmsText("knowledgepage.da5bb3111a", "Bramka KNX-DALI to najlepsze z możliwych połączeń. Zamiast ciągnąć kable 230V z rozdzielnicy do każdego punktu świetlnego, prowadzimy 5-żyłowy przewód do całej szyny lub grupy opraw. Zyskujemy indywidualne adresowanie każdej oprawy, płynne ściemnianie do 0,1% bez migotania, regulację barwy Tunable White oraz dokładne informacje o ewentualnej awarii konkretnego zasilacza."),
+      q: "Dlaczego warto łączyć oświetlenie DALI z automatyką KNX?",
+      a: "Bramka KNX-DALI to najlepsze z możliwych połączeń. Zamiast ciągnąć kable 230V z rozdzielnicy do każdego punktu świetlnego, prowadzimy 5-żyłowy przewód do całej szyny lub grupy opraw. Zyskujemy indywidualne adresowanie każdej oprawy, płynne ściemnianie do 0,1% bez migotania, regulację barwy Tunable White oraz dokładne informacje o ewentualnej awarii konkretnego zasilacza.",
     },
     {
-      q: cmsText("knowledgepage.bd1f69eaf0", "Czy instalacja KNX może być modyfikowana i rozbudowywana po zamieszkaniu lub odbiorze biura?"),
-      a: cmsText("knowledgepage.aef7cf0874", "Tak, to jedna z największych zalet KNX. Przypisanie klawisza na ścianie do konkretnego źródła światła czy rolety odbywa się programowo w narzędziu ETS. Jeśli po roku zechcesz, aby dany przycisk sterował inną grupą opraw lub wywoływał nową scenę, zmiana zajmuje kilka minut bez dotykania tynku."),
+      q: "Czy instalacja KNX może być modyfikowana i rozbudowywana po zamieszkaniu lub odbiorze biura?",
+      a: "Tak, to jedna z największych zalet KNX. Przypisanie klawisza na ścianie do konkretnego źródła światła czy rolety odbywa się programowo w narzędziu ETS. Jeśli po roku zechcesz, aby dany przycisk sterował inną grupą opraw lub wywoływał nową scenę, zmiana zajmuje kilka minut bez dotykania tynku.",
     },
     {
-      q: cmsText("knowledgepage.53021b63ed", "Jak wygląda koordynacja z branżą sanitarną / HVAC (klimatyzacja, pompy ciepła, rekuperacja)?"),
-      a: cmsText("knowledgepage.3f3a2a936f", "Przejmujemy bezpośrednią koordynację z dostawcami urządzeń klimatyzacyjnych i wentylacyjnych. Dobieramy bramki komunikacyjne (Modbus, BACnet, KNX Intesis), dzięki czemu klimatyzatory kanałowe i podłogówka współpracują ze sobą według wspólnego algorytmu, nie dopuszczając do jednoczesnego grzania i chłodzenia."),
+      q: "Jak wygląda koordynacja z branżą sanitarną / HVAC (klimatyzacja, pompy ciepła, rekuperacja)?",
+      a: "Przejmujemy bezpośrednią koordynację z dostawcami urządzeń klimatyzacyjnych i wentylacyjnych. Dobieramy bramki komunikacyjne (Modbus, BACnet, KNX Intesis), dzięki czemu klimatyzatory kanałowe i podłogówka współpracują ze sobą według wspólnego algorytmu, nie dopuszczając do jednoczesnego grzania i chłodzenia.",
     },
     {
-      q: cmsText("knowledgepage.df331078ed", "Czy Delitech Smart Spaces wykonuje również montaż fizyczny i prefabrykację szaf?"),
-      a: cmsText("knowledgepage.f08ddc384a", "Tak. Świadczymy usługę kompleksową: od projektu i wytycznych, przez prefabrykację i testy szaf sterowniczych w naszym warsztacie, po dostawę osprzętu JUNG, uruchomienie, wdrożenie oprogramowania ETS i przekazanie dokumentacji powykonawczej wraz z licencją bazy projektu."),
+      q: "Czy Delitech Smart Spaces wykonuje również montaż fizyczny i prefabrykację szaf?",
+      a: "Tak. Świadczymy usługę kompleksową: od projektu i wytycznych, przez prefabrykację i testy szaf sterowniczych w naszym warsztacie, po dostawę osprzętu JUNG, uruchomienie, wdrożenie oprogramowania ETS i przekazanie dokumentacji powykonawczej wraz z licencją bazy projektu.",
     },
   ];
 
   const articles = [
     {
       category: 'architekci',
-      title: cmsText("knowledgepage.7aab16f5d8", "Jak uniknąć „baterii włączników” na ścianie w projekcie premium"),
-      readTime: cmsText("knowledgepage.94c8484d6d", "6 min czytania"),
+      title: "Jak uniknąć „baterii włączników” na ścianie w projekcie premium",
+      readTime: "6 min czytania",
       summary:
-        cmsText("knowledgepage.45c8fb4149", "Praktyczny przewodnik po doborze manipulatorów wielofunkcyjnych JUNG LS 990 i integracji termostatów pokojowych w jednej puszce."),
+        "Praktyczny przewodnik po doborze manipulatorów wielofunkcyjnych JUNG LS 990 i integracji termostatów pokojowych w jednej puszce.",
     },
     {
       category: 'biura',
-      title: cmsText("knowledgepage.320a353647", "Optymalizacja kosztów energii w biurze dzięki DALI-2 i obecności"),
-      readTime: cmsText("knowledgepage.16ce82596c", "8 min czytania"),
+      title: "Optymalizacja kosztów energii w biurze dzięki DALI-2 i obecności",
+      readTime: "8 min czytania",
       summary:
-        cmsText("knowledgepage.308bba9dbb", "Analiza redukcji zużycia energii elektrycznej w strefach open space i salach spotkań. Zgodność z kryteriami certyfikacji BREEAM i LEED."),
+        "Analiza redukcji zużycia energii elektrycznej w strefach open space i salach spotkań. Zgodność z kryteriami certyfikacji BREEAM i LEED.",
     },
     {
       category: 'inwestorzy',
-      title: cmsText("knowledgepage.dbb5a94ef0", "Przewodnik inwestora: Ile kosztuje i jak planować budżet na KNX"),
-      readTime: cmsText("knowledgepage.83fd51d0f3", "10 min czytania"),
+      title: "Przewodnik inwestora: Ile kosztuje i jak planować budżet na KNX",
+      readTime: "10 min czytania",
       summary:
-        cmsText("knowledgepage.8bbc60f1e7", "Przejrzyste omówienie składowych instalacji: okablowanie, moduły rozdzielcze, osprzęt końcowy, programowanie i serwis."),
+        "Przejrzyste omówienie składowych instalacji: okablowanie, moduły rozdzielcze, osprzęt końcowy, programowanie i serwis.",
     },
     {
       category: 'biura',
-      title: cmsText("knowledgepage.a204e7f66c", "Automatyka sal konferencyjnych: sceny prezentacji i wentylacja CO2"),
-      readTime: cmsText("knowledgepage.90f5ae3754", "5 min czytania"),
+      title: "Automatyka sal konferencyjnych: sceny prezentacji i wentylacja CO2",
+      readTime: "5 min czytania",
       summary:
-        cmsText("knowledgepage.a6494f6f76", "Jak przygotować salę konferencyjną do płynnych wideokonferencji bez pomocy działu IT."),
+        "Jak przygotować salę konferencyjną do płynnych wideokonferencji bez pomocy działu IT.",
     },
     {
       category: 'inwestorzy',
-      title: cmsText("knowledgepage.2e44b9a7c6", "Otwarty standard KNX a systemy zamknięte — analiza ryzyka na 20 lat"),
-      readTime: cmsText("knowledgepage.9a32484968", "7 min czytania"),
+      title: "Otwarty standard KNX a systemy zamknięte — analiza ryzyka na 20 lat",
+      readTime: "7 min czytania",
       summary:
-        cmsText("knowledgepage.38c8a83732", "Dlaczego warto zabezpieczyć wartość nieruchomości przed zjawiskiem vendor lock-in i wycofaniem wsparcia przez korporacje."),
+        "Dlaczego warto zabezpieczyć wartość nieruchomości przed zjawiskiem vendor lock-in i wycofaniem wsparcia przez korporacje.",
     },
     {
       category: 'architekci',
-      title: cmsText("knowledgepage.a9a0680700", "Wytyczne tras kablowych KNX i DALI dla projektantów instalacji elektrycznych"),
-      readTime: cmsText("knowledgepage.a67473bd13", "9 min czytania"),
+      title: "Wytyczne tras kablowych KNX i DALI dla projektantów instalacji elektrycznych",
+      readTime: "9 min czytania",
       summary:
-        cmsText("knowledgepage.3542375b53", "Techniczne kompendium: topologia magistrali, spadki napięć, zasilacze 640mA/1280mA i zasady prowadzenia obok instalacji 230V."),
+        "Techniczne kompendium: topologia magistrali, spadki napięć, zasilacze 640mA/1280mA i zasady prowadzenia obok instalacji 230V.",
     },
   ];
 
@@ -105,9 +104,9 @@ export const KnowledgePage: React.FC<KnowledgePageProps> = ({
       <section className="bg-[#17211C] text-white py-16 lg:py-20 border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl space-y-4">
-            <span className="text-xs font-mono uppercase tracking-widest text-[#E6F15A] font-semibold block">{cmsText("knowledgepage.47c391c58a", "Baza Wiedzy Inżynierskiej")}</span>
-            <h1 className="text-4xl sm:text-5xl font-extrabold font-display tracking-tight text-white">{cmsText("knowledgepage.c7f898e1e4", "Wiedza, poradniki i standardy KNX")}</h1>
-            <p className="text-base sm:text-lg text-[#EDE9DF]/80 leading-relaxed pt-2">{cmsText("knowledgepage.b9a82ac8e2", "Dzielimy się wiedzą techniczną. Znajdziesz tu merytoryczne poradniki dla inwestorów, wytyczne dla pracowni architektonicznych oraz odpowiedzi na najczęstsze pytania dotyczące automatyki budynkowej.")}</p>
+            <span className="text-xs font-mono uppercase tracking-widest text-[#E6F15A] font-semibold block">{"Baza Wiedzy Inżynierskiej"}</span>
+            <h1 className="text-4xl sm:text-5xl font-extrabold font-display tracking-tight text-white">{"Wiedza, poradniki i standardy KNX"}</h1>
+            <p className="text-base sm:text-lg text-[#EDE9DF]/80 leading-relaxed pt-2">{"Dzielimy się wiedzą techniczną. Znajdziesz tu merytoryczne poradniki dla inwestorów, wytyczne dla pracowni architektonicznych oraz odpowiedzi na najczęstsze pytania dotyczące automatyki budynkowej."}</p>
           </div>
         </div>
       </section>
@@ -117,8 +116,8 @@ export const KnowledgePage: React.FC<KnowledgePageProps> = ({
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-10">
             <div>
-              <span className="text-xs font-mono uppercase tracking-widest text-[#0E4637] font-semibold block mb-2">{cmsText("knowledgepage.ae9f3c87fe", "Artykuły i Poradniki")}</span>
-              <h2 className="text-3xl font-bold font-display text-[#17211C]">{cmsText("knowledgepage.ddc01c2bf7", "Praktyka inżynierska i projektowa")}</h2>
+              <span className="text-xs font-mono uppercase tracking-widest text-[#0E4637] font-semibold block mb-2">{"Artykuły i Poradniki"}</span>
+              <h2 className="text-3xl font-bold font-display text-[#17211C]">{"Praktyka inżynierska i projektowa"}</h2>
             </div>
 
             {/* Category tabs */}
@@ -130,7 +129,7 @@ export const KnowledgePage: React.FC<KnowledgePageProps> = ({
                     ? 'bg-[#0E4637] text-white'
                     : 'bg-[#F7F8F5] text-[#17211C]/70 hover:bg-black/5'
                 }`}
-              >{cmsText("knowledgepage.00bcf535f3", "Wszystkie")}</button>
+              >{"Wszystkie"}</button>
               <button
                 onClick={() => setArticleCategory('architekci')}
                 className={`px-3.5 py-1.5 text-xs font-semibold rounded-lg transition-colors ${
@@ -138,7 +137,7 @@ export const KnowledgePage: React.FC<KnowledgePageProps> = ({
                     ? 'bg-[#0E4637] text-white'
                     : 'bg-[#F7F8F5] text-[#17211C]/70 hover:bg-black/5'
                 }`}
-              >{cmsText("knowledgepage.f64169e6be", "Dla architektów")}</button>
+              >{"Dla architektów"}</button>
               <button
                 onClick={() => setArticleCategory('biura')}
                 className={`px-3.5 py-1.5 text-xs font-semibold rounded-lg transition-colors ${
@@ -146,7 +145,7 @@ export const KnowledgePage: React.FC<KnowledgePageProps> = ({
                     ? 'bg-[#0E4637] text-white'
                     : 'bg-[#F7F8F5] text-[#17211C]/70 hover:bg-black/5'
                 }`}
-              >{cmsText("knowledgepage.28b063b782", "Dla biur & fit-out")}</button>
+              >{"Dla biur & fit-out"}</button>
               <button
                 onClick={() => setArticleCategory('inwestorzy')}
                 className={`px-3.5 py-1.5 text-xs font-semibold rounded-lg transition-colors ${
@@ -154,7 +153,7 @@ export const KnowledgePage: React.FC<KnowledgePageProps> = ({
                     ? 'bg-[#0E4637] text-white'
                     : 'bg-[#F7F8F5] text-[#17211C]/70 hover:bg-black/5'
                 }`}
-              >{cmsText("knowledgepage.0abbd5fb67", "Dla inwestorów")}</button>
+              >{"Dla inwestorów"}</button>
             </div>
           </div>
 
@@ -188,7 +187,7 @@ export const KnowledgePage: React.FC<KnowledgePageProps> = ({
                     onClick={onOpenConsultation}
                     className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#0E4637] group-hover:gap-2.5 transition-all"
                   >
-                    <span>{cmsText("knowledgepage.73586ddc9a", "Skonsultuj to zagadnienie")}</span>
+                    <span>{"Skonsultuj to zagadnienie"}</span>
                     <ArrowRight className="w-3.5 h-3.5" />
                   </button>
                 </div>
@@ -202,9 +201,9 @@ export const KnowledgePage: React.FC<KnowledgePageProps> = ({
       <section className="py-16 sm:py-24 bg-[#F7F8F5] border-b border-[#17211C]/10">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <span className="text-xs font-mono uppercase tracking-widest text-[#0E4637] font-semibold block mb-2">{cmsText("knowledgepage.ebfe07b4a8", "Odpowiedzi inżynierskie")}</span>
-            <h2 className="text-3xl font-bold font-display text-[#17211C]">{cmsText("knowledgepage.850c45e4d4", "Najczęściej zadawane pytania (FAQ)")}</h2>
-            <p className="text-sm text-[#17211C]/70 mt-2">{cmsText("knowledgepage.b7811afce6", "Praktyczne odpowiedzi dotyczące kosztów, procesu, standardu DALI i odbiorów.")}</p>
+            <span className="text-xs font-mono uppercase tracking-widest text-[#0E4637] font-semibold block mb-2">{"Odpowiedzi inżynierskie"}</span>
+            <h2 className="text-3xl font-bold font-display text-[#17211C]">{"Najczęściej zadawane pytania (FAQ)"}</h2>
+            <p className="text-sm text-[#17211C]/70 mt-2">{"Praktyczne odpowiedzi dotyczące kosztów, procesu, standardu DALI i odbiorów."}</p>
 
             {/* Search Input */}
             <div className="mt-6 max-w-md mx-auto relative">
@@ -213,7 +212,7 @@ export const KnowledgePage: React.FC<KnowledgePageProps> = ({
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder={cmsText("knowledgepage.72c8154993", "Szukaj pytania (np. DALI, koszt, etapy, HVAC)...")}
+                placeholder={"Szukaj pytania (np. DALI, koszt, etapy, HVAC)..."}
                 className="w-full pl-10 pr-4 py-2.5 bg-white border border-[#17211C]/15 rounded-lg text-xs text-[#17211C] focus:outline-none focus:ring-2 focus:ring-[#0E4637]"
               />
             </div>
@@ -252,13 +251,13 @@ export const KnowledgePage: React.FC<KnowledgePageProps> = ({
           </div>
 
           <div className="mt-12 text-center bg-white p-6 rounded-2xl border border-[#17211C]/10 space-y-2">
-            <h3 className="font-bold text-sm text-[#17211C]">{cmsText("knowledgepage.e99551f469", "Masz inne pytanie techniczne?")}</h3>
-            <p className="text-xs text-[#17211C]/70">{cmsText("knowledgepage.d500facb2f", "Nasi certyfikowani inżynierowie KNX odpowiedzą na każde pytanie dotyczące projektu instalacji.")}</p>
+            <h3 className="font-bold text-sm text-[#17211C]">{"Masz inne pytanie techniczne?"}</h3>
+            <p className="text-xs text-[#17211C]/70">{"Nasi certyfikowani inżynierowie KNX odpowiedzą na każde pytanie dotyczące projektu instalacji."}</p>
             <div className="pt-2">
               <button
                 onClick={onOpenConsultation}
                 className="px-5 py-2.5 bg-[#0E4637] text-[#E6F15A] text-xs font-semibold uppercase tracking-wider rounded-lg hover:bg-[#17211C] transition-colors"
-              >{cmsText("knowledgepage.044420df17", "Zapytaj inżyniera KNX")}</button>
+              >{"Zapytaj inżyniera KNX"}</button>
             </div>
           </div>
         </div>
