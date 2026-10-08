@@ -5,9 +5,6 @@
 
     RewriteEngine On
 
-    # CF backup probes live outside the public root and are restricted by source IP.
-    RewriteRule ^deleteme\.cha[a-f0-9]{32}\.php$ hosting-probe.php [L]
-
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
