@@ -24,6 +24,11 @@ class BackupWorkspace extends Command
 
             return self::FAILURE;
         }
+        // Installatron requires the MariaDB port in DB_HOST; the dump CLI takes it separately.
+        $host = parse_url('mysql://'.$connection['host']);
+        if (is_array($host) && isset($host['port']) && (string) $host['port'] === (string) $connection['port']) {
+            $connection['host'] = $host['host'];
+        }
         $dump = $directory.'/database.sql';
         if (file_exists($dump)) {
             $this->error('Backup already exists.');
