@@ -57,18 +57,10 @@
       "sha": "23aaa06de697acd4596ad064b0ae83da9cddbd49"
     }
   ],
-  "snapshots": [
-    {
-      "tag": "archive/before-source-editing-20261008/Darka",
-      "sha": "3c774f2f38ae17a099c9e908a802acce07491a32"
-    },
-    {
-      "tag": "archive/before-source-editing-20261008/Janka",
-      "sha": "bcaebcc9c23f4c707b99ab1ff5d78b2b2ea83c72"
-    },
-    {
-      "tag": "archive/before-source-editing-20261008/main",
-      "sha": "bcaebcc9c23f4c707b99ab1ff5d78b2b2ea83c72"
-    }
-  ]
+  "snapshots": [],
+  "pre_edit_heads": {
+    "Darka": "3c774f2f38ae17a099c9e908a802acce07491a32",
+    "Janka": "bcaebcc9c23f4c707b99ab1ff5d78b2b2ea83c72",
+    "main": "bcaebcc9c23f4c707b99ab1ff5d78b2b2ea83c72"
+  }
 }
