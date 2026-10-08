@@ -58,10 +58,14 @@ class PlannerTest extends TestCase
         $p['points'][0]['placement'] = ['documentId' => $d->id, 'page' => 1, 'x' => 0.321, 'y' => 0.765];
         $p['points'][0]['bindings'][0]['hold'] = ['target' => $p['rooms'][0]['circuits'][0]['id'], 'action' => 'Ściemnianie'];
         $p['planView'] = ['documentId' => $d->id, 'page' => 1, 'zoom' => 2.5, 'centerX' => 0.6, 'centerY' => 0.3];
+        $p['rooms'][0]['planArea'] = ['documentId' => $d->id, 'page' => 1, 'x' => 0.1, 'y' => 0.2, 'width' => 0.3, 'height' => 0.4];
+        $p['scenes'][0]['roomId'] = $p['rooms'][0]['id'];
         $this->save($p)->assertOk();
         $saved = $this->getJson('/api?api=project&id='.$p['id'])->assertOk()->json('project');
         $this->assertSame($p['points'], $saved['points']);
         $this->assertSame($p['planView'], $saved['planView']);
+        $this->assertSame($p['rooms'], $saved['rooms']);
+        $this->assertSame($p['scenes'], $saved['scenes']);
         $this->assertSame(2, $saved['revision']);
         $this->assertDatabaseCount('project_revisions', 2);
     }
@@ -128,6 +132,23 @@ class PlannerTest extends TestCase
         $this->save($p)->assertUnprocessable();
     }
 
+    public function test_room_areas_and_scene_room_references_are_validated(): void
+    {
+        $p = $this->createProject();
+        $d = Document::create(['id' => (string) Str::uuid(), 'project_id' => $p['id'], 'name' => 'plan.pdf', 'mime' => 'application/pdf', 'size' => 100, 'path' => 'plan']);
+        $p['rooms'][0]['planArea'] = ['documentId' => $d->id, 'page' => 1, 'x' => 0.8, 'y' => 0.2, 'width' => 0.4, 'height' => 0.3];
+        $this->save($p)->assertUnprocessable();
+        $p['rooms'][0]['planArea']['width'] = 0;
+        $this->save($p)->assertUnprocessable();
+        $p['rooms'][0]['planArea']['width'] = 0.1;
+        $p['rooms'][0]['planArea']['documentId'] = (string) Str::uuid();
+        $this->save($p)->assertUnprocessable();
+        unset($p['rooms'][0]['planArea']);
+        $p['scenes'][0]['roomId'] = (string) Str::uuid();
+        $this->save($p)->assertUnprocessable();
+        $this->assertDatabaseHas('projects', ['id' => $p['id'], 'revision' => 1]);
+    }
+
     public function test_client_cannot_attach_a_foreign_document_or_escalate_ownership(): void
     {
         $p = $this->createProject();
@@ -181,10 +202,12 @@ class PlannerTest extends TestCase
         Storage::disk('local')->put('test.pdf', '%PDF-1.7 test');
         Document::create(['id' => $id, 'project_id' => $p['id'], 'name' => 'test.pdf', 'mime' => 'application/pdf', 'size' => 13, 'path' => 'test.pdf']);
         $p['points'][0]['placement'] = ['documentId' => $id, 'page' => 1, 'x' => 0.5, 'y' => 0.5];
+        $p['rooms'][0]['planArea'] = ['documentId' => $id, 'page' => 1, 'x' => 0.1, 'y' => 0.1, 'width' => 0.5, 'height' => 0.5];
         $p = $this->save($p)->json('project');
         $p = $this->postJson('/api?api=submit', ['id' => $p['id'], 'revision' => $p['revision'], 'submissionId' => (string) Str::uuid(), 'consent' => true], ['X-CSRF-Token' => $this->token])->json('project');
         $r = $this->postJson('/api?api=remove-file', ['project' => $p['id'], 'revision' => $p['revision'], 'id' => $id], ['X-CSRF-Token' => $this->token])->assertOk();
         $this->assertArrayNotHasKey('placement', $r->json('project.points.0'));
+        $this->assertArrayNotHasKey('planArea', $r->json('project.rooms.0'));
         $r->assertJsonCount(0, 'project.attachments');
         $this->get('/api?api=file&project='.$p['id'].'&id='.$id)->assertOk();
     }
@@ -218,6 +241,8 @@ class PlannerTest extends TestCase
             'binding is a string' => ['points.0.bindings.0', 'invalid'],
             'document identifier is an array' => ['points.0.placement', ['documentId' => [], 'page' => 1, 'x' => 0.5, 'y' => 0.5]],
             'photo identifier is an array' => ['points.0.photoId', []],
+            'room area is a string' => ['rooms.0.planArea', 'invalid'],
+            'scene room is an array' => ['scenes.0.roomId', []],
         ];
     }
 }

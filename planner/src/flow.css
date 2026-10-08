@@ -1,0 +1,179 @@
+.steps { grid-template-columns: repeat(4, 1fr); }
+.unified-workspace { padding: 24px 36px 106px; }
+.flow-layout, .control-workspace { display: grid; grid-template-columns: 220px minmax(0, 1fr) 310px; grid-template-areas: none; gap: 24px; align-items: start; }
+.flow-main, .control-plan-main { min-width: 0; }
+.flow-main h2, .control-plan-main h2 { font-size: 25px; }
+.flow-main .section-heading, .control-plan-main .section-heading { margin-bottom: 22px; }
+.section-heading p { font-size: 13px; margin: 7px 0 0; }
+.flow-rooms, .control-points { padding-right: 22px; min-height: 640px; }
+.flow-rooms h3 { margin: 0; font-size: 15px; }
+.flow-rooms .nav-group { margin-top: 26px; }
+.flow-rooms .nav-entry { min-height: 58px; padding: 10px 12px; }
+.flow-rooms .nav-entry span { min-width: 0; flex: 1; overflow-wrap: anywhere; }
+.flow-rooms .nav-entry small { font-size: 11px; margin-top: 3px; }
+.flow-rooms .nav-entry > i { flex-shrink: 0; }
+.flow-rooms .sidebar-actions { margin-top: 20px; }
+.sidebar-actions > select { margin-top: 10px; font-size: 12px; }
+.inline-info { display: flex; align-items: flex-start; gap: 12px; padding: 15px; margin-top: 24px; border-radius: 5px; background: #f0f7f8; font-size: 12px; color: #3b5b6b; line-height: 1.6; }
+.inline-info > svg { color: var(--accent); }
+.inline-info small { font-size: 11px; margin-top: 3px; }
+.flow-context, .control-editor { padding-left: 24px; min-width: 0; }
+.flow-context h2 { font-size: 22px; overflow-wrap: anywhere; }
+.flow-context .field, .control-editor .field { margin: 14px 0; font-size: 12px; gap: 6px; }
+.flow-context .form-grid { grid-template-columns: 1fr; gap: 0; }
+.flow-context .form-grid .field.wide { grid-column: auto; }
+.flow-context .form-grid .segments { flex-wrap: wrap; }
+.flow-context .form-grid .segments button { flex: 1 1 40%; }
+.room-data > .row > .row { gap: 0; }
+.room-data h2 { flex: 1; margin: 0; }
+.room-data .tool { width: 28px; }
+.flow-details { border-top: 1px solid var(--line); margin-top: 22px; padding-top: 14px; }
+.flow-details > summary { display: flex; align-items: center; justify-content: space-between; gap: 12px; cursor: pointer; min-height: 32px; font-weight: 600; font-size: 13px; list-style: none; }
+.flow-details > summary::-webkit-details-marker { display: none; }
+.flow-details > summary:focus-visible { outline: 3px solid #8bc4ce; outline-offset: 4px; }
+.flow-details[open] > summary { margin-bottom: 14px; }
+.flow-details[open] > summary > svg:last-child { transform: rotate(180deg); }
+.flow-details.compact { margin-top: 10px; padding-top: 6px; }
+.flow-details.compact > summary { font-size: 11px; color: #546e7b; }
+.flow-details .room-points { border: 0; padding-top: 0; margin-top: 0; }
+.room-data + .flow-details .form-grid > .field { margin: 8px 0; }
+.flow-main > .plan-board .plan-canvas, .control-plan-main > .plan-board .plan-canvas { height: clamp(420px, calc(100vh - 465px), 740px); }
+.plan-board { border-radius: 5px; }
+.plan-canvas { background: #f2f5f6; }
+.plan-marker { border-radius: 16px; min-width: 38px; height: 32px; padding: 4px 7px; }
+.plan-marker > svg { display: none; }
+.plan-marker.selected { background: #07869b; outline: 3px solid #69c6d3a6; outline-offset: 4px; }
+.plan-status { line-height: 1.5; }
+.room-area { position: absolute; background: #e0f7fc24; border: 1px dashed #118ba8b0; color: #154c60; pointer-events: auto; }
+.room-area.selected { background: #6bc5d82b; border: 2px solid #07869b; }
+.room-area > span { display: inline-block; transform-origin: center; background: #ffffffdc; padding: 3px 7px; border-radius: 3px; white-space: nowrap; font-size: 12px; }
+.area-corner { position: absolute; color: var(--accent); pointer-events: none; transform-origin: top left; }
+.function-overview { display: grid; grid-template-columns: minmax(0, 1fr) 220px; gap: 24px; margin: 20px 0; align-items: start; }
+.function-overview h3 { margin-bottom: 10px; }
+.function-group { border: 1px solid var(--line); border-radius: 4px; margin-bottom: 9px; }
+.function-summary { display: flex; width: 100%; align-items: center; gap: 12px; text-align: left; padding: 9px 12px; min-height: 50px; font-size: 12px; }
+.function-summary > span:first-of-type { flex: 1; }
+.function-summary small { font-size: 10px; }
+.accent { color: var(--accent); }
+.function-group.expanded { border-color: #80b9c3; }
+.circuit-editor { border-top: 1px solid var(--line); padding: 12px; }
+.circuit-row { padding: 8px 0 15px; border-bottom: 1px solid var(--line); margin-bottom: 12px; }
+.circuit-row .row { gap: 8px; }
+.circuit-row .row .field { flex: 1; min-width: 0; }
+.circuit-row .field { margin: 8px 0; font-size: 11px; }
+.circuit-row input, .circuit-row select { padding: 7px 8px; font-size: 12px; }
+.circuit-row .mono { font-size: 10px; color: var(--muted); }
+.circuit-editor > .outline { font-size: 12px; width: 100%; }
+.room-plan-preview { min-width: 0; padding-top: 32px; }
+.room-plan-preview .plan-canvas { height: 250px; }
+.room-plan-preview .plan-heading, .room-plan-preview .plan-status, .room-plan-preview .plan-toolbar, .room-plan-preview .plan-floating-tools { display: none; }
+.room-plan-preview > small { text-align: center; padding-top: 8px; }
+.room-plan-preview .plan-empty { padding: 10px; text-align: center; }
+.room-plan-preview .plan-empty h3 { font-size: 12px; }
+.room-plan-preview .plan-empty > svg { width: 26px; }
+.scene-ideas { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.scene-idea { display: flex; gap: 14px; padding: 12px; min-height: 88px; text-align: left; align-items: flex-start; border: 1px solid var(--line); border-radius: 5px; }
+.scene-idea:hover { border-color: #75adba; }
+.scene-idea.selected { background: var(--soft); border-color: var(--accent); }
+.scene-idea > span:nth-child(2) { flex: 1; min-width: 0; }
+.scene-idea strong { font-size: 13px; }
+.scene-idea small { font-size: 11px; margin-top: 5px; line-height: 1.5; }
+.scene-idea > svg:last-child { color: var(--accent); margin-top: 2px; }
+.scene-symbol { width: 43px; height: 43px; flex-shrink: 0; background: #edf7f9; color: var(--accent); border-radius: 5px; display: flex; align-items: center; justify-content: center; }
+.scene-add { margin-top: 18px; flex-wrap: wrap; }
+.scene-add select { width: auto; max-width: 180px; font-size: 12px; }
+.scene-add button { font-size: 12px; }
+.scene-chips > button { border: 1px solid var(--line); padding: 8px 10px; border-radius: 4px; display: inline-flex; align-items: center; gap: 7px; font-size: 12px; text-align: left; }
+.scene-chips > button.selected, .scene-chips > button:hover { background: var(--soft); border-color: #9cc6ce; }
+.scene-chips > button small { font-size: 9px; }
+.scene-title { margin-bottom: 24px; }
+.scene-title > .row { gap: 10px; min-width: 0; }
+.scene-title .tool { flex-shrink: 0; }
+.scene-title h2 { margin: 0; font-size: 22px; }
+.scene-title h2 small { margin-top: 4px; font-size: 12px; font-weight: 400; }
+.scene-action { padding: 8px 12px 12px; border: 1px solid var(--line); border-radius: 4px; margin: 10px 0; }
+.scene-action > .row { font-size: 11px; }
+.scene-action .tool { width: 28px; height: 28px; }
+.scene-action .field { margin: 6px 0; font-size: 10px; }
+.scene-action { position: relative; padding: 14px 28px 14px 12px; }
+.scene-action > .row { position: absolute; top: 2px; right: 2px; }
+.scene-action > .row > strong { display: none; }
+.scene-action .action-fields { display: grid; grid-template-columns: minmax(0, 1fr) 90px; gap: 8px; align-items: start; }
+.scene-action .action-fields > .field { margin: 0; }
+.scene-action .action-fields > .field > span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+.scene-action .level-control, .scene-action .field-warning { grid-column: 1 / -1; }
+.scene-action select { min-height: 35px; font-size: 12px; padding: 7px 8px; }
+.level-control { display: flex; gap: 10px; align-items: center; font-size: 11px; margin-top: 10px; }
+.level-control input[type="range"] { min-height: 24px; padding: 0; border: 0; flex: 1; accent-color: var(--accent); }
+.level-control output { min-width: 34px; text-align: right; }
+.field-warning { color: #986115; padding-top: 5px; line-height: 1.5; }
+.scene-note { margin: 16px 0; }
+.integration-config { border-bottom: 1px solid var(--line); padding: 14px 0; }
+.integration-config .form-grid { margin-top: 10px; }
+.control-points { grid-area: auto; }
+.control-points .control-room { margin-top: 18px; }
+.control-editor { min-width: 0; }
+.control-editor > .row { gap: 6px; }
+.control-editor > .row > .row { gap: 0; }
+.control-editor > .row .tool { width: 28px; }
+.control-editor > .row h3 { margin: 0; font-size: 15px; overflow-wrap: anywhere; }
+.control-editor > small { margin: 8px 0 12px; }
+.model-settings { border: 0; padding: 0; margin: 0; }
+.model-settings > summary { color: var(--accent); font-size: 12px; }
+.model-settings > summary > span { display: flex; gap: 8px; align-items: center; }
+.model-settings .form-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+.model-settings .field { margin: 4px 0; font-size: 10px; }
+.model-settings .field input, .model-settings .field select { font-size: 11px; padding: 7px; }
+.sensor-key-preview { position: relative; text-align: center; margin: 16px auto; max-width: 220px; }
+.sensor-key-preview > img, .sensor-key-preview > .sensor-placeholder { width: 100%; height: 180px; object-fit: contain; }
+.sensor-key-preview > small { margin-top: 8px; font-size: 9px; }
+.sensor-key-map { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px; margin: 6px auto 0; max-width: 180px; }
+.sensor-key-map button { border: 1px solid #b9cbd4; min-height: 30px; border-radius: 3px; color: #3e5e70; background: #f9fbfc; font-size: 12px; }
+.sensor-key-map button.active { color: white; border-color: var(--accent); background: var(--accent); }
+.sensor-key-preview.spatial > img { width: 300px; height: 300px; max-width: none; margin: -30px -40px; }
+.sensor-key-preview.spatial .sensor-key-map { position: absolute; top: 37px; left: 27px; width: 170px; height: 169px; max-width: none; margin: 0; gap: 2px; }
+.sensor-key-preview.spatial .sensor-key-map button { background: #ffffff0d; border-color: #2a536155; border-radius: 0; }
+.sensor-key-preview.spatial .sensor-key-map button.active { background: #008a9c85; color: white; }
+.control-editor .key-list { max-height: 180px; }
+.control-editor .key-list button { min-height: 34px; padding: 6px 9px; }
+.control-editor .key-editor { margin-top: 14px; padding-top: 14px; }
+.control-editor .key-editor h3 { font-size: 14px; margin-bottom: 10px; }
+.control-editor .flow-details { margin-top: 14px; padding-top: 8px; }
+.control-editor .long-press { margin: 10px 0; }
+.control-editor textarea { min-height: 62px; }
+.simulation-toolbar { margin-bottom: 12px; }
+.simulation-toolbar .quiet { font-size: 11px; }
+.view-label { display: flex; align-items: center; gap: 10px; color: var(--accent); font-size: 13px; }
+.flow-main.simulation-main > .plan-board .plan-canvas { height: 280px; }
+.simulation-states { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 18px; }
+.receiver-state { display: flex; align-items: center; gap: 12px; border: 1px solid var(--line); border-radius: 4px; padding: 12px; min-height: 72px; }
+.receiver-state > div { flex: 1; min-width: 0; }
+.receiver-state strong { font-size: 12px; }
+.receiver-state small { font-size: 10px; }
+.receiver-state output { font-size: 11px; color: #426572; text-align: right; max-width: 90px; }
+.receiver-state.changed { background: var(--soft); border-color: #8ebdc6; }
+.receiver-state.changed output { font-weight: 700; color: #006e7d; }
+.simulation-status { display: flex; align-items: center; gap: 12px; margin-top: 20px; color: var(--accent); font-size: 13px; }
+.simulation-warnings { border-left: 3px solid #d0a14b; padding: 12px 16px; background: #fff9ef; font-size: 12px; }
+.simulation-warnings ul { padding-left: 18px; margin-bottom: 0; line-height: 1.6; }
+.review-issues button { display: flex; gap: 10px; padding: 10px 0; width: 100%; text-align: left; font-size: 12px; align-items: center; border-bottom: 1px solid var(--line); }
+.review-issues button > span { flex: 1; }
+.review-issues button > svg:first-child { color: #ac791e; }
+.review-export { border-top: 1px solid var(--line); padding-top: 22px; margin-top: 24px; }
+.review-export small { margin-top: 8px; }
+.review-export .quiet { margin-top: 15px; font-size: 11px; }
+.sim-key-list > div > button:first-child { display: flex; align-items: center; gap: 12px; width: 100%; padding: 8px 10px; border: 1px solid var(--line); text-align: left; margin-top: 5px; border-radius: 4px; }
+.sim-key-list span { flex: 1; font-size: 11px; }
+.sim-key-list b { color: var(--accent); font-size: 12px; }
+.sim-key-list .selected { background: var(--soft); }
+.sim-key-list .quiet { font-size: 10px; padding: 6px 10px; }
+.modal:has(.brief-layout) { width: min(1180px, calc(100vw - 32px)); max-width: 1180px; }
+.modal .brief-layout { gap: 24px; }
+.modal .brief-aside { padding-left: 22px; }
+.modal .paper-note { margin-top: 20px; }
+.plan-board.expanded .plan-canvas { height: auto; flex: 1; }
+@media (min-width: 1301px) { .flow-layout.flow-step-1 { grid-template-columns: 220px minmax(0, 1fr) 380px; } .simulation-states { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (min-width: 1700px) { .flow-layout, .control-workspace { grid-template-columns: 240px minmax(0, 1fr) 340px; gap: 30px; } }
+@media (max-width: 1300px) { .flow-layout, .control-workspace { grid-template-columns: 180px minmax(0, 1fr) 285px; gap: 18px; } .unified-workspace { padding-left: 24px; padding-right: 24px; } .flow-rooms, .control-points { padding-right: 14px; } .flow-context, .control-editor { padding-left: 18px; } .function-overview { grid-template-columns: 1fr; } .room-plan-preview { display: none; } .scene-idea { padding: 12px; gap: 9px; } .scene-symbol { width: 34px; height: 38px; } }
+@media (max-width: 1050px) { .flow-layout, .control-workspace { grid-template-columns: 160px minmax(0, 1fr); gap: 20px; } .flow-context, .control-editor { grid-column: 2; border-left: 0; border-top: 1px solid var(--line); padding: 22px 0 0; } .flow-rooms, .control-points { grid-row: span 2; } .flow-context .form-grid { grid-template-columns: 1fr 1fr; gap: 0 14px; } .flow-context .scene-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; } .scene-actions .scene-action { margin: 0; } .control-editor .model-settings .form-grid { grid-template-columns: 1fr 1fr; } .simulation-context .sensor-key-preview { max-width: 220px; } }
+@media (max-width: 720px) { .unified-workspace { padding: 18px 15px 100px; } .flow-layout, .control-workspace { display: flex; flex-direction: column; gap: 22px; } .flow-layout > *, .control-workspace > * { width: 100%; } .flow-rooms, .control-points { min-height: 0; padding: 0 0 15px; border: 0; border-bottom: 1px solid var(--line); } .flow-rooms .nav-group { margin: 12px 0; } .flow-rooms .nav-entry { min-height: 48px; max-width: 200px; } .flow-rooms .nav-entry small { font-size: 9px; } .flow-rooms .sidebar-actions { margin-top: 12px; align-items: center; } .sidebar-actions > select { margin: 0; } .flow-rooms > .inline-info { display: none; } .flow-main h2, .control-plan-main h2 { font-size: 22px; } .flow-context, .control-editor { padding: 18px 0 0; } .flow-context .form-grid { grid-template-columns: 1fr; } .flow-context .scene-actions { display: block; } .scene-actions .scene-action { margin: 10px 0; } .scene-ideas { gap: 8px; } .scene-idea { gap: 8px; padding: 12px 10px; min-height: 112px; } .scene-idea > .scene-symbol { display: none; } .scene-idea strong { font-size: 12px; } .scene-idea small { font-size: 10px; } .function-overview { margin-top: 20px; } .flow-main > .plan-board .plan-canvas, .control-plan-main > .plan-board .plan-canvas { height: 370px; } .flow-context .field, .control-editor .field { font-size: 12px; } .simulation-states { grid-template-columns: 1fr; } .simulation-toolbar { align-items: flex-start; flex-wrap: wrap; } .control-room > .quiet { display: inline-flex; } .control-room.empty { display: block; } .point-nav { width: 100%; } .point-nav span { font-size: 12px; } .point-nav small { font-size: 10px; } .control-points { max-height: 260px; } .control-editor .key-list button { min-height: 42px; } .control-editor .key-list { max-height: 210px; } .sensor-key-map button { min-height: 40px; } .modal:has(.brief-layout) { width: calc(100vw - 16px); padding: 16px; } .modal .brief-aside { padding-left: 0; } .scene-editor .checks-grid { grid-template-columns: 1fr; } .plan-board.expanded .plan-canvas { height: auto; } }

@@ -1,3 +1,4 @@
+import { reviewItems } from './behavior';
 export type Category = "Oświetlenie" | "Osłony" | "Klimat" | "Pozostałe";
 export type Priority = "Konieczne" | "Opcjonalne";
 export interface Circuit {
@@ -15,6 +16,7 @@ export interface Room {
   area: number | null;
   notes: string;
   circuits: Circuit[];
+  planArea?: Placement & { width: number; height: number };
 }
 export interface Binding {
   id: string;
@@ -63,6 +65,7 @@ export interface Scene {
   exception: boolean;
   notes: string;
   actions: Binding[];
+  roomId?: string;
 }
 export interface Integration {
   id: string;
@@ -347,6 +350,7 @@ export function duplicateRoom(p: Project, roomId: string): Project {
   const room = structuredClone(old);
   room.id = uid();
   room.name += " (kopia)";
+  delete room.planArea;
   room.circuits.forEach((c) => {
     const id = uid();
     ids.set(c.id, id);
@@ -411,32 +415,7 @@ export function summary(p: Project) {
   };
 }
 export function issues(p: Project): string[] {
-  const result: string[] = [];
-  if (!p.date) result.push("Termin uruchomienia");
-  if (p.budget === "Do ustalenia") result.push("Budżet automatyki");
-  p.rooms.forEach((r) => {
-    if (r.area === null) result.push(`${r.name}: powierzchnia`);
-    if (!r.circuits.length) result.push(`${r.name}: zakres funkcji`);
-    r.circuits
-      .filter((c) => !c.spec.trim() || c.control === "Do ustalenia")
-      .forEach((c) => result.push(`${r.name}: ${c.name} - parametry / model`));
-  });
-  p.points.forEach((pt) => {
-    if (pt.height === null || pt.bindings.some((b) => !b.target || (b.hold && !b.hold.target)))
-      result.push(`${pt.name}: wysokość / przypisania klawiszy`);
-  });
-  p.scenes.forEach((s) => {
-    if (
-      !s.actions.length ||
-      s.actions.some((b) => !b.target) ||
-      !s.triggers.length
-    )
-      result.push(`${s.name}: działanie / wyzwalanie`);
-  });
-  p.integrations
-    .filter((i) => i.enabled && !i.model)
-    .forEach((i) => result.push(`${i.name}: model i zakres integracji`));
-  return [...new Set(result)];
+  return [...new Set(reviewItems(p).map(item => item.label))];
 }
 export const attachmentUrl = (project: string, id: string) =>
   `index.php?api=file&project=${encodeURIComponent(project)}&id=${encodeURIComponent(id)}`;
@@ -469,6 +448,7 @@ export function addControlPoint(p: Project, roomId: string, source?: Point): Poi
 
 export function detachDocument(p: Project, id: string) {
   p.attachments = p.attachments.filter(a => a.id !== id);
+  p.rooms.forEach(r => { if (r.planArea?.documentId === id) delete r.planArea; });
   p.points.forEach(pt => {
     if (pt.placement?.documentId === id) delete pt.placement;
     if (pt.photoId === id) delete pt.photoId;

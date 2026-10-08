@@ -5,6 +5,7 @@ import type { Project } from "./model";
 
 export async function appendPlans(brief: Blob, project: Project): Promise<Blob> {
   const documents = new Set(project.points.flatMap(p => p.placement ? [p.placement.documentId] : []));
+  project.rooms.forEach(room => { if (room.planArea) documents.add(room.planArea.documentId); });
   if (project.planView) documents.add(project.planView.documentId);
   if (!documents.size) return brief;
   const result = await PDFDocument.load(await brief.arrayBuffer());

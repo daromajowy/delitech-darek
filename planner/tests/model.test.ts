@@ -119,7 +119,7 @@ test('removed targets also clear and report long-press references', () => {
   p.points[0].bindings[0].hold = {target: p.rooms[0].circuits[4].id, action: 'Zamknij'};
   const next = removeTargets(p, [p.rooms[0].circuits[4].id]);
   assert.equal(next.points[0].bindings[0].hold!.target, '');
-  assert.ok(issues(next).includes(`${next.points[0].name}: wysokość / przypisania klawiszy`));
+  assert.ok(issues(next).some(issue => issue.startsWith(`${next.points[0].code}, przytrzymanie 1:`)));
 });
 
 test('drop coordinates remain normalized at different zoom and pan levels', () => {

@@ -25,6 +25,8 @@ final class ProjectPayload
     {
         Validator::make($p, [
             'rooms.*' => ['array'], 'rooms.*.circuits.*' => ['array'],
+            'rooms.*.planArea' => ['sometimes', 'array'],
+            'scenes.*.roomId' => ['sometimes', 'string'],
             'points.*' => ['array'], 'points.*.bindings.*' => ['array'],
             'points.*.bindings.*.hold' => ['sometimes', 'array'],
             'points.*.placement' => ['sometimes', 'array'],
@@ -145,6 +147,21 @@ final class ProjectPayload
         if (isset($p['planView'])) {
             $position($p['planView'], true);
         }
+        foreach ($p['rooms'] as $room) {
+            if (isset($room['planArea'])) {
+                $area = $room['planArea'];
+                $position($area);
+                foreach (['width', 'height'] as $field) {
+                    $n = $area[$field] ?? null;
+                    if ((! is_int($n) && ! is_float($n)) || ! is_finite((float) $n) || $n < 0.01 || $n > 1) {
+                        self::fail('Nieprawidłowy obszar pomieszczenia.');
+                    }
+                }
+                if ($area['x'] + $area['width'] > 1.000001 || $area['y'] + $area['height'] > 1.000001) {
+                    self::fail('Obszar pomieszczenia poza rzutem.');
+                }
+            }
+        }
         if (isset($p['nextPointNumber']) && (! is_int($p['nextPointNumber']) || $p['nextPointNumber'] < 1 || $p['nextPointNumber'] > 1000000)) {
             self::fail('Nieprawidłowa numeracja punktów.');
         }
@@ -176,6 +193,9 @@ final class ProjectPayload
             }
         }
         foreach ($p['scenes'] as $s) {
+            if (isset($s['roomId']) && ! isset($roomIds[$s['roomId']])) {
+                self::fail('Scena wskazuje nieistniejące pomieszczenie.');
+            }
             $text($s, ['name', 'icon', 'area', 'priority', 'notes']);
             $bindings($s['actions'] ?? null);
             if (! isset($s['triggers']) || ! is_array($s['triggers']) || count($s['triggers']) > 20 || ! is_bool($s['exception'] ?? null)) {
