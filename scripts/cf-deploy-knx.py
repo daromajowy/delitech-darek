@@ -78,6 +78,36 @@ def health():
     raise ValueError('Anonymous KNX API access was not rejected')
 
 
+def refresh_installatron(app, backup):
+    """Keep CF backups aware of the custom MariaDB port and newly migrated tables."""
+    record = Path('/home/horcwnciix/.appdata/current/cqlj0quj6q04s808cg4w4k4g8')
+    if not record.exists():
+        raise ValueError('KNX Installatron registration is missing')
+    entries = dict(line.split('=', 1) for line in record.read_text().splitlines() if '=' in line)
+    if entries.get('path') != str(app) or entries.get('installer') != 'laravel':
+        raise ValueError('Unexpected Installatron registration')
+    php = r"""require 'vendor/autoload.php'; $app=require 'bootstrap/app.php';
+$app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap();
+$c=config('database.connections.mysql'); $rows=Illuminate\Support\Facades\DB::select('SHOW TABLES');
+echo json_encode(['config'=>$c,'tables'=>array_map(fn($r)=>array_values((array)$r)[0],$rows)]);"""
+    database = json.loads(common.command([PHP, '-r', php], cwd=app))
+    config = database['config']
+    if config['database'] != 'horcwnciix_knx' or str(config['port']) != '3308':
+        raise ValueError('Unexpected KNX database for backup registration')
+    if not {'users', 'projects', 'documents', 'inquiries'} <= set(database['tables']):
+        raise ValueError('Incomplete KNX database schema')
+    shutil.copy2(record, backup / 'installatron-before.txt')
+    entries.update({'title': 'InteliSpaces - Konfigurator KNX', 'db-host': '127.0.0.1:3308',
+                    'db-name': config['database'], 'db-user': config['username'], 'db-pass': config['password'],
+                    'list-tables': ','.join(database['tables']), 'autoup': '0', 'autoup-plugins': '0', 'autoup-themes': '0'})
+    if any('\n' in value or '\r' in value for value in entries.values()):
+        raise ValueError('Invalid Installatron record value')
+    temporary = record.with_suffix('.new')
+    temporary.write_text(''.join(key + '=' + value + '\n' for key, value in entries.items()))
+    temporary.chmod(0o600)
+    temporary.replace(record)
+
+
 def apply_release(work, archive, commit):
     if common.command(['id', '-un']) != 'horcwnciix' or common.command(['hostname']) != 's78.cyber-folks.pl':
         raise ValueError('Wrong host or account for KNX')
@@ -100,7 +130,7 @@ def apply_release(work, archive, commit):
         for source in (candidate / folder).rglob('*.php'):
             common.command([PHP, '-l', str(source)])
     with (candidate / 'public/.htaccess').open('a') as output:
-        output.write('\nRequire all granted\n')
+        output.write('\nRequire all granted\nDirectoryIndex index.php\nAddHandler application/x-httpd-php84 php\n')
     (candidate / 'public/.user.ini').write_text('upload_max_filesize=12M\npost_max_size=24M\ndisplay_errors=Off\n')
     backup = work / 'knx-backups' / (stamp + '-' + commit[:12])
     backup.mkdir(parents=True, mode=0o700)
@@ -127,6 +157,7 @@ def apply_release(work, archive, commit):
         common.command([PHP, str(app / 'artisan'), 'view:cache'])
         common.command([PHP, str(app / 'artisan'), 'up'])
         health()
+        refresh_installatron(app, backup)
         marker = {'schema': 2, 'kind': 'knx', 'commit': commit, 'deployed_at': datetime.now(timezone.utc).isoformat()}
         (app / 'public/release.json').write_text(json.dumps(marker))
         (work / 'deployed-knx.json').write_text(json.dumps(marker, indent=2))
