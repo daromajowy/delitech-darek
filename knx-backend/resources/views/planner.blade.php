@@ -10,6 +10,7 @@
     <meta name="knx-website" content="{{ config('app.website_url') }}">
     <base href="{{ asset('planner') }}/">
     <title>Projektant KNX | InteliSpaces</title>
+    <link rel="icon" type="image/svg+xml" href="{{ asset('planner/brand/favicon.svg') }}">
     @php($entry = json_decode(file_get_contents(public_path('planner/.vite/manifest.json')), true)['index.html'])
     @foreach($entry['css'] ?? [] as $css)<link rel="stylesheet" href="{{ asset('planner/'.$css) }}">@endforeach
     <script type="module" src="{{ asset('planner/'.$entry['file']) }}"></script>

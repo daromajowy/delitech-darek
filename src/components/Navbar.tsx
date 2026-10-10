@@ -77,7 +77,7 @@ export const Navbar: React.FC<NavbarProps> = ({
       </div>
 
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-        <button onClick={() => handleNavClick('home')} className="group shrink-0 flex items-center text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0E4637] rounded-md p-1 -m-1" aria-label={"Delitech Smart Spaces - Strona główna"}>
+        <button onClick={() => handleNavClick('home')} className="group shrink-0 flex items-center text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0E4637] rounded-md p-1 -m-1" aria-label={"InteliSpaces - strona główna"}>
           <Logo variant="light" size="md" />
         </button>
 

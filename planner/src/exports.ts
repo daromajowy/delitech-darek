@@ -70,12 +70,10 @@ export async function buildPdf(p: Project): Promise<Blob> {
     author: "InteliSpaces",
     creator: "Projektant KNX",
   });
+  const logo = `data:image/png;base64,${await base64("brand/intelispaces-logo.png")}`;
   let y = 20;
   const header = () => {
-    doc.setTextColor("#0e4637");
-    doc.setFont("Noto", "bold");
-    doc.setFontSize(13);
-    doc.text("INTELISPACES", 18, 16);
+    doc.addImage(logo, "PNG", 18, 9, 50, (50 * 365) / 2400, "intelispaces-logo", "FAST");
     doc.setFont("Noto", "normal");
     doc.setFontSize(7);
     doc.setTextColor("#71818a");

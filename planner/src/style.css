@@ -197,24 +197,14 @@ input[type="month"] {
 }
 .brand {
   font-size: 21px;
-  color: #24443a;
-  font-weight: 800;
   display: inline-flex;
   align-items: center;
-  white-space: nowrap;
-  gap: 0;
 }
-.brand span {
-  font-weight: 450;
-}
-.brand i {
-  height: 7px;
-  width: 7px;
-  background: #9fbf36;
-  margin-left: 4px;
-  align-self: flex-start;
-  margin-top: 7px;
-  border-radius: 1px;
+.brand img {
+  display: block;
+  width: 10em;
+  height: auto;
+  max-width: 100%;
 }
 .app-name {
   padding-left: 20px;
@@ -997,9 +987,6 @@ td small {
 }
 .paper .brand {
   font-size: 17px;
-}
-.paper .brand i {
-  margin-top: 4px;
 }
 .paper-title {
   margin: 20px 0 18px;
