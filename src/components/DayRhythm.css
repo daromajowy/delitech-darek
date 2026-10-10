@@ -1,0 +1,120 @@
+.day-rhythm {
+  --day-rhythm-header: 90px;
+  position: relative;
+  height: calc(400svh + 400px);
+  scroll-margin-top: var(--day-rhythm-header);
+  background: #071e17;
+  color: #f7f8f5;
+}
+
+.day-rhythm__stage {
+  position: sticky;
+  top: var(--day-rhythm-header);
+  height: calc(100svh - var(--day-rhythm-header));
+  min-height: 690px;
+  max-height: 1080px;
+  padding: clamp(28px, 3vw, 42px) clamp(28px, 5.2vw, 100px) 20px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.day-rhythm__images, .day-rhythm__shade { position: absolute; inset: 0; z-index: -2; pointer-events: none; }
+.day-rhythm__images { bottom: auto; height: 92%; }
+.day-rhythm__image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 50%;
+  opacity: 0;
+  transform: scale(1.025);
+  filter: brightness(.91);
+  transition: opacity 1.25s ease, transform 8s ease-out;
+}
+.day-rhythm__image.is-active { opacity: 1; transform: scale(1); }
+.day-rhythm__shade { z-index: -1; background-position: center; background-size: 100% 100%; background-repeat: no-repeat; }
+.day-rhythm__intro { flex: 1; padding-bottom: 24px; text-shadow: 0 2px 24px #061d16b0; }
+.day-rhythm__eyebrow { display: flex; align-items: center; gap: 13px; font-size: 9px; font-weight: 650; letter-spacing: .26em; line-height: 1.7; }
+.day-rhythm__eyebrow > span { width: 27px; height: 3px; background: #e6f15a; flex-shrink: 0; }
+.day-rhythm__intro h2 { font-size: clamp(54px, min(7.7vw, 12svh), 110px); font-weight: 800; line-height: .99; letter-spacing: -.045em; margin-top: 25px; }
+.day-rhythm__description { font-size: clamp(18px, 2vw, 25px); line-height: 1.35; letter-spacing: -.02em; max-width: 520px; margin-top: 22px; text-shadow: 0 1px 3px #031d16, 0 2px 18px #031d16; }
+.day-rhythm__next { margin-top: 24px; min-height: 44px; padding: 6px 0; display: inline-flex; gap: 14px; align-items: center; font-size: 11px; text-align: left; cursor: pointer; }
+.day-rhythm__next svg { transition: transform .25s; }
+.day-rhythm__next:hover svg { transform: translateY(5px); }
+.day-rhythm__summary { flex-shrink: 0; display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: 24px; text-shadow: 0 1px 3px #031d16, 0 2px 18px #031d16; }
+.day-rhythm__time { font-family: 'Manrope', system-ui, sans-serif; font-size: clamp(48px, 5.8vw, 78px); font-weight: 300; line-height: 1.05; letter-spacing: -.06em; font-variant-numeric: tabular-nums; }
+.day-rhythm__copy { animation: day-rhythm-copy-in .6s ease both; }
+.day-rhythm__summary h3 { font-size: clamp(24px, 2.5vw, 34px); font-weight: 650; line-height: 1.2; letter-spacing: -.035em; margin-top: 6px; }
+.day-rhythm__scene-description { font-size: clamp(13px, 1.4vw, 17px); line-height: 1.55; margin-top: 8px; max-width: 650px; }
+.day-rhythm__status { display: flex; gap: 12px; align-items: flex-end; flex-direction: column; padding-bottom: 3px; font-size: 11px; }
+.day-rhythm__status span { display: flex; align-items: center; gap: 7px; }
+.day-rhythm__status svg { color: #e6f15a; }
+.day-rhythm__bottom { flex-shrink: 0; text-align: center; }
+.day-rhythm__timeline { display: flex; justify-content: space-between; position: relative; width: 100%; margin-bottom: 18px; }
+.day-rhythm__timeline::before { content: ''; position: absolute; left: 40px; right: 40px; top: 15px; height: 1px; background: #dae4dd88; }
+.day-rhythm__stop { width: 80px; position: relative; display: flex; align-items: center; flex-direction: column; gap: 4px; font-size: 13px; padding: 10px 0 0; min-height: 78px; text-shadow: 0 1px 10px #0009; font-variant-numeric: tabular-nums; cursor: pointer; }
+.day-rhythm__dot { width: 11px; height: 11px; background: currentColor; border-radius: 50%; margin-bottom: 10px; flex-shrink: 0; transition: transform .25s; }
+.day-rhythm__stop.is-selected { color: #e6f15a; font-weight: 650; }
+.day-rhythm__stop.is-selected .day-rhythm__dot { transform: scale(1.3); box-shadow: 0 0 10px #dff27b88; }
+.day-rhythm__stop:hover .day-rhythm__dot { transform: scale(1.5); }
+.day-rhythm__plan { display: inline-flex; align-items: center; justify-content: center; gap: 16px; min-height: 50px; min-width: 268px; padding: 14px 25px; border-radius: 5px; font-size: 13px; font-weight: 650; line-height: 1.4; background: #e6f15a; color: #111e14; transition: background .2s; }
+.day-rhythm__plan:hover { background: #f0fb85; }
+.day-rhythm__note { margin-top: 10px; font-size: 9px; line-height: 1.5; color: #cfe3c4; }
+.day-rhythm :is(button, a):focus-visible { outline: 2px solid #e6f15a; outline-offset: 5px; border-radius: 4px; }
+.day-rhythm__plan:focus-visible { outline-color: white; }
+
+@keyframes day-rhythm-copy-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+@media (min-width: 1500px) { .day-rhythm__image { object-position: center 57%; } }
+@media (max-width: 1150px) { .day-rhythm__status { display: none; } }
+@media (max-height: 880px) {
+  .day-rhythm__intro h2 { font-size: clamp(52px, 9svh, 78px); margin-top: 18px; }
+  .day-rhythm__description { font-size: 18px; margin-top: 18px; }
+  .day-rhythm__next { margin-top: 16px; }
+  .day-rhythm__time { font-size: 60px; }
+  .day-rhythm__summary h3 { font-size: 28px; }
+  .day-rhythm__scene-description { font-size: 14px; }
+}
+@media (max-width: 780px) {
+  .day-rhythm { height: calc(340svh + 300px); }
+  .day-rhythm__stage { min-height: 660px; max-height: none; padding: 30px 24px 20px; }
+  .day-rhythm__image { object-position: 52% center; filter: brightness(.84); }
+  .day-rhythm__intro { padding-bottom: 20px; }
+  .day-rhythm__intro h2 { font-size: clamp(54px, 10vw, 76px); line-height: 1.02; margin-top: 24px; }
+  .day-rhythm__eyebrow { font-size: 8px; letter-spacing: .22em; }
+  .day-rhythm__description { font-size: 17px; max-width: 330px; line-height: 1.45; margin-top: 20px; }
+  .day-rhythm__break { display: none; }
+  .day-rhythm__next { margin-top: 18px; font-size: 10px; }
+  .day-rhythm__summary { margin-bottom: 20px; }
+  .day-rhythm__time { font-size: 53px; }
+  .day-rhythm__summary h3 { font-size: 24px; }
+  .day-rhythm__scene-description { font-size: 12px; line-height: 1.5; max-width: 360px; }
+  .day-rhythm__timeline { margin-bottom: 15px; }
+  .day-rhythm__timeline::before { left: 9%; right: 9%; }
+  .day-rhythm__stop { width: 18%; font-size: 11px; min-height: 68px; }
+  .day-rhythm__label { font-size: 10px; }
+  .day-rhythm__dot { margin-bottom: 8px; }
+  .day-rhythm__plan { min-height: 46px; font-size: 11px; min-width: 255px; padding: 12px 16px; gap: 10px; }
+}
+@media (max-width: 390px) {
+  .day-rhythm__stage { padding-left: 20px; padding-right: 20px; }
+  .day-rhythm__intro h2 { font-size: 53px; }
+  .day-rhythm__description { font-size: 16px; }
+  .day-rhythm__summary h3 { font-size: 21px; }
+  .day-rhythm__scene-description { font-size: 11px; }
+  .day-rhythm__plan { min-width: 0; width: 100%; }
+}
+/* On short displays the scene stays in document flow instead of trapping controls below the fold. */
+@media (max-height: 780px) {
+  .day-rhythm { height: auto; }
+  .day-rhythm__stage { position: relative; top: 0; height: auto; min-height: 780px; max-height: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .day-rhythm { height: auto; }
+  .day-rhythm__stage { position: relative; top: 0; height: auto; min-height: 780px; max-height: none; }
+  .day-rhythm *, .day-rhythm *::before { animation: none !important; transition: none !important; }
+  .day-rhythm__image { transform: none; }
+}
