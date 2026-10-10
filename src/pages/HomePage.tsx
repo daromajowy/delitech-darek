@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { PageId } from '../types.ts';
 import { ContactForm } from '../components/ContactForm.tsx';
 import { HeroVideo } from '../components/HeroVideo.tsx';
+import { DayRhythm } from '../components/DayRhythm.tsx';
 import { IMAGES } from '../assets.ts';
 import {
   ArrowRight,
@@ -454,6 +455,8 @@ export const HomePage: React.FC<HomePageProps> = ({
           </div>
         </div>
       </section>
+
+      <DayRhythm />
 
       {/* 7. SEKCJA PROCESU */}
       <section className="py-16 sm:py-24 bg-[#17211C] text-white border-b border-white/10 relative overflow-hidden">
