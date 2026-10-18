@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { PageId } from '../types.ts';
-import { ContactForm } from '../components/ContactForm.tsx';
 import {
   Monitor,
   Users,
@@ -18,14 +17,12 @@ import {
 interface OfficesPageProps {
   onNavigate: (page: PageId, subHash?: string) => void;
   onOpenConsultation: () => void;
-  onOpenPrivacy: () => void;
   initialHash?: string;
 }
 
 export const OfficesPage: React.FC<OfficesPageProps> = ({
   onNavigate,
   onOpenConsultation,
-  onOpenPrivacy,
   initialHash,
 }) => {
   const [selectedZone, setSelectedZone] = useState<string>(initialHash || 'open-space');
@@ -106,7 +103,7 @@ export const OfficesPage: React.FC<OfficesPageProps> = ({
       title: "Audyt projektu i wycena",
       subtitle: "Weryfikacja rzutów fit-out pod kątem instalacji niskoprądowych i KNX",
       icon: FileSearch,
-      desc: "Przesyłasz nam rzuty aranżacji wnętrz i branży elektrycznej. Wskazujemy miejsca kolizji, sugerujemy uproszczenie tras kablowych i przygotowujemy rzetelny kosztorys urządzeń oraz wdrożenia.",
+      desc: "Omawiamy założenia aranżacji wnętrz i instalacji elektrycznej. Wskazujemy miejsca kolizji, sugerujemy uproszczenie tras kablowych i przygotowujemy rzetelny kosztorys urządzeń oraz wdrożenia.",
       bullets: [
         "Weryfikacja poprawności doboru bramek DALI i zasilaczy magistrali",
         "Wytyczne dla podwykonawcy elektrycznego przed rozpoczęciem prac na budowie",
@@ -137,12 +134,9 @@ export const OfficesPage: React.FC<OfficesPageProps> = ({
                 <ArrowRight className="w-4 h-4" />
               </button>
               <button
-                onClick={() => {
-                  const el = document.getElementById('biuro-kontakt');
-                  el?.scrollIntoView({ behavior: 'smooth' });
-                }}
+                onClick={() => onNavigate('contact')}
                 className="px-6 py-3 bg-white/10 hover:bg-white/15 text-white font-medium text-xs uppercase tracking-wider rounded-lg transition-colors border border-white/15"
-              >{"Prześlij rzuty do audytu"}</button>
+              >{"Kontakt i wycena"}</button>
             </div>
           </div>
         </div>
@@ -268,24 +262,6 @@ export const OfficesPage: React.FC<OfficesPageProps> = ({
         </div>
       </section>
 
-      {/* Office Lead Capture Form */}
-      <section id="biuro-kontakt" className="py-16 sm:py-24 bg-[#F7F8F5]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mx-auto mb-10 text-center">
-            <span className="text-xs font-mono uppercase tracking-widest text-[#0E4637] font-semibold block mb-2">{"Audyt i Wycena"}</span>
-            <h2 className="text-3xl font-bold font-display text-[#17211C]">{"Prześlij rzuty biura do wstępnej analizy"}</h2>
-            <p className="text-sm text-[#17211C]/75 mt-2">{"Otrzymasz wstępną koncepcję magistrali KNX, podział na strefy DALI oraz szacunek kosztów wdrożenia."}</p>
-          </div>
-
-          <div className="max-w-4xl mx-auto">
-            <ContactForm
-              onOpenPrivacy={onOpenPrivacy}
-              defaultType="biuro"
-              sourceContext="Podstrona: Automatyka dla biur"
-            />
-          </div>
-        </div>
-      </section>
     </div>
   );
 };

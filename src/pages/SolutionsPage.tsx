@@ -224,7 +224,7 @@ export const SolutionsPage: React.FC<SolutionsPageProps> = ({
                         <button
                           onClick={() => onNavigate('contact')}
                           className="text-xs font-semibold text-[#0E4637] hover:underline"
-                        >{"Prześlij specyfikację"}</button>
+                        >{"Kontakt z zespołem"}</button>
                       </div>
                     </div>
 

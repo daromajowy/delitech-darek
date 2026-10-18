@@ -189,7 +189,7 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({
                       <button
                         onClick={() => onNavigate('contact')}
                         className="text-xs font-semibold text-[#0E4637] hover:underline text-center"
-                      >{"Prześlij rzuty do wyceny"}</button>
+                      >{"Kontakt i wycena"}</button>
                     </div>
                   </div>
                 </div>

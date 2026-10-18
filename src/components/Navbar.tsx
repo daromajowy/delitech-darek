@@ -117,7 +117,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             </div>)}
             <div className="pt-4 mt-3 border-t border-[#17211C]/10 flex flex-col gap-2">
               <button onClick={() => { setMobileMenuOpen(false); onOpenConsultation(); }} className="w-full py-3 bg-[#0E4637] text-[#E6F15A] font-semibold text-xs uppercase tracking-wider rounded-lg text-center flex items-center justify-center gap-2"><PhoneCall className="w-4 h-4" /><span>{"Omów projekt"}</span></button>
-              <button onClick={() => handleNavClick('contact')} className="w-full py-2.5 border border-[#0E4637]/20 text-[#0E4637] font-medium text-xs uppercase tracking-wider rounded-lg text-center">{"Prześlij rzuty do wyceny"}</button>
+              <button onClick={() => handleNavClick('contact')} className="w-full py-2.5 border border-[#0E4637]/20 text-[#0E4637] font-medium text-xs uppercase tracking-wider rounded-lg text-center">{"Kontakt i wycena"}</button>
             </div>
           </div>
         </div>

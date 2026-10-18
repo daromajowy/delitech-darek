@@ -87,8 +87,8 @@ export const PrivacyModal: React.FC<PrivacyModalProps> = ({
                 <li>{"realizacji umów wdrożeniowych, programistycznych i serwisowych."}</li>
               </ul>
 
-              <h3 className="font-bold text-[#17211C] text-base pt-2">{"3. Poufność Rzutów Architektonicznych"}</h3>
-              <p className="text-xs bg-[#F7F8F5] p-3 rounded-lg border border-[#17211C]/10">{"Wszelkie materiały projektowe (pliki DWG, PDF, modele BIM, specyfikacje techniczne) przesłane przez formularz podlegają ścisłej tajemnicy zawodowej i nie są udostępniane podmiotom trzecim bez wyraźnej pisemnej zgody inwestora lub architekta."}</p>
+              <h3 className="font-bold text-[#17211C] text-base pt-2">{"3. Formularz i dokumentacja projektowa"}</h3>
+              <p className="text-xs bg-[#F7F8F5] p-3 rounded-lg border border-[#17211C]/10">{"Formularz konsultacji na stronie służy do przekazania danych kontaktowych i opisu sprawy. Nie umożliwia dodawania załączników. Dokumentację potrzebną do współpracy omawiamy indywidualnie; dodawanie rzutu PDF pozostaje dostępne w konfiguratorze KNX."}</p>
             </div>
           )}
 

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { PageId } from '../types.ts';
-import { ContactForm } from '../components/ContactForm.tsx';
 import { HeroVideo } from '../components/HeroVideo.tsx';
 import { DayRhythm } from '../components/DayRhythm.tsx';
 import { IMAGES } from '../assets.ts';
@@ -24,13 +23,11 @@ import {
 interface HomePageProps {
   onNavigate: (page: PageId, subHash?: string) => void;
   onOpenConsultation: () => void;
-  onOpenPrivacy: () => void;
 }
 
 export const HomePage: React.FC<HomePageProps> = ({
   onNavigate,
   onOpenConsultation,
-  onOpenPrivacy,
 }) => {
   const [activeHeroNode, setActiveHeroNode] = useState<string>('light');
 
@@ -626,40 +623,6 @@ export const HomePage: React.FC<HomePageProps> = ({
         </div>
       </section>
 
-      {/* 9. SEKCJA KONTAKTOWA: PRZEŚLIJ RZUTY */}
-      <section id="kontakt-rzuty" className="py-16 sm:py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-            {/* Left Header Column */}
-            <div className="lg:col-span-5 space-y-6">
-              <span className="text-xs font-mono uppercase tracking-widest text-[#0E4637] font-semibold block">{"Pierwszy krok do realizacji"}</span>
-
-              <h2 className="text-3xl sm:text-4xl font-bold font-display text-[#17211C] tracking-tight">{"Prześlij rzuty. Wrócimy z konkretnymi pytaniami."}</h2>
-
-              <p className="text-sm sm:text-base text-[#17211C]/80 leading-relaxed">{"Niezależnie od tego, czy masz wstępny rzut koncepcyjny z pracowni architektonicznej, czy gotowy projekt branżowy — przeanalizujemy go pod kątem magistrali KNX, tras kablowych, oświetlenia DALI i sterowania strefowego."}</p>
-
-              <div className="p-5 bg-[#F7F8F5] rounded-xl border border-[#17211C]/10 space-y-3">
-                <div className="flex items-center gap-2 text-xs font-semibold text-[#0E4637]">
-                  <span className="w-2 h-2 rounded-full bg-[#0E4637]" />
-                  <span>{"Warszawa i okolice · realizacje w całej Polsce."}</span>
-                </div>
-                <p className="text-xs text-[#17211C]/70">{"Spotykamy się osobiście na terenie Warszawy (Wola, Mokotów, Śródmieście, Wilanów, Konstancin) lub prowadzimy koordynację online w dowolnym miejscu kraju."}</p>
-              </div>
-
-              <div className="space-y-2 pt-2 text-xs text-[#17211C]/80 font-mono">
-                <p>{"Bezpośredni kontakt do inżyniera:"}</p>
-                <p className="font-semibold text-sm text-[#0E4637] font-sans">{"tel. +48 505 260 715 · kontakt@delitech.pl"}</p>
-                <p className="text-[11px] text-[#17211C]/60">{"Biuro: ul. Konwaliowa 7 lok. 103, 03-194 Warszawa"}</p>
-              </div>
-            </div>
-
-            {/* Right Form Column */}
-            <div className="lg:col-span-7">
-              <ContactForm onOpenPrivacy={onOpenPrivacy} defaultType="biuro" />
-            </div>
-          </div>
-        </div>
-      </section>
     </div>
   );
 };

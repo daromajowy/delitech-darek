@@ -184,7 +184,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenPrivacy }) => 
                   onClick={() => onNavigate('contact')}
                   className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#0E4637] hover:bg-[#0E4637]/80 text-[#E6F15A] font-semibold text-[11px] uppercase tracking-wider rounded transition-colors"
                 >
-                  <span>{"Prześlij rzuty"}</span>
+                  <span>{"Skontaktuj się z nami"}</span>
                   <ArrowUpRight className="w-3.5 h-3.5" />
                 </button>
               </div>

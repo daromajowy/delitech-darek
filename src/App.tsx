@@ -128,7 +128,6 @@ export default function App() {
           <HomePage
             onNavigate={handleNavigate}
             onOpenConsultation={() => handleOpenConsultation()}
-            onOpenPrivacy={() => handleOpenPrivacy('privacy')}
           />
         )}
 
@@ -136,7 +135,6 @@ export default function App() {
           <OfficesPage
             onNavigate={handleNavigate}
             onOpenConsultation={() => handleOpenConsultation('Konsultacja projektu biura / fit-out')}
-            onOpenPrivacy={() => handleOpenPrivacy('privacy')}
             initialHash={currentHash}
           />
         )}
@@ -145,7 +143,6 @@ export default function App() {
           <HomesPage
             onNavigate={handleNavigate}
             onOpenConsultation={() => handleOpenConsultation('Konsultacja rezydencji / apartamentu')}
-            onOpenPrivacy={() => handleOpenPrivacy('privacy')}
             initialHash={currentHash}
           />
         )}
@@ -162,7 +159,6 @@ export default function App() {
           <ArchitectsPage
             onNavigate={handleNavigate}
             onOpenConsultation={() => handleOpenConsultation('Konsultacja projektu z pracownią architektoniczną')}
-            onOpenPrivacy={() => handleOpenPrivacy('privacy')}
           />
         )}
 
@@ -203,7 +199,6 @@ export default function App() {
 
         {currentPage === 'contact' && (
           <ContactPage
-            onOpenPrivacy={handleOpenPrivacy}
             onOpenConsultation={() => handleOpenConsultation()}
           />
         )}

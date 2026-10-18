@@ -1,7 +1,6 @@
 import { plannerUrl } from '../site';
 import React from 'react';
 import { PageId } from '../types.ts';
-import { ContactForm } from '../components/ContactForm.tsx';
 import { IMAGES } from '../assets.ts';
 import {
   Compass,
@@ -18,13 +17,11 @@ import {
 interface ArchitectsPageProps {
   onNavigate: (page: PageId, subHash?: string) => void;
   onOpenConsultation: () => void;
-  onOpenPrivacy: () => void;
 }
 
 export const ArchitectsPage: React.FC<ArchitectsPageProps> = ({
   onNavigate,
   onOpenConsultation,
-  onOpenPrivacy,
 }) => {
   return (
     <div className="space-y-0">
@@ -49,12 +46,9 @@ export const ArchitectsPage: React.FC<ArchitectsPageProps> = ({
                 <ArrowRight className="w-4 h-4" />
               </button>
               <button
-                onClick={() => {
-                  const el = document.getElementById('arch-kontakt');
-                  el?.scrollIntoView({ behavior: 'smooth' });
-                }}
+                onClick={() => onNavigate('contact')}
                 className="px-6 py-3 bg-white/10 hover:bg-white/15 text-white font-medium text-xs uppercase tracking-wider rounded-lg transition-colors border border-white/15"
-              >{"Prześlij rzuty koncepcyjne"}</button>
+              >{"Kontakt z zespołem"}</button>
             </div>
           </div>
         </div>
@@ -185,22 +179,6 @@ export const ArchitectsPage: React.FC<ArchitectsPageProps> = ({
         </div>
       </section>
 
-      {/* Architect Contact Form Anchor */}
-      <section id="arch-kontakt" className="py-16 sm:py-24 bg-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-10">
-            <span className="text-xs font-mono uppercase tracking-widest text-[#0E4637] font-semibold block mb-2">{"Konsultacja Projektu"}</span>
-            <h2 className="text-3xl font-bold font-display text-[#17211C]">{"Prześlij rzuty koncepcyjne do konsultacji"}</h2>
-            <p className="text-sm text-[#17211C]/70 mt-2">{"Przeanalizujemy rzuty, wskażemy optymalne lokalizacje czujników i manipulatorów, przygotujemy wykaz urządzeń."}</p>
-          </div>
-
-          <ContactForm
-            onOpenPrivacy={onOpenPrivacy}
-            defaultType="biuro"
-            sourceContext="Strefa Architekta i Projektanta"
-          />
-        </div>
-      </section>
     </div>
   );
 };

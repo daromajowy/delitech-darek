@@ -1,24 +1,16 @@
 import React, { useState } from 'react';
-import { PageId } from '../types.ts';
-import { ContactForm } from '../components/ContactForm.tsx';
-import { MapPin, Phone, Mail, Clock, ShieldCheck, Calculator, Check, ArrowRight } from 'lucide-react';
+import { MapPin, Phone, Mail, Clock, Calculator, ArrowRight } from 'lucide-react';
 
 interface ContactPageProps {
-  onOpenPrivacy: (tab?: 'privacy' | 'cookies' | 'rodo') => void;
   onOpenConsultation: () => void;
 }
 
 export const ContactPage: React.FC<ContactPageProps> = ({
-  onOpenPrivacy,
   onOpenConsultation,
 }) => {
   // Quick Preliminary Scope Estimator for Architects and Investors
   const [calcSpace, setCalcSpace] = useState<'biuro' | 'dom' | 'apartament'>('biuro');
   const [calcArea, setCalcArea] = useState<number>(350);
-  const [calcDali, setCalcDali] = useState(true);
-  const [calcHvac, setCalcHvac] = useState(true);
-  const [calcShading, setCalcShading] = useState(true);
-  const [calcEnergy, setCalcEnergy] = useState(true);
 
   // Approximate module count calculation based on technical standards
   const estimatedZones = Math.max(2, Math.round(calcArea / 35));
@@ -31,19 +23,19 @@ export const ContactPage: React.FC<ContactPageProps> = ({
       <section className="bg-[#17211C] text-white py-16 lg:py-20 border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl space-y-4">
-            <span className="text-xs font-mono uppercase tracking-widest text-[#E6F15A] font-semibold block">{"Centrum Zapytań Projektowych"}</span>
-            <h1 className="text-4xl sm:text-5xl font-extrabold font-display tracking-tight text-white">{"Prześlij rzuty. Wrócimy z konkretnymi pytaniami."}</h1>
-            <p className="text-base sm:text-lg text-[#EDE9DF]/80 leading-relaxed pt-2">{"Warszawa i okolice · realizacje w całej Polsce. Przeanalizujemy rzuty architektoniczne, wskażemy optymalne rozwiązania instalacji KNX i przygotujemy rzeczowy kosztorys."}</p>
+            <span className="text-xs font-mono uppercase tracking-widest text-[#E6F15A] font-semibold block">{"Kontakt z zespołem"}</span>
+            <h1 className="text-4xl sm:text-5xl font-extrabold font-display tracking-tight text-white">{"Porozmawiajmy o Twoim projekcie."}</h1>
+            <p className="text-base sm:text-lg text-[#EDE9DF]/80 leading-relaxed pt-2">{"Masz pytania o automatykę KNX? Zadzwoń, napisz lub umów konsultację. Działamy w Warszawie i realizujemy projekty w całej Polsce."}</p>
           </div>
         </div>
       </section>
 
-      {/* Main Grid: Info + Map Placeholder + Interactive Form */}
+      {/* Contact details, location and preliminary scope estimator */}
       <section className="py-16 sm:py-24 bg-[#F7F8F5]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
-            {/* Left Col: Contact Details & Google Maps */}
-            <div className="lg:col-span-5 space-y-6">
+            {/* Direct contact */}
+            <div className="lg:col-span-7 space-y-6">
               {/* Direct Details Card */}
               <div className="bg-white rounded-2xl p-6 sm:p-8 border border-[#17211C]/10 shadow-sm space-y-6">
                 <h2 className="text-xl font-bold font-display text-[#17211C]">{"Biuro inżynierskie w Warszawie"}</h2>
@@ -72,7 +64,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({
                   <div className="flex items-center gap-3">
                     <Mail className="w-5 h-5 text-[#0E4637] shrink-0" />
                     <div>
-                      <span className="text-[11px] text-[#17211C]/60 block">{"Adres dla zapytań i rzutów:"}</span>
+                      <span className="text-[11px] text-[#17211C]/60 block">{"Napisz do nas:"}</span>
                       <a href="mailto:kontakt@delitech.pl" className="font-mono text-sm font-semibold text-[#0E4637] hover:underline">{"kontakt@delitech.pl"}</a>
                     </div>
                   </div>
@@ -90,8 +82,18 @@ export const ContactPage: React.FC<ContactPageProps> = ({
                   <p>{"NIP: 1132919580"}</p>
                   <p>{"Dane do płatności przekazujemy wraz z ofertą."}</p>
                 </div>
+                <button
+                  type="button"
+                  onClick={onOpenConsultation}
+                  className="inline-flex items-center gap-2 px-5 py-3 bg-[#0E4637] hover:bg-[#17211C] text-[#E6F15A] font-semibold text-xs uppercase tracking-wider rounded-lg transition-colors"
+                >
+                  Umów konsultację <ArrowRight className="w-4 h-4" />
+                </button>
               </div>
 
+            </div>
+
+            <div className="lg:col-span-5 space-y-6">
               {/* Stylized Google Maps Area */}
               <div className="bg-white rounded-2xl overflow-hidden border border-[#17211C]/10 shadow-sm">
                 <div className="p-4 bg-[#F7F8F5] border-b border-[#17211C]/10 flex items-center justify-between">
@@ -181,14 +183,6 @@ export const ContactPage: React.FC<ContactPageProps> = ({
               </div>
             </div>
 
-            {/* Right Col: Full Blueprint & Request Form */}
-            <div className="lg:col-span-7">
-              <ContactForm
-                onOpenPrivacy={() => onOpenPrivacy('privacy')}
-                defaultType="biuro"
-                sourceContext="Formularz główny portalu"
-              />
-            </div>
           </div>
         </div>
       </section>
