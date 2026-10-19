@@ -1,14 +1,14 @@
 @import "tailwindcss";
 
-/* Nowoczesny minimalizm: neutral surfaces, anthracite and the original logo accent.
+/* Granat i technologia: cool surfaces, deep navy and the original logo accent.
    Shared by the public pages, navigation and forms through Tailwind utilities. */
 @theme {
-  --color-surface: #F4F5F3;
-  --color-ink: #292D2F;
-  --color-silver: #B7BDB7;
+  --color-surface: #F3F5F2;
+  --color-ink: #182C3D;
+  --color-silver: #A9B8C2;
   --color-accent: #9FBF36;
-  --color-mist: #E8EBE7;
-  --color-ink-hover: #3B4143;
+  --color-mist: #E4EBF0;
+  --color-ink-hover: #28475F;
   --color-accent-hover: #AEC957;
 }
 
@@ -34,15 +34,15 @@
 .bg-grid-subtle {
   background-size: 40px 40px;
   background-image: 
-    linear-gradient(to right, rgba(41, 45, 47, 0.03) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(41, 45, 47, 0.03) 1px, transparent 1px);
+    linear-gradient(to right, rgba(24, 44, 61, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(24, 44, 61, 0.03) 1px, transparent 1px);
 }
 
 .bg-grid-dark-subtle {
   background-size: 40px 40px;
   background-image: 
-    linear-gradient(to right, rgba(183, 189, 183, 0.06) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(183, 189, 183, 0.06) 1px, transparent 1px);
+    linear-gradient(to right, rgba(169, 184, 194, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(169, 184, 194, 0.06) 1px, transparent 1px);
 }
 
 /* Reduced motion */

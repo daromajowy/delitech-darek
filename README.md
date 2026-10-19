@@ -19,15 +19,15 @@ Nie ma panelu WordPress ani drugiego pliku z treściami nadpisującego komponent
 
 Przykład w `TeamPage.tsx`: zmień `role: "Opis stanowiska"` i zapisz plik. Nie trzeba kopiować tego tekstu do JSON-u, zmieniać identyfikatora ani korzystać z CMS.
 
-### Kolory strony — Nowoczesny minimalizm
+### Kolory strony — Granat i technologia
 
-Paleta publicznej strony to `surface` (`#F4F5F3`), `ink` (`#292D2F`),
-`silver` (`#B7BDB7`) oraz `accent` (`#9FBF36`, oryginalny kolor kropki w logo).
-`mist` jest jasnym neutralnym tłem pomocniczym, a `ink-hover` i `accent-hover`
+Paleta publicznej strony to `surface` (`#F3F5F2`), `ink` (`#182C3D`),
+`silver` (`#A9B8C2`) oraz `accent` (`#9FBF36`, oryginalny kolor kropki w logo).
+`mist` jest jasnym błękitnym tłem pomocniczym, a `ink-hover` i `accent-hover`
 zapewniają widoczną reakcję przycisków. Używaj klas takich jak `bg-surface`,
 `text-ink/80`, `border-ink/10` i `bg-accent text-ink`; kolory zmieniamy w jednym
 bloku `@theme`, bez kopiowania wartości HEX do każdej podstrony.
-Zieleń jest akcentem, duże ciemne powierzchnie są antracytowe. Logo i kolory
+Zieleń jest akcentem, duże ciemne powierzchnie są granatowe. Logo i kolory
 fotografii pozostają oryginalne. Konfigurator KNX ma osobny arkusz stylów w `planner/`.
 
 ## Podgląd i publikacja
