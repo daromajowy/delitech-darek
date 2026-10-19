@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { PageId } from '../types.ts';
 import { HeroVideo } from '../components/HeroVideo.tsx';
 import { DayRhythm } from '../components/DayRhythm.tsx';
+import { SmartHomeIntegrations } from '../components/SmartHomeIntegrations.tsx';
 import { IMAGES } from '../assets.ts';
 import {
   ArrowRight,
@@ -455,6 +456,8 @@ export const HomePage: React.FC<HomePageProps> = ({
           </div>
         </div>
       </section>
+
+      <SmartHomeIntegrations />
 
       <DayRhythm />
 
