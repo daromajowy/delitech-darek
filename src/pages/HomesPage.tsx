@@ -126,7 +126,7 @@ export const HomesPage: React.FC<HomesPageProps> = ({
                 <div className="pt-4">
                   <button
                     onClick={onOpenConsultation}
-                    className="px-6 py-3 bg-ink text-accent text-xs font-semibold uppercase tracking-wider rounded-lg hover:bg-ink transition-colors"
+                    className="px-6 py-3 bg-ink text-accent text-xs font-semibold uppercase tracking-wider rounded-lg hover:bg-ink-hover transition-colors"
                   >{"Umów bezpłatną konsultację rzutów domu"}</button>
                 </div>
               </div>
@@ -173,7 +173,7 @@ export const HomesPage: React.FC<HomesPageProps> = ({
                 <div className="pt-4">
                   <button
                     onClick={onOpenConsultation}
-                    className="px-6 py-3 bg-ink text-accent text-xs font-semibold uppercase tracking-wider rounded-lg hover:bg-ink transition-colors"
+                    className="px-6 py-3 bg-ink text-accent text-xs font-semibold uppercase tracking-wider rounded-lg hover:bg-ink-hover transition-colors"
                   >{"Porozmawiaj o automatyce apartamentu"}</button>
                 </div>
               </div>

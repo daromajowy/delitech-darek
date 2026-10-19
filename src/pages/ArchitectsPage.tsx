@@ -171,7 +171,7 @@ export const ArchitectsPage: React.FC<ArchitectsPageProps> = ({
               <div>
                 <button
                   onClick={onOpenConsultation}
-                  className="px-6 py-3 bg-ink text-accent text-xs font-semibold uppercase tracking-wider rounded-lg hover:bg-ink transition-colors"
+                  className="px-6 py-3 bg-ink text-accent text-xs font-semibold uppercase tracking-wider rounded-lg hover:bg-ink-hover transition-colors"
                 >{"Zamów wzorniki do pracowni"}</button>
               </div>
             </div>

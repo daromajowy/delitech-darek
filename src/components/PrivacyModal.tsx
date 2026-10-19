@@ -133,7 +133,7 @@ export const PrivacyModal: React.FC<PrivacyModalProps> = ({
         <div className="p-4 bg-surface border-t border-ink/10 flex justify-end">
           <button
             onClick={onClose}
-            className="px-5 py-2 bg-ink text-white text-xs font-semibold uppercase tracking-wider rounded-lg hover:bg-ink transition-colors"
+            className="px-5 py-2 bg-ink text-white text-xs font-semibold uppercase tracking-wider rounded-lg hover:bg-ink-hover transition-colors"
           >{"Zamknij"}</button>
         </div>
       </div>

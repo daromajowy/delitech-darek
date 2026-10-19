@@ -70,7 +70,7 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({
                   setSubmitted(false);
                   onClose();
                 }}
-                className="px-6 py-2.5 bg-ink text-white text-xs font-semibold uppercase tracking-wider rounded-lg hover:bg-ink"
+                className="px-6 py-2.5 bg-ink text-white text-xs font-semibold uppercase tracking-wider rounded-lg hover:bg-ink-hover"
               >{"Zamknij okno"}</button>
             </div>
           </div>

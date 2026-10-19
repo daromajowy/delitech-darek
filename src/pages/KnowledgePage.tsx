@@ -256,7 +256,7 @@ export const KnowledgePage: React.FC<KnowledgePageProps> = ({
             <div className="pt-2">
               <button
                 onClick={onOpenConsultation}
-                className="px-5 py-2.5 bg-ink text-accent text-xs font-semibold uppercase tracking-wider rounded-lg hover:bg-ink transition-colors"
+                className="px-5 py-2.5 bg-ink text-accent text-xs font-semibold uppercase tracking-wider rounded-lg hover:bg-ink-hover transition-colors"
               >{"Zapytaj inżyniera KNX"}</button>
             </div>
           </div>
