@@ -35,7 +35,18 @@
   transition: opacity 1.25s ease, transform 8s ease-out;
 }
 .day-rhythm__image.is-active { opacity: 1; transform: scale(1); }
-.day-rhythm__shade { z-index: -1; background-position: center; background-size: 100% 100%; background-repeat: no-repeat; filter: grayscale(1); }
+.day-rhythm__shade {
+  z-index: -1;
+  background-color: var(--color-ink);
+  /* Preserve the original soft fade, tinting only the overlay with the site navy. */
+  mask-mode: alpha;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+}
 .day-rhythm__intro { flex: 1; padding-bottom: 24px; text-shadow: 0 2px 24px rgb(24 44 61 / .69); }
 .day-rhythm__eyebrow { display: flex; align-items: center; gap: 13px; font-size: 9px; font-weight: 650; letter-spacing: .26em; line-height: 1.7; }
 .day-rhythm__eyebrow > span { width: 27px; height: 3px; background: var(--color-accent); flex-shrink: 0; }
