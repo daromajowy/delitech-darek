@@ -219,7 +219,7 @@ export const HomePage: React.FC<HomePageProps> = ({
         </div>
       </section>
 
-      {/* 5. DWIE SPECJALIZACJE: BIURA (PIERWSZA I MOCNIEJSZA) ORAZ DOMY */}
+      {/* 5. DWIE SPECJALIZACJE: DOMY I APARTAMENTY NA PIERWSZYM PLANIE */}
       <section className="py-16 sm:py-24 bg-surface border-b border-ink/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-12">
@@ -228,102 +228,105 @@ export const HomePage: React.FC<HomePageProps> = ({
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
-            {/* Karta 1: Biura i fit-out (Pierwsza i mocniejsza - 7 cols) */}
+            {/* Karta 1: Domy i apartamenty (wyróżniona - 7 cols) */}
             <div className="lg:col-span-7 bg-ink text-white rounded-2xl p-8 sm:p-10 border border-white/10 flex flex-col justify-between shadow-xl relative overflow-hidden group">
               <div className="absolute top-0 right-0 w-96 h-96 bg-ink/30 rounded-full blur-3xl pointer-events-none" />
 
               <div className="relative z-10 space-y-6">
-                <div className="flex items-center justify-between">
+                <div className="flex flex-wrap items-center justify-between gap-3">
                   <span className="px-3 py-1 bg-ink text-accent text-xs font-mono font-semibold uppercase tracking-wider rounded border border-silver/20">{"Specjalizacja priorytetowa"}</span>
-                  <span className="text-xs text-mist/60 font-mono">{"B2B & Fit-out"}</span>
+                  <span className="text-xs text-mist/60 font-mono">{"Smart Home Premium"}</span>
                 </div>
 
                 <div>
-                  <h3 className="text-2xl sm:text-3xl font-bold font-display text-white tracking-tight">{"Biura i fit-out"}</h3>
-                  <p className="text-lg text-accent font-medium mt-1 font-display">{"„Biuro, które wspiera zespół — od recepcji po salę spotkań.”"}</p>
+                  <h3 className="text-2xl sm:text-3xl font-bold font-display text-white tracking-tight">{"Domy i apartamenty"}</h3>
+                  <p className="text-lg text-accent font-medium mt-1 font-display">{"„Komfort od pierwszego dotknięcia.”"}</p>
                 </div>
 
-                <p className="text-sm text-mist/80 leading-relaxed">{"Automatyzujemy nowoczesne środowiska pracy: open space, gabinety zarządu, sale konferencyjne i strefy relaksu. Zapewniamy precyzyjne sterowanie oświetleniem DALI z czujnikami natężenia światła dziennego, zintegrowane żaluzje fasadowe, harmonogramy HVAC, automatyczne sceny prezentacji oraz bezpieczny tryb po godzinach redukujący koszty energii."}</p>
+                <p className="text-sm text-mist/80 leading-relaxed">{"Dla rezydencji i apartamentów tworzymy systemy, które eliminują baterie przełączników ze ścian na rzecz minimalistycznych paneli dotykowych i dopracowanych scen światła, temperatury oraz prywatności."}</p>
 
                 {/* Sub-features list */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 text-xs text-mist/85">
                   <div className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-accent" />
-                    <span>{"Sceny prezentacji jednym dotknięciem"}</span>
+                    <span className="w-1.5 h-1.5 shrink-0 rounded-full bg-accent" />
+                    <span>{"Sceny: Poranek, Kolacja, Kino, Wyjście z domu"}</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-accent" />
-                    <span>{"DALI Tunable White dla skupienia"}</span>
+                    <span className="w-1.5 h-1.5 shrink-0 rounded-full bg-accent" />
+                    <span>{"Integracja klimatyzacji, podłogówki i rekuperacji"}</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-accent" />
-                    <span>{"Automatyczny tryb uśpienia po 18:00"}</span>
+                    <span className="w-1.5 h-1.5 shrink-0 rounded-full bg-accent" />
+                    <span>{"Sterowanie żaluzjami i zasłonami elektrycznymi"}</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-accent" />
-                    <span>{"Optymalizacja parametrów ESG / LEED"}</span>
+                    <span className="w-1.5 h-1.5 shrink-0 rounded-full bg-accent" />
+                    <span>{"Designerski osprzęt JUNG zlicowany ze ścianą"}</span>
                   </div>
                 </div>
               </div>
 
               <div className="relative z-10 pt-8 mt-6 border-t border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                 <button
-                  onClick={() => onNavigate('offices')}
+                  onClick={() => onNavigate('homes')}
                   className="px-5 py-3 bg-accent hover:bg-white text-ink text-xs font-bold uppercase tracking-wider rounded-lg transition-colors flex items-center gap-2"
+                >
+                  <span>{"Poznaj smart home"}</span>
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+                <button
+                  onClick={onOpenConsultation}
+                  className="text-xs font-semibold text-silver hover:text-white underline underline-offset-4"
+                >{"Porozmawiajmy o Twoim domu"}</button>
+              </div>
+            </div>
+
+            {/* Karta 2: Biura i fit-out (uzupełnienie oferty - 5 cols) */}
+            <div className="lg:col-span-5 bg-white text-ink rounded-2xl p-8 sm:p-10 border border-ink/10 flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow">
+              <div className="space-y-6">
+                <div className="flex flex-wrap items-center justify-between gap-3">
+                  <span className="px-3 py-1 bg-surface text-ink text-xs font-mono font-semibold uppercase tracking-wider rounded border border-ink/10">{"B2B & Fit-out"}</span>
+                </div>
+
+                <div>
+                  <h3 className="text-2xl font-bold font-display text-ink tracking-tight">{"Biura i fit-out"}</h3>
+                  <p className="text-base text-ink font-semibold mt-1 font-display">{"„Biuro, które wspiera zespół — od recepcji po salę spotkań.”"}</p>
+                </div>
+
+                <p className="text-sm text-ink/75 leading-relaxed">{"W biurach i salach spotkań integrujemy oświetlenie DALI, żaluzje i klimatyzację. Dopasowujemy sceny oraz harmonogramy do pracy zespołu i użytkowania przestrzeni."}</p>
+
+                <div className="space-y-2 pt-2 text-xs text-ink/85">
+                  <div className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 shrink-0 rounded-full bg-ink" />
+                    <span>{"Sceny prezentacji jednym dotknięciem"}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 shrink-0 rounded-full bg-ink" />
+                    <span>{"DALI Tunable White dla skupienia"}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 shrink-0 rounded-full bg-ink" />
+                    <span>{"Automatyczny tryb uśpienia po 18:00"}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 shrink-0 rounded-full bg-ink" />
+                    <span>{"Optymalizacja parametrów ESG / LEED"}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="pt-8 mt-6 border-t border-ink/10 flex flex-col items-start gap-4">
+                <button
+                  onClick={() => onNavigate('offices')}
+                  className="px-5 py-3 bg-ink hover:bg-ink-hover text-accent text-xs font-bold uppercase tracking-wider rounded-lg transition-colors flex items-center gap-2"
                 >
                   <span>{"Zobacz rozwiązania dla biur"}</span>
                   <ArrowRight className="w-4 h-4" />
                 </button>
                 <button
                   onClick={onOpenConsultation}
-                  className="text-xs font-semibold text-silver hover:text-white underline underline-offset-4"
+                  className="text-xs font-semibold text-ink/75 hover:text-ink underline underline-offset-4"
                 >{"Skonsultuj projekt fit-out"}</button>
-              </div>
-            </div>
-
-            {/* Karta 2: Domy i apartamenty (5 cols) */}
-            <div className="lg:col-span-5 bg-white text-ink rounded-2xl p-8 sm:p-10 border border-ink/10 flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow">
-              <div className="space-y-6">
-                <div className="flex items-center justify-between">
-                  <span className="px-3 py-1 bg-surface text-ink text-xs font-mono font-semibold uppercase tracking-wider rounded border border-ink/10">{"Smart Home Premium"}</span>
-                  <span className="text-xs text-ink/75 font-mono">{"Domy & Apartamenty"}</span>
-                </div>
-
-                <div>
-                  <h3 className="text-2xl font-bold font-display text-ink tracking-tight">{"Domy i apartamenty"}</h3>
-                  <p className="text-base text-ink font-semibold mt-1 font-display">{"„Komfort od pierwszego dotknięcia.”"}</p>
-                </div>
-
-                <p className="text-sm text-ink/75 leading-relaxed">{"Dla rezydencji i apartamentów tworzymy systemy, które eliminują baterie przełączników ze ścian na rzecz minimalistycznych paneli dotykowych i dopracowanych scen światła, temperatury oraz prywatności."}</p>
-
-                <div className="space-y-2 pt-2 text-xs text-ink/85">
-                  <div className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-ink" />
-                    <span>{"Sceny: Poranek, Kolacja, Kino, Wyjście z domu"}</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-ink" />
-                    <span>{"Integracja klimatyzacji, podłogówki i rekuperacji"}</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-ink" />
-                    <span>{"Sterowanie żaluzjami i zasłonami elektrycznymi"}</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-ink" />
-                    <span>{"Designerski osprzęt JUNG zlicowany ze ścianą"}</span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="pt-8 mt-6 border-t border-ink/10 flex items-center justify-between">
-                <button
-                  onClick={() => onNavigate('homes')}
-                  className="px-5 py-3 bg-ink hover:bg-ink-hover text-accent text-xs font-bold uppercase tracking-wider rounded-lg transition-colors flex items-center gap-2"
-                >
-                  <span>{"Poznaj smart home"}</span>
-                  <ArrowRight className="w-4 h-4" />
-                </button>
               </div>
             </div>
           </div>
