@@ -13,10 +13,22 @@ Nie ma panelu WordPress ani drugiego pliku z treściami nadpisującego komponent
 | Menu, stopka, formularze, komunikaty | `src/components/` |
 | Poradniki | `src/content/guides.ts` |
 | Zdjęcia i film | `src/assets/` |
+| Paleta strony: tła, tekst, akcenty | `src/index.css` — blok `@theme` |
 | Adresy podstron, tytuły kart i opisy SEO | `src/page-config.ts` |
 | Konfigurator KNX | `planner/` i `knx-backend/` |
 
 Przykład w `TeamPage.tsx`: zmień `role: "Opis stanowiska"` i zapisz plik. Nie trzeba kopiować tego tekstu do JSON-u, zmieniać identyfikatora ani korzystać z CMS.
+
+### Kolory strony — Nowoczesny minimalizm
+
+Paleta publicznej strony to `surface` (`#F4F5F3`), `ink` (`#292D2F`),
+`silver` (`#B7BDB7`) oraz `accent` (`#9FBF36`, oryginalny kolor kropki w logo).
+`mist` jest jasnym neutralnym tłem pomocniczym, a `ink-hover` i `accent-hover`
+zapewniają widoczną reakcję przycisków. Używaj klas takich jak `bg-surface`,
+`text-ink/80`, `border-ink/10` i `bg-accent text-ink`; kolory zmieniamy w jednym
+bloku `@theme`, bez kopiowania wartości HEX do każdej podstrony.
+Zieleń jest akcentem, duże ciemne powierzchnie są antracytowe. Logo i kolory
+fotografii pozostają oryginalne. Konfigurator KNX ma osobny arkusz stylów w `planner/`.
 
 ## Podgląd i publikacja
 

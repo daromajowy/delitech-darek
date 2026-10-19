@@ -117,18 +117,18 @@ export const OfficesPage: React.FC<OfficesPageProps> = ({
   return (
     <div className="space-y-0">
       {/* Hero Subpage */}
-      <section className="bg-[#17211C] text-white py-16 lg:py-20 border-b border-white/10 relative overflow-hidden">
+      <section className="bg-ink text-white py-16 lg:py-20 border-b border-white/10 relative overflow-hidden">
         <div className="absolute inset-0 bg-grid-dark-subtle opacity-50 pointer-events-none" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-3xl space-y-4">
-            <span className="text-xs font-mono uppercase tracking-widest text-[#E6F15A] font-semibold block">{"Biurowy standard KNX · Warszawa i Polska"}</span>
+            <span className="text-xs font-mono uppercase tracking-widest text-accent font-semibold block">{"Biurowy standard KNX · Warszawa i Polska"}</span>
             <h1 className="text-4xl sm:text-5xl font-extrabold font-display tracking-tight text-white">{"Automatyka dla biur i przestrzeni komercyjnych"}</h1>
-            <p className="text-base sm:text-lg text-[#EDE9DF]/80 leading-relaxed pt-2">{"Projektujemy inteligentne systemy KNX dla biur open space, gabinetów zarządu i sal konferencyjnych. Ograniczamy zużycie energii i tworzymy środowisko pracy wspierające zdrowie i produktywność zespołu."}</p>
+            <p className="text-base sm:text-lg text-mist/80 leading-relaxed pt-2">{"Projektujemy inteligentne systemy KNX dla biur open space, gabinetów zarządu i sal konferencyjnych. Ograniczamy zużycie energii i tworzymy środowisko pracy wspierające zdrowie i produktywność zespołu."}</p>
 
             <div className="pt-4 flex flex-wrap items-center gap-4">
               <button
                 onClick={onOpenConsultation}
-                className="px-6 py-3 bg-[#E6F15A] hover:bg-white text-[#0E4637] font-bold text-xs uppercase tracking-wider rounded-lg transition-colors flex items-center gap-2"
+                className="px-6 py-3 bg-accent hover:bg-white text-ink font-bold text-xs uppercase tracking-wider rounded-lg transition-colors flex items-center gap-2"
               >
                 <span>{"Skonsultuj projekt biura"}</span>
                 <ArrowRight className="w-4 h-4" />
@@ -143,11 +143,11 @@ export const OfficesPage: React.FC<OfficesPageProps> = ({
       </section>
 
       {/* Interactive Zone Navigator */}
-      <section className="py-16 sm:py-24 bg-white border-b border-[#17211C]/10">
+      <section className="py-16 sm:py-24 bg-white border-b border-ink/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-10">
-            <span className="text-xs font-mono uppercase tracking-widest text-[#0E4637] font-semibold block mb-2">{"Strefy obiektu biurowego"}</span>
-            <h2 className="text-3xl font-bold font-display text-[#17211C]">{"Wybierz strefę i poznaj scenariusze sterowania"}</h2>
+            <span className="text-xs font-mono uppercase tracking-widest text-ink font-semibold block mb-2">{"Strefy obiektu biurowego"}</span>
+            <h2 className="text-3xl font-bold font-display text-ink">{"Wybierz strefę i poznaj scenariusze sterowania"}</h2>
           </div>
 
           {/* Tab buttons */}
@@ -161,11 +161,11 @@ export const OfficesPage: React.FC<OfficesPageProps> = ({
                   onClick={() => setSelectedZone(z.id)}
                   className={`p-3.5 text-left rounded-xl border transition-all flex flex-col justify-between gap-3 ${
                     isActive
-                      ? 'bg-[#0E4637] text-white border-[#0E4637] shadow-md'
-                      : 'bg-[#F7F8F5] text-[#17211C] border-[#17211C]/10 hover:bg-black/5'
+                      ? 'bg-ink text-white border-ink shadow-md'
+                      : 'bg-surface text-ink border-ink/10 hover:bg-black/5'
                   }`}
                 >
-                  <Icon className={`w-5 h-5 ${isActive ? 'text-[#E6F15A]' : 'text-[#0E4637]'}`} />
+                  <Icon className={`w-5 h-5 ${isActive ? 'text-accent' : 'text-ink'}`} />
                   <span className="text-xs font-bold leading-tight line-clamp-2">
                     {z.title.split(' i ')[0]}
                   </span>
@@ -182,46 +182,46 @@ export const OfficesPage: React.FC<OfficesPageProps> = ({
               return (
                 <div
                   key={z.id}
-                  className="bg-[#F7F8F5] border border-[#17211C]/15 rounded-2xl p-8 sm:p-12 shadow-sm animate-fade-in"
+                  className="bg-surface border border-ink/15 rounded-2xl p-8 sm:p-12 shadow-sm animate-fade-in"
                 >
                   <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
                     <div className="lg:col-span-7 space-y-6">
                       <div className="flex items-center gap-3">
-                        <div className="w-12 h-12 rounded-xl bg-[#0E4637] text-[#E6F15A] flex items-center justify-center">
+                        <div className="w-12 h-12 rounded-xl bg-ink text-accent flex items-center justify-center">
                           <Icon className="w-6 h-6" />
                         </div>
                         <div>
-                          <span className="text-[11px] font-mono uppercase tracking-wider text-[#0E4637] font-semibold">
+                          <span className="text-[11px] font-mono uppercase tracking-wider text-ink font-semibold">
                             {z.tag}
                           </span>
-                          <h3 className="text-2xl sm:text-3xl font-bold font-display text-[#17211C]">
+                          <h3 className="text-2xl sm:text-3xl font-bold font-display text-ink">
                             {z.title}
                           </h3>
                         </div>
                       </div>
 
-                      <p className="text-base text-[#0E4637] font-semibold font-display">
+                      <p className="text-base text-ink font-semibold font-display">
                         {z.subtitle}
                       </p>
 
-                      <p className="text-sm text-[#17211C]/80 leading-relaxed">
+                      <p className="text-sm text-ink/80 leading-relaxed">
                         {z.desc}
                       </p>
 
                       <div className="pt-2 space-y-2.5">
-                        <span className="text-xs font-semibold uppercase tracking-wider text-[#17211C] block mb-2">{"Kluczowe funkcjonalności automatyki:"}</span>
+                        <span className="text-xs font-semibold uppercase tracking-wider text-ink block mb-2">{"Kluczowe funkcjonalności automatyki:"}</span>
                         {z.bullets.map((b, i) => (
-                          <div key={i} className="flex items-start gap-2.5 text-xs text-[#17211C]/85">
-                            <CheckCircle2 className="w-4 h-4 text-[#0E4637] shrink-0 mt-0.5" />
+                          <div key={i} className="flex items-start gap-2.5 text-xs text-ink/85">
+                            <CheckCircle2 className="w-4 h-4 text-ink shrink-0 mt-0.5" />
                             <span>{b}</span>
                           </div>
                         ))}
                       </div>
 
-                      <div className="pt-6 border-t border-[#17211C]/10 flex flex-wrap gap-4">
+                      <div className="pt-6 border-t border-ink/10 flex flex-wrap gap-4">
                         <button
                           onClick={onOpenConsultation}
-                          className="px-5 py-2.5 bg-[#0E4637] hover:bg-[#17211C] text-[#E6F15A] text-xs font-semibold uppercase tracking-wider rounded-lg transition-colors flex items-center gap-2"
+                          className="px-5 py-2.5 bg-ink hover:bg-ink-hover text-accent text-xs font-semibold uppercase tracking-wider rounded-lg transition-colors flex items-center gap-2"
                         >
                           <span>{"Skonsultuj projekt biura"}</span>
                           <ArrowRight className="w-4 h-4" />
@@ -230,30 +230,30 @@ export const OfficesPage: React.FC<OfficesPageProps> = ({
                     </div>
 
                     {/* Technical spec sidebar */}
-                    <div className="lg:col-span-5 bg-white rounded-xl p-6 border border-[#17211C]/10 space-y-4">
-                      <h4 className="text-xs font-bold uppercase tracking-wider text-[#17211C] pb-2 border-b border-[#17211C]/10">{"Specyfikacja integracji KNX"}</h4>
+                    <div className="lg:col-span-5 bg-white rounded-xl p-6 border border-ink/10 space-y-4">
+                      <h4 className="text-xs font-bold uppercase tracking-wider text-ink pb-2 border-b border-ink/10">{"Specyfikacja integracji KNX"}</h4>
 
                       <div className="space-y-3 text-xs">
                         <div>
-                          <span className="text-[#17211C]/60 block text-[11px]">{"Protokół magistralny:"}</span>
-                          <span className="font-semibold text-[#17211C]">{"KNX TP (skrętka certyfikowana) + DALI-2"}</span>
+                          <span className="text-ink/75 block text-[11px]">{"Protokół magistralny:"}</span>
+                          <span className="font-semibold text-ink">{"KNX TP (skrętka certyfikowana) + DALI-2"}</span>
                         </div>
                         <div>
-                          <span className="text-[#17211C]/60 block text-[11px]">{"Integracja HVAC:"}</span>
-                          <span className="font-semibold text-[#17211C]">{"Bramki Modbus / BACnet do BMS obiektu"}</span>
+                          <span className="text-ink/75 block text-[11px]">{"Integracja HVAC:"}</span>
+                          <span className="font-semibold text-ink">{"Bramki Modbus / BACnet do BMS obiektu"}</span>
                         </div>
                         <div>
-                          <span className="text-[#17211C]/60 block text-[11px]">{"Osprzęt sterujący:"}</span>
-                          <span className="font-semibold text-[#17211C]">{"JUNG KNX F 40 / F 50 / czujniki obecności Mini"}</span>
+                          <span className="text-ink/75 block text-[11px]">{"Osprzęt sterujący:"}</span>
+                          <span className="font-semibold text-ink">{"JUNG KNX F 40 / F 50 / czujniki obecności Mini"}</span>
                         </div>
                         <div>
-                          <span className="text-[#17211C]/60 block text-[11px]">{"Wpływ na zużycie energii:"}</span>
-                          <span className="font-semibold text-[#0E4637]">{"Redukcja kosztów oświetlenia do -40%"}</span>
+                          <span className="text-ink/75 block text-[11px]">{"Wpływ na zużycie energii:"}</span>
+                          <span className="font-semibold text-ink">{"Redukcja kosztów oświetlenia do -40%"}</span>
                         </div>
                       </div>
 
-                      <div className="p-3.5 bg-[#F7F8F5] rounded-lg border border-[#17211C]/10 text-[11px] text-[#17211C]/75">
-                        <p className="font-semibold text-[#17211C] mb-1">{"Dla firm fit-out i generalnych wykonawców:"}</p>{"Dostarczamy gotowe schematy podłączenia rozdzielnic oraz wsparcie na budowie w Warszawie i okolicach."}</div>
+                      <div className="p-3.5 bg-surface rounded-lg border border-ink/10 text-[11px] text-ink/75">
+                        <p className="font-semibold text-ink mb-1">{"Dla firm fit-out i generalnych wykonawców:"}</p>{"Dostarczamy gotowe schematy podłączenia rozdzielnic oraz wsparcie na budowie w Warszawie i okolicach."}</div>
                     </div>
                   </div>
                 </div>

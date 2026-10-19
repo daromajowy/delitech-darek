@@ -10,23 +10,23 @@ interface FooterProps {
 
 export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenPrivacy }) => {
   return (
-    <footer className="bg-[#17211C] text-[#EDE9DF] border-t border-white/10 pt-16 pb-12">
+    <footer className="bg-ink text-mist border-t border-white/10 pt-16 pb-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Main Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-14 border-b border-white/10">
           {/* Col 1: Brand & Identity */}
           <div className="lg:col-span-2 space-y-4">
             <Logo variant="dark" size="lg" />
-            <p className="text-xs sm:text-sm text-[#EDE9DF]/70 max-w-sm leading-relaxed pt-2">{"Automatyka budynku, która pracuje dla ludzi i przestrzeni. Certyfikowany integrator otwartego standardu KNX dla biur komercyjnych, rezydencji oraz apartamentów premium."}</p>
+            <p className="text-xs sm:text-sm text-mist/70 max-w-sm leading-relaxed pt-2">{"Automatyka budynku, która pracuje dla ludzi i przestrzeni. Certyfikowany integrator otwartego standardu KNX dla biur komercyjnych, rezydencji oraz apartamentów premium."}</p>
 
             <div className="pt-3 flex items-center gap-3">
-              <div className="flex items-center gap-2 px-3 py-1.5 bg-[#0E4637] rounded-lg border border-[#CFE3C4]/20 text-[11px] font-mono text-[#CFE3C4]">
-                <Award className="w-4 h-4 text-[#E6F15A]" />
+              <div className="flex items-center gap-2 px-3 py-1.5 bg-ink rounded-lg border border-silver/20 text-[11px] font-mono text-silver">
+                <Award className="w-4 h-4 text-accent" />
                 <span>{"Certyfikowany Partner KNX International"}</span>
               </div>
             </div>
 
-            <div className="pt-2 text-xs text-[#EDE9DF]/50 space-y-0.5 font-mono">
+            <div className="pt-2 text-xs text-mist/70 space-y-0.5 font-mono">
               <p>{"NIP: 1132919580"}</p>
               <p>{"Delitech Sp.j."}</p>
             </div>
@@ -34,8 +34,8 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenPrivacy }) => 
 
           {/* Col 2: Oferta i Segmenty */}
           <div className="space-y-3">
-            <h4 className="text-xs font-semibold uppercase tracking-wider text-[#CFE3C4]">{"Obszary & Usługi"}</h4>
-            <ul className="space-y-2 text-xs text-[#EDE9DF]/75">
+            <h4 className="text-xs font-semibold uppercase tracking-wider text-silver">{"Obszary & Usługi"}</h4>
+            <ul className="space-y-2 text-xs text-mist/75">
               <li>
                 <button
                   onClick={() => onNavigate('offices')}
@@ -77,8 +77,8 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenPrivacy }) => 
 
           {/* Col 3: Architekci & Standard KNX */}
           <div className="space-y-3">
-            <h4 className="text-xs font-semibold uppercase tracking-wider text-[#CFE3C4]">{"Standard & Partnerzy"}</h4>
-            <ul className="space-y-2 text-xs text-[#EDE9DF]/75">
+            <h4 className="text-xs font-semibold uppercase tracking-wider text-silver">{"Standard & Partnerzy"}</h4>
+            <ul className="space-y-2 text-xs text-mist/75">
               <li>
                 <button
                   onClick={() => onNavigate('architects')}
@@ -116,7 +116,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenPrivacy }) => 
                 >{"O firmie & Filozofia"}</button>
               </li>
               <li className="pt-2 border-t border-white/10 mt-2">
-                <span className="block text-[10px] font-mono text-[#CFE3C4]/60 uppercase tracking-wider mb-1.5">{"Polecane portale branżowe"}</span>
+                <span className="block text-[10px] font-mono text-silver/80 uppercase tracking-wider mb-1.5">{"Polecane portale branżowe"}</span>
               </li>
               <li>
                 <a
@@ -126,7 +126,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenPrivacy }) => 
                   className="hover:text-white hover:underline transition-colors flex items-center justify-between group"
                 >
                   <span>{"Puszki podłogowe i floorboxy"}</span>
-                  <span className="text-[10px] opacity-0 group-hover:opacity-100 transition-opacity text-[#E6F15A]">↗</span>
+                  <span className="text-[10px] opacity-0 group-hover:opacity-100 transition-opacity text-accent">↗</span>
                 </a>
               </li>
               <li>
@@ -137,7 +137,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenPrivacy }) => 
                   className="hover:text-white hover:underline transition-colors flex items-center justify-between group"
                 >
                   <span>{"Mediaporty i gniazda meblowe"}</span>
-                  <span className="text-[10px] opacity-0 group-hover:opacity-100 transition-opacity text-[#E6F15A]">↗</span>
+                  <span className="text-[10px] opacity-0 group-hover:opacity-100 transition-opacity text-accent">↗</span>
                 </a>
               </li>
               <li>
@@ -148,7 +148,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenPrivacy }) => 
                   className="hover:text-white hover:underline transition-colors flex items-center justify-between group"
                 >
                   <span>{"Designerski osprzęt elektroinstalacyjny"}</span>
-                  <span className="text-[10px] opacity-0 group-hover:opacity-100 transition-opacity text-[#E6F15A]">↗</span>
+                  <span className="text-[10px] opacity-0 group-hover:opacity-100 transition-opacity text-accent">↗</span>
                 </a>
               </li>
             </ul>
@@ -156,33 +156,33 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenPrivacy }) => 
 
           {/* Col 4: Siedziba i Kontakt */}
           <div className="space-y-3">
-            <h4 className="text-xs font-semibold uppercase tracking-wider text-[#CFE3C4]">{"Biuro Warszawa"}</h4>
-            <div className="space-y-2.5 text-xs text-[#EDE9DF]/80">
+            <h4 className="text-xs font-semibold uppercase tracking-wider text-silver">{"Biuro Warszawa"}</h4>
+            <div className="space-y-2.5 text-xs text-mist/80">
               <div className="flex items-start gap-2">
-                <MapPin className="w-4 h-4 text-[#E6F15A] shrink-0 mt-0.5" />
+                <MapPin className="w-4 h-4 text-accent shrink-0 mt-0.5" />
                 <div>
                   <p className="font-semibold text-white">{"ul. Konwaliowa 7 / lok. 103"}</p>
                   <p>{"03-194 Warszawa"}</p>
-                  <p className="text-[11px] text-[#EDE9DF]/50">{"Realizacje w całej Polsce"}</p>
+                  <p className="text-[11px] text-mist/70">{"Realizacje w całej Polsce"}</p>
                 </div>
               </div>
 
               <div className="flex items-center gap-2">
-                <Phone className="w-4 h-4 text-[#E6F15A] shrink-0" />
+                <Phone className="w-4 h-4 text-accent shrink-0" />
                 <a href="tel:+48505260715" className="hover:text-white font-mono">
                   +48 505 260 715
                 </a>
               </div>
 
               <div className="flex items-center gap-2">
-                <Mail className="w-4 h-4 text-[#E6F15A] shrink-0" />
+                <Mail className="w-4 h-4 text-accent shrink-0" />
                 <a href="mailto:kontakt@delitech.pl" className="hover:text-white font-mono">{"kontakt@delitech.pl"}</a>
               </div>
 
               <div className="pt-2">
                 <button
                   onClick={() => onNavigate('contact')}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#0E4637] hover:bg-[#0E4637]/80 text-[#E6F15A] font-semibold text-[11px] uppercase tracking-wider rounded transition-colors"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-ink hover:bg-ink/80 text-accent font-semibold text-[11px] uppercase tracking-wider rounded transition-colors"
                 >
                   <span>{"Skontaktuj się z nami"}</span>
                   <ArrowUpRight className="w-3.5 h-3.5" />
@@ -193,7 +193,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenPrivacy }) => 
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#EDE9DF]/50">
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-mist/70">
           <p>© {new Date().getFullYear()}{" INTELISPACES. Wszelkie prawa zastrzeżone."}</p>
 
           <div className="flex flex-wrap items-center gap-4">

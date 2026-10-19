@@ -20,7 +20,7 @@ export const Logo: React.FC<LogoProps> = ({
     : { sm: 'w-36', md: 'w-44 sm:w-48', lg: 'w-56' };
 
   return (
-    <span className={`inline-flex shrink-0 items-center select-none ${variant === 'dark' ? 'rounded-md bg-[#F7F8F5] px-3 py-2' : ''} ${className}`}>
+    <span className={`inline-flex shrink-0 items-center select-none ${variant === 'dark' ? 'rounded-md bg-surface px-3 py-2' : ''} ${className}`}>
       <img
         src={`${base}assets/brand/${markOnly ? 'favicon.svg' : 'intelispaces-logo.svg'}`}
         alt="InteliSpaces"

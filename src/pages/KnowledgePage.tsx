@@ -101,23 +101,23 @@ export const KnowledgePage: React.FC<KnowledgePageProps> = ({
   return (
     <div className="space-y-0">
       {/* Hero */}
-      <section className="bg-[#17211C] text-white py-16 lg:py-20 border-b border-white/10">
+      <section className="bg-ink text-white py-16 lg:py-20 border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl space-y-4">
-            <span className="text-xs font-mono uppercase tracking-widest text-[#E6F15A] font-semibold block">{"Baza Wiedzy Inżynierskiej"}</span>
+            <span className="text-xs font-mono uppercase tracking-widest text-accent font-semibold block">{"Baza Wiedzy Inżynierskiej"}</span>
             <h1 className="text-4xl sm:text-5xl font-extrabold font-display tracking-tight text-white">{"Wiedza, poradniki i standardy KNX"}</h1>
-            <p className="text-base sm:text-lg text-[#EDE9DF]/80 leading-relaxed pt-2">{"Dzielimy się wiedzą techniczną. Znajdziesz tu merytoryczne poradniki dla inwestorów, wytyczne dla pracowni architektonicznych oraz odpowiedzi na najczęstsze pytania dotyczące automatyki budynkowej."}</p>
+            <p className="text-base sm:text-lg text-mist/80 leading-relaxed pt-2">{"Dzielimy się wiedzą techniczną. Znajdziesz tu merytoryczne poradniki dla inwestorów, wytyczne dla pracowni architektonicznych oraz odpowiedzi na najczęstsze pytania dotyczące automatyki budynkowej."}</p>
           </div>
         </div>
       </section>
 
       {/* Articles Section */}
-      <section className="py-16 sm:py-24 bg-white border-b border-[#17211C]/10">
+      <section className="py-16 sm:py-24 bg-white border-b border-ink/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-10">
             <div>
-              <span className="text-xs font-mono uppercase tracking-widest text-[#0E4637] font-semibold block mb-2">{"Artykuły i Poradniki"}</span>
-              <h2 className="text-3xl font-bold font-display text-[#17211C]">{"Praktyka inżynierska i projektowa"}</h2>
+              <span className="text-xs font-mono uppercase tracking-widest text-ink font-semibold block mb-2">{"Artykuły i Poradniki"}</span>
+              <h2 className="text-3xl font-bold font-display text-ink">{"Praktyka inżynierska i projektowa"}</h2>
             </div>
 
             {/* Category tabs */}
@@ -126,32 +126,32 @@ export const KnowledgePage: React.FC<KnowledgePageProps> = ({
                 onClick={() => setArticleCategory('wszystkie')}
                 className={`px-3.5 py-1.5 text-xs font-semibold rounded-lg transition-colors ${
                   articleCategory === 'wszystkie'
-                    ? 'bg-[#0E4637] text-white'
-                    : 'bg-[#F7F8F5] text-[#17211C]/70 hover:bg-black/5'
+                    ? 'bg-ink text-white'
+                    : 'bg-surface text-ink/70 hover:bg-black/5'
                 }`}
               >{"Wszystkie"}</button>
               <button
                 onClick={() => setArticleCategory('architekci')}
                 className={`px-3.5 py-1.5 text-xs font-semibold rounded-lg transition-colors ${
                   articleCategory === 'architekci'
-                    ? 'bg-[#0E4637] text-white'
-                    : 'bg-[#F7F8F5] text-[#17211C]/70 hover:bg-black/5'
+                    ? 'bg-ink text-white'
+                    : 'bg-surface text-ink/70 hover:bg-black/5'
                 }`}
               >{"Dla architektów"}</button>
               <button
                 onClick={() => setArticleCategory('biura')}
                 className={`px-3.5 py-1.5 text-xs font-semibold rounded-lg transition-colors ${
                   articleCategory === 'biura'
-                    ? 'bg-[#0E4637] text-white'
-                    : 'bg-[#F7F8F5] text-[#17211C]/70 hover:bg-black/5'
+                    ? 'bg-ink text-white'
+                    : 'bg-surface text-ink/70 hover:bg-black/5'
                 }`}
               >{"Dla biur & fit-out"}</button>
               <button
                 onClick={() => setArticleCategory('inwestorzy')}
                 className={`px-3.5 py-1.5 text-xs font-semibold rounded-lg transition-colors ${
                   articleCategory === 'inwestorzy'
-                    ? 'bg-[#0E4637] text-white'
-                    : 'bg-[#F7F8F5] text-[#17211C]/70 hover:bg-black/5'
+                    ? 'bg-ink text-white'
+                    : 'bg-surface text-ink/70 hover:bg-black/5'
                 }`}
               >{"Dla inwestorów"}</button>
             </div>
@@ -161,11 +161,11 @@ export const KnowledgePage: React.FC<KnowledgePageProps> = ({
             {filteredArticles.map((art, idx) => (
               <div
                 key={idx}
-                className="p-7 rounded-2xl bg-[#F7F8F5] border border-[#17211C]/10 flex flex-col justify-between hover:border-[#0E4637]/40 transition-colors group"
+                className="p-7 rounded-2xl bg-surface border border-ink/10 flex flex-col justify-between hover:border-ink/40 transition-colors group"
               >
                 <div className="space-y-3">
-                  <div className="flex items-center justify-between text-[11px] text-[#17211C]/60">
-                    <span className="font-mono uppercase font-semibold text-[#0E4637]">
+                  <div className="flex items-center justify-between text-[11px] text-ink/75">
+                    <span className="font-mono uppercase font-semibold text-ink">
                       {art.category === 'architekci'
                         ? 'Dla Architektów'
                         : art.category === 'biura'
@@ -174,18 +174,18 @@ export const KnowledgePage: React.FC<KnowledgePageProps> = ({
                     </span>
                     <span>{art.readTime}</span>
                   </div>
-                  <h3 className="text-lg font-bold font-display text-[#17211C] group-hover:text-[#0E4637] transition-colors leading-snug">
+                  <h3 className="text-lg font-bold font-display text-ink group-hover:text-ink transition-colors leading-snug">
                     {art.title}
                   </h3>
-                  <p className="text-xs text-[#17211C]/70 leading-relaxed">
+                  <p className="text-xs text-ink/70 leading-relaxed">
                     {art.summary}
                   </p>
                 </div>
 
-                <div className="pt-5 mt-4 border-t border-[#17211C]/10">
+                <div className="pt-5 mt-4 border-t border-ink/10">
                   <button
                     onClick={onOpenConsultation}
-                    className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#0E4637] group-hover:gap-2.5 transition-all"
+                    className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-ink group-hover:gap-2.5 transition-all"
                   >
                     <span>{"Skonsultuj to zagadnienie"}</span>
                     <ArrowRight className="w-3.5 h-3.5" />
@@ -198,22 +198,22 @@ export const KnowledgePage: React.FC<KnowledgePageProps> = ({
       </section>
 
       {/* FAQ Section with Accordion and Search */}
-      <section className="py-16 sm:py-24 bg-[#F7F8F5] border-b border-[#17211C]/10">
+      <section className="py-16 sm:py-24 bg-surface border-b border-ink/10">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <span className="text-xs font-mono uppercase tracking-widest text-[#0E4637] font-semibold block mb-2">{"Odpowiedzi inżynierskie"}</span>
-            <h2 className="text-3xl font-bold font-display text-[#17211C]">{"Najczęściej zadawane pytania (FAQ)"}</h2>
-            <p className="text-sm text-[#17211C]/70 mt-2">{"Praktyczne odpowiedzi dotyczące kosztów, procesu, standardu DALI i odbiorów."}</p>
+            <span className="text-xs font-mono uppercase tracking-widest text-ink font-semibold block mb-2">{"Odpowiedzi inżynierskie"}</span>
+            <h2 className="text-3xl font-bold font-display text-ink">{"Najczęściej zadawane pytania (FAQ)"}</h2>
+            <p className="text-sm text-ink/70 mt-2">{"Praktyczne odpowiedzi dotyczące kosztów, procesu, standardu DALI i odbiorów."}</p>
 
             {/* Search Input */}
             <div className="mt-6 max-w-md mx-auto relative">
-              <Search className="w-4 h-4 text-[#17211C]/40 absolute left-3.5 top-1/2 -translate-y-1/2" />
+              <Search className="w-4 h-4 text-ink/40 absolute left-3.5 top-1/2 -translate-y-1/2" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder={"Szukaj pytania (np. DALI, koszt, etapy, HVAC)..."}
-                className="w-full pl-10 pr-4 py-2.5 bg-white border border-[#17211C]/15 rounded-lg text-xs text-[#17211C] focus:outline-none focus:ring-2 focus:ring-[#0E4637]"
+                className="w-full pl-10 pr-4 py-2.5 bg-white border border-ink/15 rounded-lg text-xs text-ink focus:outline-none focus:ring-2 focus:ring-ink"
               />
             </div>
           </div>
@@ -224,24 +224,24 @@ export const KnowledgePage: React.FC<KnowledgePageProps> = ({
               return (
                 <div
                   key={idx}
-                  className="bg-white border border-[#17211C]/10 rounded-xl overflow-hidden transition-colors"
+                  className="bg-white border border-ink/10 rounded-xl overflow-hidden transition-colors"
                 >
                   <button
                     onClick={() => setOpenFaq(isOpen ? null : idx)}
                     className="w-full p-5 text-left flex items-center justify-between gap-4 focus:outline-none"
                   >
-                    <span className="font-bold text-sm text-[#17211C] leading-snug">
+                    <span className="font-bold text-sm text-ink leading-snug">
                       {faq.q}
                     </span>
                     <ChevronDown
-                      className={`w-4 h-4 text-[#0E4637] shrink-0 transition-transform duration-200 ${
+                      className={`w-4 h-4 text-ink shrink-0 transition-transform duration-200 ${
                         isOpen ? 'rotate-180' : ''
                       }`}
                     />
                   </button>
 
                   {isOpen && (
-                    <div className="px-5 pb-5 pt-0 text-xs text-[#17211C]/80 leading-relaxed border-t border-black/5 mt-1 pt-3">
+                    <div className="px-5 pb-5 pt-0 text-xs text-ink/80 leading-relaxed border-t border-black/5 mt-1 pt-3">
                       {faq.a}
                     </div>
                   )}
@@ -250,13 +250,13 @@ export const KnowledgePage: React.FC<KnowledgePageProps> = ({
             })}
           </div>
 
-          <div className="mt-12 text-center bg-white p-6 rounded-2xl border border-[#17211C]/10 space-y-2">
-            <h3 className="font-bold text-sm text-[#17211C]">{"Masz inne pytanie techniczne?"}</h3>
-            <p className="text-xs text-[#17211C]/70">{"Nasi certyfikowani inżynierowie KNX odpowiedzą na każde pytanie dotyczące projektu instalacji."}</p>
+          <div className="mt-12 text-center bg-white p-6 rounded-2xl border border-ink/10 space-y-2">
+            <h3 className="font-bold text-sm text-ink">{"Masz inne pytanie techniczne?"}</h3>
+            <p className="text-xs text-ink/70">{"Nasi certyfikowani inżynierowie KNX odpowiedzą na każde pytanie dotyczące projektu instalacji."}</p>
             <div className="pt-2">
               <button
                 onClick={onOpenConsultation}
-                className="px-5 py-2.5 bg-[#0E4637] text-[#E6F15A] text-xs font-semibold uppercase tracking-wider rounded-lg hover:bg-[#17211C] transition-colors"
+                className="px-5 py-2.5 bg-ink text-accent text-xs font-semibold uppercase tracking-wider rounded-lg hover:bg-ink transition-colors"
               >{"Zapytaj inżyniera KNX"}</button>
             </div>
           </div>

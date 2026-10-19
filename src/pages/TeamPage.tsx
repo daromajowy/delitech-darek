@@ -59,68 +59,68 @@ export const TeamPage: React.FC<TeamPageProps> = ({ onNavigate, onOpenConsultati
   return (
     <div className="space-y-0">
       {/* 1. Hero sekcja */}
-      <section className="bg-[#17211C] text-white py-16 lg:py-24 border-b border-white/10">
+      <section className="bg-ink text-white py-16 lg:py-24 border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl space-y-4">
-            <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#0E4637] border border-[#CFE3C4]/20 rounded-full text-xs font-mono uppercase tracking-wider text-[#E6F15A]">
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-ink border border-silver/20 rounded-full text-xs font-mono uppercase tracking-wider text-accent">
               <Users className="w-3.5 h-3.5" />
               <span>{"Ludzie · Wiedza · Inżynieria"}</span>
             </div>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold font-display tracking-tight text-white">{"Kim jesteśmy"}</h1>
-            <p className="text-base sm:text-lg text-[#EDE9DF]/80 leading-relaxed font-display">{"Poznaj zespół inżynierów i specjalistów INTELISPACES. Łączymy precyzyjną wiedzę instalacyjną, certyfikację standardu KNX oraz wrażliwość na architekturę wnętrz."}</p>
+            <p className="text-base sm:text-lg text-mist/80 leading-relaxed font-display">{"Poznaj zespół inżynierów i specjalistów INTELISPACES. Łączymy precyzyjną wiedzę instalacyjną, certyfikację standardu KNX oraz wrażliwość na architekturę wnętrz."}</p>
           </div>
         </div>
       </section>
 
       {/* 2. Krótka misja i podejście */}
-      <section className="py-12 bg-white border-b border-[#17211C]/10">
+      <section className="py-12 bg-white border-b border-ink/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="p-6 rounded-xl bg-[#F7F8F5] border border-[#17211C]/10 space-y-3">
-              <div className="w-10 h-10 rounded-lg bg-[#0E4637] text-[#E6F15A] flex items-center justify-center font-bold">
+            <div className="p-6 rounded-xl bg-surface border border-ink/10 space-y-3">
+              <div className="w-10 h-10 rounded-lg bg-ink text-accent flex items-center justify-center font-bold">
                 <ShieldCheck className="w-5 h-5" />
               </div>
-              <h3 className="font-bold text-lg font-display text-[#17211C]">{"Certyfikowana wiedza"}</h3>
-              <p className="text-xs sm:text-sm text-[#17211C]/75 leading-relaxed">{"Każdy projekt prowadzimy zgodnie z międzynarodowymi normami KNX i standardami bezpieczeństwa instalacji."}</p>
+              <h3 className="font-bold text-lg font-display text-ink">{"Certyfikowana wiedza"}</h3>
+              <p className="text-xs sm:text-sm text-ink/75 leading-relaxed">{"Każdy projekt prowadzimy zgodnie z międzynarodowymi normami KNX i standardami bezpieczeństwa instalacji."}</p>
             </div>
 
-            <div className="p-6 rounded-xl bg-[#F7F8F5] border border-[#17211C]/10 space-y-3">
-              <div className="w-10 h-10 rounded-lg bg-[#0E4637] text-[#E6F15A] flex items-center justify-center font-bold">
+            <div className="p-6 rounded-xl bg-surface border border-ink/10 space-y-3">
+              <div className="w-10 h-10 rounded-lg bg-ink text-accent flex items-center justify-center font-bold">
                 <Cpu className="w-5 h-5" />
               </div>
-              <h3 className="font-bold text-lg font-display text-[#17211C]">{"Własna prefabrykacja"}</h3>
-              <p className="text-xs sm:text-sm text-[#17211C]/75 leading-relaxed">{"Nie zlecamy szaf automatyki podwykonawcom. Montujemy i testujemy rozdzielnice we własnym punkcie w Warszawie."}</p>
+              <h3 className="font-bold text-lg font-display text-ink">{"Własna prefabrykacja"}</h3>
+              <p className="text-xs sm:text-sm text-ink/75 leading-relaxed">{"Nie zlecamy szaf automatyki podwykonawcom. Montujemy i testujemy rozdzielnice we własnym punkcie w Warszawie."}</p>
             </div>
 
-            <div className="p-6 rounded-xl bg-[#F7F8F5] border border-[#17211C]/10 space-y-3">
-              <div className="w-10 h-10 rounded-lg bg-[#0E4637] text-[#E6F15A] flex items-center justify-center font-bold">
+            <div className="p-6 rounded-xl bg-surface border border-ink/10 space-y-3">
+              <div className="w-10 h-10 rounded-lg bg-ink text-accent flex items-center justify-center font-bold">
                 <Layers className="w-5 h-5" />
               </div>
-              <h3 className="font-bold text-lg font-display text-[#17211C]">{"Partner dla architektów"}</h3>
-              <p className="text-xs sm:text-sm text-[#17211C]/75 leading-relaxed">{"Mówimy językiem projektantów i wspomagamy ich pracę. Dbamy o spójność detali, wzornictwo osprzętu i czytelne wytyczne dla instalatorów."}</p>
+              <h3 className="font-bold text-lg font-display text-ink">{"Partner dla architektów"}</h3>
+              <p className="text-xs sm:text-sm text-ink/75 leading-relaxed">{"Mówimy językiem projektantów i wspomagamy ich pracę. Dbamy o spójność detali, wzornictwo osprzętu i czytelne wytyczne dla instalatorów."}</p>
             </div>
           </div>
         </div>
       </section>
 
       {/* 3. Karty Zespołu (Team Grid) */}
-      <section className="py-16 sm:py-24 bg-[#F7F8F5]">
+      <section className="py-16 sm:py-24 bg-surface">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
           <div className="max-w-2xl space-y-3">
-            <span className="text-xs font-mono uppercase tracking-widest text-[#0E4637] font-semibold block">{"Poznaj nasz zespół"}</span>
-            <h2 className="text-3xl sm:text-4xl font-bold font-display text-[#17211C] tracking-tight">{"Zespół stojący za Twoją instalacją"}</h2>
-            <p className="text-sm sm:text-base text-[#17211C]/75 leading-relaxed">{"Prezentację naszego zespołu."}</p>
+            <span className="text-xs font-mono uppercase tracking-widest text-ink font-semibold block">{"Poznaj nasz zespół"}</span>
+            <h2 className="text-3xl sm:text-4xl font-bold font-display text-ink tracking-tight">{"Zespół stojący za Twoją instalacją"}</h2>
+            <p className="text-sm sm:text-base text-ink/75 leading-relaxed">{"Prezentację naszego zespołu."}</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {teamMembers.map((member) => (
               <div
                 key={member.id}
-                className="bg-white rounded-2xl border border-[#17211C]/10 overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between"
+                className="bg-white rounded-2xl border border-ink/10 overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between"
               >
                 <div>
                   {/* Kontener na zdjęcie / awatar */}
-                  <div className="aspect-[4/5] bg-[#17211C] relative flex items-center justify-center text-white overflow-hidden group">
+                  <div className="aspect-[4/5] bg-ink relative flex items-center justify-center text-white overflow-hidden group">
                     {member.photoUrl ? (
                       <img
                         src={member.photoUrl}
@@ -139,15 +139,15 @@ export const TeamPage: React.FC<TeamPageProps> = ({ onNavigate, onOpenConsultati
                         member.photoUrl ? 'hidden' : 'flex'
                       }`}
                     >
-                      <div className="w-20 h-20 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-2xl font-bold font-display text-[#E6F15A]">
+                      <div className="w-20 h-20 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-2xl font-bold font-display text-accent">
                         {member.name.split(' ').map((n) => n[0]).join('')}
                       </div>
-                      <span className="text-[11px] font-mono text-[#CFE3C4]/70 uppercase tracking-wider">{"[ Miejsce na oryginalne zdjęcie ]"}</span>
+                      <span className="text-[11px] font-mono text-silver/80 uppercase tracking-wider">{"[ Miejsce na oryginalne zdjęcie ]"}</span>
                     </div>
 
                     {/* Tag specjalizacji w rogu */}
-                    <div className="absolute bottom-3 left-3 right-3 bg-black/60 backdrop-blur-md px-3 py-1.5 rounded-lg text-[11px] text-[#EDE9DF] border border-white/10 flex items-center gap-1.5">
-                      <Sparkles className="w-3 h-3 text-[#E6F15A] shrink-0" />
+                    <div className="absolute bottom-3 left-3 right-3 bg-black/60 backdrop-blur-md px-3 py-1.5 rounded-lg text-[11px] text-mist border border-white/10 flex items-center gap-1.5">
+                      <Sparkles className="w-3 h-3 text-accent shrink-0" />
                       <span className="truncate">{member.specialization}</span>
                     </div>
                   </div>
@@ -155,13 +155,13 @@ export const TeamPage: React.FC<TeamPageProps> = ({ onNavigate, onOpenConsultati
                   {/* Treść karty */}
                   <div className="p-6 space-y-4">
                     <div>
-                      <h3 className="text-xl font-bold font-display text-[#17211C]">{member.name}</h3>
-                      <p className="text-xs font-semibold text-[#0E4637] uppercase tracking-wider mt-0.5 font-mono">
+                      <h3 className="text-xl font-bold font-display text-ink">{member.name}</h3>
+                      <p className="text-xs font-semibold text-ink uppercase tracking-wider mt-0.5 font-mono">
                         {member.role}
                       </p>
                     </div>
 
-                    <p className="text-xs sm:text-sm text-[#17211C]/80 leading-relaxed">
+                    <p className="text-xs sm:text-sm text-ink/80 leading-relaxed">
                       {member.bio}
                     </p>
 
@@ -170,7 +170,7 @@ export const TeamPage: React.FC<TeamPageProps> = ({ onNavigate, onOpenConsultati
                       {member.certifications.map((cert) => (
                         <span
                           key={cert}
-                          className="px-2.5 py-1 bg-[#F7F8F5] border border-[#17211C]/10 rounded-md text-[10px] font-mono font-medium text-[#0E4637]"
+                          className="px-2.5 py-1 bg-surface border border-ink/10 rounded-md text-[10px] font-mono font-medium text-ink"
                         >
                           {cert}
                         </span>
@@ -181,22 +181,22 @@ export const TeamPage: React.FC<TeamPageProps> = ({ onNavigate, onOpenConsultati
 
                 {/* Stopka karty z kontaktem */}
                 {(member.email || member.phone) && (
-                  <div className="p-4 px-6 bg-[#F7F8F5]/80 border-t border-[#17211C]/10 flex flex-wrap items-center justify-between gap-3 text-xs font-mono text-[#17211C]/70">
+                  <div className="p-4 px-6 bg-surface/80 border-t border-ink/10 flex flex-wrap items-center justify-between gap-3 text-xs font-mono text-ink/70">
                     {member.email && (
                       <a
                         href={`mailto:${member.email}`}
-                        className="hover:text-[#0E4637] flex items-center gap-1.5 transition-colors"
+                        className="hover:text-ink flex items-center gap-1.5 transition-colors"
                       >
-                        <Mail className="w-3.5 h-3.5 text-[#0E4637]" />
+                        <Mail className="w-3.5 h-3.5 text-ink" />
                         <span>{member.email}</span>
                       </a>
                     )}
                     {member.phone && (
                       <a
                         href={`tel:${member.phone.replace(/\s+/g, '')}`}
-                        className="hover:text-[#0E4637] flex items-center gap-1.5 transition-colors"
+                        className="hover:text-ink flex items-center gap-1.5 transition-colors"
                       >
-                        <Phone className="w-3.5 h-3.5 text-[#0E4637]" />
+                        <Phone className="w-3.5 h-3.5 text-ink" />
                         <span>{member.phone}</span>
                       </a>
                     )}
@@ -209,18 +209,18 @@ export const TeamPage: React.FC<TeamPageProps> = ({ onNavigate, onOpenConsultati
       </section>
 
       {/* 4. Sekcja CTA – Zaproszenie do kontaktu */}
-      <section className="py-16 sm:py-20 bg-white border-t border-[#17211C]/10">
+      <section className="py-16 sm:py-20 bg-white border-t border-ink/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="p-8 sm:p-12 rounded-2xl bg-[#0E4637] text-white flex flex-col md:flex-row items-center justify-between gap-8">
+          <div className="p-8 sm:p-12 rounded-2xl bg-ink text-white flex flex-col md:flex-row items-center justify-between gap-8">
             <div className="space-y-3">
-              <span className="text-xs font-mono uppercase tracking-widest text-[#E6F15A] font-semibold">{"Dołącz do grona zadowolonych inwestorów"}</span>
+              <span className="text-xs font-mono uppercase tracking-widest text-accent font-semibold">{"Dołącz do grona zadowolonych inwestorów"}</span>
               <h3 className="text-2xl sm:text-3xl font-bold font-display text-white">{"Porozmawiajmy o Twojej inwestycji"}</h3>
-              <p className="text-xs sm:text-sm text-[#CFE3C4] max-w-xl leading-relaxed">{"Skontaktuj się bezpośrednio z naszym zespołem. Przeanalizujemy rzuty architektoniczne i przygotujemy propozycję automatyki dopasowaną do potrzeb."}</p>
+              <p className="text-xs sm:text-sm text-silver max-w-xl leading-relaxed">{"Skontaktuj się bezpośrednio z naszym zespołem. Przeanalizujemy rzuty architektoniczne i przygotujemy propozycję automatyki dopasowaną do potrzeb."}</p>
             </div>
             <div className="flex flex-col sm:flex-row items-center gap-3">
               <button
                 onClick={onOpenConsultation}
-                className="w-full sm:w-auto px-6 py-3 bg-[#E6F15A] hover:bg-white text-[#0E4637] text-xs font-bold uppercase tracking-wider rounded-lg transition-colors whitespace-nowrap"
+                className="w-full sm:w-auto px-6 py-3 bg-accent hover:bg-white text-ink text-xs font-bold uppercase tracking-wider rounded-lg transition-colors whitespace-nowrap"
               >{"Umów rozmowę z inżynierem"}</button>
               <button
                 onClick={() => onNavigate('contact')}

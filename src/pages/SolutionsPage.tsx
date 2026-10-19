@@ -136,21 +136,21 @@ export const SolutionsPage: React.FC<SolutionsPageProps> = ({
   return (
     <div className="space-y-0">
       {/* Hero */}
-      <section className="bg-[#17211C] text-white py-16 lg:py-20 border-b border-white/10">
+      <section className="bg-ink text-white py-16 lg:py-20 border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl space-y-4">
-            <span className="text-xs font-mono uppercase tracking-widest text-[#E6F15A] font-semibold block">{"Inżynieria systemów budynkowych"}</span>
+            <span className="text-xs font-mono uppercase tracking-widest text-accent font-semibold block">{"Inżynieria systemów budynkowych"}</span>
             <h1 className="text-4xl sm:text-5xl font-extrabold font-display tracking-tight text-white">{"Rozwiązania technologiczne KNX"}</h1>
-            <p className="text-base sm:text-lg text-[#EDE9DF]/80 leading-relaxed pt-2">{"Zobacz poszczególne elementy układanki. Każdy moduł projektujemy z dbałością o najwyższą niezawodność, ergonomię użytkowania oraz kompatybilność na dekady."}</p>
+            <p className="text-base sm:text-lg text-mist/80 leading-relaxed pt-2">{"Zobacz poszczególne elementy układanki. Każdy moduł projektujemy z dbałością o najwyższą niezawodność, ergonomię użytkowania oraz kompatybilność na dekady."}</p>
           </div>
         </div>
       </section>
 
       {/* Interactive Solutions Browser */}
-      <section className="py-16 sm:py-24 bg-white border-b border-[#17211C]/10">
+      <section className="py-16 sm:py-24 bg-white border-b border-ink/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Pills / tabs */}
-          <div className="flex flex-wrap gap-2 mb-12 border-b border-[#17211C]/10 pb-4">
+          <div className="flex flex-wrap gap-2 mb-12 border-b border-ink/10 pb-4">
             {solutions.map((sol) => {
               const isActive = activeSolution === sol.id;
               return (
@@ -159,8 +159,8 @@ export const SolutionsPage: React.FC<SolutionsPageProps> = ({
                   onClick={() => setActiveSolution(sol.id)}
                   className={`px-4 py-2 text-xs font-semibold rounded-lg transition-all ${
                     isActive
-                      ? 'bg-[#0E4637] text-[#E6F15A] shadow-sm'
-                      : 'bg-[#F7F8F5] text-[#17211C]/75 hover:text-[#17211C] hover:bg-black/5'
+                      ? 'bg-ink text-accent shadow-sm'
+                      : 'bg-surface text-ink/75 hover:text-ink hover:bg-black/5'
                   }`}
                 >
                   {sol.title}
@@ -177,66 +177,66 @@ export const SolutionsPage: React.FC<SolutionsPageProps> = ({
               return (
                 <div
                   key={s.id}
-                  className="bg-[#F7F8F5] border border-[#17211C]/15 rounded-2xl p-8 sm:p-12 shadow-sm animate-fade-in"
+                  className="bg-surface border border-ink/15 rounded-2xl p-8 sm:p-12 shadow-sm animate-fade-in"
                 >
                   <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
                     <div className="lg:col-span-8 space-y-6">
                       <div className="flex items-center gap-3">
-                        <div className="w-12 h-12 rounded-xl bg-[#0E4637] text-[#E6F15A] flex items-center justify-center">
+                        <div className="w-12 h-12 rounded-xl bg-ink text-accent flex items-center justify-center">
                           <Icon className="w-6 h-6" />
                         </div>
                         <div>
-                          <span className="text-xs font-mono uppercase tracking-wider text-[#0E4637] font-semibold">
+                          <span className="text-xs font-mono uppercase tracking-wider text-ink font-semibold">
                             {s.badge}
                           </span>
-                          <h2 className="text-2xl sm:text-3xl font-bold font-display text-[#17211C]">
+                          <h2 className="text-2xl sm:text-3xl font-bold font-display text-ink">
                             {s.title}
                           </h2>
                         </div>
                       </div>
 
-                      <p className="text-lg font-semibold text-[#0E4637] font-display">
+                      <p className="text-lg font-semibold text-ink font-display">
                         {s.lead}
                       </p>
 
-                      <p className="text-sm text-[#17211C]/80 leading-relaxed">
+                      <p className="text-sm text-ink/80 leading-relaxed">
                         {s.content}
                       </p>
 
                       <div className="pt-2 space-y-2.5">
-                        <span className="text-xs font-bold uppercase tracking-wider text-[#17211C] block mb-2">{"Standardy inżynierskie Delitech:"}</span>
+                        <span className="text-xs font-bold uppercase tracking-wider text-ink block mb-2">{"Standardy inżynierskie Delitech:"}</span>
                         {s.features.map((f, i) => (
-                          <div key={i} className="flex items-start gap-2.5 text-xs text-[#17211C]/85">
-                            <CheckCircle2 className="w-4 h-4 text-[#0E4637] shrink-0 mt-0.5" />
+                          <div key={i} className="flex items-start gap-2.5 text-xs text-ink/85">
+                            <CheckCircle2 className="w-4 h-4 text-ink shrink-0 mt-0.5" />
                             <span>{f}</span>
                           </div>
                         ))}
                       </div>
 
-                      <div className="pt-6 border-t border-[#17211C]/10 flex items-center gap-4">
+                      <div className="pt-6 border-t border-ink/10 flex items-center gap-4">
                         <button
                           onClick={onOpenConsultation}
-                          className="px-5 py-2.5 bg-[#0E4637] hover:bg-[#17211C] text-[#E6F15A] text-xs font-semibold uppercase tracking-wider rounded-lg transition-colors flex items-center gap-2"
+                          className="px-5 py-2.5 bg-ink hover:bg-ink-hover text-accent text-xs font-semibold uppercase tracking-wider rounded-lg transition-colors flex items-center gap-2"
                         >
                           <span>{"Skonsultuj rozwiązanie z inżynierem"}</span>
                           <ArrowRight className="w-4 h-4" />
                         </button>
                         <button
                           onClick={() => onNavigate('contact')}
-                          className="text-xs font-semibold text-[#0E4637] hover:underline"
+                          className="text-xs font-semibold text-ink hover:underline"
                         >{"Kontakt z zespołem"}</button>
                       </div>
                     </div>
 
-                    <div className="lg:col-span-4 bg-white rounded-xl p-6 border border-[#17211C]/10 space-y-4">
-                      <h3 className="text-xs font-bold uppercase tracking-wider text-[#17211C] pb-2 border-b border-[#17211C]/10">{"Integracja w obiekcie"}</h3>
-                      <div className="text-xs text-[#17211C]/75 space-y-3">
+                    <div className="lg:col-span-4 bg-white rounded-xl p-6 border border-ink/10 space-y-4">
+                      <h3 className="text-xs font-bold uppercase tracking-wider text-ink pb-2 border-b border-ink/10">{"Integracja w obiekcie"}</h3>
+                      <div className="text-xs text-ink/75 space-y-3">
                         <p>
-                          <strong className="text-[#17211C]">{"Niezależność:"}</strong>{" Wszystkie moduły montujemy w certyfikowanych szafach rozdzielczych, przetestowanych przed dostarczeniem na budowę."}</p>
+                          <strong className="text-ink">{"Niezależność:"}</strong>{" Wszystkie moduły montujemy w certyfikowanych szafach rozdzielczych, przetestowanych przed dostarczeniem na budowę."}</p>
                         <p>
-                          <strong className="text-[#17211C]">{"Gwarancja:"}</strong>{" Udzielamy pełnej rękojmi inżynierskiej oraz prowadzimy serwis pogwarancyjny w Warszawie i całej Polsce."}</p>
+                          <strong className="text-ink">{"Gwarancja:"}</strong>{" Udzielamy pełnej rękojmi inżynierskiej oraz prowadzimy serwis pogwarancyjny w Warszawie i całej Polsce."}</p>
                         <p>
-                          <strong className="text-[#17211C]">{"Dokumentacja:"}</strong>{" Każdy obwód, adres DALI i adres fizyczny KNX otrzymuje dokładne oznaczenie na schemacie powykonawczym."}</p>
+                          <strong className="text-ink">{"Dokumentacja:"}</strong>{" Każdy obwód, adres DALI i adres fizyczny KNX otrzymuje dokładne oznaczenie na schemacie powykonawczym."}</p>
                       </div>
                     </div>
                   </div>
