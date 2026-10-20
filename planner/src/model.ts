@@ -16,7 +16,7 @@ export interface Room {
   area: number | null;
   notes: string;
   circuits: Circuit[];
-  planArea?: Placement & { width: number; height: number };
+  planArea?: RoomPlanArea;
 }
 export interface Binding {
   id: string;
@@ -31,6 +31,13 @@ export interface Placement {
   page: number;
   x: number;
   y: number;
+}
+export interface PlanVertex { x: number; y: number }
+export interface RoomPlanArea extends Placement {
+  width: number;
+  height: number;
+  /** Page-relative vertices. Older projects without vertices use the rectangular bounds. */
+  vertices?: PlanVertex[];
 }
 export interface PlanView {
   documentId: string;

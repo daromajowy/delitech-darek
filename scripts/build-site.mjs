@@ -15,7 +15,7 @@ await viteBuild({base, build:{outDir:out, emptyOutDir:true, manifest:true, rollu
 fs.mkdirSync(`${out}/media`, {recursive:true});
 for (const name of fs.readdirSync('src/assets/images')) fs.copyFileSync(`src/assets/images/${name}`, `${out}/media/${name}`);
 fs.copyFileSync('src/assets/jung-ls-touch-3-23.mp4', `${out}/media/jung-ls-touch-3-23.mp4`);
-await esbuild({entryPoints:['src/App.tsx'], bundle:true, platform:'node', format:'esm', outfile:'.ssr-app.mjs', packages:'external', plugins:[{name:'static-media',setup(build){build.onLoad({filter:/\.(jpg|jpeg|png|mp4)$/}, args=>({contents:`export default ${JSON.stringify(base+'media/'+path.basename(args.path))}`,loader:'js'}));}}]});
+await esbuild({entryPoints:['src/App.tsx'], bundle:true, platform:'node', format:'esm', outfile:'.ssr-app.mjs', loader:{'.css':'empty'}, packages:'external', plugins:[{name:'static-media',setup(build){build.onLoad({filter:/\.(jpg|jpeg|png|webp|mp4)$/}, args=>({contents:`export default ${JSON.stringify(base+'media/'+path.basename(args.path))}`,loader:'js'}));}}]});
 const App = (await import('../.ssr-app.mjs?'+Date.now())).default;
 const entry = JSON.parse(fs.readFileSync(`${out}/.vite/manifest.json`, 'utf8'))['src/main.tsx'];
 const htmlEscape = value => String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));

@@ -1,24 +1,16 @@
 import React, { useState } from 'react';
-import { PageId } from '../types.ts';
-import { ContactForm } from '../components/ContactForm.tsx';
-import { MapPin, Phone, Mail, Clock, ShieldCheck, Calculator, Check, ArrowRight } from 'lucide-react';
+import { MapPin, Phone, Mail, Clock, Calculator, ArrowRight } from 'lucide-react';
 
 interface ContactPageProps {
-  onOpenPrivacy: (tab?: 'privacy' | 'cookies' | 'rodo') => void;
   onOpenConsultation: () => void;
 }
 
 export const ContactPage: React.FC<ContactPageProps> = ({
-  onOpenPrivacy,
   onOpenConsultation,
 }) => {
   // Quick Preliminary Scope Estimator for Architects and Investors
   const [calcSpace, setCalcSpace] = useState<'biuro' | 'dom' | 'apartament'>('biuro');
   const [calcArea, setCalcArea] = useState<number>(350);
-  const [calcDali, setCalcDali] = useState(true);
-  const [calcHvac, setCalcHvac] = useState(true);
-  const [calcShading, setCalcShading] = useState(true);
-  const [calcEnergy, setCalcEnergy] = useState(true);
 
   // Approximate module count calculation based on technical standards
   const estimatedZones = Math.max(2, Math.round(calcArea / 35));
@@ -28,107 +20,117 @@ export const ContactPage: React.FC<ContactPageProps> = ({
   return (
     <div className="space-y-0">
       {/* Hero */}
-      <section className="bg-[#17211C] text-white py-16 lg:py-20 border-b border-white/10">
+      <section className="bg-ink text-white py-16 lg:py-20 border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl space-y-4">
-            <span className="text-xs font-mono uppercase tracking-widest text-[#E6F15A] font-semibold block">{"Centrum Zapytań Projektowych"}</span>
-            <h1 className="text-4xl sm:text-5xl font-extrabold font-display tracking-tight text-white">{"Prześlij rzuty. Wrócimy z konkretnymi pytaniami."}</h1>
-            <p className="text-base sm:text-lg text-[#EDE9DF]/80 leading-relaxed pt-2">{"Warszawa i okolice · realizacje w całej Polsce. Przeanalizujemy rzuty architektoniczne, wskażemy optymalne rozwiązania instalacji KNX i przygotujemy rzeczowy kosztorys."}</p>
+            <span className="text-xs font-mono uppercase tracking-widest text-accent font-semibold block">{"Kontakt z zespołem"}</span>
+            <h1 className="text-4xl sm:text-5xl font-extrabold font-display tracking-tight text-white">{"Porozmawiajmy o Twoim projekcie."}</h1>
+            <p className="text-base sm:text-lg text-mist/80 leading-relaxed pt-2">{"Masz pytania o automatykę KNX? Zadzwoń, napisz lub umów konsultację. Działamy w Warszawie i realizujemy projekty w całej Polsce."}</p>
           </div>
         </div>
       </section>
 
-      {/* Main Grid: Info + Map Placeholder + Interactive Form */}
-      <section className="py-16 sm:py-24 bg-[#F7F8F5]">
+      {/* Contact details, location and preliminary scope estimator */}
+      <section className="py-16 sm:py-24 bg-surface">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
-            {/* Left Col: Contact Details & Google Maps */}
-            <div className="lg:col-span-5 space-y-6">
+            {/* Direct contact */}
+            <div className="lg:col-span-7 space-y-6">
               {/* Direct Details Card */}
-              <div className="bg-white rounded-2xl p-6 sm:p-8 border border-[#17211C]/10 shadow-sm space-y-6">
-                <h2 className="text-xl font-bold font-display text-[#17211C]">{"Biuro inżynierskie w Warszawie"}</h2>
+              <div className="bg-white rounded-2xl p-6 sm:p-8 border border-ink/10 shadow-sm space-y-6">
+                <h2 className="text-xl font-bold font-display text-ink">{"Biuro inżynierskie w Warszawie"}</h2>
 
-                <div className="space-y-4 text-xs text-[#17211C]/80">
+                <div className="space-y-4 text-xs text-ink/80">
                   <div className="flex items-start gap-3">
-                    <MapPin className="w-5 h-5 text-[#0E4637] shrink-0 mt-0.5" />
+                    <MapPin className="w-5 h-5 text-ink shrink-0 mt-0.5" />
                     <div>
-                      <p className="font-semibold text-sm text-[#17211C]">{"Delitech Sp.j."}</p>
+                      <p className="font-semibold text-sm text-ink">{"Delitech Sp.j."}</p>
                       <p>{"ul. Konwaliowa 7 lok. 103"}</p>
                       <p>{"03-194 Warszawa, Polska"}</p>
-                      <p className="text-[#17211C]/60 text-[11px] mt-0.5">{"Dojazd: sprawdź trasę do salonu w Google Maps."}</p>
+                      <p className="text-ink/75 text-[11px] mt-0.5">{"Dojazd: sprawdź trasę do salonu w Google Maps."}</p>
                     </div>
                   </div>
 
                   <div className="flex items-center gap-3">
-                    <Phone className="w-5 h-5 text-[#0E4637] shrink-0" />
+                    <Phone className="w-5 h-5 text-ink shrink-0" />
                     <div>
-                      <span className="text-[11px] text-[#17211C]/60 block">{"Infolinia techniczna / Biuro:"}</span>
-                      <a href="tel:+48505260715" className="font-mono text-sm font-semibold text-[#0E4637] hover:underline">
+                      <span className="text-[11px] text-ink/75 block">{"Infolinia techniczna / Biuro:"}</span>
+                      <a href="tel:+48505260715" className="font-mono text-sm font-semibold text-ink hover:underline">
                         +48 505 260 715
                       </a>
                     </div>
                   </div>
 
                   <div className="flex items-center gap-3">
-                    <Mail className="w-5 h-5 text-[#0E4637] shrink-0" />
+                    <Mail className="w-5 h-5 text-ink shrink-0" />
                     <div>
-                      <span className="text-[11px] text-[#17211C]/60 block">{"Adres dla zapytań i rzutów:"}</span>
-                      <a href="mailto:kontakt@delitech.pl" className="font-mono text-sm font-semibold text-[#0E4637] hover:underline">{"kontakt@delitech.pl"}</a>
+                      <span className="text-[11px] text-ink/75 block">{"Napisz do nas:"}</span>
+                      <a href="mailto:kontakt@delitech.pl" className="font-mono text-sm font-semibold text-ink hover:underline">{"kontakt@delitech.pl"}</a>
                     </div>
                   </div>
 
                   <div className="flex items-center gap-3">
-                    <Clock className="w-5 h-5 text-[#0E4637] shrink-0" />
+                    <Clock className="w-5 h-5 text-ink shrink-0" />
                     <div>
-                      <span className="text-[11px] text-[#17211C]/60 block">{"Godziny pracy inżynierów:"}</span>
+                      <span className="text-[11px] text-ink/75 block">{"Godziny pracy inżynierów:"}</span>
                       <span className="font-medium">{"Poniedziałek – Piątek: 08:30 – 17:30"}</span>
                     </div>
                   </div>
                 </div>
 
-                <div className="pt-4 border-t border-[#17211C]/10 text-[11px] font-mono text-[#17211C]/60 space-y-0.5">
+                <div className="pt-4 border-t border-ink/10 text-[11px] font-mono text-ink/75 space-y-0.5">
                   <p>{"NIP: 1132919580"}</p>
                   <p>{"Dane do płatności przekazujemy wraz z ofertą."}</p>
                 </div>
+                <button
+                  type="button"
+                  onClick={onOpenConsultation}
+                  className="inline-flex items-center gap-2 px-5 py-3 bg-ink hover:bg-ink-hover text-accent font-semibold text-xs uppercase tracking-wider rounded-lg transition-colors"
+                >
+                  Umów konsultację <ArrowRight className="w-4 h-4" />
+                </button>
               </div>
 
+            </div>
+
+            <div className="lg:col-span-5 space-y-6">
               {/* Stylized Google Maps Area */}
-              <div className="bg-white rounded-2xl overflow-hidden border border-[#17211C]/10 shadow-sm">
-                <div className="p-4 bg-[#F7F8F5] border-b border-[#17211C]/10 flex items-center justify-between">
-                  <span className="text-xs font-semibold text-[#17211C]">{"Lokalizacja: Warszawa"}</span>
+              <div className="bg-white rounded-2xl overflow-hidden border border-ink/10 shadow-sm">
+                <div className="p-4 bg-surface border-b border-ink/10 flex items-center justify-between">
+                  <span className="text-xs font-semibold text-ink">{"Lokalizacja: Warszawa"}</span>
                   <a
                     href="https://maps.google.com/?q=Konwaliowa+7,+Warszawa"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-[11px] text-[#0E4637] font-semibold hover:underline"
+                    className="text-[11px] text-ink font-semibold hover:underline"
                   >{"Otwórz w Google Maps →"}</a>
                 </div>
 
-                <div className="h-64 bg-[#17211C] relative flex items-center justify-center p-6 text-center text-white overflow-hidden">
+                <div className="h-64 bg-ink relative flex items-center justify-center p-6 text-center text-white overflow-hidden">
                   <div className="absolute inset-0 bg-grid-dark-subtle opacity-40" />
                   
                   {/* Map Pin Mockup */}
                   <div className="relative z-10 space-y-2">
-                    <div className="w-10 h-10 mx-auto bg-[#0E4637] border-2 border-[#E6F15A] rounded-full flex items-center justify-center shadow-xl">
-                      <MapPin className="w-5 h-5 text-[#E6F15A]" />
+                    <div className="w-10 h-10 mx-auto bg-ink border-2 border-accent rounded-full flex items-center justify-center shadow-xl">
+                      <MapPin className="w-5 h-5 text-accent" />
                     </div>
                     <p className="font-bold text-sm text-white">{"Delitech Smart Spaces"}</p>
-                    <p className="text-xs text-[#EDE9DF]/70">{"ul. Konwaliowa 7 lok. 103, 03-194 Warszawa"}</p>
-                    <span className="inline-block text-[10px] font-mono bg-white/10 px-2.5 py-0.5 rounded text-[#CFE3C4]">{"ul. Konwaliowa 7 lok. 103"}</span>
+                    <p className="text-xs text-mist/70">{"ul. Konwaliowa 7 lok. 103, 03-194 Warszawa"}</p>
+                    <span className="inline-block text-[10px] font-mono bg-white/10 px-2.5 py-0.5 rounded text-silver">{"ul. Konwaliowa 7 lok. 103"}</span>
                   </div>
                 </div>
               </div>
 
               {/* Preliminary Scope Calculator Card */}
-              <div className="bg-white rounded-2xl p-6 border border-[#17211C]/10 shadow-sm space-y-4">
-                <div className="flex items-center gap-2 text-xs font-mono uppercase font-semibold text-[#0E4637]">
+              <div className="bg-white rounded-2xl p-6 border border-ink/10 shadow-sm space-y-4">
+                <div className="flex items-center gap-2 text-xs font-mono uppercase font-semibold text-ink">
                   <Calculator className="w-4 h-4" />
                   <span>{"Wstępny estymator skali instalacji"}</span>
                 </div>
 
                 <div className="space-y-3 text-xs">
                   <div>
-                    <label className="block font-semibold mb-1 text-[#17211C]">{"Typ obiektu:"}</label>
+                    <label className="block font-semibold mb-1 text-ink">{"Typ obiektu:"}</label>
                     <div className="grid grid-cols-3 gap-1.5">
                       {(['biuro', 'dom', 'apartament'] as const).map((t) => (
                         <button
@@ -137,8 +139,8 @@ export const ContactPage: React.FC<ContactPageProps> = ({
                           onClick={() => setCalcSpace(t)}
                           className={`py-1.5 text-xs font-semibold rounded capitalize transition-colors ${
                             calcSpace === t
-                              ? 'bg-[#0E4637] text-white'
-                              : 'bg-[#F7F8F5] text-[#17211C]/70 hover:bg-black/5'
+                              ? 'bg-ink text-white'
+                              : 'bg-surface text-ink/70 hover:bg-black/5'
                           }`}
                         >
                           {t}
@@ -148,9 +150,9 @@ export const ContactPage: React.FC<ContactPageProps> = ({
                   </div>
 
                   <div>
-                    <div className="flex justify-between font-semibold mb-1 text-[#17211C]">
+                    <div className="flex justify-between font-semibold mb-1 text-ink">
                       <span>{"Powierzchnia użytkowa:"}</span>
-                      <span className="font-mono text-[#0E4637]">{calcArea}{" m²"}</span>
+                      <span className="font-mono text-ink">{calcArea}{" m²"}</span>
                     </div>
                     <input
                       type="range"
@@ -159,36 +161,28 @@ export const ContactPage: React.FC<ContactPageProps> = ({
                       step={10}
                       value={calcArea}
                       onChange={(e) => setCalcArea(Number(e.target.value))}
-                      className="w-full accent-[#0E4637]"
+                      className="w-full accent-ink"
                     />
                   </div>
 
-                  <div className="p-3 bg-[#F7F8F5] rounded-xl border border-[#17211C]/10 space-y-1.5 text-[11px] font-mono">
+                  <div className="p-3 bg-surface rounded-xl border border-ink/10 space-y-1.5 text-[11px] font-mono">
                     <div className="flex justify-between">
-                      <span className="text-[#17211C]/60">{"Szacowana liczba stref regulacji:"}</span>
-                      <span className="font-bold text-[#17211C]">~{estimatedZones}{" stref"}</span>
+                      <span className="text-ink/75">{"Szacowana liczba stref regulacji:"}</span>
+                      <span className="font-bold text-ink">~{estimatedZones}{" stref"}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-[#17211C]/60">{"Bramki magistrali DALI-2:"}</span>
-                      <span className="font-bold text-[#17211C]">{estimatedDaliBusses}{" magistrala(e)"}</span>
+                      <span className="text-ink/75">{"Bramki magistrali DALI-2:"}</span>
+                      <span className="font-bold text-ink">{estimatedDaliBusses}{" magistrala(e)"}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-[#17211C]/60">{"Kanały wykonawcze KNX:"}</span>
-                      <span className="font-bold text-[#17211C]">~{estimatedKnxChannels}{" kanałów"}</span>
+                      <span className="text-ink/75">{"Kanały wykonawcze KNX:"}</span>
+                      <span className="font-bold text-ink">~{estimatedKnxChannels}{" kanałów"}</span>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Right Col: Full Blueprint & Request Form */}
-            <div className="lg:col-span-7">
-              <ContactForm
-                onOpenPrivacy={() => onOpenPrivacy('privacy')}
-                defaultType="biuro"
-                sourceContext="Formularz główny portalu"
-              />
-            </div>
           </div>
         </div>
       </section>

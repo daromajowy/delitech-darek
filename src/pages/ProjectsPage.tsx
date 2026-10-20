@@ -73,18 +73,18 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({
   return (
     <div className="space-y-0">
       {/* Hero */}
-      <section className="bg-[#17211C] text-white py-16 lg:py-20 border-b border-white/10">
+      <section className="bg-ink text-white py-16 lg:py-20 border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl space-y-4">
-            <span className="text-xs font-mono uppercase tracking-widest text-[#E6F15A] font-semibold block">{"Dokumentacja i Zakresy Referencyjne"}</span>
+            <span className="text-xs font-mono uppercase tracking-widest text-accent font-semibold block">{"Dokumentacja i Zakresy Referencyjne"}</span>
             <h1 className="text-4xl sm:text-5xl font-extrabold font-display tracking-tight text-white">{"Przykładowe zakresy realizacji"}</h1>
-            <p className="text-base sm:text-lg text-[#EDE9DF]/80 leading-relaxed pt-2">{"Przedstawiamy wzorcowe konfiguracje systemów KNX dla biur komercyjnych, rezydencji i apartamentów. Poznaj architekturę sprzętową, protokoły oraz sposób podziału na strefy funkcjonalne."}</p>
+            <p className="text-base sm:text-lg text-mist/80 leading-relaxed pt-2">{"Przedstawiamy wzorcowe konfiguracje systemów KNX dla biur komercyjnych, rezydencji i apartamentów. Poznaj architekturę sprzętową, protokoły oraz sposób podziału na strefy funkcjonalne."}</p>
           </div>
         </div>
       </section>
 
       {/* Filter bar & List */}
-      <section className="py-16 sm:py-24 bg-[#F7F8F5] border-b border-[#17211C]/10">
+      <section className="py-16 sm:py-24 bg-surface border-b border-ink/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Segmented Filter Bar (functional buttons) */}
           <div className="flex flex-wrap items-center gap-2 mb-12">
@@ -92,32 +92,32 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({
               onClick={() => setFilter('all')}
               className={`px-4 py-2 text-xs font-semibold rounded-lg transition-all ${
                 filter === 'all'
-                  ? 'bg-[#0E4637] text-white shadow-sm'
-                  : 'bg-white text-[#17211C]/70 hover:text-[#17211C] border border-[#17211C]/10'
+                  ? 'bg-ink text-white shadow-sm'
+                  : 'bg-white text-ink/70 hover:text-ink border border-ink/10'
               }`}
             >{"Wszystkie opracowania"}</button>
             <button
               onClick={() => setFilter('biuro')}
               className={`px-4 py-2 text-xs font-semibold rounded-lg transition-all ${
                 filter === 'biuro'
-                  ? 'bg-[#0E4637] text-white shadow-sm'
-                  : 'bg-white text-[#17211C]/70 hover:text-[#17211C] border border-[#17211C]/10'
+                  ? 'bg-ink text-white shadow-sm'
+                  : 'bg-white text-ink/70 hover:text-ink border border-ink/10'
               }`}
             >{"Biura i Fit-out"}</button>
             <button
               onClick={() => setFilter('dom')}
               className={`px-4 py-2 text-xs font-semibold rounded-lg transition-all ${
                 filter === 'dom'
-                  ? 'bg-[#0E4637] text-white shadow-sm'
-                  : 'bg-white text-[#17211C]/70 hover:text-[#17211C] border border-[#17211C]/10'
+                  ? 'bg-ink text-white shadow-sm'
+                  : 'bg-white text-ink/70 hover:text-ink border border-ink/10'
               }`}
             >{"Domy i Rezydencje"}</button>
             <button
               onClick={() => setFilter('apartament')}
               className={`px-4 py-2 text-xs font-semibold rounded-lg transition-all ${
                 filter === 'apartament'
-                  ? 'bg-[#0E4637] text-white shadow-sm'
-                  : 'bg-white text-[#17211C]/70 hover:text-[#17211C] border border-[#17211C]/10'
+                  ? 'bg-ink text-white shadow-sm'
+                  : 'bg-white text-ink/70 hover:text-ink border border-ink/10'
               }`}
             >{"Apartamenty"}</button>
           </div>
@@ -127,18 +127,18 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({
             {filteredProjects.map((p) => (
               <div
                 key={p.id}
-                className="bg-white rounded-2xl border border-[#17211C]/10 overflow-hidden shadow-sm hover:shadow-md transition-shadow"
+                className="bg-white rounded-2xl border border-ink/10 overflow-hidden shadow-sm hover:shadow-md transition-shadow"
               >
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-0">
                   {/* Visual Col (5 cols) */}
-                  <div className="lg:col-span-5 relative aspect-[16/10] lg:aspect-auto bg-[#17211C]">
+                  <div className="lg:col-span-5 relative aspect-[16/10] lg:aspect-auto bg-ink">
                     <img
                       src={p.image}
                       alt={p.title}
                       className="w-full h-full object-cover"
                       referrerPolicy="no-referrer"
                     />
-                    <div className="absolute top-4 left-4 bg-[#17211C]/80 backdrop-blur-sm text-white px-3 py-1 rounded text-xs font-mono">
+                    <div className="absolute top-4 left-4 bg-ink/80 backdrop-blur-sm text-white px-3 py-1 rounded text-xs font-mono">
                       {p.subtitle}
                     </div>
                   </div>
@@ -146,50 +146,50 @@ export const ProjectsPage: React.FC<ProjectsPageProps> = ({
                   {/* Details Col (7 cols) */}
                   <div className="lg:col-span-7 p-6 sm:p-10 flex flex-col justify-between space-y-6">
                     <div>
-                      <span className="text-[11px] font-mono uppercase tracking-wider text-[#0E4637] font-semibold">{"Koncepcja architektoniczno-inżynierska"}</span>
-                      <h3 className="text-2xl font-bold font-display text-[#17211C] mt-1">
+                      <span className="text-[11px] font-mono uppercase tracking-wider text-ink font-semibold">{"Koncepcja architektoniczno-inżynierska"}</span>
+                      <h3 className="text-2xl font-bold font-display text-ink mt-1">
                         {p.title}
                       </h3>
-                      <p className="text-xs sm:text-sm text-[#17211C]/75 mt-3 leading-relaxed">
+                      <p className="text-xs sm:text-sm text-ink/75 mt-3 leading-relaxed">
                         {p.summary}
                       </p>
 
-                      <div className="mt-6 pt-4 border-t border-[#17211C]/10">
-                        <span className="text-xs font-bold uppercase tracking-wider text-[#17211C] block mb-2">{"Podział na strefy instalacyjne:"}</span>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-[#17211C]/80">
+                      <div className="mt-6 pt-4 border-t border-ink/10">
+                        <span className="text-xs font-bold uppercase tracking-wider text-ink block mb-2">{"Podział na strefy instalacyjne:"}</span>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-ink/80">
                           {p.zones.map((z, i) => (
                             <div key={i} className="flex items-start gap-2">
-                              <span className="w-1.5 h-1.5 rounded-full bg-[#0E4637] mt-1.5 shrink-0" />
+                              <span className="w-1.5 h-1.5 rounded-full bg-ink mt-1.5 shrink-0" />
                               <span>{z}</span>
                             </div>
                           ))}
                         </div>
                       </div>
 
-                      <div className="mt-6 pt-4 border-t border-[#17211C]/10 grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+                      <div className="mt-6 pt-4 border-t border-ink/10 grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
                         <div>
-                          <span className="text-[#17211C]/60 block text-[11px] font-mono">{"Protokoły:"}</span>
-                          <span className="font-semibold text-[#17211C]">{p.protocols.join(' · ')}</span>
+                          <span className="text-ink/75 block text-[11px] font-mono">{"Protokoły:"}</span>
+                          <span className="font-semibold text-ink">{p.protocols.join(' · ')}</span>
                         </div>
                         <div>
-                          <span className="text-[#17211C]/60 block text-[11px] font-mono">{"Osprzęt i moduły:"}</span>
-                          <span className="font-semibold text-[#17211C]">{p.hardware.join(' · ')}</span>
+                          <span className="text-ink/75 block text-[11px] font-mono">{"Osprzęt i moduły:"}</span>
+                          <span className="font-semibold text-ink">{p.hardware.join(' · ')}</span>
                         </div>
                       </div>
                     </div>
 
-                    <div className="pt-4 border-t border-[#17211C]/10 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                    <div className="pt-4 border-t border-ink/10 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                       <button
                         onClick={onOpenConsultation}
-                        className="px-5 py-2.5 bg-[#0E4637] hover:bg-[#17211C] text-[#E6F15A] text-xs font-semibold uppercase tracking-wider rounded-lg transition-colors flex items-center justify-center gap-2"
+                        className="px-5 py-2.5 bg-ink hover:bg-ink-hover text-accent text-xs font-semibold uppercase tracking-wider rounded-lg transition-colors flex items-center justify-center gap-2"
                       >
                         <span>{"Skonsultuj podobny zakres"}</span>
                         <ArrowRight className="w-4 h-4" />
                       </button>
                       <button
                         onClick={() => onNavigate('contact')}
-                        className="text-xs font-semibold text-[#0E4637] hover:underline text-center"
-                      >{"Prześlij rzuty do wyceny"}</button>
+                        className="text-xs font-semibold text-ink hover:underline text-center"
+                      >{"Kontakt i wycena"}</button>
                     </div>
                   </div>
                 </div>
