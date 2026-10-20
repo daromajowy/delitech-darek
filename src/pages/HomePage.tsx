@@ -69,11 +69,6 @@ export const HomePage: React.FC<HomePageProps> = ({
                   className="px-6 py-3.5 bg-white hover:bg-mist/60 text-ink font-semibold text-xs uppercase tracking-wider border border-ink/25 rounded-lg transition-all duration-200 text-center"
                 >{"Poznaj automatykę biura"}</button>
               </div>
-
-              {/* Trust signals & context */}
-              <div className="pt-6 border-t border-ink/10 flex flex-wrap items-center gap-y-2 gap-x-6 text-xs text-ink/70">
-                <span>{"Współpraca z pracowniami architektonicznymi i fit-out"}</span>
-              </div>
             </div>
 
             {/* Right column: KNX film */}
@@ -81,6 +76,8 @@ export const HomePage: React.FC<HomePageProps> = ({
               <KnxFilm />
             </div>
           </div>
+
+          <div role="separator" className="mt-16 h-0.5 rounded-full bg-ink/20" />
         </div>
       </section>
 
