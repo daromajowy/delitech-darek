@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { PageId } from '../types.ts';
 import { HeroVideo } from '../components/HeroVideo.tsx';
 import { DayRhythm } from '../components/DayRhythm.tsx';
+import { KnxFilm } from '../components/KnxFilm.tsx';
 import { SmartHomeIntegrations } from '../components/SmartHomeIntegrations.tsx';
 import { IMAGES } from '../assets.ts';
 import {
@@ -30,36 +31,6 @@ export const HomePage: React.FC<HomePageProps> = ({
   onNavigate,
   onOpenConsultation,
 }) => {
-  const [activeHeroNode, setActiveHeroNode] = useState<string>('light');
-
-  // Interactive architectural nodes for the Hero visual
-  const heroNodes = [
-    {
-      id: 'light',
-      label: "DALI Tunable White",
-      desc: "Adaptacja do rytmu dobowego i światła dziennego",
-      coords: 'left-[32%] top-[38%]',
-    },
-    {
-      id: 'hvac',
-      label: "Strefowa klimatyzacja VAV",
-      desc: "Komfort temperaturowy bez przeciągów i strat energii",
-      coords: 'left-[64%] top-[24%]',
-    },
-    {
-      id: 'presence',
-      label: "Detekcja obecności multisensor",
-      desc: "Pomiary CO2, wilgotności, automatyczny tryb po godzinach",
-      coords: 'left-[78%] top-[62%]',
-    },
-    {
-      id: 'jung',
-      label: "Osprzęt JUNG LS 990",
-      desc: "Dotykowa precyzja i spójny detal architektoniczny",
-      coords: 'left-[22%] top-[72%]',
-    },
-  ];
-
   return (
     <div className="space-y-0">
       <HeroVideo />
@@ -75,12 +46,12 @@ export const HomePage: React.FC<HomePageProps> = ({
             <div className="lg:col-span-7 space-y-6">
               <div className="inline-flex items-center gap-2 px-3 py-1 bg-ink/10 text-ink rounded-md text-xs font-mono tracking-tight font-medium">
                 <span className="w-1.5 h-1.5 rounded-full bg-ink" />
-                <span>{"Integrator Automatyki Budynkowej KNX"}</span>
+                <span>{"Integrator Automatyki Budynkowej w standardzie KNX"}</span>
               </div>
 
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold font-display text-ink tracking-tight leading-[1.08] text-balance">{"Przestrzenie, które myślą razem z Tobą."}</h1>
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold font-display text-ink tracking-tight leading-[1.08] text-balance">{"Zaprojektuj przestrzeń, która myśli razem z Tobą."}</h1>
 
-              <p className="text-base sm:text-lg text-ink/80 leading-relaxed max-w-2xl">{"Projektujemy, wykonujemy i uruchamiamy automatykę KNX dla nowoczesnych biur, domów i apartamentów. Łączymy komfort użytkownika, energię pod kontrolą i dopracowany detal wnętrza."}</p>
+              <p className="text-base sm:text-lg text-ink/80 leading-relaxed max-w-2xl">{"Wykonujemy, programujemy i uruchamiamy automatykę pomieszczeń dla domów, apartamentów i biur. Łączymy komfort użytkownika, energię pod kontrolą i dopracowany detal wnętrza."}</p>
 
               <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5">
                 {/* Primary CTA */}
@@ -101,120 +72,13 @@ export const HomePage: React.FC<HomePageProps> = ({
 
               {/* Trust signals & context */}
               <div className="pt-6 border-t border-ink/10 flex flex-wrap items-center gap-y-2 gap-x-6 text-xs text-ink/70">
-                <span className="font-medium text-ink">{"Warszawa & cała Polska"}</span>
-                <span aria-hidden="true" className="text-ink/30">·</span>
-                <span>{"Standard KNX bez vendor-lock"}</span>
-                <span aria-hidden="true" className="text-ink/30">·</span>
                 <span>{"Współpraca z pracowniami architektonicznymi i fit-out"}</span>
               </div>
             </div>
 
-            {/* Right Visual Column (5 cols) */}
-            <div className="lg:col-span-5 relative">
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-ink/15 bg-ink aspect-[16/11]">
-                <img
-                  src={IMAGES.heroDelitechArch}
-                  alt={"Nowoczesna przestrzeń biurowa z inteligentną automatyką KNX"}
-                  className="w-full h-full object-cover opacity-90 transition-transform duration-700 hover:scale-105"
-                  referrerPolicy="no-referrer"
-                />
-
-                {/* Scrim Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/30 to-transparent pointer-events-none" />
-
-                {/* Abstract KNX network overlay nodes */}
-                {heroNodes.map((node) => {
-                  const isActive = activeHeroNode === node.id;
-                  return (
-                    <div
-                      key={node.id}
-                      className={`absolute ${node.coords} -translate-x-1/2 -translate-y-1/2 group cursor-pointer z-20`}
-                      onClick={() => setActiveHeroNode(node.id)}
-                    >
-                      <span className="relative flex h-5 w-5 items-center justify-center">
-                        <span
-                          className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${
-                            isActive ? 'bg-accent' : 'bg-silver'
-                          }`}
-                        />
-                        <span
-                          className={`relative inline-flex rounded-full h-3 w-3 ${
-                            isActive ? 'bg-accent ring-2 ring-ink' : 'bg-white'
-                          }`}
-                        />
-                      </span>
-                    </div>
-                  );
-                })}
-
-                {/* Active node interactive card */}
-                <div className="absolute bottom-3 left-3 right-3 p-3.5 bg-ink/90 backdrop-blur-md border border-white/15 rounded-xl text-white text-xs z-30 transition-all">
-                  {heroNodes
-                    .filter((n) => n.id === activeHeroNode)
-                    .map((node) => (
-                      <div key={node.id} className="flex items-start justify-between gap-2">
-                        <div>
-                          <div className="flex items-center gap-1.5 text-[10px] font-mono text-accent uppercase tracking-wider">
-                            <span className="w-1.5 h-1.5 rounded-full bg-accent" />
-                            <span>{"Aktywny punkt magistrali KNX"}</span>
-                          </div>
-                          <p className="font-bold text-sm text-white mt-0.5">{node.label}</p>
-                          <p className="text-[11px] text-mist/75 mt-0.5 leading-snug">
-                            {node.desc}
-                          </p>
-                        </div>
-                        <span className="text-[10px] font-mono text-silver/80 shrink-0">
-                          0{heroNodes.findIndex((n) => n.id === activeHeroNode) + 1} / 04
-                        </span>
-                      </div>
-                    ))}
-                </div>
-              </div>
-
-              <div className="mt-2 text-right">
-                <span className="text-[11px] text-ink/75 font-mono">{"Wizualizacja architektury systemu KNX w przestrzeni"}</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 4. SEKCJA POZYCJONUJĄCA */}
-      <section className="py-16 sm:py-20 bg-white border-b border-ink/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl">
-            <span className="text-xs font-mono uppercase tracking-widest text-ink font-semibold block mb-3">{"Filozofia integracji"}</span>
-            <h2 className="text-3xl sm:text-4xl font-bold font-display text-ink tracking-tight text-balance">{"Technologia, która nie dominuje wnętrza."}</h2>
-            <p className="mt-4 text-base sm:text-lg text-ink/80 leading-relaxed">{"Dobry system automatyki działa dyskretnie. Odpowiada na obecność, światło dzienne, porę dnia i sposób korzystania z przestrzeni — bez uzależnienia od jednej aplikacji lub producenta."}</p>
-          </div>
-
-          <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* Wyróżnik 1 */}
-            <div className="p-8 rounded-2xl bg-surface border border-ink/10 relative group hover:border-ink/40 transition-colors">
-              <div className="w-12 h-12 rounded-xl bg-ink text-accent flex items-center justify-center mb-6">
-                <Cpu className="w-6 h-6" />
-              </div>
-              <h3 className="text-xl font-bold font-display text-ink mb-3">{"KNX — otwarty standard automatyki budynkowej"}</h3>
-              <p className="text-sm text-ink/75 leading-relaxed">{"Ponad 500 certyfikowanych producentów na świecie (m.in. JUNG, Gira, Theben, ABB, Schneider) tworzy urządzenia komunikujące się jedną magistralą przewodową. Twoja inwestycja nie jest uzależniona od chmury jednego dostawcy ani zamkniętych ekosystemów konsumenckich."}</p>
-              <div className="mt-6 pt-4 border-t border-ink/10 flex items-center gap-2 text-xs font-semibold text-ink">
-                <span>{"Niezawodność instalacji przewodowej"}</span>
-                <span aria-hidden="true">·</span>
-                <span>{"30+ lat wsparcia standardu"}</span>
-              </div>
-            </div>
-
-            {/* Wyróżnik 2 */}
-            <div className="p-8 rounded-2xl bg-surface border border-ink/10 relative group hover:border-ink/40 transition-colors">
-              <div className="w-12 h-12 rounded-xl bg-ink text-accent flex items-center justify-center mb-6">
-                <Layers className="w-6 h-6" />
-              </div>
-              <h3 className="text-xl font-bold font-display text-ink mb-3">{"Jeden zespół — od koncepcji funkcji po odbiór i szkolenie"}</h3>
-              <p className="text-sm text-ink/75 leading-relaxed">{"Nie jesteśmy tylko programistami ani zwykłymi instalatorami. Doradzamy architektom na etapie rzutów, przygotowujemy wytyczne dla branży elektrycznej, kompletujemy rozdzielnice, uruchamiamy system i szkolimy użytkowników lub zarządcę budynku."}</p>
-              <div className="mt-6 pt-4 border-t border-ink/10 flex items-center gap-2 text-xs font-semibold text-ink">
-                <span>{"Pełna koordynacja międzybranżowa"}</span>
-                <span aria-hidden="true">·</span>
-                <span>{"Jeden partner odpowiedzialny za efekt"}</span>
-              </div>
+            {/* Right column: KNX film */}
+            <div className="lg:col-span-5">
+              <KnxFilm />
             </div>
           </div>
         </div>
@@ -232,6 +96,12 @@ export const HomePage: React.FC<HomePageProps> = ({
             {/* Karta 1: Domy i apartamenty (wyróżniona - 7 cols) */}
             <div className="lg:col-span-7 bg-ink text-white rounded-2xl p-8 sm:p-10 border border-white/10 flex flex-col justify-between shadow-xl relative overflow-hidden group">
               <div className="absolute top-0 right-0 w-96 h-96 bg-ink/30 rounded-full blur-3xl pointer-events-none" />
+              <img
+                src={IMAGES.salonOsiedle}
+                alt={"Salon apartamentu z widokiem z okna na nowoczesne warszawskie osiedle"}
+                className="relative z-10 -mx-8 -mt-8 mb-8 sm:-mx-10 sm:-mt-10 w-[calc(100%+4rem)] sm:w-[calc(100%+5rem)] max-w-none h-52 object-cover"
+                loading="lazy"
+              />
 
               <div className="relative z-10 space-y-6">
                 <div className="flex flex-wrap items-center justify-between gap-3">
@@ -283,7 +153,13 @@ export const HomePage: React.FC<HomePageProps> = ({
             </div>
 
             {/* Karta 2: Biura i fit-out (uzupełnienie oferty - 5 cols) */}
-            <div className="lg:col-span-5 bg-white text-ink rounded-2xl p-8 sm:p-10 border border-ink/10 flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow">
+            <div className="lg:col-span-5 bg-white text-ink rounded-2xl p-8 sm:p-10 border border-ink/10 flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow overflow-hidden">
+              <img
+                src={IMAGES.heroDelitechArch}
+                alt={"Nowoczesna przestrzeń biurowa z inteligentną automatyką KNX"}
+                className="-mx-8 -mt-8 mb-8 sm:-mx-10 sm:-mt-10 w-[calc(100%+4rem)] sm:w-[calc(100%+5rem)] max-w-none h-52 object-cover"
+                loading="lazy"
+              />
               <div className="space-y-6">
                 <div className="flex flex-wrap items-center justify-between gap-3">
                   <span className="px-3 py-1 bg-surface text-ink text-xs font-mono font-semibold uppercase tracking-wider rounded border border-ink/10">{"B2B & Fit-out"}</span>
@@ -519,111 +395,6 @@ export const HomePage: React.FC<HomePageProps> = ({
                 <p className="text-xs text-mist/70 leading-relaxed">{"Przekazujemy dokumentację powykonawczą, kopię bazy ETS inwestorowi, szkolimy użytkowników i prowadzimy serwis."}</p>
               </div>
               <div className="mt-6 pt-3 border-t border-white/10 text-[11px] font-mono text-silver">{"Efekt: Bezpieczeństwo i spokój"}</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 8. SEKCJA REALIZACJI (PRZYKŁADOWE ZAKRESY BEZ WYMYŚLANIA KLIENTÓW) */}
-      <section className="py-16 sm:py-24 bg-surface border-b border-ink/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12">
-            <div>
-              <span className="text-xs font-mono uppercase tracking-widest text-ink font-semibold block mb-2">{"Referencyjne zakresy projektowe"}</span>
-              <h2 className="text-3xl sm:text-4xl font-bold font-display text-ink">{"Przykładowe architektury instalacji"}</h2>
-            </div>
-            <button
-              onClick={() => onNavigate('projects')}
-              className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-ink hover:underline"
-            >
-              <span>{"Zobacz wszystkie opracowania"}</span>
-              <ArrowRight className="w-4 h-4" />
-            </button>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {/* Karta 1: Przykładowy zakres: Biuro — światło, sale spotkań i komfort stref */}
-            <div className="bg-white rounded-2xl border border-ink/10 overflow-hidden shadow-sm flex flex-col justify-between">
-              <div>
-                <div className="aspect-[16/9] relative overflow-hidden bg-ink">
-                  <img
-                    src={IMAGES.officeCommSpace}
-                    alt={"Przykładowy zakres: Biuro — światło, sale spotkań i komfort stref"}
-                    className="w-full h-full object-cover"
-                    referrerPolicy="no-referrer"
-                  />
-                  <div className="absolute top-4 left-4 bg-ink/80 backdrop-blur-sm text-white px-3 py-1 rounded text-xs font-mono">{"Typ: Powierzchnia biurowa fit-out · ~850 m²"}</div>
-                </div>
-
-                <div className="p-6 sm:p-8 space-y-4">
-                  <h3 className="text-xl sm:text-2xl font-bold font-display text-ink">{"Przykładowy zakres: Biuro — światło, sale spotkań i komfort stref"}</h3>
-                  <p className="text-xs sm:text-sm text-ink/75 leading-relaxed">{"Kompletny projekt i wdrożenie magistrali KNX ze zintegrowanymi bramkami DALI-2 dla 14 stref open space, 4 sal konferencyjnych oraz gabinetów dyrekcji. Integracja z klimakonwektorami 4-rurowymi i systemem BMS budynku biurowego."}</p>
-
-                  <div className="space-y-2 pt-2 border-t border-ink/10 text-xs">
-                    <div className="flex justify-between py-1 border-b border-black/5">
-                      <span className="text-ink/75">{"Oświetlenie:"}</span>
-                      <span className="font-semibold text-ink">{"DALI Tunable White + sensory obecności"}</span>
-                    </div>
-                    <div className="flex justify-between py-1 border-b border-black/5">
-                      <span className="text-ink/75">{"HVAC:"}</span>
-                      <span className="font-semibold text-ink">{"KNX fancoil + automatyczne odcięcie po godzinach"}</span>
-                    </div>
-                    <div className="flex justify-between py-1 border-b border-black/5">
-                      <span className="text-ink/75">{"Sale konferencyjne:"}</span>
-                      <span className="font-semibold text-ink">{"Sceny „Wideorozmowa”, „Prezentacja”, „Praca”"}</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="p-6 sm:p-8 pt-0">
-                <button
-                  onClick={() => onNavigate('offices')}
-                  className="w-full py-2.5 bg-surface hover:bg-silver/30 text-ink font-semibold text-xs uppercase tracking-wider rounded-lg border border-ink/20 transition-colors"
-                >{"Szczegóły specyfikacji biurowej"}</button>
-              </div>
-            </div>
-
-            {/* Karta 2: Przykładowy zakres: Dom — światło, rolety i temperatura */}
-            <div className="bg-white rounded-2xl border border-ink/10 overflow-hidden shadow-sm flex flex-col justify-between">
-              <div>
-                <div className="aspect-[16/9] relative overflow-hidden bg-ink">
-                  <img
-                    src={IMAGES.residentialResidence}
-                    alt={"Przykładowy zakres: Dom — światło, rolety i temperatura"}
-                    className="w-full h-full object-cover"
-                    referrerPolicy="no-referrer"
-                  />
-                  <div className="absolute top-4 left-4 bg-ink/80 backdrop-blur-sm text-white px-3 py-1 rounded text-xs font-mono">{"Typ: Rezydencja jednorodzinna · ~420 m²"}</div>
-                </div>
-
-                <div className="p-6 sm:p-8 space-y-4">
-                  <h3 className="text-xl sm:text-2xl font-bold font-display text-ink">{"Przykładowy zakres: Dom — światło, rolety i temperatura"}</h3>
-                  <p className="text-xs sm:text-sm text-ink/75 leading-relaxed">{"Spójna automatyka rezydencji integrująca strefowe ogrzewanie podłogowe, klimatyzację sufitową, stację pogodową z automatyką żaluzji zewnętrznych oraz designerski osprzęt JUNG LS 990 w kolorach aluminium i antracytu."}</p>
-
-                  <div className="space-y-2 pt-2 border-t border-ink/10 text-xs">
-                    <div className="flex justify-between py-1 border-b border-black/5">
-                      <span className="text-ink/75">{"Sterowanie światłem:"}</span>
-                      <span className="font-semibold text-ink">{"Scenariusze nastrojowe + ściemnianie fazowe & DALI"}</span>
-                    </div>
-                    <div className="flex justify-between py-1 border-b border-black/5">
-                      <span className="text-ink/75">{"Żaluzje i karnisze:"}</span>
-                      <span className="font-semibold text-ink">{"Automatyka słoneczna + ciche napędy Somfy/KNX"}</span>
-                    </div>
-                    <div className="flex justify-between py-1 border-b border-black/5">
-                      <span className="text-ink/75">{"Interfejs:"}</span>
-                      <span className="font-semibold text-ink">{"Klawisze dotykowe JUNG + aplikacja na tablet"}</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="p-6 sm:p-8 pt-0">
-                <button
-                  onClick={() => onNavigate('homes')}
-                  className="w-full py-2.5 bg-surface hover:bg-silver/30 text-ink font-semibold text-xs uppercase tracking-wider rounded-lg border border-ink/20 transition-colors"
-                >{"Szczegóły specyfikacji rezydencjalnej"}</button>
-              </div>
             </div>
           </div>
         </div>
