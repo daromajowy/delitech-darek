@@ -4,6 +4,7 @@ import residentialResidence from './assets/images/residential_residence_17902881
 import knxSwitchHardware from './assets/images/knx_switch_hardware_1790288148780.jpg';
 import salonOsiedle from './assets/images/salon-osiedle.jpg';
 import knxFilm from './assets/images/knx-film.jpg';
+import iotKnx from './assets/images/iot_KNX.png';
 
 export const IMAGES = {
   heroDelitechArch,
@@ -12,4 +13,5 @@ export const IMAGES = {
   knxSwitchHardware,
   salonOsiedle,
   knxFilm,
+  iotKnx,
 };

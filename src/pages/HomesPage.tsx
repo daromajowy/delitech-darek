@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { PageId } from '../types.ts';
 import { IMAGES } from '../assets.ts';
+import { KnxIotInfo } from '../components/KnxIotInfo.tsx';
 import {
   Home,
   Building,
@@ -192,25 +193,28 @@ export const HomesPage: React.FC<HomesPageProps> = ({
           )}
 
           {activeTab === 'modernizacja' && (
-            <div className="bg-surface border border-ink/15 rounded-2xl p-8 sm:p-12 space-y-6">
-              <span className="text-xs font-mono uppercase tracking-wider text-ink font-semibold">{"Domy zamieszkałe i remonty kapitalne"}</span>
-              <h2 className="text-3xl font-bold font-display text-ink">{"Modernizacja instalacji bez niszczenia wnętrz"}</h2>
-              <p className="text-sm sm:text-base text-ink/80 leading-relaxed max-w-3xl">{"Kupiłeś dom z rynku wtórnego lub chcesz unowocześnić istniejącą instalację elektryczną? Standard KNX oferuje zarówno rozwiązania przewodowe (przy generalnym remoncie), jak i moduły radiowe KNX RF oraz hybrydowe, które instalujemy w istniejących puszkach podtynkowych."}</p>
+            <div className="space-y-6">
+              <div className="bg-surface border border-ink/15 rounded-2xl p-8 sm:p-12 space-y-6">
+                <span className="text-xs font-mono uppercase tracking-wider text-ink font-semibold">{"Domy zamieszkałe i remonty kapitalne"}</span>
+                <h2 className="text-3xl font-bold font-display text-ink">{"Modernizacja instalacji bez niszczenia wnętrz"}</h2>
+                <p className="text-sm sm:text-base text-ink/80 leading-relaxed max-w-3xl">{"Kupiłeś dom z rynku wtórnego lub chcesz unowocześnić istniejącą instalację elektryczną? Standard KNX oferuje zarówno rozwiązania przewodowe (przy generalnym remoncie), jak i moduły radiowe KNX RF oraz hybrydowe, które instalujemy w istniejących puszkach podtynkowych."}</p>
 
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4">
-                <div className="p-5 bg-white rounded-xl border border-ink/10 space-y-2">
-                  <h4 className="font-bold text-sm text-ink">{"1. Audyt instalacji"}</h4>
-                  <p className="text-xs text-ink/70">{"Oceniamy stan rozdzielnicy głównej, przekroje przewodów i możliwości dołożenia magistrali."}</p>
-                </div>
-                <div className="p-5 bg-white rounded-xl border border-ink/10 space-y-2">
-                  <h4 className="font-bold text-sm text-ink">{"2. Dobór rozwiązań hybrydowych"}</h4>
-                  <p className="text-xs text-ink/70">{"Łączymy przewodową rozdzielnicę z bezprzewodowymi przyciskami KNX RF tam, gdzie brakuje kabli."}</p>
-                </div>
-                <div className="p-5 bg-white rounded-xl border border-ink/10 space-y-2">
-                  <h4 className="font-bold text-sm text-ink">{"3. Nowe funkcje bez kurzu"}</h4>
-                  <p className="text-xs text-ink/70">{"Zyskujesz sceny, sterowanie smartfonem i oszczędność na ogrzewaniu w ciągu zaledwie kilku dni."}</p>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4">
+                  <div className="p-5 bg-white rounded-xl border border-ink/10 space-y-2">
+                    <h4 className="font-bold text-sm text-ink">{"1. Audyt instalacji"}</h4>
+                    <p className="text-xs text-ink/70">{"Oceniamy stan rozdzielnicy głównej, przekroje przewodów i możliwości dołożenia magistrali."}</p>
+                  </div>
+                  <div className="p-5 bg-white rounded-xl border border-ink/10 space-y-2">
+                    <h4 className="font-bold text-sm text-ink">{"2. Dobór rozwiązań hybrydowych"}</h4>
+                    <p className="text-xs text-ink/70">{"Łączymy przewodową rozdzielnicę z bezprzewodowymi przyciskami KNX RF tam, gdzie brakuje kabli."}</p>
+                  </div>
+                  <div className="p-5 bg-white rounded-xl border border-ink/10 space-y-2">
+                    <h4 className="font-bold text-sm text-ink">{"3. Nowe funkcje bez kurzu"}</h4>
+                    <p className="text-xs text-ink/70">{"Zyskujesz sceny, sterowanie smartfonem i oszczędność na ogrzewaniu w ciągu zaledwie kilku dni."}</p>
+                  </div>
                 </div>
               </div>
+              <KnxIotInfo />
             </div>
           )}
         </div>
