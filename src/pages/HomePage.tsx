@@ -14,7 +14,6 @@ import { pageUrl, plannerUrl } from '../site';
 import { HeroVideo } from '../components/HeroVideo';
 import { DayRhythm } from '../components/DayRhythm';
 import { KnxFilm } from '../components/KnxFilm';
-import { SmartHomeIntegrations } from '../components/SmartHomeIntegrations';
 import { ProjectSteps, ContactCta, contentWidth, actionClass } from '../components/ContentSections';
 import { IMAGES } from '../assets';
 
@@ -207,7 +206,6 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenConsultation }) => (
         </div>
       </div>
     </section>
-    <SmartHomeIntegrations />
     <DayRhythm />
 
     <section className="py-16 sm:py-20 bg-surface">
