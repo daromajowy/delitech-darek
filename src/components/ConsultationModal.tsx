@@ -6,6 +6,7 @@ interface ConsultationModalProps {
   isOpen: boolean;
   onClose: () => void;
   initialTopic?: string;
+  variant?: 'knx' | 'proav';
   onOpenPrivacy: () => void;
 }
 
@@ -13,6 +14,7 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({
   isOpen,
   onClose,
   initialTopic = 'Konsultacja projektu automatyki KNX',
+  variant = 'knx',
   onOpenPrivacy,
 }) => {
   const [formData, setFormData] = useState({
@@ -45,9 +47,10 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/65 backdrop-blur-sm animate-fade-in">
       <div
-        className="bg-white rounded-2xl max-w-xl w-full p-6 sm:p-8 shadow-2xl border border-ink/15 relative overflow-hidden"
+        className="bg-white rounded-2xl max-w-xl w-full p-6 sm:p-8 shadow-2xl border border-ink/15 relative max-h-[calc(100dvh-2rem)] overflow-y-auto"
         role="dialog"
         aria-modal="true"
+        aria-labelledby="consultation-title"
       >
         <button
           onClick={onClose}
@@ -62,7 +65,7 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({
             <div className="w-14 h-14 mx-auto bg-silver/50 rounded-full flex items-center justify-center text-ink">
               <CheckCircle2 className="w-7 h-7" />
             </div>
-            <h3 className="text-xl font-bold font-display text-ink">{"Zgłoszenie konsultacji zostało zapisane"}</h3>
+            <h3 id="consultation-title" className="text-xl font-bold font-display text-ink">{"Zgłoszenie konsultacji zostało zapisane"}</h3>
             <p className="text-sm text-ink/75 max-w-md mx-auto">{"Dziękujemy. Zgłoszenie trafiło do zespołu InteliSpaces. Skontaktujemy się, aby uzgodnić termin i sposób spotkania."}</p>
             <div className="pt-4">
               <button
@@ -77,9 +80,9 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({
         ) : (
           <div>
             <div className="mb-5">
-              <span className="text-[10px] font-mono font-semibold uppercase tracking-wider text-ink bg-silver/30 px-2 py-0.5 rounded">{"Bezpośredni kontakt z inżynierem KNX"}</span>
-              <h2 className="text-2xl font-bold font-display text-ink mt-2">{"Umów bezpłatną konsultację"}</h2>
-              <p className="text-xs text-ink/70 mt-1">{"30 minut merytorycznej rozmowy: rzuty, scenariusze, standard DALI, budżet i koordynacja branżowa."}</p>
+              <span className="text-[10px] font-mono font-semibold uppercase tracking-wider text-ink bg-silver/30 px-2 py-0.5 rounded">{variant === 'proav' ? 'ProAV · wyposażenie sal spotkań' : 'Bezpośredni kontakt z inżynierem KNX'}</span>
+              <h2 id="consultation-title" className="text-2xl font-bold font-display text-ink mt-2">{variant === 'proav' ? 'Porozmawiajmy o Twojej sali' : 'Umów bezpłatną konsultację'}</h2>
+              <p className="text-xs text-ink/70 mt-1">{variant === 'proav' ? 'Omówimy wielkość sali, sposób prowadzenia spotkań, obecny sprzęt i budżet. Ustalimy zakres wspólnie z Twoim IT i architektem.' : '30 minut merytorycznej rozmowy: rzuty, scenariusze, standard DALI, budżet i koordynacja branżowa.'}</p>
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -154,7 +157,7 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({
                   rows={2}
                   value={formData.notes}
                   onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
-                  placeholder={"np. Weryfikacja projektu instalacji elektrycznej pod KNX, dobór osprzętu JUNG do apartamentu..."}
+                  placeholder={variant === 'proav' ? 'np. Sala dla 8 osób, Microsoft Teams, obecny monitor, potrzebne wideobar i przyłącza w stole…' : 'np. Weryfikacja projektu instalacji elektrycznej pod KNX, dobór osprzętu JUNG do apartamentu...'}
                   className="w-full px-3 py-2 bg-surface border border-ink/15 rounded-lg text-xs focus:ring-2 focus:ring-ink focus:outline-none"
                 />
               </div>

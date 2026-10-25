@@ -44,9 +44,9 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenPrivacy }) => 
               </li>
               <li>
                 <button
-                  onClick={() => onNavigate('offices', 'konferencyjne')}
+                  onClick={() => onNavigate('proav')}
                   className="hover:text-white hover:underline transition-colors text-left"
-                >{"Sale konferencyjne & Zarząd"}</button>
+                >{"ProAV · sale konferencyjne"}</button>
               </li>
               <li>
                 <button

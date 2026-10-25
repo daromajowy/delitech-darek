@@ -1,6 +1,7 @@
 export type PageId = 
   | 'home'
   | 'offices'
+  | 'proav'
   | 'homes'
   | 'solutions'
   | 'architects'

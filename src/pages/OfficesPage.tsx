@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { PageId } from '../types.ts';
+import proavRoom from '../assets/images/proav-meeting-room.webp';
 import {
   Monitor,
   Users,
@@ -26,6 +27,10 @@ export const OfficesPage: React.FC<OfficesPageProps> = ({
   initialHash,
 }) => {
   const [selectedZone, setSelectedZone] = useState<string>(initialHash || 'open-space');
+
+  useEffect(() => {
+    setSelectedZone(initialHash || 'open-space');
+  }, [initialHash]);
 
   const zones = [
     {
@@ -138,6 +143,20 @@ export const OfficesPage: React.FC<OfficesPageProps> = ({
                 className="px-6 py-3 bg-white/10 hover:bg-white/15 text-white font-medium text-xs uppercase tracking-wider rounded-lg transition-colors border border-white/15"
               >{"Kontakt i wycena"}</button>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-surface py-10 sm:py-14 border-b border-ink/10" aria-labelledby="office-proav-heading">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid md:grid-cols-2 overflow-hidden rounded-xl border border-ink/15 bg-white">
+            <div className="p-7 sm:p-10 flex flex-col items-start justify-center">
+              <span className="text-[10px] font-mono uppercase tracking-widest mb-3">ProAV · sale spotkań</span>
+              <h2 id="office-proav-heading" className="text-3xl font-bold font-display text-ink">Cała sala gotowa do rozmowy.</h2>
+              <p className="mt-4 text-sm leading-relaxed text-ink/75">Wideobary Logitech i Poly, Microsoft Teams Rooms, mediaporty, ekrany i okablowanie. Zobacz, jak dobieramy wyposażenie do sposobu pracy Twojego zespołu.</p>
+              <button onClick={() => onNavigate('proav')} className="mt-6 inline-flex items-center gap-4 bg-ink hover:bg-ink-hover text-accent font-semibold text-xs px-5 py-3 rounded-lg focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink">Poznaj rozwiązania ProAV <ArrowRight size={17} /></button>
+            </div>
+            <div className="relative min-h-56"><img src={proavRoom} alt="Wizualizacja sali konferencyjnej z wideobarem, ekranem i mediaportami w stole" width="1672" height="941" loading="lazy" className="h-full w-full object-cover md:absolute md:inset-0" /><span className="absolute bottom-3 right-3 bg-ink/80 text-white text-[9px] px-2 py-1">Wizualizacja przykładowej sali</span></div>
           </div>
         </div>
       </section>

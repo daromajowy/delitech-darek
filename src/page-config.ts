@@ -22,6 +22,11 @@ export const pages: Record<PageId, { path: string; title: string; description: s
     "title": "Biura | InteliSpaces",
     "description": "W dużych strefach open space kluczem jest unikanie olśnienia i zmęczenia wzroku pracowników. Magistrala KNX zintegrowana z DALI-2 automatycznie dopasowuje natężenie i temperaturę barwową opraw do ilości światła wpadającego przez fasadę szklaną (Daylight Harvesting)."
   },
+  "proav": {
+    "path": "/offices/proav/",
+    "title": "ProAV — sale konferencyjne, wideobary i Teams Rooms | InteliSpaces",
+    "description": "Projektujemy systemy ProAV dla biur: wideobary Logitech i Poly, Microsoft Teams Rooms, mediaporty, monitory, ekrany, nagłośnienie i okablowanie. Od doboru do uruchomienia."
+  },
   "about": {
     "path": "/about/",
     "title": "Jak pracujemy | InteliSpaces",

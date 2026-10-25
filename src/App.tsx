@@ -16,6 +16,7 @@ import { CookieBanner } from './components/CookieBanner.tsx';
 // Pages
 import { HomePage } from './pages/HomePage.tsx';
 import { OfficesPage } from './pages/OfficesPage.tsx';
+import { ProAVPage } from './pages/ProAVPage.tsx';
 import { HomesPage } from './pages/HomesPage.tsx';
 import { SolutionsPage } from './pages/SolutionsPage.tsx';
 import { ArchitectsPage } from './pages/ArchitectsPage.tsx';
@@ -72,6 +73,7 @@ export default function App() {
         const validPages: PageId[] = [
           'home',
           'offices',
+          'proav',
           'homes',
           'solutions',
           'architects',
@@ -119,7 +121,7 @@ export default function App() {
       <Navbar
         currentPage={currentPage}
         onNavigate={handleNavigate}
-        onOpenConsultation={() => handleOpenConsultation()}
+        onOpenConsultation={() => handleOpenConsultation(currentPage === 'proav' ? 'Konsultacja ProAV / sala spotkań' : undefined)}
       />
 
       {/* Main Content Viewport */}
@@ -136,6 +138,13 @@ export default function App() {
             onNavigate={handleNavigate}
             onOpenConsultation={() => handleOpenConsultation('Konsultacja projektu biura / fit-out')}
             initialHash={currentHash}
+          />
+        )}
+
+        {currentPage === 'proav' && (
+          <ProAVPage
+            onNavigate={handleNavigate}
+            onOpenConsultation={(topic) => handleOpenConsultation(topic || 'Konsultacja ProAV / sala spotkań')}
           />
         )}
 
@@ -222,6 +231,7 @@ export default function App() {
         isOpen={consultationModalOpen}
         onClose={() => setConsultationModalOpen(false)}
         initialTopic={consultationTopic}
+        variant={currentPage === 'proav' ? 'proav' : 'knx'}
         onOpenPrivacy={() => handleOpenPrivacy('privacy')}
       />
 

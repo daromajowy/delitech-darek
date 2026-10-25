@@ -37,6 +37,7 @@ export const Navbar: React.FC<NavbarProps> = ({
     { id: 'offices', label: "Biura", subItems: [
       { label: "Strefy pracy", hash: 'open-space' },
       { label: "Sale konferencyjne", hash: 'konferencyjne' },
+      { label: "ProAV · sale spotkań", page: 'proav' },
       { label: "Projekt i fit-out", hash: 'audyt' },
     ] },
     { id: 'about', label: "Jak pracujemy", subItems: [
@@ -83,7 +84,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
         <nav className="hidden min-[1280px]:flex items-center gap-0.5 min-[1440px]:gap-1 text-[13px] font-medium tracking-tight text-ink" aria-label={"Główne menu"}>
           {navItems.map((item) => {
-            const isActive = currentPage === item.id;
+            const isActive = currentPage === item.id || (item.id === 'offices' && currentPage === 'proav');
             const hasChildren = Boolean(item.subItems?.length);
             const itemClass = isActive ? 'text-ink font-semibold bg-silver/25' : 'text-ink/80 hover:text-ink hover:bg-black/5';
             if (!hasChildren) return <button key={item.id} onClick={() => handleNavClick(item.id)} className={`px-3 py-2 rounded-md transition-colors whitespace-nowrap ${itemClass}`}>{item.label}</button>;
@@ -112,7 +113,7 @@ export const Navbar: React.FC<NavbarProps> = ({
         <div className="min-[1280px]:hidden bg-surface border-t border-ink/10 px-4 pt-3 pb-6 max-h-[calc(100dvh-110px)] overflow-y-auto">
           <div className="flex flex-col space-y-1">
             {navItems.map((item) => <div key={item.id} className="py-1">
-              <button onClick={() => handleNavClick(item.id)} className={`w-full text-left px-3 py-2 text-sm font-semibold rounded-lg flex items-center justify-between ${currentPage === item.id ? 'bg-ink text-white' : 'text-ink hover:bg-black/5'}`}><span>{item.label}</span></button>
+              <button onClick={() => handleNavClick(item.id)} className={`w-full text-left px-3 py-2 text-sm font-semibold rounded-lg flex items-center justify-between ${currentPage === item.id || (item.id === 'offices' && currentPage === 'proav') ? 'bg-ink text-white' : 'text-ink hover:bg-black/5'}`}><span>{item.label}</span></button>
               {item.subItems && <div className="pl-4 mt-1 space-y-1 border-l border-ink/20 ml-3">{item.subItems.map((sub) => <button key={`${sub.page || item.id}/${sub.hash || sub.label}`} onClick={() => sub.href ? location.assign(sub.href) : handleNavClick(sub.page || item.id, sub.hash)} className="w-full text-left px-3 py-1.5 text-xs text-ink/75 hover:text-ink rounded-md transition-colors">{sub.label}</button>)}</div>}
             </div>)}
             <div className="pt-4 mt-3 border-t border-ink/10 flex flex-col gap-2">
