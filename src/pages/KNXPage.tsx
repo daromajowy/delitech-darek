@@ -1,136 +1,94 @@
 import React from 'react';
-import { PageId } from '../types.ts';
-import {
-  Cpu,
-  Globe2,
-  ShieldAlert,
-  Clock,
-  Layers,
-  Wrench,
-  CheckCircle2,
-  ArrowRight,
-} from 'lucide-react';
+import { ArrowRight, SlidersHorizontal, Network, Blocks } from 'lucide-react';
+import { PageId } from '../types';
+import { pageUrl } from '../site';
+import { ContentHero, ContactCta, FeatureList, contentWidth } from '../components/ContentSections';
 
 interface KNXPageProps {
   onNavigate: (page: PageId, subHash?: string) => void;
   onOpenConsultation: () => void;
 }
-
-export const KNXPage: React.FC<KNXPageProps> = ({ onNavigate, onOpenConsultation }) => {
-  return (
-    <div className="space-y-0">
-      {/* Hero */}
-      <section className="bg-ink text-white py-16 lg:py-20 border-b border-white/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl space-y-4">
-            <span className="text-xs font-mono uppercase tracking-widest text-accent font-semibold block">{"Międzynarodowy Standard ISO/IEC 14543"}</span>
-            <h1 className="text-4xl sm:text-5xl font-extrabold font-display tracking-tight text-white">{"Dlaczego standard KNX?"}</h1>
-            <p className="text-base sm:text-lg text-mist/80 leading-relaxed pt-2">{"W świecie technologii, w którym aplikacje znikają po kilku latach, a producenci zamykają swoje chmury, KNX jest jedynym otwartym standardem automatyki budynkowej z ponad 30-letnią nieprzerwaną historią i pełną kompatybilnością wsteczną."}</p>
+export const KNXPage: React.FC<KNXPageProps> = ({ onOpenConsultation }) => (
+  <div>
+    <ContentHero eyebrow="KNX prostym językiem" title="Wspólny język urządzeń w Twoim domu.">
+      <p>
+        KNX to otwarty standard automatyki budynkowej. Umożliwia współpracę urządzeń różnych
+        producentów — od przycisków i czujników po sterowanie oświetleniem, roletami i temperaturą.
+      </p>
+    </ContentHero>
+    <section className="py-16 sm:py-20 bg-white">
+      <div className={contentWidth}>
+        <div className="grid md:grid-cols-3 gap-6">
+          {[
+            {
+              icon: SlidersHorizontal,
+              title: 'Wygodna obsługa',
+              text: 'Jeden przycisk może wywołać scenę złożoną z kilku funkcji. Ustalasz, jak ma reagować Twój dom.',
+            },
+            {
+              icon: Network,
+              title: 'Wybór urządzeń',
+              text: 'Możemy dobierać certyfikowane urządzenia KNX różnych marek. Konkretne funkcje i zgodność interfejsów sprawdzamy w projekcie.',
+            },
+            {
+              icon: Blocks,
+              title: 'Plan na przyszłość',
+              text: 'Przy projektowaniu przewidujemy możliwą rozbudowę. Jej zakres zależy od infrastruktury i możliwości wybranego sprzętu.',
+            },
+          ].map(({ icon: Icon, title, text }) => (
+            <article key={title} className="p-7 rounded-xl bg-surface border border-ink/15">
+              <Icon size={28} aria-hidden="true" />
+              <h2 className="text-xl font-bold font-display mt-5 mb-3">{title}</h2>
+              <p className="text-ink/80 leading-relaxed">{text}</p>
+            </article>
+          ))}
+        </div>
+        <div className="grid lg:grid-cols-2 gap-10 mt-14">
+          <div>
+            <h2 className="text-3xl font-bold font-display">W domu i w apartamencie.</h2>
+            <p className="mt-5 text-ink/80 leading-relaxed">
+              W domu możemy uwzględnić wiele pomieszczeń, taras i ogród. W apartamencie ważne są
+              także miejsce na urządzenia, wygląd osprzętu i uzgodnienia dotyczące instalacji
+              wspólnych budynku. Zakres wynika z Twoich potrzeb.
+            </p>
+            <a
+              href={pageUrl('solutions')}
+              className="inline-flex items-center gap-2 mt-6 underline underline-offset-4 font-semibold text-sm"
+            >
+              Zobacz przykłady funkcji <ArrowRight size={18} aria-hidden="true" />
+            </a>
+          </div>
+          <div className="p-7 rounded-xl border border-ink/15">
+            <h2 className="text-2xl font-bold font-display mb-5">
+              O czym porozmawiać z integratorem?
+            </h2>
+            <FeatureList
+              items={[
+                'Które funkcje mają działać z przycisków, a które automatycznie.',
+                'Które połączenia korzystają z internetu i jak zachowają się bez niego.',
+                'Jakie są możliwości oraz ograniczenia wybranych urządzeń.',
+                'Jak sprawdzimy działanie i jaki zakres dokumentacji otrzymasz.',
+              ]}
+            />
           </div>
         </div>
-      </section>
-
-      {/* 4 Pillars of KNX */}
-      <section className="py-16 sm:py-24 bg-white border-b border-ink/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mb-12">
-            <h2 className="text-3xl font-bold font-display text-ink">{"Fundamenty niezawodności"}</h2>
-            <p className="text-sm text-ink/70 mt-2">{"Dlaczego architekci, inwestorzy instytucjonalni i właściciele rezydencji wybierają instalację przewodową KNX zamiast gadżetów bezprzewodowych."}</p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="p-6 rounded-2xl bg-surface border border-ink/10 space-y-3">
-              <Globe2 className="w-8 h-8 text-ink" />
-              <h3 className="font-bold font-display text-base text-ink">{"Brak uzależnienia (Zero Vendor Lock-in)"}</h3>
-              <p className="text-xs text-ink/75 leading-relaxed">{"Ponad 500 certyfikowanych producentów na świecie tworzy urządzenia posługujące się tym samym językiem. Możesz łączyć włączniki JUNG, sensory Theben i bramki ABB w jednej instalacji."}</p>
-            </div>
-
-            <div className="p-6 rounded-2xl bg-surface border border-ink/10 space-y-3">
-              <Clock className="w-8 h-8 text-ink" />
-              <h3 className="font-bold font-display text-base text-ink">{"Trwałość na dekady"}</h3>
-              <p className="text-xs text-ink/75 leading-relaxed">{"Urządzenie wyprodukowane w 1995 roku bez problemu komunikuje się z nowoczesnym serwerem KNX IoT z 2026 roku. Instalacja nie starzeje się moralnie ani technologicznie."}</p>
-            </div>
-
-            <div className="p-6 rounded-2xl bg-surface border border-ink/10 space-y-3">
-              <ShieldAlert className="w-8 h-8 text-ink" />
-              <h3 className="font-bold font-display text-base text-ink">{"Magistrala przewodowa (Twisted Pair)"}</h3>
-              <p className="text-xs text-ink/75 leading-relaxed">{"Odporna na zakłócenia radiowe, grube stropy żelbetowe i brak Internetu. Sygnały sterujące podróżują bezpiecznym, ekranowanym kablem magistralnym o napięciu bezpiecznym SELV (30V)."}</p>
-            </div>
-
-            <div className="p-6 rounded-2xl bg-surface border border-ink/10 space-y-3">
-              <Wrench className="w-8 h-8 text-ink" />
-              <h3 className="font-bold font-display text-base text-ink">{"Zdecentralizowana logika"}</h3>
-              <p className="text-xs text-ink/75 leading-relaxed">{"W standardzie KNX nie ma pojedynczego „mózgu”, którego awaria paraliżuje cały budynek. Każdy sensor i aktor posiada własny mikroprocesor."}</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Comparison: Biuro vs Dom */}
-      <section className="py-16 sm:py-24 bg-surface border-b border-ink/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mb-12">
-            <span className="text-xs font-mono uppercase tracking-widest text-ink font-semibold block mb-2">{"Dwa zastosowania tego samego standardu"}</span>
-            <h2 className="text-3xl font-bold font-display text-ink">{"KNX w biurze a KNX w domu"}</h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="p-8 bg-white rounded-2xl border border-ink/10 space-y-4">
-              <span className="text-xs font-mono uppercase tracking-wider text-ink font-semibold">{"Zastosowanie komercyjne"}</span>
-              <h3 className="text-xl font-bold font-display text-ink">{"KNX w Biurze"}</h3>
-              <ul className="text-xs space-y-2.5 text-ink/80">
-                <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-ink shrink-0 mt-0.5" />
-                  <span>{"Obniżenie kosztów eksploatacji (OPEX) przez inteligentne sterowanie oświetleniem i HVAC"}</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-ink shrink-0 mt-0.5" />
-                  <span>{"Łatwa rearanżacja przestrzeni fit-out bez prucia ścian — zmiana przypisania opraw w oprogramowaniu ETS"}</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-ink shrink-0 mt-0.5" />
-                  <span>{"Integracja z nadrzędnym systemem zarządzania budynkiem BMS obiektu biurowego"}</span>
-                </li>
-              </ul>
-            </div>
-
-            <div className="p-8 bg-white rounded-2xl border border-ink/10 space-y-4">
-              <span className="text-xs font-mono uppercase tracking-wider text-ink font-semibold">{"Zastosowanie prywatne"}</span>
-              <h3 className="text-xl font-bold font-display text-ink">{"KNX w Domu i Rezydencji"}</h3>
-              <ul className="text-xs space-y-2.5 text-ink/80">
-                <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-ink shrink-0 mt-0.5" />
-                  <span>{"Bezpieczeństwo rodziny: brak kamer i urządzeń sterujących uzależnionych od chmur obcych korporacji"}</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-ink shrink-0 mt-0.5" />
-                  <span>{"Cisza i dyskrecja: ciche napędy zasłon, brak piszczących zasilaczy i niewidoczne sensory obecności"}</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-ink shrink-0 mt-0.5" />
-                  <span>{"Wzrost wartości rynkowej nieruchomości przy ewentualnej odsprzedaży"}</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Serwis i rozbudowa */}
-      <section className="py-16 sm:py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="p-8 sm:p-12 rounded-2xl bg-ink text-white flex flex-col md:flex-row items-center justify-between gap-8">
-            <div className="space-y-3 max-w-xl">
-              <h3 className="text-2xl font-bold font-display text-white">{"Masz już instalację KNX wymagającą serwisu lub rozbudowy?"}</h3>
-              <p className="text-xs sm:text-sm text-mist/75 leading-relaxed">{"Przejmujemy opiekę nad istniejącymi instalacjami w Warszawie i Polsce. Odtwarzamy projekty ETS, wymieniamy uszkodzone komponenty i dopasowujemy sceny do nowych potrzeb użytkowników."}</p>
-            </div>
-            <button
-              onClick={onOpenConsultation}
-              className="px-6 py-3 bg-accent hover:bg-white text-ink text-xs font-bold uppercase tracking-wider rounded-lg transition-colors whitespace-nowrap"
-            >{"Zleć audyt lub serwis KNX"}</button>
-          </div>
-        </div>
-      </section>
-    </div>
-  );
-};
+        <p className="mt-9 text-sm text-ink/70">
+          Więcej o standardzie:{' '}
+          <a
+            href="https://www.knx.org/explore-knx/knx-home-building-owners"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline underline-offset-4"
+          >
+            KNX Association — informacje dla właścicieli domów ↗
+          </a>
+        </p>
+      </div>
+    </section>
+    <ContactCta
+      title="Sprawdźmy, czego potrzebuje Twój dom."
+      text="Omówimy oczekiwania, etap inwestycji i możliwości instalacji. Jeśli masz już KNX, zacznijmy od opisu urządzeń i dostępnej dokumentacji."
+      onClick={onOpenConsultation}
+    />
+  </div>
+);

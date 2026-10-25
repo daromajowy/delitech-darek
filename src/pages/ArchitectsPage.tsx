@@ -1,184 +1,166 @@
-import { plannerUrl } from '../site';
 import React from 'react';
-import { PageId } from '../types.ts';
-import { IMAGES } from '../assets.ts';
-import {
-  Compass,
-  FileCode2,
-  Sliders,
-  CheckCircle2,
-  PhoneCall,
-  Sparkles,
-  Download,
-  ArrowRight,
-  Layers,
-} from 'lucide-react';
+import { ArrowRight, Compass, FileText, SlidersHorizontal, Users } from 'lucide-react';
+import { PageId } from '../types';
+import { plannerUrl, pageUrl } from '../site';
+import { IMAGES } from '../assets';
+import { ContentHero, ContactCta, FeatureList, contentWidth } from '../components/ContentSections';
 
 interface ArchitectsPageProps {
   onNavigate: (page: PageId, subHash?: string) => void;
   onOpenConsultation: () => void;
 }
+const support = [
+  {
+    icon: Compass,
+    title: 'Funkcje przed urządzeniami',
+    text: 'Wspólnie ustalamy, co ma dziać się w każdym pokoju. Przekładamy potrzeby inwestora na sceny, funkcje przycisków i miejsca sterowania.',
+  },
+  {
+    icon: FileText,
+    title: 'Uzgodnienia instalacyjne',
+    text: 'Określamy wymagania automatyki i uzgadniamy je z projektantem instalacji oraz wykonawcami. Zakres dokumentacji ustalamy dla konkretnego projektu.',
+  },
+  {
+    icon: SlidersHorizontal,
+    title: 'Osprzęt pasujący do wnętrza',
+    text: 'Pomagamy wybrać przyciski, panele, materiały i sposób montażu. Sprawdzamy funkcje i wymagania techniczne wybranych modeli.',
+  },
+  {
+    icon: Users,
+    title: 'Wspólne sprawdzenie działania',
+    text: 'Po uruchomieniu uzgadniamy sceny i sposób obsługi z domownikami oraz architektem. Każdy wie, za jaką część prac odpowiada.',
+  },
+];
 
-export const ArchitectsPage: React.FC<ArchitectsPageProps> = ({
-  onNavigate,
-  onOpenConsultation,
-}) => {
-  return (
-    <div className="space-y-0">
-      {/* Hero */}
-      <section className="bg-ink text-white py-16 lg:py-20 border-b border-white/10 relative overflow-hidden">
-        <div className="absolute inset-0 bg-grid-dark-subtle opacity-50 pointer-events-none" />
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="max-w-3xl space-y-4">
-            <span className="text-xs font-mono uppercase tracking-widest text-accent font-semibold block">{"Strefa Współpracy Projektowej"}</span>
-            <h1 className="text-4xl sm:text-5xl font-extrabold font-display tracking-tight text-white">{"Wsparcie dla architektów wnętrz i projektantów instalacji"}</h1>
-            <p className="text-base sm:text-lg text-mist/80 leading-relaxed pt-2">{"Jesteśmy technicznym partnerem Twojej pracowni. Dbamy o to, aby instalacja automatyki i sterowania nie popsuła czystości Twojej architektury. Przejmujemy koordynację branżową i przygotowujemy precyzyjne wytyczne podtynkowe."}</p>
-
-            <div className="pt-4 flex flex-wrap items-center gap-4">
-              <a href={plannerUrl()} className="px-6 py-3 bg-ink text-accent font-bold text-xs uppercase tracking-wider rounded-lg border border-accent/40 inline-flex items-center gap-2">
-                Otwórz projektant KNX <Sliders className="w-4 h-4" />
-              </a>
-              <button
-                onClick={onOpenConsultation}
-                className="px-6 py-3 bg-accent hover:bg-white text-ink font-bold text-xs uppercase tracking-wider rounded-lg transition-colors flex items-center gap-2"
-              >
-                <span>{"Umów konsultację projektu"}</span>
-                <ArrowRight className="w-4 h-4" />
-              </button>
-              <button
-                onClick={() => onNavigate('contact')}
-                className="px-6 py-3 bg-white/10 hover:bg-white/15 text-white font-medium text-xs uppercase tracking-wider rounded-lg transition-colors border border-white/15"
-              >{"Kontakt z zespołem"}</button>
-            </div>
-          </div>
+export const ArchitectsPage: React.FC<ArchitectsPageProps> = ({ onOpenConsultation }) => (
+  <div>
+    <ContentHero
+      eyebrow="Dla architektów wnętrz i projektantów"
+      title="Dobry projekt wnętrza. Przemyślane sterowanie."
+    >
+      <p>
+        Pomagamy zaplanować automatykę domów i apartamentów już na etapie koncepcji. Ty określasz
+        układ i charakter wnętrza, a wspólnie ustalamy, jak będzie się z niego korzystać.
+      </p>
+      <div className="flex flex-wrap gap-4 pt-2">
+        <a
+          href={plannerUrl()}
+          className="inline-flex items-center gap-2 px-5 py-3 bg-accent text-ink font-semibold text-sm rounded-lg"
+        >
+          Otwórz konfigurator KNX <ArrowRight size={18} aria-hidden="true" />
+        </a>
+        <button
+          onClick={onOpenConsultation}
+          className="px-5 py-3 border border-white/40 rounded-lg text-sm font-semibold"
+        >
+          Omów projekt z zespołem
+        </button>
+      </div>
+    </ContentHero>
+    <section id="wsparcie" className="py-16 sm:py-20 bg-white">
+      <div className={contentWidth}>
+        <h2 className="text-3xl font-bold font-display mb-9">W czym wspieramy pracownię?</h2>
+        <div className="grid sm:grid-cols-2 gap-6">
+          {support.map(({ icon: Icon, title, text }) => (
+            <article key={title} className="p-7 rounded-xl bg-surface border border-ink/15">
+              <Icon size={28} strokeWidth={1.5} aria-hidden="true" />
+              <h3 className="text-xl font-bold mt-5 mb-3">{title}</h3>
+              <p className="text-ink/80 leading-relaxed">{text}</p>
+            </article>
+          ))}
         </div>
-      </section>
-
-      {/* 4 Pillars of Architect Support */}
-      <section className="py-16 sm:py-24 bg-white border-b border-ink/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mb-14">
-            <span className="text-xs font-mono uppercase tracking-widest text-ink font-semibold block mb-2">{"Bezpieczeństwo koncepcji"}</span>
-            <h2 className="text-3xl font-bold font-display text-ink">{"Jak wspieramy pracownie na każdym etapie projektu"}</h2>
-            <p className="text-sm text-ink/70 mt-2">{"Włączamy się w proces w momencie, kiedy decydują się kluczowe trasy i punkty na ścianach."}</p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* 1. Wsparcie projektowe */}
-            <div className="p-8 rounded-2xl bg-surface border border-ink/10 space-y-4">
-              <div className="w-10 h-10 rounded-xl bg-ink text-accent flex items-center justify-center">
-                <Compass className="w-5 h-5" />
-              </div>
-              <h3 className="text-xl font-bold font-display text-ink">{"01. Wsparcie koncepcyjne i scenariusze"}</h3>
-              <p className="text-xs sm:text-sm text-ink/75 leading-relaxed">{"Wspólnie z architektem tworzymy logiczną matrycę działania przestrzeni. Zamiast pytać klienta o setki technicznych parametrów, proponujemy gotowe, sprawdzone w biurach i rezydencjach schematy sterowania oświetleniem, roletami i HVAC."}</p>
-              <ul className="text-xs text-ink/80 space-y-1.5 pt-2">
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-ink" />
-                  <span>{"Redukcja liczby manipulatorów ściennych do minimum"}</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-ink" />
-                  <span>{"Konsultacje stacjonarne w Warszawie lub wideorozmowy"}</span>
-                </li>
-              </ul>
-            </div>
-
-            {/* 2. Wytyczne dla instalacji */}
-            <div className="p-8 rounded-2xl bg-surface border border-ink/10 space-y-4">
-              <div className="w-10 h-10 rounded-xl bg-ink text-accent flex items-center justify-center">
-                <FileCode2 className="w-5 h-5" />
-              </div>
-              <h3 className="text-xl font-bold font-display text-ink">{"02. Wytyczne dla instalacji i koordynacja branżowa"}</h3>
-              <p className="text-xs sm:text-sm text-ink/75 leading-relaxed">{"Przygotowujemy precyzyjną dokumentację wykonawczą dla elektryka i hydraulika: rzuty tras magistrali zielonej KNX, zasilania DALI, puszki montażowe, zasilacze w szafach zamiast za kartongipsem."}</p>
-              <ul className="text-xs text-ink/80 space-y-1.5 pt-2">
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-ink" />
-                  <span>{"Formaty DWG, DXF, PDF oraz modele BIM"}</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-ink" />
-                  <span>{"Koordynacja z branżą HVAC — eliminacja sporów na budowie"}</span>
-                </li>
-              </ul>
-            </div>
-
-            {/* 3. Osprzęt premium JUNG */}
-            <div className="p-8 rounded-2xl bg-surface border border-ink/10 space-y-4">
-              <div className="w-10 h-10 rounded-xl bg-ink text-accent flex items-center justify-center">
-                <Sliders className="w-5 h-5" />
-              </div>
-              <h3 className="text-xl font-bold font-display text-ink">{"03. Osprzęt premium JUNG i wzorniki materiałowe"}</h3>
-              <p className="text-xs sm:text-sm text-ink/75 leading-relaxed">{"Dostarczamy pełne próbniki i wzorniki niemieckiego osprzętu architektonicznego JUNG (serie LS 990, LS ZERO, LS 1912, A 550) w autentycznych metalach: aluminium, stal szlachetna, mosiądz antyczny, ciemny brąz oraz kolorystyce Les Couleurs® Le Corbusier."}</p>
-              <ul className="text-xs text-ink/80 space-y-1.5 pt-2">
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-ink" />
-                  <span>{"Wypożyczenie walizki ze wzornikami na spotkanie z inwestorem"}</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-ink" />
-                  <span>{"Zlicowany montaż LS ZERO bez wystających ramek"}</span>
-                </li>
-              </ul>
-            </div>
-
-            {/* 4. Konsultacja techniczna */}
-            <div className="p-8 rounded-2xl bg-surface border border-ink/10 space-y-4">
-              <div className="w-10 h-10 rounded-xl bg-ink text-accent flex items-center justify-center">
-                <Layers className="w-5 h-5" />
-              </div>
-              <h3 className="text-xl font-bold font-display text-ink">{"04. Nadzór inżynierski i asysta na budowie"}</h3>
-              <p className="text-xs sm:text-sm text-ink/75 leading-relaxed">{"Nie zostawiamy architekta samego z ekipami budowlanymi. Uczestniczymy w kluczowych naradach koordynacyjnych, odbieramy ułożenie okablowania przed zamknięciem ścian i sufitów podwieszanych."}</p>
-              <ul className="text-xs text-ink/80 space-y-1.5 pt-2">
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-ink" />
-                  <span>{"Odbiór magistrali pomiarami certyfikacyjnymi"}</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-ink" />
-                  <span>{"Programowanie scen oświetleniowych w obecności architekta"}</span>
-                </li>
-              </ul>
-            </div>
-          </div>
+      </div>
+    </section>
+    <section id="pakiet" className="py-16 sm:py-20 bg-mist/60">
+      <div className={contentWidth}>
+        <div className="max-w-3xl">
+          <p className="text-xs font-mono uppercase tracking-widest mb-3">Konfigurator KNX</p>
+          <h2 className="text-3xl sm:text-4xl font-bold font-display">
+            Zbierz pomysł na dom w jednym projekcie.
+          </h2>
+          <p className="mt-5 text-ink/80 leading-relaxed">
+            Pracuj na pomieszczeniach i rzucie. Opisz funkcje, dobierz punkty sterowania i przygotuj
+            zestawienie do dalszych uzgodnień.
+          </p>
         </div>
-      </section>
-
-      {/* JUNG Visual Spotlight */}
-      <section className="py-16 sm:py-20 bg-surface border-b border-ink/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-            <div className="lg:col-span-6">
-              <div className="rounded-2xl overflow-hidden border border-ink/15 shadow-xl aspect-square bg-ink">
-                <img
-                  src={IMAGES.knxSwitchHardware}
-                  alt={"Architektoniczny osprzęt KNX JUNG LS 990"}
-                  className="w-full h-full object-cover"
-                  referrerPolicy="no-referrer"
-                />
-              </div>
-            </div>
-
-            <div className="lg:col-span-6 space-y-6">
-              <span className="text-xs font-mono uppercase tracking-wider text-ink font-semibold">{"Detal Architektoniczny"}</span>
-              <h2 className="text-3xl sm:text-4xl font-bold font-display text-ink">{"Ikona designu JUNG LS 990 i montaż bezramkowy LS ZERO"}</h2>
-              <p className="text-sm sm:text-base text-ink/80 leading-relaxed">{"Klasyczny kwadratowy kształt z wąską ramką stworzony ponad 50 lat temu w Niemczech. W połączeniu z modułami przyciskowymi KNX jeden element zastępuje skomplikowane baterie włączników, oferując precyzyjny skok klawisza, dyskretne diody orientacyjne RGB i indywidualny grawer laserowy."}</p>
-
-              <div className="p-4 bg-white rounded-xl border border-ink/10 space-y-2 text-xs">
-                <span className="font-bold text-ink block">{"Dostępne materiały i kolekcje:"}</span>
-                <p className="text-ink/70">{"Stal szlachetna, Aluminium naturalne, Mosiądz Classic / Antyczny, Ciemny grafit matowy, Barwy Les Couleurs® Le Corbusier (63 odcienie stworzone dla architektury)."}</p>
-              </div>
-
-              <div>
-                <button
-                  onClick={onOpenConsultation}
-                  className="px-6 py-3 bg-ink text-accent text-xs font-semibold uppercase tracking-wider rounded-lg hover:bg-ink-hover transition-colors"
-                >{"Zamów wzorniki do pracowni"}</button>
-              </div>
-            </div>
-          </div>
+        <ol className="grid md:grid-cols-3 gap-5 mt-9">
+          {[
+            [
+              'Pomieszczenia i potrzeby',
+              'Dodaj pomieszczenia, wybierz potrzebne funkcje i ustal sceny codziennego życia.',
+            ],
+            [
+              'Przyciski na rzucie',
+              'Wczytaj PDF, rozmieść punkty sterowania i przypisz funkcje przyciskom.',
+            ],
+            [
+              'Zestawienie do rozmowy',
+              'Przygotuj podsumowanie projektu, które pomoże uzgodnić zakres i dobór urządzeń.',
+            ],
+          ].map(([title, text], i) => (
+            <li key={title} className="rounded-xl border border-ink/15 bg-white p-6">
+              <span className="font-mono text-sm text-ink/65">0{i + 1}</span>
+              <h3 className="text-lg font-bold mt-4 mb-3">{title}</h3>
+              <p className="text-sm leading-relaxed text-ink/80">{text}</p>
+            </li>
+          ))}
+        </ol>
+        <div className="mt-7 flex flex-col sm:flex-row gap-6 items-start sm:items-center">
+          <a
+            href={plannerUrl()}
+            className="inline-flex items-center gap-2 px-6 py-3 bg-ink text-accent rounded-lg font-semibold text-sm shrink-0"
+          >
+            Uruchom konfigurator <ArrowRight size={18} aria-hidden="true" />
+          </a>
+          <p className="text-sm text-ink/75 max-w-2xl">
+            Konfigurator porządkuje założenia. Projekt wykonawczy, dobór techniczny i wycenę
+            przygotowujemy po ich weryfikacji.
+          </p>
         </div>
-      </section>
-
-    </div>
-  );
-};
+      </div>
+    </section>
+    <section id="jung" className="py-16 sm:py-20 bg-white">
+      <div className={contentWidth + ' grid lg:grid-cols-2 gap-10 items-center'}>
+        <figure>
+          <img
+            src={IMAGES.knxSwitchHardware}
+            alt="Przykład minimalistycznego osprzętu ściennego"
+            className="w-full aspect-[4/3] object-cover rounded-2xl"
+            loading="lazy"
+          />
+          <figcaption className="text-xs text-ink/60 mt-3">
+            Ilustracja kierunku estetycznego. Model i wykończenie dobieramy indywidualnie.
+          </figcaption>
+        </figure>
+        <div>
+          <p className="text-xs font-mono uppercase tracking-widest mb-3">
+            Przycisk jest częścią wnętrza
+          </p>
+          <h2 className="text-3xl font-bold font-display">Forma, materiał i wygodna obsługa.</h2>
+          <p className="my-5 text-ink/80 leading-relaxed">
+            Przy wyborze osprzętu, także kolekcji JUNG, łączymy wygląd z funkcją. Liczy się miejsce
+            przycisku, układ klawiszy, oznaczenia i sposób obsługi przez domowników.
+          </p>
+          <FeatureList
+            items={[
+              'Funkcje klawiszy uzgodnione z inwestorem.',
+              'Wysokości i miejsca montażu skoordynowane z wnętrzem.',
+              'Wykończenia i dostępność próbek potwierdzone przed wyborem.',
+            ]}
+          />
+          <a
+            href={pageUrl('solutions', 'sceny')}
+            className="inline-flex items-center gap-2 font-semibold text-sm underline underline-offset-4 mt-6"
+          >
+            Zobacz przykłady scen <ArrowRight size={16} aria-hidden="true" />
+          </a>
+        </div>
+      </div>
+    </section>
+    <ContactCta
+      title="Omówmy założenia Twojego projektu."
+      text="Najlepiej porozmawiać przed ustaleniem okablowania. Przygotuj etap inwestycji, układ pomieszczeń i listę funkcji, na których zależy klientowi."
+      onClick={onOpenConsultation}
+    />
+  </div>
+);

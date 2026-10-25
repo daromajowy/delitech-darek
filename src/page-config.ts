@@ -2,64 +2,76 @@ import type { PageId } from './types';
 
 // Adresy i metadane stron. Treści widoczne na stronie edytujemy w src/pages i src/components.
 export const pages: Record<PageId, { path: string; title: string; description: string }> = {
-  "home": {
-    "path": "/",
-    "title": "Strona główna | InteliSpaces",
-    "description": "Projektujemy, wykonujemy i uruchamiamy automatykę KNX dla nowoczesnych biur, domów i apartamentów. Łączymy komfort użytkownika, energię pod kontrolą i dopracowany detal wnętrza."
+  home: {
+    path: '/',
+    title: 'Inteligentne domy i apartamenty KNX | InteliSpaces',
+    description:
+      'Planujemy i uruchamiamy automatykę KNX dla domów i apartamentów. Światło, rolety, temperatura i wygodne sterowanie. Współpracujemy z inwestorami i architektami.',
   },
-  "architects": {
-    "path": "/architects/",
-    "title": "Dla architektów | InteliSpaces",
-    "description": "Jesteśmy technicznym partnerem Twojej pracowni. Dbamy o to, aby instalacja automatyki i sterowania nie popsuła czystości Twojej architektury. Przejmujemy koordynację branżową i przygotowujemy precyzyjne wytyczne podtynkowe."
+  architects: {
+    path: '/architects/',
+    title: 'KNX dla architektów i projektantów | InteliSpaces',
+    description:
+      'Wsparcie w planowaniu automatyki domu: funkcje pomieszczeń, przyciski, dobór osprzętu i uzgodnienia instalacyjne. Zbierz założenia w konfiguratorze KNX.',
   },
-  "homes": {
-    "path": "/homes/",
-    "title": "Domy i apartamenty | InteliSpaces",
-    "description": "„Komfort od pierwszego dotknięcia.” Tworzymy spójne instalacje KNX w domach jednorodzinnych, willach i luksusowych apartamentach. Zastępujemy baterie włączników na ścianach szlachetnymi manipulatorami JUNG i automatycznymi scenami."
+  homes: {
+    path: '/homes/',
+    title: 'Automatyka KNX — domy i apartamenty | InteliSpaces',
+    description:
+      'Zaplanuj wygodne sterowanie światłem, roletami i temperaturą. Poznaj etapy współpracy, możliwości modernizacji i czynniki wpływające na koszt instalacji KNX.',
   },
-  "offices": {
-    "path": "/offices/",
-    "title": "Biura | InteliSpaces",
-    "description": "W dużych strefach open space kluczem jest unikanie olśnienia i zmęczenia wzroku pracowników. Magistrala KNX zintegrowana z DALI-2 automatycznie dopasowuje natężenie i temperaturę barwową opraw do ilości światła wpadającego przez fasadę szklaną (Daylight Harvesting)."
+  offices: {
+    path: '/offices/',
+    title: 'Sale spotkań i ProAV — dodatkowa usługa | InteliSpaces',
+    description:
+      'Wyposażenie sal spotkań: obraz, dźwięk, wideokonferencje i przyłącza. Dodatkowa usługa InteliSpaces dopasowana do konkretnego pomieszczenia.',
   },
-  "proav": {
-    "path": "/offices/proav/",
-    "title": "ProAV — sale konferencyjne, wideobary i Teams Rooms | InteliSpaces",
-    "description": "Projektujemy systemy ProAV dla biur: wideobary Logitech i Poly, Microsoft Teams Rooms, mediaporty, monitory, ekrany, nagłośnienie i okablowanie. Od doboru do uruchomienia."
+  proav: {
+    path: '/offices/proav/',
+    title: 'ProAV — wideobary, ekrany i sale spotkań | InteliSpaces',
+    description:
+      'ProAV jako dodatkowa usługa: wideobary Logitech i Poly, Teams Rooms, ekrany, mediaporty i okablowanie. Dobór i uruchomienie wyposażenia sal spotkań.',
   },
-  "about": {
-    "path": "/about/",
-    "title": "Jak pracujemy | InteliSpaces",
-    "description": "Delitech Smart Spaces powstał z potrzeby wypełnienia luki pomiędzy światem ambitnej architektury a surową inżynierią instalacyjną. Nie pozycjonujemy się jako sprzedawca elektronicznych gadżetów smart home. Jesteśmy kompetentnym partnerem technicznym i projektowym dla inwestorów, architektów wnętrz, projektantów instalacji oraz generalnych wykonawców fit-out."
+  about: {
+    path: '/about/',
+    title: 'O nas — automatyka domów i apartamentów | InteliSpaces',
+    description:
+      'Poznaj InteliSpaces i nasz sposób pracy. Łączymy planowanie funkcji, dobór urządzeń oraz uruchomienie automatyki KNX w domach i apartamentach.',
   },
-  "team": {
-    "path": "/team/",
-    "title": "Kim jesteśmy | InteliSpaces",
-    "description": "Wieloletnie doświadczenie w branży IT, w zarządzaniu projektami w dużych korporacjach w srodkowisku ściśle regulowanym. Odpowiedzialny za wspópłprace z projektatnami,  koncepcje techniczne, konsutlacje z Inwestorem,  programowanie podzespołów KNX oraz nadzór nad wdrożeniami."
+  team: {
+    path: '/team/',
+    title: 'Nasz zespół | InteliSpaces',
+    description:
+      'Poznaj zespół InteliSpaces: Dariusz Maj, Jan Jasek i Marek Sakowski. Współpraca z inwestorami i architektami, integracja KNX oraz instalacje elektryczne.',
   },
-  "projects": {
-    "path": "/projects/",
-    "title": "Salon i przykłady | InteliSpaces",
-    "description": "Architektura systemu obejmująca centralne zarządzanie oświetleniem DALI-2, koordynację 28 klimakonwektorów 4-rurowych, integrację sal konferencyjnych z systemem wideokonferencji oraz automatyczne procedury redukcji poboru mocy po godzinach pracy."
+  projects: {
+    path: '/projects/',
+    title: 'Przykłady funkcji inteligentnego domu | InteliSpaces',
+    description:
+      'Przykładowe sceny i funkcje KNX do domu oraz apartamentu. Światło, rolety i wygodna obsługa — inspiracje do ustalenia własnego zakresu.',
   },
-  "solutions": {
-    "path": "/solutions/",
-    "title": "Rozwiązania | InteliSpaces",
-    "description": "Zobacz poszczególne elementy układanki. Każdy moduł projektujemy z dbałością o najwyższą niezawodność, ergonomię użytkowania oraz kompatybilność na dekady."
+  solutions: {
+    path: '/solutions/',
+    title: 'Co może Twój dom? Funkcje smart home | InteliSpaces',
+    description:
+      'Poznaj możliwości automatyki domowej: światło, rolety, temperatura, sceny, powiadomienia i integracje. Prosty opis zastosowań KNX w codziennym życiu.',
   },
-  "knowledge": {
-    "path": "/knowledge/",
-    "title": "Wiedza | InteliSpaces",
-    "description": "Optymalnym momentem jest faza koncepcji architektonicznej lub projektu budowlanego/wykonawczego, ZANIM elektryk rozpocznie układanie tras kablowych. KNX wymaga topologii magistralnej (przewód zielony KNX YCYM) doprowadzonej do włączników i czujników oraz sprowadzenia obwodów wykonawczych do rozdzielnicy głównej. Wczesne zaangażowanie pozwala uniknąć prucia ścian i niepotrzebnych kosztów tradycyjnego okablowania."
+  knowledge: {
+    path: '/knowledge/',
+    title: 'KNX — pytania i odpowiedzi | InteliSpaces',
+    description:
+      'Kiedy planować automatykę, czym jest scena i od czego zależy koszt? Praktyczne odpowiedzi dla inwestorów oraz architektów domów i apartamentów.',
   },
-  "knx": {
-    "path": "/knx/",
-    "title": "Standard KNX | InteliSpaces",
-    "description": "W świecie technologii, w którym aplikacje znikają po kilku latach, a producenci zamykają swoje chmury, KNX jest jedynym otwartym standardem automatyki budynkowej z ponad 30-letnią nieprzerwaną historią i pełną kompatybilnością wsteczną."
+  knx: {
+    path: '/knx/',
+    title: 'Czym jest KNX? Prosto o automatyce domu | InteliSpaces',
+    description:
+      'KNX to otwarty standard automatyki budynkowej. Dowiedz się, jak łączy urządzenia i na co zwrócić uwagę przy planowaniu inteligentnego domu.',
   },
-  "contact": {
-    "path": "/contact/",
-    "title": "Kontakt | InteliSpaces",
-    "description": "Masz pytania o automatykę KNX? Zadzwoń, napisz lub umów konsultację. Działamy w Warszawie i realizujemy projekty w całej Polsce."
-  }
+  contact: {
+    path: '/contact/',
+    title: 'Kontakt — porozmawiajmy o Twoim domu | InteliSpaces',
+    description:
+      'Zadzwoń, napisz lub poproś o kontakt w sprawie KNX dla domu, apartamentu albo projektu pracowni. InteliSpaces, ul. Konwaliowa 7 lok. 103, Warszawa.',
+  },
 };

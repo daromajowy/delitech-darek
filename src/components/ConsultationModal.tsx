@@ -1,5 +1,5 @@
 import { submitInquiry } from '../site';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { X, Calendar, Clock, CheckCircle2, ShieldCheck, MapPin } from 'lucide-react';
 
 interface ConsultationModalProps {
@@ -22,7 +22,7 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({
     email: '',
     phone: '',
     company: '',
-    investmentType: 'biuro',
+    investmentType: 'dom',
     mode: 'warszawa-biuro', // 'warszawa-biuro', 'in-situ', 'online'
     preferredTime: 'rano',
     notes: '',
@@ -32,6 +32,14 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({
   const [submitted, setSubmitted] = useState(false);
   const [busy,setBusy] = useState(false);
   const [error,setError] = useState('');
+
+  useEffect(() => {
+    if (isOpen) {
+      setSubmitted(false);
+      setError('');
+      setFormData(data => ({ ...data, investmentType: variant === 'proav' ? 'sala-spotkan' : 'dom' }));
+    }
+  }, [isOpen, variant]);
 
   if (!isOpen) return null;
 
@@ -81,16 +89,16 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({
           <div>
             <div className="mb-5">
               <span className="text-[10px] font-mono font-semibold uppercase tracking-wider text-ink bg-silver/30 px-2 py-0.5 rounded">{variant === 'proav' ? 'ProAV · wyposażenie sal spotkań' : 'Bezpośredni kontakt z inżynierem KNX'}</span>
-              <h2 id="consultation-title" className="text-2xl font-bold font-display text-ink mt-2">{variant === 'proav' ? 'Porozmawiajmy o Twojej sali' : 'Umów bezpłatną konsultację'}</h2>
-              <p className="text-xs text-ink/70 mt-1">{variant === 'proav' ? 'Omówimy wielkość sali, sposób prowadzenia spotkań, obecny sprzęt i budżet. Ustalimy zakres wspólnie z Twoim IT i architektem.' : '30 minut merytorycznej rozmowy: rzuty, scenariusze, standard DALI, budżet i koordynacja branżowa.'}</p>
+              <h2 id="consultation-title" className="text-2xl font-bold font-display text-ink mt-2">{variant === 'proav' ? 'Porozmawiajmy o Twojej sali' : 'Porozmawiajmy o Twoim domu'}</h2>
+              <p className="text-xs text-ink/70 mt-1">{variant === 'proav' ? 'Omówimy wielkość sali, sposób prowadzenia spotkań, obecny sprzęt i budżet. Ustalimy zakres wspólnie z Twoim IT i architektem.' : 'Opisz etap inwestycji i potrzebne funkcje. Skontaktujemy się, aby ustalić zakres rozmowy oraz dogodny termin.'}</p>
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-4">
               {error && <p role="alert" className="text-red-700">{error}</p>}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-semibold text-ink mb-1">{"Imię i nazwisko / Firma *"}</label>
-                  <input
+                  <label htmlFor="consultation-name" className="block text-xs font-semibold text-ink mb-1">{"Imię i nazwisko / Firma *"}</label>
+                  <input id="consultation-name"
                     type="text"
                     required
                     value={formData.name}
@@ -100,8 +108,8 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold text-ink mb-1">{"Numer telefonu *"}</label>
-                  <input
+                  <label htmlFor="consultation-phone" className="block text-xs font-semibold text-ink mb-1">{"Numer telefonu *"}</label>
+                  <input id="consultation-phone"
                     type="tel"
                     required
                     value={formData.phone}
@@ -113,8 +121,8 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-ink mb-1">{"Adres e-mail *"}</label>
-                <input
+                <label htmlFor="consultation-email" className="block text-xs font-semibold text-ink mb-1">{"Adres e-mail *"}</label>
+                <input id="consultation-email"
                   type="email"
                   required
                   value={formData.email}
@@ -124,10 +132,21 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({
                 />
               </div>
 
+              <div>
+                <label htmlFor="consultation-investment" className="block text-xs font-semibold text-ink mb-1">Czego dotyczy projekt?</label>
+                <select id="consultation-investment" value={formData.investmentType}
+                  onChange={e => setFormData({ ...formData, investmentType: e.target.value })}
+                  className="w-full px-3 py-2 bg-surface border border-ink/15 rounded-lg text-xs focus:ring-2 focus:ring-ink">
+                  <option value="dom">Dom jednorodzinny</option>
+                  <option value="apartament">Apartament / mieszkanie</option>
+                  <option value="projekt-pracowni">Projekt dla klienta pracowni</option>
+                  <option value="sala-spotkan">Sala spotkań / ProAV</option>
+                </select>
+              </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-semibold text-ink mb-1">{"Forma spotkania"}</label>
-                  <select
+                  <label htmlFor="consultation-mode" className="block text-xs font-semibold text-ink mb-1">{"Forma spotkania"}</label>
+                  <select id="consultation-mode"
                     value={formData.mode}
                     onChange={(e) => setFormData({ ...formData, mode: e.target.value })}
                     className="w-full px-3 py-2 bg-surface border border-ink/15 rounded-lg text-xs focus:ring-2 focus:ring-ink"
@@ -138,8 +157,8 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({
                   </select>
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold text-ink mb-1">{"Preferowana pora"}</label>
-                  <select
+                  <label htmlFor="consultation-preferredTime" className="block text-xs font-semibold text-ink mb-1">{"Preferowana pora"}</label>
+                  <select id="consultation-preferredTime"
                     value={formData.preferredTime}
                     onChange={(e) => setFormData({ ...formData, preferredTime: e.target.value })}
                     className="w-full px-3 py-2 bg-surface border border-ink/15 rounded-lg text-xs focus:ring-2 focus:ring-ink"
@@ -152,8 +171,8 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-ink mb-1">{"Krótki opis tematu rozmowy"}</label>
-                <textarea
+                <label htmlFor="consultation-notes" className="block text-xs font-semibold text-ink mb-1">{"Krótki opis tematu rozmowy"}</label>
+                <textarea id="consultation-notes"
                   rows={2}
                   value={formData.notes}
                   onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
@@ -191,7 +210,7 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({
                 <button
                   type="submit" disabled={busy}
                   className="px-6 py-2.5 bg-ink hover:bg-ink-hover text-accent text-xs font-semibold uppercase tracking-wider rounded-lg transition-colors"
-                >{"Potwierdź konsultację"}</button>
+                >{busy ? 'Wysyłanie…' : 'Poproś o kontakt'}</button>
               </div>
             </form>
           </div>

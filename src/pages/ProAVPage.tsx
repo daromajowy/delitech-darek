@@ -35,7 +35,7 @@ const Photo = ({ src, alt, width, height, caption }: { src: string; alt: string;
   </figure>
 );
 
-export const ProAVPage: React.FC<ProAVPageProps> = ({ onNavigate, onOpenConsultation }) => {
+export const ProAVPage: React.FC<ProAVPageProps> = ({ onOpenConsultation }) => {
   const officesUrl = siteConfig()?.urls.offices || '/offices/';
   return (
     <div className="proav-page">
@@ -46,9 +46,9 @@ export const ProAVPage: React.FC<ProAVPageProps> = ({ onNavigate, onOpenConsulta
         </div>
         <div className="proav-container proav-hero-content">
           <nav className="proav-breadcrumb" aria-label="Ścieżka strony">
-            <a href={officesUrl}>Biura</a><ChevronRight size={13} aria-hidden="true" /><span aria-current="page">ProAV</span>
+            <a href={officesUrl}>Usługi dodatkowe</a><ChevronRight size={13} aria-hidden="true" /><span aria-current="page">ProAV</span>
           </nav>
-          <p className="proav-eyebrow"><span />ProAV · sale spotkań</p>
+          <p className="proav-eyebrow"><span />Dodatkowa usługa · ProAV</p>
           <h1 id="proav-heading">Sala gotowa.<br />Możemy <span>zaczynać.</span></h1>
           <p className="proav-hero-lead">Dobry obraz. Wyraźny głos. Prosta obsługa.</p>
           <p className="proav-hero-text">Łączymy kamery, dźwięk, ekrany i przyłącza w jeden wygodny system. Ty skupiasz się na spotkaniu.</p>
@@ -168,7 +168,7 @@ export const ProAVPage: React.FC<ProAVPageProps> = ({ onNavigate, onOpenConsulta
             <article><Sun aria-hidden="true" /><h3>Rolety</h3><p>Ograniczamy słońce i odbicia przeszkadzające w prezentacji.</p></article>
             <article><Monitor aria-hidden="true" /><h3>Obraz</h3><p>Wybór źródła i przygotowanie wyświetlania do spotkania.</p></article>
           </div>
-          <button className="proav-text-link" onClick={() => onNavigate('offices', 'konferencyjne')}>Poznaj automatykę biura <ArrowUpRight size={18} /></button>
+          <button className="proav-text-link" onClick={() => onOpenConsultation('Sterowanie salą spotkań — ProAV i KNX')}>Omów sterowanie salą <ArrowUpRight size={18} /></button>
         </div>
       </section>
 
@@ -192,7 +192,7 @@ export const ProAVPage: React.FC<ProAVPageProps> = ({ onNavigate, onOpenConsulta
 
       <section className="proav-contact-section" aria-labelledby="contact-proav-heading">
         <div className="proav-container proav-contact">
-          <div><p className="proav-eyebrow">Porozmawiajmy o Waszym biurze</p><h2 id="contact-proav-heading">Opowiedz nam o sali.<br />Dobierzemy resztę.</h2><p>Mały pokój spotkań, sala zarządu czy przestrzeń szkoleniowa — zaczniemy od potrzeb Twojego zespołu.</p></div>
+          <div><p className="proav-eyebrow">Porozmawiajmy o Waszej sali</p><h2 id="contact-proav-heading">Opowiedz nam o sali.<br />Dobierzemy resztę.</h2><p>Mały pokój spotkań, sala zarządu czy przestrzeń szkoleniowa — zaczniemy od potrzeb Twojego zespołu.</p></div>
           <div className="proav-contact-actions"><button className="proav-button proav-button-ink" onClick={() => onOpenConsultation()}>Omów projekt ProAV <ArrowUpRight size={20} /></button><a href="tel:+48505260715">+48 505 260 715 <ArrowRight size={16} /></a><span>Warszawa · realizacje w całej Polsce</span></div>
         </div>
         <div className="proav-container proav-references"><span>Poznaj rozwiązania:</span><a href="https://www.logitech.com/en-us/business/shop/p/rallybar" target="_blank" rel="noopener noreferrer">Logitech <ArrowUpRight size={13} /></a><a href="https://support.hp.com/in-en/document/ish_15254712-12757922-16" target="_blank" rel="noopener noreferrer">HP Poly <ArrowUpRight size={13} /></a><a href="https://learn.microsoft.com/en-us/microsoftteams/rooms/" target="_blank" rel="noopener noreferrer">Microsoft Teams Rooms <ArrowUpRight size={13} /></a><a href="https://mediaporty.com.pl/" target="_blank" rel="noopener noreferrer">Mediaporty.com.pl <ArrowUpRight size={13} /></a></div>

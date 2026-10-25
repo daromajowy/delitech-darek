@@ -104,13 +104,19 @@ export default function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  useEffect(() => {
+    if (!currentHash) return;
+    const frame = requestAnimationFrame(() => document.getElementById(currentHash)?.scrollIntoView({ block: 'start' }));
+    return () => cancelAnimationFrame(frame);
+  }, [currentPage, currentHash]);
+
   const handleOpenPrivacy = (tab: 'privacy' | 'cookies' | 'rodo' = 'privacy') => {
     setPrivacyTab(tab);
     setPrivacyModalOpen(true);
   };
 
   const handleOpenConsultation = (topic?: string) => {
-    if (topic) setConsultationTopic(topic);
+    setConsultationTopic(topic || 'Konsultacja domu / apartamentu');
     setConsultationModalOpen(true);
   };
 
@@ -120,12 +126,10 @@ export default function App() {
       {/* Sticky Header & Navigation */}
       <Navbar
         currentPage={currentPage}
-        onNavigate={handleNavigate}
-        onOpenConsultation={() => handleOpenConsultation(currentPage === 'proav' ? 'Konsultacja ProAV / sala spotkań' : undefined)}
       />
 
       {/* Main Content Viewport */}
-      <main id="main-content" className="flex-grow">
+      <main id="main-content" tabIndex={-1} className="flex-grow">
         {currentPage === 'home' && (
           <HomePage
             onNavigate={handleNavigate}
@@ -136,7 +140,7 @@ export default function App() {
         {currentPage === 'offices' && (
           <OfficesPage
             onNavigate={handleNavigate}
-            onOpenConsultation={() => handleOpenConsultation('Konsultacja projektu biura / fit-out')}
+            onOpenConsultation={() => handleOpenConsultation('Konsultacja ProAV / sala spotkań')}
             initialHash={currentHash}
           />
         )}
@@ -151,7 +155,7 @@ export default function App() {
         {currentPage === 'homes' && (
           <HomesPage
             onNavigate={handleNavigate}
-            onOpenConsultation={() => handleOpenConsultation('Konsultacja rezydencji / apartamentu')}
+            onOpenConsultation={() => handleOpenConsultation('Konsultacja domu / apartamentu')}
             initialHash={currentHash}
           />
         )}
@@ -159,7 +163,7 @@ export default function App() {
         {currentPage === 'solutions' && (
           <SolutionsPage
             onNavigate={handleNavigate}
-            onOpenConsultation={() => handleOpenConsultation('Konsultacja techniczna modułów KNX/DALI')}
+            onOpenConsultation={() => handleOpenConsultation('Funkcje inteligentnego domu')}
             initialHash={currentHash}
           />
         )}
@@ -181,7 +185,7 @@ export default function App() {
         {currentPage === 'projects' && (
           <ProjectsPage
             onNavigate={handleNavigate}
-            onOpenConsultation={() => handleOpenConsultation('Konsultacja zakresu referencyjnego')}
+            onOpenConsultation={() => handleOpenConsultation('Rozwiązania do domu / apartamentu')}
           />
         )}
 
@@ -231,7 +235,7 @@ export default function App() {
         isOpen={consultationModalOpen}
         onClose={() => setConsultationModalOpen(false)}
         initialTopic={consultationTopic}
-        variant={currentPage === 'proav' ? 'proav' : 'knx'}
+        variant={currentPage === 'proav' || currentPage === 'offices' ? 'proav' : 'knx'}
         onOpenPrivacy={() => handleOpenPrivacy('privacy')}
       />
 

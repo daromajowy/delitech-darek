@@ -31,6 +31,10 @@ export function plannerUrl(): string {
   return siteConfig()?.plannerUrl || 'https://knx.intelispaces.pl/';
 }
 
+export function pageUrl(page: PageId, hash?: string): string {
+  return (siteConfig()?.urls[page] || pages[page].path) + (hash ? '#' + hash : '');
+}
+
 export async function submitInquiry(values: Record<string, unknown>): Promise<string> {
   const config = siteConfig();
   if (!config?.endpoint) throw new Error('To podgląd strony. Aby przesłać zgłoszenie, otwórz intelispaces.pl.');

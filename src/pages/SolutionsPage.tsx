@@ -1,250 +1,191 @@
-import React, { useState } from 'react';
-import { PageId } from '../types.ts';
+import React from 'react';
+import type { PageId } from '../types';
 import {
-  SunMedium,
-  Sliders,
-  Wind,
-  Sparkles,
-  Zap,
-  ShieldCheck,
-  Cpu,
+  Sun,
+  Blinds,
+  Thermometer,
+  SlidersHorizontal,
+  Bell,
+  Music2,
   ArrowRight,
-  CheckCircle2,
 } from 'lucide-react';
+import { pageUrl } from '../site';
+import { IMAGES } from '../assets';
+import light from '../assets/images/day-rhythm-relax.webp';
+import blinds from '../assets/images/smart-home-blinds.webp';
+import climate from '../assets/images/day-rhythm-morning.webp';
+import intercom from '../assets/images/smart-home-intercom.webp';
+import energy from '../assets/images/smart-home-energy.webp';
+import { ContentHero, ContactCta, FeatureList, contentWidth } from '../components/ContentSections';
 
 interface SolutionsPageProps {
-  onNavigate: (page: PageId, subHash?: string) => void;
+  onNavigate: (page: PageId, hash?: string) => void;
   onOpenConsultation: () => void;
   initialHash?: string;
 }
 
-export const SolutionsPage: React.FC<SolutionsPageProps> = ({
-  onNavigate,
-  onOpenConsultation,
-  initialHash,
-}) => {
-  const [activeSolution, setActiveSolution] = useState<string>(initialHash || 'dali');
+const capabilities = [
+  {
+    id: 'dali',
+    title: 'Światło na każdą chwilę',
+    icon: Sun,
+    image: light,
+    alt: 'Wieczorne oświetlenie salonu',
+    lead: 'Jasno do pracy przy blacie, spokojnie do kolacji i delikatnie w nocy.',
+    items: [
+      'Włączanie i ściemnianie wybranych lamp.',
+      'Sceny obejmujące kilka obwodów jednocześnie.',
+      'Sterowanie przyciskiem, czujnikiem lub harmonogramem.',
+    ],
+    condition:
+      'Sposób ściemniania i ewentualną zmianę barwy dobieramy do opraw oraz ich zasilaczy. DALI jest jednym z możliwych rozwiązań.',
+  },
+  {
+    id: 'fasady',
+    title: 'Rolety, żaluzje i zasłony',
+    icon: Blinds,
+    image: blinds,
+    alt: 'Zasłony i duże przeszklenia w salonie',
+    lead: 'Odsłaniasz widok rano i dbasz o prywatność wieczorem.',
+    items: [
+      'Sterowanie pojedynczym oknem lub grupą osłon.',
+      'Ustawienia dopasowane do pory dnia i nasłonecznienia.',
+      'Wspólna scena światła oraz zasłon.',
+    ],
+    condition:
+      'Automatykę pogodową i priorytety ochronne ustalamy według wymagań producenta osłon, napędów i czujników.',
+  },
+  {
+    id: 'hvac',
+    title: 'Temperatura i świeże powietrze',
+    icon: Thermometer,
+    image: climate,
+    alt: 'Jasne wnętrze domu o poranku',
+    lead: 'W sypialni chłodniej, w łazience cieplej. Ustawienia dopasowane do pomieszczenia.',
+    items: [
+      'Osobne nastawy w wybranych strefach ogrzewania.',
+      'Uzgodniona współpraca ogrzewania i klimatyzacji.',
+      'Sterowanie wentylacją według dostępnych trybów i pomiarów.',
+    ],
+    condition:
+      'Sprawdzamy modele urządzeń i dostępne interfejsy wspólnie z wykonawcą ogrzewania, klimatyzacji lub wentylacji.',
+  },
+  {
+    id: 'sceny',
+    title: 'Przyciski, panele i sceny',
+    icon: SlidersHorizontal,
+    image: IMAGES.knxSwitchHardware,
+    alt: 'Przykładowy przycisk do sterowania funkcjami pomieszczenia',
+    lead: 'Jeden zrozumiały sposób obsługi dla domowników i gości.',
+    items: [
+      'Funkcje klawiszy ustalone dla każdego miejsca w domu.',
+      'Sceny „Wyjście”, „Kolacja” czy „Dobranoc”.',
+      'Panel lub aplikacja jako uzupełnienie przycisków.',
+    ],
+    condition:
+      'Wygląd, liczbę klawiszy i opisy wybieramy razem z Tobą i architektem. Obsługa zdalna zależy od wybranego systemu.',
+  },
+  {
+    id: 'bezpieczenstwo',
+    title: 'Powiadomienia i reakcje domu',
+    icon: Bell,
+    image: intercom,
+    alt: 'Przykładowa strefa wejścia z domofonem',
+    lead: 'Wiesz o zdarzeniach, które wymagają Twojej uwagi.',
+    items: [
+      'Informacja o otwartym oknie lub wykryciu wody.',
+      'Uzgodniona reakcja światła na sygnał z alarmu.',
+      'Domofon i podgląd wejścia na zgodnym panelu.',
+    ],
+    condition:
+      'Zakres zależy od czujników, centrali alarmowej i interfejsów. Automatyka uzupełnia dedykowane systemy ochrony; reakcje ustalamy z ich wykonawcą.',
+  },
+  {
+    id: 'integracje',
+    title: 'Muzyka, energia i inne urządzenia',
+    icon: Music2,
+    image: energy,
+    alt: 'Przykładowy dom z instalacją fotowoltaiczną i ładowaniem samochodu',
+    lead: 'Łączymy te elementy, które mają sens w Twoim domu.',
+    items: [
+      'Muzyka w wybranych pokojach i scenach.',
+      'Podgląd zużycia energii z odpowiednich liczników.',
+      'Współpraca z fotowoltaiką lub ładowarką, jeśli urządzenia ją umożliwiają.',
+    ],
+    condition:
+      'Każde połączenie sprawdzamy dla konkretnego modelu, oprogramowania i dostępnej komunikacji.',
+  },
+];
 
-  const solutions = [
-    {
-      id: 'dali',
-      title: "Oświetlenie i DALI-2",
-      badge: 'Architektura światła',
-      icon: SunMedium,
-      lead: 'Profesjonalne sterowanie oprawami architektonicznymi bez migotania i z płynną regulacją.',
-      content:
-        'Standard DALI (Digital Addressable Lighting Interface) połączony z magistralą KNX to złoty standard nowoczesnych wnętrz. Pozwala na indywidualne adresowanie każdej oprawy, płynne ściemnianie do 0,1%, regulację temperatury barwowej Tunable White (zgodnie z cyklem dobowym człowieka) oraz pełną diagnostykę stanu zasilaczy LED.',
-      features: [
-        'Adresowanie do 64 opraw na jednym kanale DALI',
-        'Sterowanie Tunable White (HCL — Human Centric Lighting)',
-        'Stała kontrola natężenia światła (Constant Light Control)',
-        'Wyciszenie zasilaczy i brak zjawiska piszczenia przetwornic',
-      ],
-    },
-    {
-      id: 'fasady',
-      title: "Rolety, żaluzje i fasady",
-      badge: 'Komfort termiczny i optyczny',
-      icon: Sliders,
-      lead: 'Automatyczna ochrona przed przegrzewaniem wnętrza latem i ucieczką ciepła zimą.',
-      content:
-        'Żaluzje zewnętrzne i fasadowe nie służą tylko do zasłaniania okien. System KNX wyposażony w stację meteorologiczną na dachu śledzi dokładną pozycję słońca (Sun Tracking) i ustawia lamele pod optymalnym kątem — tak, aby wpuścić naturalne dzienne światło, ale zatrzymać bezpośrednie promieniowanie cieplne.',
-      features: [
-        'Automatyczny kąt lameli żaluzji fasadowych w zależności od azymutu słońca',
-        'Zabezpieczenie przed silnym wiatrem, oblodzeniem i gradem',
-        'Ciche sterowanie roletami screen, zasłonami i karniszami elektrycznymi',
-        'Zintegrowane sceny prywatności o zmroku',
-      ],
-    },
-    {
-      id: 'hvac',
-      title: "HVAC: Ogrzewanie, Chłodzenie i Wentylacja",
-      badge: 'Klimat pod pełną kontrolą',
-      icon: Wind,
-      lead: 'Harmonia pomiędzy podłogówką, klimatyzacją kanałową i rekuperacją.',
-      content:
-        'W tradycyjnych instalacjach klimatyzacja często chłodzi przestrzeń, podczas gdy grzejniki lub podłogówka dogrzewają pomieszczenie. Integracja KNX eliminuje ten konflikt (Deadband Control). Jeden estetyczny regulator zarządza zaworami grzewczymi, siłownikami, klimakonwektorami i centralą wentylacyjną.',
-      features: [
-        'Eliminacja martwych stref i jednoczesnego grzania i chłodzenia',
-        'Automatyczne obniżenie nastawy temperatury po otwarciu okna (kontaktrony)',
-        'Kontrola wilgotności powietrza i stężenia CO2 (sterowanie nawiewem)',
-        'Zdalna zmiana harmonogramu przed powrotem do domu lub biura',
-      ],
-    },
-    {
-      id: 'sceny',
-      title: "Sceny i sterowanie",
-      badge: 'Intuicyjna obsługa przestrzeni',
-      icon: Sparkles,
-      lead: 'Zamiast dziesięciu włączników — jeden czytelny gest.',
-      content:
-        'Sceny to sedno automatyki budynkowej. Zamiast manualnego ustawiania kilkunastu obwodów, rolet i temperatury, użytkownik naciska jeden klawisz lub wybiera scenę w telefonie. „Spotkanie zarządu”, „Kino domowe”, „Kolacja z przyjaciółmi”, „Wyjście z obiektu” — cała przestrzeń reaguje synchronicznie.',
-      features: [
-        'Programowanie scen dopasowanych do stylu życia i procedur biurowych',
-        'Klawiatury wielofunkcyjne JUNG z grawerowanymi symbolami lub tekstem',
-        'Dotykowe panele ścienne z podglądem całego obiektu',
-        'Możliwość samodzielnej modyfikacji poziomów scen przez użytkownika',
-      ],
-    },
-    {
-      id: 'energia',
-      title: "Energia i pomiary",
-      badge: 'Efektywność i oszczędności',
-      icon: Zap,
-      lead: 'Dokładny wgląd w zużycie prądu, wody i ciepła dla inwestora i zarządcy.',
-      content:
-        'Instalujemy certyfikowane liczniki energii na magistralę KNX / Modbus. W biurach umożliwia to dokładne rozliczenie poszczególnych najemców i generowanie raportów ESG. W domach — inteligentne kierowanie nadwyżek z fotowoltaiki do ładowania auta elektrycznego lub podgrzewania bufora ciepła.',
-      features: [
-        'Pomiar energii elektrycznej z podziałem na obwody (oświetlenie, HVAC, gniazda)',
-        'Zarządzanie obciążeniem (Load Shedding) — ochrona przed przekroczeniem mocy umownej',
-        'Integracja z falownikami fotowoltaicznymi i magazynami energii',
-        'Raporty miesięczne i roczne w formatach zgodnych z BREEAM',
-      ],
-    },
-    {
-      id: 'bezpieczenstwo',
-      title: "Bezpieczeństwo i monitoring",
-      badge: 'Ochrona mienia i instalacji',
-      icon: ShieldCheck,
-      lead: 'Działania prewencyjne: czujniki zalania, dymu, kontaktrony i symulacja obecności.',
-      content:
-        'System KNX współpracuje z instalacją alarmową (SSWiN) i przeciwpożarową. W przypadku wykrycia wycieku wody, system automatycznie odcina główny elektrozawór i wysyła powiadomienie. Podczas urlopu system odtwarza realistyczną symulację obecności domowników.',
-      features: [
-        'Automatyczne odcięcie wody po detekcji zalania',
-        'Współpraca z centralami alarmowymi Satel / DSC',
-        'Symulacja obecności oparta na realnych nawykach oświetleniowych',
-        'Oświetlenie ewakuacyjne i odblokowanie rolet w razie alarmu pożarowego',
-      ],
-    },
-    {
-      id: 'integracje',
-      title: "Integracje systemowe i IoT",
-      badge: 'Otwartość na przyszłość',
-      icon: Cpu,
-      lead: 'Połączenie niezawodnej magistrali przewodowej z nowoczesnym ekosystemem IP.',
-      content:
-        'Łączymy stabilność standardu KNX z aplikacjami mobilnymi, Apple HomeKit, asystentami głosowymi, systemami multiroom audio (Sonos, Bluesound) oraz protokołami automatyki budynkowej BMS (BACnet, Modbus, MQTT).',
-      features: [
-        'Bramki KNX-IP z szyfrowaniem KNX Secure',
-        'Natywne wsparcie Apple HomeKit, Google Assistant, Amazon Alexa',
-        'Integracja systemów audio-wideo i sal spotkań',
-        'API do autorskich systemów rezerwacji biurowej',
-      ],
-    },
-  ];
-
+export function SolutionsPage({ onOpenConsultation }: SolutionsPageProps) {
   return (
-    <div className="space-y-0">
-      {/* Hero */}
-      <section className="bg-ink text-white py-16 lg:py-20 border-b border-white/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl space-y-4">
-            <span className="text-xs font-mono uppercase tracking-widest text-accent font-semibold block">{"Inżynieria systemów budynkowych"}</span>
-            <h1 className="text-4xl sm:text-5xl font-extrabold font-display tracking-tight text-white">{"Rozwiązania technologiczne KNX"}</h1>
-            <p className="text-base sm:text-lg text-mist/80 leading-relaxed pt-2">{"Zobacz poszczególne elementy układanki. Każdy moduł projektujemy z dbałością o najwyższą niezawodność, ergonomię użytkowania oraz kompatybilność na dekady."}</p>
-          </div>
-        </div>
-      </section>
-
-      {/* Interactive Solutions Browser */}
-      <section className="py-16 sm:py-24 bg-white border-b border-ink/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Pills / tabs */}
-          <div className="flex flex-wrap gap-2 mb-12 border-b border-ink/10 pb-4">
-            {solutions.map((sol) => {
-              const isActive = activeSolution === sol.id;
-              return (
-                <button
-                  key={sol.id}
-                  onClick={() => setActiveSolution(sol.id)}
-                  className={`px-4 py-2 text-xs font-semibold rounded-lg transition-all ${
-                    isActive
-                      ? 'bg-ink text-accent shadow-sm'
-                      : 'bg-surface text-ink/75 hover:text-ink hover:bg-black/5'
-                  }`}
-                >
-                  {sol.title}
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Solution details */}
-          {solutions
-            .filter((s) => s.id === activeSolution)
-            .map((s) => {
-              const Icon = s.icon;
-              return (
-                <div
-                  key={s.id}
-                  className="bg-surface border border-ink/15 rounded-2xl p-8 sm:p-12 shadow-sm animate-fade-in"
-                >
-                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
-                    <div className="lg:col-span-8 space-y-6">
-                      <div className="flex items-center gap-3">
-                        <div className="w-12 h-12 rounded-xl bg-ink text-accent flex items-center justify-center">
-                          <Icon className="w-6 h-6" />
-                        </div>
-                        <div>
-                          <span className="text-xs font-mono uppercase tracking-wider text-ink font-semibold">
-                            {s.badge}
-                          </span>
-                          <h2 className="text-2xl sm:text-3xl font-bold font-display text-ink">
-                            {s.title}
-                          </h2>
-                        </div>
-                      </div>
-
-                      <p className="text-lg font-semibold text-ink font-display">
-                        {s.lead}
-                      </p>
-
-                      <p className="text-sm text-ink/80 leading-relaxed">
-                        {s.content}
-                      </p>
-
-                      <div className="pt-2 space-y-2.5">
-                        <span className="text-xs font-bold uppercase tracking-wider text-ink block mb-2">{"Standardy inżynierskie Delitech:"}</span>
-                        {s.features.map((f, i) => (
-                          <div key={i} className="flex items-start gap-2.5 text-xs text-ink/85">
-                            <CheckCircle2 className="w-4 h-4 text-ink shrink-0 mt-0.5" />
-                            <span>{f}</span>
-                          </div>
-                        ))}
-                      </div>
-
-                      <div className="pt-6 border-t border-ink/10 flex items-center gap-4">
-                        <button
-                          onClick={onOpenConsultation}
-                          className="px-5 py-2.5 bg-ink hover:bg-ink-hover text-accent text-xs font-semibold uppercase tracking-wider rounded-lg transition-colors flex items-center gap-2"
-                        >
-                          <span>{"Skonsultuj rozwiązanie z inżynierem"}</span>
-                          <ArrowRight className="w-4 h-4" />
-                        </button>
-                        <button
-                          onClick={() => onNavigate('contact')}
-                          className="text-xs font-semibold text-ink hover:underline"
-                        >{"Kontakt z zespołem"}</button>
-                      </div>
-                    </div>
-
-                    <div className="lg:col-span-4 bg-white rounded-xl p-6 border border-ink/10 space-y-4">
-                      <h3 className="text-xs font-bold uppercase tracking-wider text-ink pb-2 border-b border-ink/10">{"Integracja w obiekcie"}</h3>
-                      <div className="text-xs text-ink/75 space-y-3">
-                        <p>
-                          <strong className="text-ink">{"Niezależność:"}</strong>{" Wszystkie moduły montujemy w certyfikowanych szafach rozdzielczych, przetestowanych przed dostarczeniem na budowę."}</p>
-                        <p>
-                          <strong className="text-ink">{"Gwarancja:"}</strong>{" Udzielamy pełnej rękojmi inżynierskiej oraz prowadzimy serwis pogwarancyjny w Warszawie i całej Polsce."}</p>
-                        <p>
-                          <strong className="text-ink">{"Dokumentacja:"}</strong>{" Każdy obwód, adres DALI i adres fizyczny KNX otrzymuje dokładne oznaczenie na schemacie powykonawczym."}</p>
-                      </div>
-                    </div>
+    <>
+      <ContentHero eyebrow="Możliwości inteligentnego domu" title="Co może Twój dom?">
+        <p>
+          Wybierz funkcje, które ułatwią Ci codzienność. Pokażemy, jak je połączyć w instalacji KNX
+          i co będzie potrzebne do ich działania.
+        </p>
+      </ContentHero>
+      <section className="py-14 sm:py-20 bg-white">
+        <div className={contentWidth}>
+          <div className="grid md:grid-cols-2 gap-7 lg:gap-9">
+            {capabilities.map(({ id, title, icon: Icon, image, alt, lead, items, condition }) => (
+              <article
+                id={id}
+                key={id}
+                className="rounded-2xl overflow-hidden border border-ink/15 bg-surface flex flex-col"
+              >
+                <img
+                  src={image}
+                  alt={alt}
+                  width={900}
+                  height={560}
+                  loading="lazy"
+                  className="w-full aspect-[16/9] object-cover"
+                />
+                <div className="p-6 sm:p-8 flex flex-col flex-grow">
+                  <div className="flex items-start gap-3">
+                    <Icon className="shrink-0 mt-1" size={23} aria-hidden="true" />
+                    <h2 className="text-2xl font-bold font-display">{title}</h2>
                   </div>
+                  <p className="text-ink/80 my-5">{lead}</p>
+                  <FeatureList items={items} />
+                  <p
+                    id={id === 'integracje' ? 'energia' : undefined}
+                    className="text-sm text-ink/70 border-t border-ink/15 pt-5 mt-6"
+                  >
+                    {condition}
+                  </p>
                 </div>
-              );
-            })}
+              </article>
+            ))}
+          </div>
+          <p className="text-xs text-ink/65 mt-5">
+            Ilustracje przedstawiają przykładowe rozwiązania i aranżacje.
+          </p>
+          <div className="mt-12 flex flex-wrap gap-6 text-sm font-semibold">
+            <a
+              href={pageUrl('homes', 'etapy')}
+              className="inline-flex items-center gap-2 underline underline-offset-4"
+            >
+              Jak powstaje instalacja <ArrowRight size={17} />
+            </a>
+            <a
+              href={pageUrl('knx')}
+              className="inline-flex items-center gap-2 underline underline-offset-4"
+            >
+              KNX prostym językiem <ArrowRight size={17} />
+            </a>
+            <a
+              href={pageUrl('projects')}
+              className="inline-flex items-center gap-2 underline underline-offset-4"
+            >
+              Przykłady do domu i apartamentu <ArrowRight size={17} />
+            </a>
+          </div>
         </div>
       </section>
-    </div>
+      <ContactCta onClick={onOpenConsultation} />
+    </>
   );
-};
+}

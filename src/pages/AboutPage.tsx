@@ -1,98 +1,101 @@
 import React from 'react';
-import { PageId } from '../types.ts';
-import { Award, ShieldCheck, CheckCircle2, MapPin, ArrowRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
+import { PageId } from '../types';
+import { pageUrl } from '../site';
+import {
+  ContentHero,
+  ContactCta,
+  FeatureList,
+  ProjectSteps,
+  contentWidth,
+  actionClass,
+} from '../components/ContentSections';
 
 interface AboutPageProps {
   onNavigate: (page: PageId, subHash?: string) => void;
   onOpenConsultation: () => void;
 }
 
-export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate, onOpenConsultation }) => {
-  return (
-    <div className="space-y-0">
-      {/* Hero */}
-      <section className="bg-ink text-white py-16 lg:py-20 border-b border-white/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl space-y-4">
-            <span className="text-xs font-mono uppercase tracking-widest text-accent font-semibold block">{"Inżynieria · Doświadczenie · Standard KNX"}</span>
-            <h1 className="text-4xl sm:text-5xl font-extrabold font-display tracking-tight text-white">{"O Delitech Smart Spaces"}</h1>
-            <p className="text-base sm:text-lg text-mist/80 leading-relaxed pt-2 font-display">{"„Automatyka budynku, która pracuje dla ludzi i przestrzeni.”"}</p>
-          </div>
+export const AboutPage: React.FC<AboutPageProps> = ({ onOpenConsultation }) => (
+  <div>
+    <ContentHero eyebrow="O InteliSpaces" title="Technologia ma pasować do ludzi i wnętrza.">
+      <p>
+        Łączymy automatykę KNX z codziennym życiem w domach i apartamentach. Pracujemy z
+        inwestorami, architektami wnętrz i projektantami instalacji — od ustalenia funkcji po
+        uruchomienie uzgodnionego zakresu.
+      </p>
+    </ContentHero>
+    <section className="py-16 sm:py-20 bg-white">
+      <div className={contentWidth + ' grid lg:grid-cols-2 gap-10 items-start'}>
+        <div>
+          <h2 className="text-3xl font-bold font-display">
+            Poznaj ludzi, z którymi będziesz pracować.
+          </h2>
+          <p className="my-5 text-ink/80 leading-relaxed">
+            InteliSpaces rozwijamy w ramach Delitech. Nasz zespół łączy doświadczenie w koordynacji
+            projektów, integracji automatyki i instalacjach elektrycznych. Rozmawiasz z osobami
+            zaangażowanymi w przygotowanie i wdrożenie rozwiązania.
+          </p>
+          <a href={pageUrl('team')} className={actionClass}>
+            Poznaj nasz zespół <ArrowRight size={18} aria-hidden="true" />
+          </a>
         </div>
-      </section>
-
-      {/* Brand Story & Positioning */}
-      <section className="py-16 sm:py-24 bg-white border-b border-ink/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-            <div className="lg:col-span-6 space-y-6">
-              <span className="text-xs font-mono uppercase tracking-widest text-ink font-semibold block">{"Kim jesteśmy"}</span>
-              <h2 className="text-3xl font-bold font-display text-ink tracking-tight">{"Integrator automatyki budynkowej nowej generacji"}</h2>
-              <p className="text-sm sm:text-base text-ink/80 leading-relaxed">{"Delitech Smart Spaces powstał z potrzeby wypełnienia luki pomiędzy światem ambitnej architektury a surową inżynierią instalacyjną. Nie pozycjonujemy się jako sprzedawca elektronicznych gadżetów smart home. Jesteśmy kompetentnym partnerem technicznym i projektowym dla inwestorów, architektów wnętrz, projektantów instalacji oraz generalnych wykonawców fit-out."}</p>
-              <p className="text-sm sm:text-base text-ink/80 leading-relaxed">{"Stawiamy na międzynarodowy, otwarty standard KNX oraz protokół DALI-2. Łączymy komfort użytkowników z wymierną efektywnością energetyczną (ESG) oraz szlachetnym detalem wnętrza."}</p>
-
-              <div className="pt-2 flex items-center gap-3">
-                <div className="px-4 py-2 bg-surface border border-ink/10 rounded-lg text-xs font-semibold text-ink flex items-center gap-2">
-                  <Award className="w-4 h-4 text-ink" />
-                  <span>{"KNX Partner Certified No. 104820"}</span>
-                </div>
-                <div className="px-4 py-2 bg-surface border border-ink/10 rounded-lg text-xs font-semibold text-ink flex items-center gap-2">
-                  <ShieldCheck className="w-4 h-4 text-ink" />
-                  <span>{"DALI-2 Certified Specialist"}</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Right Card: Zakres odpowiedzialności */}
-            <div className="lg:col-span-6 bg-surface border border-ink/15 rounded-2xl p-8 space-y-6">
-              <h3 className="text-xl font-bold font-display text-ink">{"Pełny cykl życia inwestycji w naszych rękach:"}</h3>
-
-              <div className="space-y-3 text-xs text-ink/80">
-                <div className="flex items-start gap-3 p-3 bg-white rounded-lg border border-ink/10">
-                  <CheckCircle2 className="w-4 h-4 text-ink shrink-0 mt-0.5" />
-                  <div>
-                    <strong className="text-ink block text-sm">{"1. Doradztwo i audyt koncepcji:"}</strong>{"Analiza rzutów, weryfikacja założeń funkcjonalnych, optymalizacja budżetu inwestycji."}</div>
-                </div>
-
-                <div className="flex items-start gap-3 p-3 bg-white rounded-lg border border-ink/10">
-                  <CheckCircle2 className="w-4 h-4 text-ink shrink-0 mt-0.5" />
-                  <div>
-                    <strong className="text-ink block text-sm">{"2. Dokumentacja wykonawcza:"}</strong>{"Trasy magistrali, schematy rozdzielnic, wytyczne dla elektryków i koordynacja HVAC."}</div>
-                </div>
-
-                <div className="flex items-start gap-3 p-3 bg-white rounded-lg border border-ink/10">
-                  <CheckCircle2 className="w-4 h-4 text-ink shrink-0 mt-0.5" />
-                  <div>
-                    <strong className="text-ink block text-sm">{"3. Dostawa i prefabrykacja szaf:"}</strong>{"Własny warsztat prefabrykacji szaf KNX, certyfikowane komponenty i testy przedmontażowe."}</div>
-                </div>
-
-                <div className="flex items-start gap-3 p-3 bg-white rounded-lg border border-ink/10">
-                  <CheckCircle2 className="w-4 h-4 text-ink shrink-0 mt-0.5" />
-                  <div>
-                    <strong className="text-ink block text-sm">{"4. Programowanie ETS i odbiory:"}</strong>{"Uruchomienie scen, integracje BMS, szkolenie zarządcy i asysta powdrożeniowa."}</div>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div className="p-7 sm:p-9 bg-surface rounded-2xl border border-ink/15">
+          <h2 className="text-2xl font-bold font-display mb-5">Co ustalamy przed rozpoczęciem?</h2>
+          <FeatureList
+            items={[
+              'Jakie funkcje są potrzebne i jak będą obsługiwane.',
+              'Jakie urządzenia można ze sobą połączyć.',
+              'Za co odpowiadamy my, projektant i pozostali wykonawcy.',
+              'Zakres prac, dokumentacji, budżet oraz terminy.',
+              'Sposób sprawdzenia działania i przekazania instalacji.',
+            ]}
+          />
         </div>
-      </section>
-
-      {/* Office Warsaw */}
-      <section className="py-16 sm:py-20 bg-surface">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="p-8 sm:p-12 rounded-2xl bg-ink text-white flex flex-col md:flex-row items-center justify-between gap-8">
-            <div className="space-y-3">
-              <span className="text-xs font-mono uppercase tracking-widest text-accent font-semibold">{"Siedziba & Realizacje"}</span>
-              <h3 className="text-2xl sm:text-3xl font-bold font-display text-white">{"Warszawa · Projekty w całej Polsce"}</h3>
-              <p className="text-xs sm:text-sm text-mist/75 max-w-xl leading-relaxed">{"Nasze biuro projektowe i showroom osprzętu zlokalizowane są przy ul. Konwaliowej 7 lok. 103 w Warszawie. Realizujemy wdrożenia biurowe i rezydencjalne na terenie całego kraju."}</p>
-            </div>
-            <button
-              onClick={onOpenConsultation}
-              className="px-6 py-3 bg-accent hover:bg-white text-ink text-xs font-bold uppercase tracking-wider rounded-lg transition-colors whitespace-nowrap"
-            >{"Spotkajmy się w Warszawie"}</button>
-          </div>
+      </div>
+    </section>
+    <section className="py-16 sm:py-20 bg-surface">
+      <div className={contentWidth}>
+        <h2 className="text-3xl font-bold font-display mb-4">Jasny proces współpracy.</h2>
+        <p className="text-ink/80 mb-8 max-w-2xl">
+          Rozpoczynamy od potrzeb domowników. Szczegółowy zakres usług potwierdzamy w ofercie dla
+          danej inwestycji.
+        </p>
+        <ProjectSteps />
+      </div>
+    </section>
+    <section className="py-14 bg-white">
+      <div className={contentWidth + ' grid md:grid-cols-2 gap-8'}>
+        <div>
+          <h2 className="text-2xl font-bold font-display">Spotkajmy się w Warszawie.</h2>
+          <p className="text-ink/80 leading-relaxed mt-4">
+            Nasze biuro mieści się przy ul. Konwaliowej 7, lok. 103. Możemy też zacząć od rozmowy
+            online. Miejsce realizacji i możliwość dojazdu ustalamy przy omawianiu projektu.
+          </p>
+          <a
+            href={pageUrl('contact')}
+            className="inline-flex font-semibold text-sm underline underline-offset-4 mt-5"
+          >
+            Dane kontaktowe i dojazd
+          </a>
         </div>
-      </section>
-    </div>
-  );
-};
+        <div className="border border-ink/15 rounded-xl p-6">
+          <p className="text-xs uppercase font-mono tracking-widest text-ink/65">
+            Dodatkowa usługa
+          </p>
+          <h2 className="text-2xl font-bold font-display mt-3">Wyposażenie sal spotkań ProAV.</h2>
+          <p className="text-ink/80 leading-relaxed mt-4">
+            Pomagamy dobrać obraz, dźwięk, wideokonferencje i przyłącza do konkretnej sali.
+          </p>
+          <a
+            href={pageUrl('proav')}
+            className="inline-flex items-center gap-2 mt-5 font-semibold text-sm underline underline-offset-4"
+          >
+            Poznaj zakres ProAV <ArrowRight size={16} aria-hidden="true" />
+          </a>
+        </div>
+      </div>
+    </section>
+    <ContactCta onClick={onOpenConsultation} />
+  </div>
+);

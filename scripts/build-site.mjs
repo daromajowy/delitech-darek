@@ -24,8 +24,8 @@ for (const [key,page] of Object.entries(pages)) {
   globalThis.__INTELISPACES__ = config;
   let html = fs.readFileSync('index.html','utf8');
   html = html.replace(/<title>.*?<\/title>/s, `<title>${htmlEscape(page.title)}</title>`)
-    .replace(/(<meta (?:name="description"|property="og:description") content=")[^"]*"/g, `$1${htmlEscape(page.description)}"`)
-    .replace(/(<meta property="og:title" content=")[^"]*"/, `$1${htmlEscape(page.title)}"`)
+    .replace(/(<meta (?:name="(?:description|twitter:description)"|property="og:description") content=")[^"]*"/g, `$1${htmlEscape(page.description)}"`)
+    .replace(/(<meta (?:property="og:title"|name="twitter:title") content=")[^"]*"/g, `$1${htmlEscape(page.title)}"`)
     .replace('</head>', `<link rel="canonical" href="https://intelispaces.pl${page.path}">${preview?'<meta name="robots" content="noindex,nofollow,noarchive">':''}${(entry.css||[]).map(file=>`<link rel="stylesheet" href="${base+file}">`).join('')}</head>`)
     .replace('<div id="root"></div>', `<div id="root">${renderToString(React.createElement(App))}</div>`)
     .replace('<script type="module" src="/src/main.tsx"></script>', `<script>globalThis.__INTELISPACES__=${JSON.stringify(config).replace(/</g,'\\u003c').replace(/\u2028/g,'\\u2028').replace(/\u2029/g,'\\u2029')};</script><script type="module" src="${base+entry.file}"></script>`);

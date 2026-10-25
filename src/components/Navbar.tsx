@@ -1,128 +1,108 @@
-import { plannerUrl } from '../site';
-import React, { useState } from 'react';
-import { Logo } from './Logo.tsx';
-import { PageId } from '../types.ts';
-import { ChevronDown, Menu, PhoneCall, X } from 'lucide-react';
+import React, { useEffect, useRef, useState } from 'react';
+import { ArrowUpRight, Menu, Phone, X } from 'lucide-react';
+import { pageUrl, plannerUrl } from '../site';
+import { Logo } from './Logo';
+import type { PageId } from '../types';
+import './Navbar.css';
 
-interface NavbarProps {
-  currentPage: PageId;
-  onNavigate: (page: PageId, subSectionHash?: string) => void;
-  onOpenConsultation: () => void;
-}
+const navigation: { page: PageId; label: string }[] = [
+  { page: 'homes', label: 'Domy i apartamenty' },
+  { page: 'solutions', label: 'Co może Twój dom' },
+  { page: 'architects', label: 'Dla architektów' },
+  { page: 'about', label: 'O nas' },
+  { page: 'contact', label: 'Kontakt' },
+];
 
-type SubItem = { label: string; hash?: string; page?: PageId; href?: string };
-type NavItem = { id: PageId; label: string; subItems?: SubItem[] };
+export function Navbar({ currentPage }: { currentPage: PageId }) {
+  const [open, setOpen] = useState(false);
+  const header = useRef<HTMLElement>(null);
+  const toggle = useRef<HTMLButtonElement>(null);
+  const activePage = currentPage === 'team' ? 'about' : currentPage;
 
-export const Navbar: React.FC<NavbarProps> = ({
-  currentPage,
-  onNavigate,
-  onOpenConsultation,
-}) => {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  useEffect(() => {
+    setOpen(false);
+  }, [currentPage]);
+  useEffect(() => {
+    if (!open) return;
+    const escape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setOpen(false);
+        toggle.current?.focus();
+      }
+    };
+    const outside = (event: PointerEvent) => {
+      if (!header.current?.contains(event.target as Node)) setOpen(false);
+    };
+    const desktop = window.matchMedia('(min-width: 1280px)');
+    const resized = () => {
+      if (desktop.matches) setOpen(false);
+    };
+    document.addEventListener('keydown', escape);
+    document.addEventListener('pointerdown', outside);
+    desktop.addEventListener('change', resized);
+    return () => {
+      document.removeEventListener('keydown', escape);
+      document.removeEventListener('pointerdown', outside);
+      desktop.removeEventListener('change', resized);
+    };
+  }, [open]);
 
-  // Mirrors the production intelispaces.pl navigation hierarchy.
-  const navItems: NavItem[] = [
-    { id: 'architects', label: "Dla architektów", subItems: [
-      { label: 'Projektant KNX', href: plannerUrl() },
-      { label: "Wsparcie projektowe", hash: 'wsparcie' },
-      { label: "Pakiet dla architekta", hash: 'pakiet' },
-      { label: "Osprzęt i materiały", hash: 'jung' },
-    ] },
-    { id: 'homes', label: "Domy i apartamenty", subItems: [
-      { label: "Dom jednorodzinny", hash: 'dom' },
-      { label: "Apartament", hash: 'apartament' },
-      { label: "Modernizacja instalacji", hash: 'modernizacja' },
-    ] },
-    { id: 'offices', label: "Biura", subItems: [
-      { label: "Strefy pracy", hash: 'open-space' },
-      { label: "Sale konferencyjne", hash: 'konferencyjne' },
-      { label: "ProAV · sale spotkań", page: 'proav' },
-      { label: "Projekt i fit-out", hash: 'audyt' },
-    ] },
-    { id: 'about', label: "Jak pracujemy", subItems: [
-      { label: "Kim jesteśmy", page: 'team' },
-      { label: "Etapy i odpowiedzialność" },
-      { label: "Przykłady rozwiązań", page: 'projects' },
-      { label: "Technologie i integracje", page: 'solutions' },
-      { label: "Kontakt", page: 'contact' },
-    ] },
-    // The production "Salon" route is represented by the existing projects page on Darka.
-    { id: 'projects', label: "Salon" },
-    { id: 'knowledge', label: "Wiedza", subItems: [
-      { label: "KNX dla inwestora", hash: 'knx-dla-inwestora' },
-      { label: "Poznaj standard KNX", page: 'knx' },
-      { label: "Wszystkie poradniki i FAQ" },
-    ] },
-  ];
-
-  const handleNavClick = (pageId: PageId, hash?: string) => {
-    onNavigate(pageId, hash);
-    setActiveDropdown(null);
-    setMobileMenuOpen(false);
-  };
+  const links = navigation.map(({ page, label }) => (
+    <a
+      key={page}
+      href={pageUrl(page)}
+      aria-current={activePage === page ? 'page' : undefined}
+      onClick={() => setOpen(false)}
+    >
+      {label}
+    </a>
+  ));
 
   return (
-    <header className="site-header sticky top-0 z-50 w-full bg-surface/95 backdrop-blur-md border-b border-ink/10 transition-colors">
-      <div className="bg-ink text-mist text-[11px] font-medium tracking-wider uppercase border-b border-ink">
-        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-1.5 flex flex-row items-center justify-between gap-1 text-center sm:text-left">
-          <div className="hidden sm:flex items-center gap-2">
-            <span className="inline-block w-1.5 h-1.5 rounded-full bg-accent" />
-            <span>{"KNX dla architektów, inwestorów i biur"}</span>
-          </div>
-          <div className="flex w-full sm:w-auto items-center justify-between gap-3 text-silver">
-            <span>{"Warszawa · realizacje w całej Polsce"}</span><span aria-hidden="true">·</span>
-            <a href="tel:+48505260715" className="hover:text-white transition-colors flex items-center gap-1 normal-case font-mono tracking-normal text-xs whitespace-nowrap">+48 505 260 715</a>
-          </div>
-        </div>
-      </div>
-
-      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-        <button onClick={() => handleNavClick('home')} className="group shrink-0 flex items-center text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink rounded-md p-1 -m-1" aria-label={"InteliSpaces - strona główna"}>
-          <Logo variant="light" size="md" />
-        </button>
-
-        <nav className="hidden min-[1280px]:flex items-center gap-0.5 min-[1440px]:gap-1 text-[13px] font-medium tracking-tight text-ink" aria-label={"Główne menu"}>
-          {navItems.map((item) => {
-            const isActive = currentPage === item.id || (item.id === 'offices' && currentPage === 'proav');
-            const hasChildren = Boolean(item.subItems?.length);
-            const itemClass = isActive ? 'text-ink font-semibold bg-silver/25' : 'text-ink/80 hover:text-ink hover:bg-black/5';
-            if (!hasChildren) return <button key={item.id} onClick={() => handleNavClick(item.id)} className={`px-3 py-2 rounded-md transition-colors whitespace-nowrap ${itemClass}`}>{item.label}</button>;
-            return (
-              <div key={item.id} className="relative" onMouseEnter={() => setActiveDropdown(item.id)} onMouseLeave={() => setActiveDropdown(null)} onFocus={() => setActiveDropdown(item.id)} onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setActiveDropdown(null); }} onKeyDown={(event) => { if (event.key === 'Escape') setActiveDropdown(null); }}>
-                <button onClick={() => item.id === 'knowledge' ? setActiveDropdown(item.id) : handleNavClick(item.id)} aria-expanded={activeDropdown === item.id} className={`flex items-center gap-1 px-3 py-2 rounded-md transition-colors whitespace-nowrap ${itemClass}`}>
-                  <span>{item.label}</span><ChevronDown className="w-3.5 h-3.5 opacity-60" />
-                </button>
-                {activeDropdown === item.id && (
-                  <div className="absolute top-full left-0 w-64 pt-2 shadow-xl z-50"><div className="bg-white border border-ink/10 rounded-xl p-2 shadow-lg backdrop-blur-sm">
-                    {item.subItems?.map((sub) => <button key={`${sub.page || item.id}/${sub.hash || sub.label}`} onClick={() => sub.href ? location.assign(sub.href) : handleNavClick(sub.page || item.id, sub.hash)} className="w-full text-left px-3 py-2 text-xs font-medium text-ink/85 hover:text-ink hover:bg-surface rounded-lg transition-colors flex items-center justify-between group"><span>{sub.label}</span><span className="w-1 h-1 rounded-full bg-transparent group-hover:bg-accent transition-colors" /></button>)}
-                  </div></div>
-                )}
-              </div>
-            );
-          })}
+    <header ref={header} className="site-header primary-header">
+      <a className="primary-header__skip" href="#main-content">
+        Przejdź do treści
+      </a>
+      <div className="primary-header__bar">
+        <a
+          href={pageUrl('home')}
+          className="primary-header__logo"
+          aria-label="InteliSpaces — strona główna"
+        >
+          <Logo />
+        </a>
+        <nav className="primary-header__desktop" aria-label="Główne menu">
+          {links}
         </nav>
-
-        <div className="flex items-center gap-3">
-          <button onClick={onOpenConsultation} className="hidden sm:inline-flex items-center gap-2 px-4 py-2.5 bg-ink hover:bg-ink-hover text-accent font-semibold text-xs uppercase tracking-wider rounded-lg transition-all duration-200 shadow-sm hover:shadow active:scale-[0.98] whitespace-nowrap"><PhoneCall className="w-3.5 h-3.5 text-accent" /><span>{"Omów projekt"}</span></button>
-          <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="min-[1280px]:hidden p-2 rounded-lg text-ink hover:bg-black/5 focus:outline-none focus:ring-2 focus:ring-ink" aria-expanded={mobileMenuOpen} aria-label={mobileMenuOpen ? 'Zamknij menu mobilne' : 'Otwórz menu mobilne'}>{mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}</button>
+        <div className="primary-header__actions">
+          <a href={plannerUrl()} className="primary-header__planner">
+            Konfigurator KNX <ArrowUpRight size={17} aria-hidden="true" />
+          </a>
+          <button
+            ref={toggle}
+            type="button"
+            className="primary-header__toggle"
+            aria-expanded={open}
+            aria-controls="mobile-navigation"
+            aria-label={open ? 'Zamknij menu' : 'Otwórz menu'}
+            onClick={() => setOpen((value) => !value)}
+          >
+            {open ? <X size={22} aria-hidden="true" /> : <Menu size={22} aria-hidden="true" />}
+            <span>Menu</span>
+          </button>
         </div>
       </div>
-
-      {mobileMenuOpen && (
-        <div className="min-[1280px]:hidden bg-surface border-t border-ink/10 px-4 pt-3 pb-6 max-h-[calc(100dvh-110px)] overflow-y-auto">
-          <div className="flex flex-col space-y-1">
-            {navItems.map((item) => <div key={item.id} className="py-1">
-              <button onClick={() => handleNavClick(item.id)} className={`w-full text-left px-3 py-2 text-sm font-semibold rounded-lg flex items-center justify-between ${currentPage === item.id || (item.id === 'offices' && currentPage === 'proav') ? 'bg-ink text-white' : 'text-ink hover:bg-black/5'}`}><span>{item.label}</span></button>
-              {item.subItems && <div className="pl-4 mt-1 space-y-1 border-l border-ink/20 ml-3">{item.subItems.map((sub) => <button key={`${sub.page || item.id}/${sub.hash || sub.label}`} onClick={() => sub.href ? location.assign(sub.href) : handleNavClick(sub.page || item.id, sub.hash)} className="w-full text-left px-3 py-1.5 text-xs text-ink/75 hover:text-ink rounded-md transition-colors">{sub.label}</button>)}</div>}
-            </div>)}
-            <div className="pt-4 mt-3 border-t border-ink/10 flex flex-col gap-2">
-              <button onClick={() => { setMobileMenuOpen(false); onOpenConsultation(); }} className="w-full py-3 bg-ink text-accent font-semibold text-xs uppercase tracking-wider rounded-lg text-center flex items-center justify-center gap-2"><PhoneCall className="w-4 h-4" /><span>{"Omów projekt"}</span></button>
-              <button onClick={() => handleNavClick('contact')} className="w-full py-2.5 border border-ink/20 text-ink font-medium text-xs uppercase tracking-wider rounded-lg text-center">{"Kontakt i wycena"}</button>
-            </div>
-          </div>
-        </div>
+      {open && (
+        <nav id="mobile-navigation" className="primary-header__mobile" aria-label="Menu mobilne">
+          {links}
+          <a href={plannerUrl()} className="primary-header__mobile-planner">
+            Konfigurator KNX <ArrowUpRight size={18} aria-hidden="true" />
+          </a>
+          <a className="primary-header__phone" href="tel:+48505260715">
+            <Phone size={17} aria-hidden="true" /> +48 505 260 715
+          </a>
+        </nav>
       )}
     </header>
   );
-};
+}
