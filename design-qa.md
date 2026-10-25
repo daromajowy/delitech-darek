@@ -1,4 +1,61 @@
-# KNX unified flow — Janka implementation QA
+# Smart-home integrations — selected concept 2, Janka
+
+Selection: 2026-10-20. Scope: add the interactive house immediately AFTER the existing “Co automatyzujemy w obiekcie” section and BEFORE DayRhythm. The original section is preserved in full. No changes to the hero video, planner, backend, main or Darka.
+
+## Visual truth and evidence
+
+Source: `C:/Users/Asdmin/Documents/ChatGPT/KNX/outputs/smart-home-integracje-20261020/propozycja-2.png` (1705 × 922 pixels).
+
+Implementation: `http://127.0.0.1:3057/#integracje-domu`. Evidence folder: `C:/Users/Asdmin/Documents/ChatGPT/KNX/outputs/smart-home-integracje-implementation-20261020/`.
+
+- `qa-desktop-final.png`: browser-rendered default state, Rolety i zasłony selected.
+- `qa-section-final.png`: normalized section crop; same state as the selected concept.
+- `qa-comparison-final.png`: source and final implementation together in one comparison image, both at the same display width.
+- `qa-type-comparison.png`, `qa-detail-comparison.png`: focused paired comparisons of heading typography and the navy description strip.
+- `qa-mobile-top.png`, `qa-mobile-detail.png`: 390 × 844 CSS viewport, list/house and intercom detail/CTA respectively.
+- `qa-tablet.png`: 1024 × 900 CSS viewport.
+- `qa-narrow-final.png`: 320 × 900 CSS viewport after spacing fix.
+- `qa-capture.json`: exact final desktop DOM bounds and viewport.
+
+Desktop CSS viewport: 1706 × 1150. IAB capture: 1691 × 1140 pixels. The capture was normalized back to the CSS viewport for cropping; the final section crop is 1691 × 901 pixels, excluding the sticky page header, scrollbar and adjacent sections. Comparison sheets scale each source to the same width. No screenshots were used as product UI assets.
+
+## Findings and comparison history
+
+1. **P2, resolved — excess image height.** The first render retained the full 4:3 asset height, pushing the detail panel too far below the choices. Evidence: `qa-before-spacing.png`. Set an 8:5 image viewport, remove the image's intrinsic-height contribution with absolute positioning, and crop only outer garden/white margins. The entire roof and all six relevant interior areas remain visible. Final section height is about 901 CSS px at the comparison width, versus the concept's 922 px.
+2. **P2, resolved — heading wrap and secondary text density.** Initial paired comparison `qa-comparison.png` showed smaller controls/detail copy and the wrong desktop heading wrap. Enlarged the CTA/detail type and widened the left track to `.88fr`. Final focused comparison `qa-type-comparison.png` confirms the intended “Zobacz, co możemy / połączyć.” wrap.
+3. **P2, resolved — narrow-screen icon overlap.** At 320 CSS px, the music and temperature hit targets overlapped slightly. Their mobile positions are now 50% and 68%. Rechecked geometry: no intersecting pin hit targets or horizontal overflow at 320, 390, 520, 768, 1024 or 1706 px. Evidence: `qa-narrow-final.png` and browser geometry checks.
+4. Final full-view and focused comparisons contain **no actionable P0/P1/P2 findings**.
+
+## Required fidelity surfaces
+
+- **Fonts/typography:** existing Manrope headings, Plus Jakarta Sans body, JetBrains Mono eyebrow; not a new font system. Desktop heading wrap matches the selected concept. Labels, CTA and descriptions remain readable at tested widths.
+- **Spacing/layout:** left selector, right cutaway house and navy detail strip follow concept 2. On phones the list becomes two columns above the house, with the CTA below the description. The original technical section remains immediately before this section, confirmed from the rendered DOM and the HomePage diff.
+- **Colors/tokens:** existing navy `#182C3D`, green `#9FBF36`, white and mist tokens. The brighter lime in the generated mock is intentionally replaced by the approved logo accent. Active selection and keyboard focus are visible without relying on text color alone.
+- **Image fidelity:** dedicated ImageGen cutaway-house artwork plus individual blinds, intercom and charging photographs, optimized as WebP (new files total about 390 kB). The house keeps the bedroom, blinds, front door, TV area, dining area and garage. Existing inspected DayRhythm interiors illustrate light, comfort and music. No invented SVG/CSS house or rasterized controls. Photos are illustrative, not presented as completed projects.
+- **Copy/content:** six everyday categories and short examples of potential integrations. Device/project compatibility note and illustration label remain visible. No fabricated live measurements or claims of a real connected controller.
+
+## Functional and accessibility checks
+
+- All six list buttons update the description and the corresponding house selection; exactly one button is active in each group.
+- Clicking the charging and intercom pins updates the list and detail, including the appropriate photograph.
+- Space activates a list button; visible keyboard focus and native button semantics are retained. Changes are announced through a polite live region.
+- Touch targets on the small house are 44 × 44 px. On narrow screens the repeated long pin labels are hidden visually, with full accessible names and the labeled selector list still present.
+- Layout checks at 320, 390, 520, 768, 1024 and 1706 CSS px: no horizontal overflow or overlapping hit targets after the fix.
+- No browser console errors during the new section's interactions. Images loaded successfully.
+- CTA uses the existing `plannerUrl()` deployment helper, preserving local/branch/production destinations.
+- TypeScript check and the two existing site-content tests passed. The branch-prefixed preview build passed for all 11 site routes. Existing Vite warning about `__dirname` is unrelated to this addition.
+
+## Accepted differences and limits
+
+The clean house illustration was generated from the selected reference, so furnishings are not pixel-identical. The description includes an extra plain-language sentence about privacy. Phone composition is intentionally adapted to touch use; a phone-specific source mock was not supplied. No physical KNX devices, backend forms or private project data were exercised.
+
+Implementation checklist: completed. Follow-up polish: none required for this scope.
+
+**final result: passed**
+
+---
+
+# Previous QA — KNX unified flow, Janka implementation
 
 Date: 2026-10-08. Scope: branch Janka only. No production deployment or changes to Elektrodesign.
 

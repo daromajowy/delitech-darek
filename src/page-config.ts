@@ -55,6 +55,6 @@ export const pages: Record<PageId, { path: string; title: string; description: s
   "contact": {
     "path": "/contact/",
     "title": "Kontakt | InteliSpaces",
-    "description": "Warszawa i okolice · realizacje w całej Polsce. Przeanalizujemy rzuty architektoniczne, wskażemy optymalne rozwiązania instalacji KNX i przygotujemy rzeczowy kosztorys."
+    "description": "Masz pytania o automatykę KNX? Zadzwoń, napisz lub umów konsultację. Działamy w Warszawie i realizujemy projekty w całej Polsce."
   }
 };

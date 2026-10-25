@@ -160,6 +160,9 @@ final class ProjectPayload
                 if ($area['x'] + $area['width'] > 1.000001 || $area['y'] + $area['height'] > 1.000001) {
                     self::fail('Obszar pomieszczenia poza rzutem.');
                 }
+                if (array_key_exists('vertices', $area)) {
+                    self::validateRoomPolygon($area);
+                }
             }
         }
         if (isset($p['nextPointNumber']) && (! is_int($p['nextPointNumber']) || $p['nextPointNumber'] < 1 || $p['nextPointNumber'] > 1000000)) {
@@ -218,6 +221,72 @@ final class ProjectPayload
             if (! is_bool($i['enabled'] ?? null)) {
                 self::fail('Nieprawidłowa integracja.');
             }
+        }
+    }
+
+    /** @param array{x: float|int, y: float|int, width: float|int, height: float|int, vertices: mixed} $area */
+    private static function validateRoomPolygon(array $area): void
+    {
+        $vertices = $area['vertices'];
+        if (! is_array($vertices) || ! array_is_list($vertices) || count($vertices) < 3 || count($vertices) > 100) {
+            self::fail('Obrys pomieszczenia wymaga od 3 do 100 narożników.');
+        }
+        foreach ($vertices as $vertex) {
+            if (! is_array($vertex)) {
+                self::fail('Nieprawidłowy narożnik pomieszczenia.');
+            }
+            foreach (['x', 'y'] as $coordinate) {
+                $value = $vertex[$coordinate] ?? null;
+                if ((! is_int($value) && ! is_float($value)) || ! is_finite((float) $value) || $value < 0 || $value > 1) {
+                    self::fail('Narożnik pomieszczenia musi znajdować się na rzucie.');
+                }
+            }
+        }
+        $minX = min(array_column($vertices, 'x'));
+        $minY = min(array_column($vertices, 'y'));
+        $bounds = ['x' => $minX, 'y' => $minY, 'width' => max(array_column($vertices, 'x')) - $minX, 'height' => max(array_column($vertices, 'y')) - $minY];
+        foreach ($bounds as $field => $value) {
+            if (abs($area[$field] - $value) > 0.000001) {
+                self::fail('Granice pomieszczenia nie odpowiadają jego narożnikom.');
+            }
+        }
+        $epsilon = 1e-10;
+        $cross = fn (array $a, array $b, array $c): float => ($b['x'] - $a['x']) * ($c['y'] - $a['y']) - ($b['y'] - $a['y']) * ($c['x'] - $a['x']);
+        $onSegment = fn (array $point, array $a, array $b): bool => abs($cross($a, $b, $point)) <= $epsilon
+            && $point['x'] >= min($a['x'], $b['x']) - $epsilon && $point['x'] <= max($a['x'], $b['x']) + $epsilon
+            && $point['y'] >= min($a['y'], $b['y']) - $epsilon && $point['y'] <= max($a['y'], $b['y']) + $epsilon;
+        $count = count($vertices);
+        $doubleArea = 0;
+        for ($i = 0; $i < $count; $i++) {
+            $a = $vertices[$i];
+            $b = $vertices[($i + 1) % $count];
+            $next = $vertices[($i + 2) % $count];
+            $doubleArea += $a['x'] * $b['y'] - $b['x'] * $a['y'];
+            if (abs($cross($a, $b, $next)) <= $epsilon && ($b['x'] - $a['x']) * ($next['x'] - $b['x']) + ($b['y'] - $a['y']) * ($next['y'] - $b['y']) < 0) {
+                self::fail('Boki obrysu pomieszczenia nie mogą się nakładać.');
+            }
+            for ($j = $i + 1; $j < $count; $j++) {
+                $c = $vertices[$j];
+                if (hypot($a['x'] - $c['x'], $a['y'] - $c['y']) <= $epsilon) {
+                    self::fail('Narożniki pomieszczenia nie mogą się powtarzać.');
+                }
+                if ($j === $i + 1 || ($i === 0 && $j === $count - 1)) {
+                    continue;
+                }
+                $d = $vertices[($j + 1) % $count];
+                $abC = $cross($a, $b, $c);
+                $abD = $cross($a, $b, $d);
+                $cdA = $cross($c, $d, $a);
+                $cdB = $cross($c, $d, $b);
+                if (((($abC > $epsilon && $abD < -$epsilon) || ($abC < -$epsilon && $abD > $epsilon))
+                    && (($cdA > $epsilon && $cdB < -$epsilon) || ($cdA < -$epsilon && $cdB > $epsilon)))
+                    || $onSegment($c, $a, $b) || $onSegment($d, $a, $b) || $onSegment($a, $c, $d) || $onSegment($b, $c, $d)) {
+                    self::fail('Boki obrysu pomieszczenia nie mogą się przecinać.');
+                }
+            }
+        }
+        if (abs($doubleArea) < 0.000002) {
+            self::fail('Obrys pomieszczenia nie obejmuje powierzchni.');
         }
     }
 }

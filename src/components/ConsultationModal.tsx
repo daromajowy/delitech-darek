@@ -45,13 +45,13 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/65 backdrop-blur-sm animate-fade-in">
       <div
-        className="bg-white rounded-2xl max-w-xl w-full p-6 sm:p-8 shadow-2xl border border-[#17211C]/15 relative overflow-hidden"
+        className="bg-white rounded-2xl max-w-xl w-full p-6 sm:p-8 shadow-2xl border border-ink/15 relative overflow-hidden"
         role="dialog"
         aria-modal="true"
       >
         <button
           onClick={onClose}
-          className="absolute top-5 right-5 p-2 rounded-lg text-[#17211C]/60 hover:text-[#17211C] hover:bg-black/5"
+          className="absolute top-5 right-5 p-2 rounded-lg text-ink/75 hover:text-ink hover:bg-black/5"
           aria-label={"Zamknij"}
         >
           <X className="w-5 h-5" />
@@ -59,75 +59,75 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({
 
         {submitted ? (
           <div className="py-8 text-center space-y-4">
-            <div className="w-14 h-14 mx-auto bg-[#CFE3C4]/50 rounded-full flex items-center justify-center text-[#0E4637]">
+            <div className="w-14 h-14 mx-auto bg-silver/50 rounded-full flex items-center justify-center text-ink">
               <CheckCircle2 className="w-7 h-7" />
             </div>
-            <h3 className="text-xl font-bold font-display text-[#17211C]">{"Zgłoszenie konsultacji zostało zapisane"}</h3>
-            <p className="text-sm text-[#17211C]/75 max-w-md mx-auto">{"Dziękujemy. Zgłoszenie trafiło do zespołu InteliSpaces. Skontaktujemy się, aby uzgodnić termin i sposób spotkania."}</p>
+            <h3 className="text-xl font-bold font-display text-ink">{"Zgłoszenie konsultacji zostało zapisane"}</h3>
+            <p className="text-sm text-ink/75 max-w-md mx-auto">{"Dziękujemy. Zgłoszenie trafiło do zespołu InteliSpaces. Skontaktujemy się, aby uzgodnić termin i sposób spotkania."}</p>
             <div className="pt-4">
               <button
                 onClick={() => {
                   setSubmitted(false);
                   onClose();
                 }}
-                className="px-6 py-2.5 bg-[#0E4637] text-white text-xs font-semibold uppercase tracking-wider rounded-lg hover:bg-[#17211C]"
+                className="px-6 py-2.5 bg-ink text-white text-xs font-semibold uppercase tracking-wider rounded-lg hover:bg-ink-hover"
               >{"Zamknij okno"}</button>
             </div>
           </div>
         ) : (
           <div>
             <div className="mb-5">
-              <span className="text-[10px] font-mono font-semibold uppercase tracking-wider text-[#0E4637] bg-[#CFE3C4]/30 px-2 py-0.5 rounded">{"Bezpośredni kontakt z inżynierem KNX"}</span>
-              <h2 className="text-2xl font-bold font-display text-[#17211C] mt-2">{"Umów bezpłatną konsultację"}</h2>
-              <p className="text-xs text-[#17211C]/70 mt-1">{"30 minut merytorycznej rozmowy: rzuty, scenariusze, standard DALI, budżet i koordynacja branżowa."}</p>
+              <span className="text-[10px] font-mono font-semibold uppercase tracking-wider text-ink bg-silver/30 px-2 py-0.5 rounded">{"Bezpośredni kontakt z inżynierem KNX"}</span>
+              <h2 className="text-2xl font-bold font-display text-ink mt-2">{"Umów bezpłatną konsultację"}</h2>
+              <p className="text-xs text-ink/70 mt-1">{"30 minut merytorycznej rozmowy: rzuty, scenariusze, standard DALI, budżet i koordynacja branżowa."}</p>
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-4">
               {error && <p role="alert" className="text-red-700">{error}</p>}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-semibold text-[#17211C] mb-1">{"Imię i nazwisko / Firma *"}</label>
+                  <label className="block text-xs font-semibold text-ink mb-1">{"Imię i nazwisko / Firma *"}</label>
                   <input
                     type="text"
                     required
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     placeholder={"np. Jan Kowalski"}
-                    className="w-full px-3 py-2 bg-[#F7F8F5] border border-[#17211C]/15 rounded-lg text-xs focus:ring-2 focus:ring-[#0E4637] focus:outline-none"
+                    className="w-full px-3 py-2 bg-surface border border-ink/15 rounded-lg text-xs focus:ring-2 focus:ring-ink focus:outline-none"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold text-[#17211C] mb-1">{"Numer telefonu *"}</label>
+                  <label className="block text-xs font-semibold text-ink mb-1">{"Numer telefonu *"}</label>
                   <input
                     type="tel"
                     required
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                     placeholder="+48 600 000 000"
-                    className="w-full px-3 py-2 bg-[#F7F8F5] border border-[#17211C]/15 rounded-lg text-xs focus:ring-2 focus:ring-[#0E4637] focus:outline-none"
+                    className="w-full px-3 py-2 bg-surface border border-ink/15 rounded-lg text-xs focus:ring-2 focus:ring-ink focus:outline-none"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-[#17211C] mb-1">{"Adres e-mail *"}</label>
+                <label className="block text-xs font-semibold text-ink mb-1">{"Adres e-mail *"}</label>
                 <input
                   type="email"
                   required
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   placeholder={"kontakt@twojafirma.pl"}
-                  className="w-full px-3 py-2 bg-[#F7F8F5] border border-[#17211C]/15 rounded-lg text-xs focus:ring-2 focus:ring-[#0E4637] focus:outline-none"
+                  className="w-full px-3 py-2 bg-surface border border-ink/15 rounded-lg text-xs focus:ring-2 focus:ring-ink focus:outline-none"
                 />
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-semibold text-[#17211C] mb-1">{"Forma spotkania"}</label>
+                  <label className="block text-xs font-semibold text-ink mb-1">{"Forma spotkania"}</label>
                   <select
                     value={formData.mode}
                     onChange={(e) => setFormData({ ...formData, mode: e.target.value })}
-                    className="w-full px-3 py-2 bg-[#F7F8F5] border border-[#17211C]/15 rounded-lg text-xs focus:ring-2 focus:ring-[#0E4637]"
+                    className="w-full px-3 py-2 bg-surface border border-ink/15 rounded-lg text-xs focus:ring-2 focus:ring-ink"
                   >
                     <option value="warszawa-biuro">{"Biuro Warszawa (ul. Konwaliowa 7 lok. 103)"}</option>
                     <option value="online">{"Wideokonferencja online (Google Meet)"}</option>
@@ -135,11 +135,11 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({
                   </select>
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold text-[#17211C] mb-1">{"Preferowana pora"}</label>
+                  <label className="block text-xs font-semibold text-ink mb-1">{"Preferowana pora"}</label>
                   <select
                     value={formData.preferredTime}
                     onChange={(e) => setFormData({ ...formData, preferredTime: e.target.value })}
-                    className="w-full px-3 py-2 bg-[#F7F8F5] border border-[#17211C]/15 rounded-lg text-xs focus:ring-2 focus:ring-[#0E4637]"
+                    className="w-full px-3 py-2 bg-surface border border-ink/15 rounded-lg text-xs focus:ring-2 focus:ring-ink"
                   >
                     <option value="rano">{"Poranek (09:00 – 12:00)"}</option>
                     <option value="poludnie">{"Południe (12:00 – 15:00)"}</option>
@@ -149,30 +149,30 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-[#17211C] mb-1">{"Krótki opis tematu rozmowy"}</label>
+                <label className="block text-xs font-semibold text-ink mb-1">{"Krótki opis tematu rozmowy"}</label>
                 <textarea
                   rows={2}
                   value={formData.notes}
                   onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
                   placeholder={"np. Weryfikacja projektu instalacji elektrycznej pod KNX, dobór osprzętu JUNG do apartamentu..."}
-                  className="w-full px-3 py-2 bg-[#F7F8F5] border border-[#17211C]/15 rounded-lg text-xs focus:ring-2 focus:ring-[#0E4637] focus:outline-none"
+                  className="w-full px-3 py-2 bg-surface border border-ink/15 rounded-lg text-xs focus:ring-2 focus:ring-ink focus:outline-none"
                 />
               </div>
 
               <div className="pt-2">
-                <label className="flex items-start gap-2 text-[11px] text-[#17211C]/75 cursor-pointer">
+                <label className="flex items-start gap-2 text-[11px] text-ink/75 cursor-pointer">
                   <input
                     type="checkbox"
                     required
                     checked={formData.consent}
                     onChange={(e) => setFormData({ ...formData, consent: e.target.checked })}
-                    className="mt-0.5 rounded text-[#0E4637] focus:ring-[#0E4637]"
+                    className="mt-0.5 rounded text-ink focus:ring-ink"
                   />
                   <span>{"Wyrażam zgodę na kontakt w celu umówienia konsultacji technicznej zgodnie z"}{' '}
                     <button
                       type="button"
                       onClick={onOpenPrivacy}
-                      className="text-[#0E4637] font-semibold underline"
+                      className="text-ink font-semibold underline"
                     >{"Polityką prywatności"}</button>
                     .
                   </span>
@@ -183,11 +183,11 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({
                 <button
                   type="button"
                   onClick={onClose}
-                  className="px-4 py-2 text-xs font-medium text-[#17211C]/70 hover:text-[#17211C]"
+                  className="px-4 py-2 text-xs font-medium text-ink/70 hover:text-ink"
                 >{"Anuluj"}</button>
                 <button
                   type="submit" disabled={busy}
-                  className="px-6 py-2.5 bg-[#0E4637] hover:bg-[#17211C] text-[#E6F15A] text-xs font-semibold uppercase tracking-wider rounded-lg transition-colors"
+                  className="px-6 py-2.5 bg-ink hover:bg-ink-hover text-accent text-xs font-semibold uppercase tracking-wider rounded-lg transition-colors"
                 >{"Potwierdź konsultację"}</button>
               </div>
             </form>

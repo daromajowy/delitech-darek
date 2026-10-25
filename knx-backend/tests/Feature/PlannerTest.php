@@ -80,6 +80,57 @@ class PlannerTest extends TestCase
         $this->get('/projects/'.$p['id'].'/download')->assertNotFound();
     }
 
+    public function test_polygon_room_outline_survives_save_and_reload(): void
+    {
+        $p = $this->createProject();
+        $document = Document::create(['id' => (string) Str::uuid(), 'project_id' => $p['id'], 'name' => 'plan.pdf', 'mime' => 'application/pdf', 'size' => 100, 'path' => 'private/plan']);
+        $p['rooms'][0]['planArea'] = [
+            'documentId' => $document->id, 'page' => 2, 'x' => 0.1, 'y' => 0.1, 'width' => 0.7, 'height' => 0.7,
+            'vertices' => [['x' => 0.1, 'y' => 0.1], ['x' => 0.8, 'y' => 0.1], ['x' => 0.8, 'y' => 0.3], ['x' => 0.3, 'y' => 0.3], ['x' => 0.3, 'y' => 0.8], ['x' => 0.1, 'y' => 0.8]],
+        ];
+        $this->save($p)->assertOk();
+        $saved = $this->getJson('/api?api=project&id='.$p['id'])->assertOk()->json('project');
+        $this->assertSame($p['rooms'], $saved['rooms']);
+        $this->assertSame($p['points'], $saved['points']);
+        $this->assertSame(2, $saved['revision']);
+        $this->assertDatabaseCount('project_revisions', 2);
+    }
+
+    #[DataProvider('invalidRoomPolygons')]
+    public function test_invalid_polygon_cannot_overwrite_a_saved_room(mixed $vertices, array $bounds = []): void
+    {
+        $p = $this->createProject();
+        $document = Document::create(['id' => (string) Str::uuid(), 'project_id' => $p['id'], 'name' => 'plan.pdf', 'mime' => 'application/pdf', 'size' => 100, 'path' => 'private/plan']);
+        $p['rooms'][0]['planArea'] = array_merge([
+            'documentId' => $document->id, 'page' => 1, 'x' => 0.1, 'y' => 0.1, 'width' => 0.7, 'height' => 0.7, 'vertices' => $vertices,
+        ], $bounds);
+        $this->save($p)->assertUnprocessable();
+        $this->assertDatabaseHas('projects', ['id' => $p['id'], 'revision' => 1]);
+        $this->assertDatabaseCount('project_revisions', 1);
+    }
+
+    public static function invalidRoomPolygons(): array
+    {
+        $triangle = [['x' => 0.1, 'y' => 0.1], ['x' => 0.8, 'y' => 0.1], ['x' => 0.1, 'y' => 0.8]];
+
+        return [
+            'not a list' => ['invalid'],
+            'null vertices' => [null],
+            'too few points' => [array_slice($triangle, 0, 2)],
+            'too many points' => [array_fill(0, 101, ['x' => 0.1, 'y' => 0.1])],
+            'invalid point' => [['invalid', $triangle[1], $triangle[2]]],
+            'outside PDF' => [[['x' => -0.1, 'y' => 0.1], $triangle[1], $triangle[2]]],
+            'string coordinate' => [[['x' => '0.1', 'y' => 0.1], $triangle[1], $triangle[2]]],
+            'missing coordinate' => [[['x' => 0.1], $triangle[1], $triangle[2]]],
+            'duplicate vertex' => [[...$triangle, $triangle[0]]],
+            'intersecting edges' => [[['x' => 0.1, 'y' => 0.1], ['x' => 0.8, 'y' => 0.8], ['x' => 0.1, 'y' => 0.8], ['x' => 0.8, 'y' => 0.1]]],
+            'overlapping edges' => [[...$triangle, ['x' => 0.1, 'y' => 0.4], ['x' => 0.1, 'y' => 0.6]]],
+            'collinear vertices' => [[['x' => 0.1, 'y' => 0.1], ['x' => 0.4, 'y' => 0.4], ['x' => 0.8, 'y' => 0.8]]],
+            'negligible area' => [[['x' => 0.1, 'y' => 0.1], ['x' => 0.8, 'y' => 0.8], ['x' => 0.5, 'y' => 0.50000001]]],
+            'inconsistent bounds' => [$triangle, ['width' => 0.8]],
+        ];
+    }
+
     public function test_shared_member_can_edit_but_cannot_manage_users_or_sharing(): void
     {
         $p = $this->createProject();

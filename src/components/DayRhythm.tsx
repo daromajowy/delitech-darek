@@ -128,7 +128,9 @@ export function DayRhythm() {
               className={`day-rhythm__image${index === active ? ' is-active' : ''}`} />
           ))}
         </div>
-        <div className="day-rhythm__shade" style={{ backgroundImage: `url(${shade})` }} aria-hidden="true" />
+        <div className="day-rhythm__shade"
+          style={{ maskImage: `url(${shade})`, WebkitMaskImage: `url(${shade})` }}
+          aria-hidden="true" />
         <div className="day-rhythm__intro">
           <p className="day-rhythm__eyebrow"><span aria-hidden="true" />JEDEN DZIEŃ Z INTELISPACES</p>
           <h2 id="day-rhythm-title">Twój dzień.<br />Jego rytm.</h2>

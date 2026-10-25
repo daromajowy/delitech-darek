@@ -125,8 +125,12 @@ export function Brand() {
       href={websiteUrl}
       aria-label="InteliSpaces - strona główna"
     >
-      INTELI<span>SPACES</span>
-      <i />
+      <img
+        src="brand/intelispaces-logo.svg"
+        alt="InteliSpaces"
+        width="946"
+        height="144"
+      />
     </a>
   );
 }
