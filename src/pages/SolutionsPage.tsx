@@ -1,4 +1,5 @@
 import React from 'react';
+import { F50HomeDemo } from '../components/F50HomeDemo/F50HomeDemo';
 import type { PageId } from '../types';
 import {
   Sun,
@@ -126,6 +127,7 @@ export function SolutionsPage({ onOpenConsultation }: SolutionsPageProps) {
           i co będzie potrzebne do ich działania.
         </p>
       </ContentHero>
+      <F50HomeDemo />
       <section className="py-14 sm:py-20 bg-white">
         <div className={contentWidth}>
           <div className="grid md:grid-cols-2 gap-7 lg:gap-9">
