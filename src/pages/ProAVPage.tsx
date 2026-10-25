@@ -1,106 +1,47 @@
-import React, { useRef, useState } from 'react';
+import React from 'react';
 import {
-  ArrowDown, ArrowRight, ArrowUpRight, Cable, CalendarDays, Check,
-  ChevronRight, Laptop, Lightbulb, Mic, Monitor, Network, Plus,
-  Presentation, SlidersHorizontal, Usb, Users, Video,
+  ArrowDown, ArrowRight, ArrowUpRight, Cable, CalendarDays, Camera, Check,
+  ChevronRight, Laptop, Lightbulb, Mic, Monitor, Network, Plug,
+  Presentation, SlidersHorizontal, Speaker, Sun, Usb, Users,
 } from 'lucide-react';
 import type { PageId } from '../types';
 import { siteConfig } from '../site';
-import roomImage from '../assets/images/proav-meeting-room.webp';
+import roomImage from '../assets/images/proav-room-hybrid.webp';
+import videoImage from '../assets/images/proav-videobar-detail.webp';
+import presentationImage from '../assets/images/proav-presentation-room.webp';
+import cablingImage from '../assets/images/proav-cabling-detail.webp';
 import tableImage from '../assets/images/proav-mediaport-usbc.webp';
 import './ProAVPage.css';
 
-// Room: our Mediaporty MTR concept, 2026-10-16 (illustration, not a client project).
-// Table: mediaporty.com.pl/img/cms/mediaporty-av-home-20260813/mediaporty-usbc-logic-fade-v3.jpg
-// Solution references: Logitech Rally Bar, HP Poly Studio and Microsoft Teams Rooms documentation.
-
+// Generated visuals illustrate possible solutions, not client installations or particular device models.
+// Originals and prompts: outputs/intelispaces-proav-visual-20261025.
+// Table detail: mediaporty.com.pl/img/cms/mediaporty-av-home-20260813/mediaporty-usbc-logic-fade-v3.jpg
 interface ProAVPageProps {
   onNavigate: (page: PageId, hash?: string) => void;
   onOpenConsultation: (topic?: string) => void;
 }
 
-const scenarios = [
-  {
-    id: 'byod', label: 'Z własnym laptopem', short: 'BYOD', icon: Laptop,
-    eyebrow: 'Dla zespołów i gości', title: 'Podłącz laptop. Korzystaj z całej sali.',
-    description: 'Prowadzisz spotkanie w swojej aplikacji, a obraz, kamera, mikrofony i głośniki należą do sali. To wygodny punkt wyjścia, gdy zapraszacie gości lub korzystacie z różnych platform.',
-    benefits: ['Spotkanie z konta i aplikacji użytkownika', 'Przyłącze dostępne przy stole', 'Wideobar i ekran dobrane do pomieszczenia'],
-    flow: [
-      { icon: Laptop, label: 'Twój laptop', detail: 'aplikacja spotkania' },
-      { icon: Usb, label: 'Przyłącze w stole', detail: 'dobrany tor USB / obrazu' },
-      { icon: Video, label: 'Wyposażenie sali', detail: 'kamera, dźwięk i ekran' },
-    ],
-    result: 'Twój laptop prowadzi spotkanie. Sala zapewnia obraz i dźwięk.',
-    note: 'Obsługa jednym USB-C wymaga zgodnego laptopa, przewodu i układu przełączania. Sam port ładowania USB-C w mediaporcie nie podłącza wideobaru ani monitora.',
-  },
-  {
-    id: 'mtr', label: 'Microsoft Teams Rooms', short: 'MTR', icon: CalendarDays,
-    eyebrow: 'Dla sal z własnym kalendarzem', title: 'Zapraszasz salę. Dołączasz z panelu.',
-    description: 'Sala ma własne konto i system Microsoft Teams Rooms. Zaplanowane spotkanie uruchamiasz na panelu dotykowym, bez używania prywatnego laptopa jako centrum wideokonferencji.',
-    benefits: ['Spotkania widoczne w kalendarzu sali', 'Kamera, dźwięk i ekran obsługiwane przez system', 'Konfiguracja konta i zarządzania wspólnie z IT'],
-    flow: [
-      { icon: CalendarDays, label: 'Zaproszenie sali', detail: 'konto zasobu i kalendarz' },
-      { icon: SlidersHorizontal, label: 'Panel dotykowy', detail: 'wybór spotkania' },
-      { icon: Users, label: 'Teams Rooms', detail: 'system sali prowadzi rozmowę' },
-    ],
-    result: 'To sala dołącza do rozmowy. Laptop może służyć do prezentacji.',
-    note: 'Potrzebne są zgodny zestaw urządzeń, konto zasobu i licencja Teams Rooms. Tryb gościa oraz obsługę innych platform sprawdzamy dla konkretnego zestawu i oprogramowania.',
-  },
-  {
-    id: 'flex', label: 'Sala wielofunkcyjna', short: 'FLEX', icon: Presentation,
-    eyebrow: 'Spotkania, szkolenia, prezentacje', title: 'Jeden pokój. Kilka sposobów pracy.',
-    description: 'Większy stół, zmienny układ krzeseł lub sala z przegrodą wymagają innego podejścia. Dobieramy osobno kamery, mikrofony, nagłośnienie i sposób prezentacji treści.',
-    benefits: ['Pokrycie dźwiękiem całej strefy rozmowy', 'Obraz czytelny również z ostatniego rzędu', 'Sceny dopasowane do układu i funkcji sali'],
-    flow: [
-      { icon: Presentation, label: 'Sposób pracy', detail: 'spotkanie lub szkolenie' },
-      { icon: SlidersHorizontal, label: 'Sterowanie AV', detail: 'wybór źródła i trybu' },
-      { icon: Mic, label: 'System modułowy', detail: 'kamery, audio i wyświetlanie' },
-    ],
-    result: 'Wyposażenie wynika z akustyki i układu sali, nie tylko z liczby krzeseł.',
-    note: 'Dla większych i dzielonych sal ustalamy strefy mikrofonów, obróbkę dźwięku oraz przełączanie sygnałów. Zakres integracji potwierdzamy na etapie projektu.',
-  },
+const questions = [
+  { title: 'Czy można zachować obecny sprzęt?', text: 'Tak, jeśli pasuje do planowanego sposobu pracy. Sprawdzamy monitor, kamerę, złącza i oprogramowanie. Wskazujemy, co można wykorzystać, a co warto uzupełnić.' },
+  { title: 'Logitech czy Poly?', text: 'Dobieramy konkretny zestaw do stołu, akustyki i platformy spotkań. Porównujemy kadr kamery, zasięg mikrofonów, możliwości rozbudowy i wymagania Waszego IT.' },
+  { title: 'Czy zadziała z aplikacją gościa?', text: 'W trybie z własnym laptopem korzystasz ze swojej aplikacji i konta. W Teams Rooms obsługa innych platform oraz przełączanie na laptop zależą od urządzeń i ich oprogramowania. Sprawdzamy to przy doborze.' },
+  { title: 'Co przygotować do pierwszej rozmowy?', text: 'Wystarczą przybliżone wymiary sali, liczba miejsc, używane aplikacje i lista obecnego sprzętu. Warto też wskazać, co dziś przeszkadza: dźwięk, obraz, przewody czy sama obsługa.' },
 ];
 
-const systems = [
-  { icon: Video, title: 'Wideobary i kamery', text: 'Kamera, mikrofony i głośniki w jednej obudowie albo osobne urządzenia do większej sali. Kadr i zasięg dobieramy do stołu, odległości oraz akustyki.', detail: 'Logitech Rally Bar / MeetUp · HP Poly Studio' },
-  { icon: Monitor, title: 'Monitory, ekrany i projekcja', text: 'Prezentacja ma być czytelna z każdego miejsca. Dobieramy wielkość i jasność wyświetlacza, układ jednego lub dwóch monitorów, a gdy potrzeba — projektor i ekran projekcyjny.', detail: 'Widoczność treści · sposób montażu · światło dzienne' },
-  { icon: Usb, title: 'Mediaporty i przyłącza', text: 'Zasilanie, ładowanie, obraz i sieć tam, gdzie siedzisz. Dopasowujemy moduły, wykończenie i otwór w blacie do stołu oraz rzeczywistych potrzeb użytkowników.', detail: 'INTEGRA · Bachmann · EVOline' },
-  { icon: Mic, title: 'Dźwięk i akustyka', text: 'Rozmówca po drugiej stronie powinien słyszeć każdą osobę. Sprawdzamy pogłos, hałas i zasięg mikrofonów. Dobieramy nagłośnienie oraz, w razie potrzeby, procesor audio.', detail: 'Mikrofony stołowe lub sufitowe · głośniki · DSP' },
-  { icon: Cable, title: 'Okablowanie i sieć', text: 'Projektujemy całą drogę sygnału od stołu do ekranu. Uwzględniamy długości przewodów, przedłużacze sygnału, zasilanie, PoE i dostęp do urządzeń podczas serwisu.', detail: 'USB · HDMI · LAN · trasy kablowe i szafa AV' },
-  { icon: Lightbulb, title: 'Sterowanie salą i KNX', text: 'Scena „Spotkanie” może ustawić światło i rolety oraz przygotować obraz. Łączymy automatykę z AV przez interfejsy dostępne w dobranych urządzeniach.', detail: 'Światło · zaciemnienie · źródła obrazu · sceny' },
-];
-
-const faq = [
-  { question: 'Czym różni się Teams Rooms od Teams na laptopie?', answer: 'W Teams Rooms spotkanie prowadzi system zainstalowany w sali, korzystający z jej konta i kalendarza. W trybie BYOD prowadzi je Twój laptop, do którego podłączasz urządzenia sali. Oba podejścia mogą współistnieć, jeśli przewidzimy odpowiednie przełączanie i kompatybilny sprzęt.' },
-  { question: 'Czy możemy wykorzystać obecny monitor lub wideobar?', answer: 'Tak, jeśli pasują do planowanego sposobu pracy. Sprawdzamy model, dostępne złącza, oprogramowanie, wielkość obrazu i zgodność z platformą spotkań. Po tej weryfikacji wskazujemy, co zostaje, a co wymaga wymiany lub uzupełnienia.' },
-  { question: 'Czy jeden kabel USB-C naprawdę wystarczy?', answer: 'Może wystarczyć, ale musi działać cały tor: port laptopa, przewód, stacja lub przełącznik i urządzenia sali. Osobno sprawdzamy obraz, dostęp do kamery i mikrofonów oraz moc ładowania Power Delivery. Gniazdo USB-C przeznaczone tylko do ładowania nie zapewnia tych funkcji.' },
-  { question: 'Logitech czy Poly — co będzie lepsze?', answer: 'Zaczynamy od sali i sposobu spotkań. Znaczenie mają odległość od kamery, zasięg mikrofonów, akustyka, wybrana platforma i wymagania działu IT. Porównujemy konkretne zestawy Logitech oraz HP Poly, zamiast zakładać, że jedna marka będzie najlepsza w każdym pomieszczeniu.' },
-  { question: 'Czy potrzebujemy licencji i udziału działu IT?', answer: 'Dla Teams Rooms potrzebne są konto zasobu oraz właściwa licencja Teams Rooms. Z IT uzgadniamy sieć, dostęp do usług, zarządzanie urządzeniami i aktualizacje. W trybie BYOD użytkownik korzysta ze swojej aplikacji i konta, zgodnie z zasadami organizacji.' },
-];
+const Photo = ({ src, alt, width, height, caption }: { src: string; alt: string; width: number; height: number; caption?: string }) => (
+  <figure className="proav-photo">
+    <img src={src} alt={alt} width={width} height={height} loading="lazy" />
+    <figcaption>{caption || 'Wizualizacja przykładowego rozwiązania'}</figcaption>
+  </figure>
+);
 
 export const ProAVPage: React.FC<ProAVPageProps> = ({ onNavigate, onOpenConsultation }) => {
-  const [selected, setSelected] = useState(0);
-  const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
-  const scenario = scenarios[selected];
   const officesUrl = siteConfig()?.urls.offices || '/offices/';
-
-  const onTabKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>, index: number) => {
-    let next: number;
-    if (event.key === 'ArrowRight') next = (index + 1) % scenarios.length;
-    else if (event.key === 'ArrowLeft') next = (index + scenarios.length - 1) % scenarios.length;
-    else if (event.key === 'Home') next = 0;
-    else if (event.key === 'End') next = scenarios.length - 1;
-    else return;
-    event.preventDefault();
-    setSelected(next);
-    tabRefs.current[next]?.focus();
-  };
-
   return (
     <div className="proav-page">
       <section className="proav-hero" aria-labelledby="proav-heading">
         <div className="proav-hero-image">
-          <img src={roomImage} alt="Przykładowa sala: duży ekran z wideobarem, panel dotykowy i mediaporty w stole" width="1672" height="941" fetchPriority="high" />
+          <img src={roomImage} alt="Sala spotkań z dużym monitorem, wideobarem, panelem dotykowym i przyłączem w stole" width="1672" height="941" fetchPriority="high" />
           <span>Wizualizacja przykładowej sali</span>
         </div>
         <div className="proav-container proav-hero-content">
@@ -110,107 +51,152 @@ export const ProAVPage: React.FC<ProAVPageProps> = ({ onNavigate, onOpenConsulta
           <p className="proav-eyebrow"><span />ProAV · sale spotkań</p>
           <h1 id="proav-heading">Sala gotowa.<br />Możemy <span>zaczynać.</span></h1>
           <p className="proav-hero-lead">Dobry obraz. Wyraźny głos. Prosta obsługa.</p>
-          <p className="proav-hero-text">Łączymy wideokonferencję, ekrany, mediaporty i automatykę w salę, w której możesz skupić się na rozmowie.</p>
+          <p className="proav-hero-text">Łączymy kamery, dźwięk, ekrany i przyłącza w jeden wygodny system. Ty skupiasz się na spotkaniu.</p>
           <div className="proav-actions">
             <button className="proav-button proav-button-lime" onClick={() => onOpenConsultation()}>Zaplanujmy Twoją salę <ArrowUpRight size={18} /></button>
-            <a className="proav-text-link" href="#sposob-spotkan">Poznaj możliwości <ArrowDown size={16} /></a>
+            <a className="proav-text-link" href="#wyposazenie">Zobacz, co łączymy <ArrowDown size={16} /></a>
           </div>
           <div className="proav-hero-scope"><span>Projekt</span><span>Dobór sprzętu</span><span>Uruchomienie</span></div>
         </div>
       </section>
 
-      <nav className="proav-section-nav" aria-label="Sekcje ProAV">
+      <section className="proav-benefits" aria-label="Co daje dobrze wyposażona sala">
         <div className="proav-container">
-          <a href="#sposob-spotkan"><span>01</span> Sposób spotkań</a>
-          <a href="#wyposazenie"><span>02</span> Co integrujemy</a>
-          <a href="#wdrozenie"><span>03</span> Jak wdrażamy</a>
-          <a href="#pytania">Pytania i odpowiedzi <ArrowDown size={14} /></a>
+          <article><Camera aria-hidden="true" /><div><h2>Widać uczestników</h2><p>Kadr dobrany do stołu i miejsc w sali.</p></div></article>
+          <article><Mic aria-hidden="true" /><div><h2>Słychać rozmowę</h2><p>Mikrofony i akustyka dopasowane do wnętrza.</p></div></article>
+          <article><Plug aria-hidden="true" /><div><h2>Łatwo się połączyć</h2><p>Laptop lub panel sali. Jasny sposób obsługi.</p></div></article>
         </div>
-      </nav>
+      </section>
 
-      <section id="sposob-spotkan" className="proav-section proav-scenarios" aria-labelledby="scenarios-heading">
+      <section id="wyposazenie" className="proav-section proav-story" aria-labelledby="video-heading">
+        <div className="proav-container proav-story-grid">
+          <Photo src={videoImage} alt="Kamera i głośniki wideobaru w jednej obudowie zamontowanej pod monitorem" width={1536} height={1024} />
+          <div className="proav-story-copy">
+            <p className="proav-eyebrow">01 / Wideokonferencje</p>
+            <h2 id="video-heading">Dobrze Cię widać.<br />Dobrze Cię słychać.</h2>
+            <p>Wideobar łączy kamerę, mikrofony i głośniki w jednej obudowie. W większej sali uzupełniamy go dodatkowymi mikrofonami lub dobieramy osobne urządzenia.</p>
+            <ul className="proav-feature-list">
+              <li><Camera aria-hidden="true" /><div><strong>Kamera obejmuje stół</strong><span>Dobieramy kadr i funkcje zbliżania do układu miejsc.</span></div></li>
+              <li><Mic aria-hidden="true" /><div><strong>Głos dociera z całej sali</strong><span>Uwzględniamy odległość od mikrofonu, pogłos i hałas.</span></div></li>
+              <li><Speaker aria-hidden="true" /><div><strong>Rozmówcy są wyraźnie słyszalni</strong><span>Nagłośnienie dopasowujemy do wielkości pomieszczenia.</span></div></li>
+            </ul>
+            <div className="proav-brand-note"><span>Przykładowe rodziny rozwiązań</span><strong>Logitech Rally Bar / MeetUp · HP Poly Studio</strong></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="sposob-spotkan" className="proav-meeting-section" aria-labelledby="meeting-heading">
         <div className="proav-container">
-          <div className="proav-section-heading">
-            <div><p className="proav-eyebrow">Najpierw sposób pracy</p><h2 id="scenarios-heading">Jak spotyka się Twój zespół?</h2></div>
-            <p>Nie każda sala potrzebuje tego samego zestawu. Wybierz scenariusz, który jest Wam najbliższy.</p>
+          <div className="proav-section-heading"><div><p className="proav-eyebrow">Dwa proste sposoby na spotkanie</p><h2 id="meeting-heading">Z laptopa albo z panelu na stole.</h2></div><p>Wybór zależy od tego, jak pracuje Wasz zespół. Oba rozwiązania mogą też działać w jednej sali.</p></div>
+          <div className="proav-meeting-grid">
+            <article>
+              <div className="proav-meeting-title"><Laptop size={30} aria-hidden="true" /><span>Twój laptop · BYOD</span></div>
+              <h3>Podłączasz się i prowadzisz rozmowę.</h3>
+              <p>Uruchamiasz swoją aplikację. Korzystasz z kamery, mikrofonów, głośników i ekranu sali.</p>
+              <ul className="proav-checks"><li><Check aria-hidden="true" />Wygodne dla gości i różnych aplikacji.</li><li><Check aria-hidden="true" />Spotkanie odbywa się z Twojego konta.</li><li><Check aria-hidden="true" />Przyłącze masz pod ręką, przy stole.</li></ul>
+              <p className="proav-small-note">Jedno USB-C może obsłużyć obraz, urządzenia sali i ładowanie — jeśli laptop oraz cały zestaw są z tym zgodne.</p>
+            </article>
+            <article>
+              <div className="proav-meeting-title"><CalendarDays size={30} aria-hidden="true" /><span>System sali · Microsoft Teams Rooms</span></div>
+              <h3>Zapraszasz salę. Dołączasz z panelu.</h3>
+              <p>Spotkanie widać w kalendarzu sali. Rozpoczynasz je na panelu, a rozmowę prowadzi system zainstalowany w pomieszczeniu.</p>
+              <ul className="proav-checks"><li><Check aria-hidden="true" />Laptop nie musi prowadzić wideorozmowy.</li><li><Check aria-hidden="true" />Jedno, znajome miejsce obsługi spotkań.</li><li><Check aria-hidden="true" />Konto i zarządzanie ustalamy z Waszym IT.</li></ul>
+              <p className="proav-small-note">Teams Rooms wymaga zgodnego sprzętu, konta sali i właściwej licencji. Obsługę gości i innych platform sprawdzamy dla danego zestawu.</p>
+            </article>
           </div>
-          <div className="proav-tabs" role="tablist" aria-label="Sposób korzystania z sali">
-            {scenarios.map((item, index) => {
-              const Icon = item.icon;
-              return <button key={item.id} ref={(node) => { tabRefs.current[index] = node; }} role="tab" id={`proav-tab-${item.id}`} aria-controls="proav-scenario-panel" aria-selected={selected === index} tabIndex={selected === index ? 0 : -1} onClick={() => setSelected(index)} onKeyDown={(event) => onTabKeyDown(event, index)}>
-                <Icon size={21} aria-hidden="true" /><span>{item.label}</span><span className="proav-tab-code">{item.short}</span>
-              </button>;
-            })}
-          </div>
-          <div className="proav-scenario-panel" id="proav-scenario-panel" role="tabpanel" aria-labelledby={`proav-tab-${scenario.id}`} tabIndex={0}>
-            <div className="proav-scenario-copy">
-              <p className="proav-eyebrow">{scenario.eyebrow}</p>
-              <h3>{scenario.title}</h3>
-              <p>{scenario.description}</p>
-              <ul className="proav-checks">{scenario.benefits.map(item => <li key={item}><Check size={17} aria-hidden="true" />{item}</li>)}</ul>
-              <button className="proav-text-link" onClick={() => onOpenConsultation(`Konsultacja ProAV / ${scenario.label}`)}>Omów ten wariant <ArrowUpRight size={17} /></button>
+        </div>
+      </section>
+
+      <section className="proav-section proav-story proav-story-reverse" aria-labelledby="table-heading">
+        <div className="proav-container proav-story-grid">
+          <Photo src={tableImage} alt="Laptop połączony przewodem z mediaportem INTEGRA LOGIC w blacie konferencyjnym" width={1486} height={819} caption="Detal stołu · INTEGRA LOGIC / Mediaporty.com.pl" />
+          <div className="proav-story-copy">
+            <p className="proav-eyebrow">02 / Mediaporty i przyłącza</p>
+            <h2 id="table-heading">Podłącz się<br />przy stole.</h2>
+            <p>Zasilanie laptopa, ładowanie telefonu, prezentacja i sieć. Potrzebne gniazda umieszczamy w blacie, zamiast prowadzić przewody przez całą salę.</p>
+            <div className="proav-ports">
+              <div><Plug aria-hidden="true" /><strong>230 V</strong><span>Zasilanie urządzeń</span></div>
+              <div><Usb aria-hidden="true" /><strong>USB-C</strong><span>Ładowanie i połączenie*</span></div>
+              <div><Monitor aria-hidden="true" /><strong>HDMI</strong><span>Obraz na ekranie</span></div>
+              <div><Network aria-hidden="true" /><strong>LAN</strong><span>Połączenie z siecią</span></div>
             </div>
-            <div className="proav-scenario-diagram">
-              <div className="proav-diagram-heading"><span>Połączenie w praktyce</span><span>{scenario.short}</span></div>
-              <ol className="proav-flow">{scenario.flow.map((step, i) => {
-                const Icon = step.icon;
-                return <li key={step.label}><div className="proav-flow-icon"><Icon size={27} strokeWidth={1.5} aria-hidden="true" /></div><div><strong>{step.label}</strong><span>{step.detail}</span></div><span className="proav-flow-number">0{i + 1}</span></li>;
-              })}</ol>
-              <p className="proav-diagram-result">{scenario.result}</p>
-            </div>
-            <p className="proav-scenario-note"><span>Przed doborem</span>{scenario.note}</p>
+            <p className="proav-small-note">*Gniazdo USB-C do ładowania nie zastępuje połączenia z kamerą i monitorem. Dobieramy właściwe moduły oraz cały tor sygnału.</p>
+            <p>Dobieramy kolor, sposób otwierania i wyposażenie mediaportu. Ze stolarzem uzgadniamy otwór w blacie oraz miejsce na przewody.</p>
+            <a className="proav-text-link" href="https://mediaporty.com.pl/" target="_blank" rel="noopener noreferrer">Zobacz systemy INTEGRA, Bachmann i EVOline <ArrowUpRight size={17} /></a>
           </div>
         </div>
       </section>
 
-      <section id="wyposazenie" className="proav-section proav-systems" aria-labelledby="systems-heading">
+      <section className="proav-section proav-story proav-story-white" aria-labelledby="display-heading">
+        <div className="proav-container proav-story-grid">
+          <Photo src={presentationImage} alt="Sala szkoleniowa z ekranem projekcyjnym, projektorem sufitowym i mobilnymi stołami" width={1672} height={941} />
+          <div className="proav-story-copy">
+            <p className="proav-eyebrow">03 / Monitory, ekrany i projekcja</p>
+            <h2 id="display-heading">Pokaż więcej.<br />Wszystkim w sali.</h2>
+            <p>Wykres, projekt czy twarz rozmówcy — obraz powinien być czytelny także z końca stołu. Dobieramy rozmiar, jasność i miejsce montażu.</p>
+            <ul className="proav-feature-list">
+              <li><Monitor aria-hidden="true" /><div><strong>Monitor do codziennych spotkań</strong><span>Wideorozmowy, dokumenty i prezentacje na jednym ekranie.</span></div></li>
+              <li><Users aria-hidden="true" /><div><strong>Dwa ekrany, dwa widoki</strong><span>Uczestnicy obok prezentacji, jeśli system obsługuje taki układ.</span></div></li>
+              <li><Presentation aria-hidden="true" /><div><strong>Projektor i ekran do większej sali</strong><span>Duży obraz na szkoleniach i spotkaniach całego zespołu.</span></div></li>
+            </ul>
+            <p className="proav-small-note">Przy salach dzielonych i zmiennym ustawieniu stołów planujemy osobne strefy dźwięku, kamery i przełączanie źródeł.</p>
+          </div>
+        </div>
+      </section>
+
+      <section className="proav-section proav-story proav-story-reverse" aria-labelledby="cabling-heading">
+        <div className="proav-container proav-story-grid">
+          <Photo src={cablingImage} alt="Uporządkowane przewody i urządzenia AV zamocowane w metalowym kanale pod stołem" width={1536} height={1024} />
+          <div className="proav-story-copy">
+            <p className="proav-eyebrow">04 / Okablowanie i infrastruktura</p>
+            <h2 id="cabling-heading">Przewody mają<br />swoje miejsce.</h2>
+            <p>Od przyłącza w stole do ekranu na ścianie. Projektujemy całą trasę, montujemy urządzenia i zostawiamy wygodny dostęp do serwisu.</p>
+            <ul className="proav-feature-list">
+              <li><Cable aria-hidden="true" /><div><strong>USB, HDMI i sieć na właściwą odległość</strong><span>Dobieramy przewody i urządzenia przedłużające sygnał.</span></div></li>
+              <li><SlidersHorizontal aria-hidden="true" /><div><strong>Porządek pod blatem i w szafie AV</strong><span>Uchwyty, kanały, opisane połączenia i miejsce na rozbudowę.</span></div></li>
+              <li><Network aria-hidden="true" /><div><strong>Uzgodnione z działem IT</strong><span>LAN, zasilanie PoE, dostęp do usług i zasady aktualizacji.</span></div></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section className="proav-room-control" aria-labelledby="control-heading">
         <div className="proav-container">
-          <div className="proav-section-heading"><div><p className="proav-eyebrow">Od stołu po ekran</p><h2 id="systems-heading">Sześć elementów.<br />Jedna spójna sala.</h2></div><p>Dobieramy urządzenia jako kompletny system. Ważne jest to, jak współpracują ze sobą i z wnętrzem.</p></div>
-          <div className="proav-systems-grid">{systems.map((system, index) => {
-            const Icon = system.icon;
-            return <article key={system.title} className="proav-system"><div className="proav-system-top"><Icon size={29} strokeWidth={1.5} aria-hidden="true" /><span>0{index + 1}</span></div><h3>{system.title}</h3><p>{system.text}</p><p className="proav-system-detail">{system.detail}</p></article>;
-          })}</div>
-          <div className="proav-references"><span>Przykładowe technologie i rozwiązania</span><a href="https://www.logitech.com/en-us/business/shop/p/rallybar" target="_blank" rel="noopener noreferrer">Logitech <ArrowUpRight size={14} /></a><a href="https://support.hp.com/in-en/document/ish_15254712-12757922-16" target="_blank" rel="noopener noreferrer">HP Poly <ArrowUpRight size={14} /></a><a href="https://learn.microsoft.com/en-us/microsoftteams/rooms/" target="_blank" rel="noopener noreferrer">Microsoft Teams Rooms <ArrowUpRight size={14} /></a><a href="https://mediaporty.com.pl/" target="_blank" rel="noopener noreferrer">Mediaporty.com.pl <ArrowUpRight size={14} /></a></div>
-        </div>
-      </section>
-
-      <section className="proav-table-section" aria-labelledby="table-heading">
-        <div className="proav-container proav-table-grid">
-          <div className="proav-table-visual"><img src={tableImage} alt="Laptop podłączony przewodem USB-C przez przepust w zamkniętym mediaporcie INTEGRA LOGIC" width="1486" height="819" loading="lazy" /><span>Detal stołu · INTEGRA LOGIC / Mediaporty.com.pl</span></div>
-          <div className="proav-table-copy"><p className="proav-eyebrow">Technologia wpisana w mebel</p><h2 id="table-heading">Na stole porządek.<br />Pod ręką wszystko.</h2><p>Mediaport łączy wyposażenie sali z miejscem pracy. Wybieramy potrzebne złącza, sposób otwierania i kolor. Ze stolarzem uzgadniamy montaż, a pod blatem zostawiamy miejsce na przewody i dostęp serwisowy.</p><div className="proav-table-ports"><span>230 V</span><span>USB-C / PD</span><span>HDMI</span><span>LAN</span></div><p className="proav-table-note">Jeden przewód do laptopa? Tak, jeśli przewidzimy odpowiedni tor obrazu, danych i ładowania. Zakres funkcji ustalamy przed doborem modułów.</p><a className="proav-text-link" href="https://mediaporty.com.pl/" target="_blank" rel="noopener noreferrer">Poznaj systemy mediaportów <ArrowUpRight size={18} /></a></div>
-        </div>
-      </section>
-
-      <section className="proav-infrastructure proav-section" aria-labelledby="infrastructure-heading">
-        <div className="proav-container proav-infrastructure-grid">
-          <div><p className="proav-eyebrow">To, czego nie widać</p><h2 id="infrastructure-heading">Dobry ProAV zaczyna się<br />przed montażem ekranu.</h2><p>Koordynujemy instalację z architektem, wykonawcą mebli i działem IT. Wtedy technologia pasuje do sali, a sala do codziennej pracy.</p><button className="proav-text-link" onClick={() => onNavigate('offices', 'konferencyjne')}>Połącz ProAV z automatyką biura <ArrowUpRight size={18} /></button></div>
-          <div className="proav-infrastructure-list">
-            <article><Cable size={23} aria-hidden="true" /><div><h3>Trasy i dostęp serwisowy</h3><p>Od podłogi przez stół aż do ściany: długości przewodów, promienie gięcia, przepusty i dostęp do zasilaczy.</p></div></article>
-            <article><Network size={23} aria-hidden="true" /><div><h3>Sieć i odpowiedzialność IT</h3><p>Połączenia LAN, PoE, konta sal, uprawnienia i aktualizacje. Ustalamy, kto zarządza systemem po uruchomieniu.</p></div></article>
-            <article><Mic size={23} aria-hidden="true" /><div><h3>Akustyka i światło</h3><p>Sprawdzamy pogłos, hałas wentylacji, odbicia na ekranie oraz oświetlenie twarzy. Sama lepsza kamera nie usunie tych problemów.</p></div></article>
+          <div className="proav-control-intro"><p className="proav-eyebrow">05 / ProAV + automatyka KNX</p><h2 id="control-heading">Spotkanie zaczyna się.<br />Sala też jest gotowa.</h2><p>Scena „Spotkanie” może przygotować kilka elementów wnętrza jednocześnie. Zakres dobieramy do urządzeń i dostępnych połączeń.</p></div>
+          <div className="proav-control-features">
+            <article><Lightbulb aria-hidden="true" /><h3>Światło</h3><p>Twarze są oświetlone, a ekran nie konkuruje z lampami.</p></article>
+            <article><Sun aria-hidden="true" /><h3>Rolety</h3><p>Ograniczamy słońce i odbicia przeszkadzające w prezentacji.</p></article>
+            <article><Monitor aria-hidden="true" /><h3>Obraz</h3><p>Wybór źródła i przygotowanie wyświetlania do spotkania.</p></article>
           </div>
+          <button className="proav-text-link" onClick={() => onNavigate('offices', 'konferencyjne')}>Poznaj automatykę biura <ArrowUpRight size={18} /></button>
         </div>
       </section>
 
       <section id="wdrozenie" className="proav-section" aria-labelledby="process-heading">
         <div className="proav-container">
-          <div className="proav-section-heading"><div><p className="proav-eyebrow">Od pomysłu do pierwszego spotkania</p><h2 id="process-heading">Jasny zakres. Sprawdzone połączenia.</h2></div><p>Możemy przygotować nową salę lub zacząć od przeglądu tej, z której już korzystacie.</p></div>
+          <div className="proav-section-heading"><div><p className="proav-eyebrow">Od pomysłu do pierwszej rozmowy</p><h2 id="process-heading">Jak przygotujemy Twoją salę?</h2></div><p>Nowe biuro lub modernizacja obecnego. Zaczynamy od tego, czego potrzebujecie.</p></div>
           <ol className="proav-process">
             {[
-              ['Rozmowa i oględziny', 'Poznajemy układ sali, liczbę uczestników, platformy spotkań i to, co już macie.'],
-              ['Koncepcja i dobór', 'Ustalamy wyposażenie, schemat połączeń, prace meblowe i wymagania dla IT.'],
-              ['Montaż i konfiguracja', 'Łączymy urządzenia, konfigurujemy system i uzgodnione sceny sterowania.'],
-              ['Test i przekazanie', 'Sprawdzamy rozmowę zdalną, udostępnianie treści i obsługę gościa. Przekazujemy instrukcję i dokumentację.'],
-            ].map(([title, description], index) => <li key={title}><span className="proav-step-number">0{index + 1}</span><h3>{title}</h3><p>{description}</p></li>)}
+              ['Poznajemy salę', 'Wymiary, liczba miejsc, aplikacje, obecny sprzęt i budżet.'],
+              ['Dobieramy całość', 'Urządzenia, przyłącza, trasy przewodów i uzgodnienia z IT.'],
+              ['Montujemy i łączymy', 'Instalacja, konfiguracja i przygotowanie sposobu obsługi.'],
+              ['Sprawdzamy w praktyce', 'Rozmowa zdalna, prezentacja, podłączenie gościa i instrukcja dla zespołu.'],
+            ].map(([title, description], index) => <li key={title}><span>0{index + 1}</span><h3>{title}</h3><p>{description}</p></li>)}
           </ol>
         </div>
       </section>
 
-      <section id="pytania" className="proav-section proav-faq-section" aria-labelledby="faq-heading">
-        <div className="proav-container proav-faq-grid"><div><p className="proav-eyebrow">Przed decyzją</p><h2 id="faq-heading">Kilka dobrych<br />pytań na start.</h2><p>Bez skrótów myślowych.<br />I bez kupowania sprzętu w ciemno.</p></div><div className="proav-faq">{faq.map(item => <details key={item.question}><summary>{item.question}<Plus size={19} aria-hidden="true" /></summary><p>{item.answer}</p></details>)}</div></div>
+      <section id="pytania" className="proav-section proav-answers-section" aria-labelledby="answers-heading">
+        <div className="proav-container"><p className="proav-eyebrow">Krótko i konkretnie</p><h2 id="answers-heading">Dobrze wiedzieć przed startem.</h2><div className="proav-answers">{questions.map(item => <article key={item.title}><h3>{item.title}</h3><p>{item.text}</p></article>)}</div></div>
       </section>
 
-      <section className="proav-contact-section" aria-labelledby="contact-proav-heading"><div className="proav-container proav-contact"><div><p className="proav-eyebrow">Porozmawiajmy o Waszym biurze</p><h2 id="contact-proav-heading">Zacznijmy od sali.<br />Sprzęt dobierzemy do niej.</h2><p>Powiedz nam, ile osób spotyka się przy stole, z jakich aplikacji korzystacie i co chcesz usprawnić.</p></div><div className="proav-contact-actions"><button className="proav-button proav-button-ink" onClick={() => onOpenConsultation()}>Omów projekt ProAV <ArrowUpRight size={20} /></button><a href="tel:+48505260715">+48 505 260 715 <ArrowRight size={16} /></a><span>Warszawa · realizacje w całej Polsce</span></div></div></section>
+      <section className="proav-contact-section" aria-labelledby="contact-proav-heading">
+        <div className="proav-container proav-contact">
+          <div><p className="proav-eyebrow">Porozmawiajmy o Waszym biurze</p><h2 id="contact-proav-heading">Opowiedz nam o sali.<br />Dobierzemy resztę.</h2><p>Mały pokój spotkań, sala zarządu czy przestrzeń szkoleniowa — zaczniemy od potrzeb Twojego zespołu.</p></div>
+          <div className="proav-contact-actions"><button className="proav-button proav-button-ink" onClick={() => onOpenConsultation()}>Omów projekt ProAV <ArrowUpRight size={20} /></button><a href="tel:+48505260715">+48 505 260 715 <ArrowRight size={16} /></a><span>Warszawa · realizacje w całej Polsce</span></div>
+        </div>
+        <div className="proav-container proav-references"><span>Poznaj rozwiązania:</span><a href="https://www.logitech.com/en-us/business/shop/p/rallybar" target="_blank" rel="noopener noreferrer">Logitech <ArrowUpRight size={13} /></a><a href="https://support.hp.com/in-en/document/ish_15254712-12757922-16" target="_blank" rel="noopener noreferrer">HP Poly <ArrowUpRight size={13} /></a><a href="https://learn.microsoft.com/en-us/microsoftteams/rooms/" target="_blank" rel="noopener noreferrer">Microsoft Teams Rooms <ArrowUpRight size={13} /></a><a href="https://mediaporty.com.pl/" target="_blank" rel="noopener noreferrer">Mediaporty.com.pl <ArrowUpRight size={13} /></a></div>
+      </section>
     </div>
   );
 };
