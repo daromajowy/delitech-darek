@@ -13,8 +13,10 @@ export function lightingReducer(state, action) {
       return { ...state, [action.room]: state[action.room] > 0 ? 0 : 100 };
     case "cinema":
       return { ...state, salon: 20, kitchen: 20, hall: 20, tv: true };
-    case "all-off":
-      return { salon: 0, kitchen: 0, hall: 0, rest: false, tv: false };
+    case "toggle-all":
+      return allLightsOff(state)
+        ? { ...initialLighting }
+        : { salon: 0, kitchen: 0, hall: 0, rest: false, tv: false };
     case "reset":
       return { ...initialLighting };
     default:

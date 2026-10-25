@@ -22,9 +22,12 @@ export function HouseScene({
   sceneFeedback,
 }) {
   const off = sceneFeedback === "off";
+  const allOn = sceneFeedback === "all-on";
   const sceneLabel = off
     ? "Światła i TV wyłączone"
-    : "Scena Kino · TV włączony";
+    : allOn
+      ? "Pełne oświetlenie domu"
+      : "Scena Kino · TV włączony";
   return (
     <div
       className="house-scene"
@@ -168,7 +171,13 @@ export function HouseScene({
           (off ? "" : "enabled")
         }
       >
-        {off ? <Power size={15} /> : <Clapperboard size={15} />}
+        {off ? (
+          <Power size={15} />
+        ) : allOn ? (
+          <Lightbulb size={15} />
+        ) : (
+          <Clapperboard size={15} />
+        )}
         <span>{sceneLabel}</span>
       </div>
     </div>

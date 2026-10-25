@@ -223,18 +223,21 @@ export function F50HomeDemo() {
       text: "Salon, kuchnia i przedpokój przygasają. Zostaje delikatne światło LED, a telewizor się włącza.",
     });
   }
-  function allOff() {
+  function toggleAll() {
+    const restore = allLightsOff(home);
     press("all-off");
-    dispatchHome({ type: "all-off" });
-    setSceneFeedback("off");
+    dispatchHome({ type: "toggle-all" });
+    setSceneFeedback(restore ? "all-on" : "off");
     setPulse(null);
     clearTimeout(pulseTimer.current);
     feedback.clear();
     feedback.show("scene");
     setLast({
-      kind: "off",
-      title: "ALL OFF. Dom gaśnie.",
-      text: "Światła w całym domu i telewizor są wyłączone.",
+      kind: restore ? "light" : "off",
+      title: restore ? "Dom znów rozświetlony." : "ALL OFF. Dom gaśnie.",
+      text: restore
+        ? "Wszystkie światła wracają do pełnej jasności."
+        : "Światła w całym domu i telewizor są wyłączone. Naciśnij ponownie, aby przywrócić pełne oświetlenie.",
     });
   }
   function reset() {
@@ -333,10 +336,12 @@ export function F50HomeDemo() {
       row: 4,
       side: "right",
       Icon: Power,
-      label: "ALL OFF — wyłącz światła i telewizor",
+      label: everythingOff
+        ? "ALL OFF — przywróć pełne oświetlenie"
+        : "ALL OFF — wyłącz światła i telewizor",
       short: "ALL OFF",
       active: everythingOff,
-      action: allOff,
+      action: toggleAll,
     },
   ];
   const ledState = {

@@ -6,7 +6,7 @@ Sekcja na `solutions/#steruj-domem`, osadzona poniżej wstępu strony „Co moż
 - Rolety: klik przesuwa o 15 punktów procentowych; przytrzymanie 500 ms uruchamia jazdę do końca. Materiał rolety przesuwa się bez rozciągania.
 - Temperatura: nastawa 18–26°C, co 0,5°C; krótka łuna sygnalizuje zmianę.
 - Kino: przygaszenie salonu, kuchni i przedpokoju, delikatne LED-y i włączony TV. Stan piętra pozostaje niezależny.
-- ALL OFF: wyłączenie świateł obu kondygnacji, wiaty oraz TV. Nastawa temperatury i rolety pozostają niezależne.
+- ALL OFF: wyłączenie świateł obu kondygnacji, wiaty oraz TV. Ponowne naciśnięcie przy wygaszonym domu przywraca wszystkie światła do pełnej jasności. TV pozostaje wyłączony; nastawa temperatury i rolety pozostają niezależne.
 - Diody pokazują bieżący stan; dymki pojawiają się chwilowo. Reset wraca do oświetlonego domu.
 
 To demonstracja bez połączenia z rzeczywistymi urządzeniami KNX. TV pokazuje nieruchomy obraz. Oznaczenia funkcji i kolory diod są wybraną konfiguracją pokazową.

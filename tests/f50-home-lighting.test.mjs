@@ -42,7 +42,7 @@ test("manual room change leaves other cinema functions and TV intact", () => {
 
 test("ALL OFF extinguishes both floors and TV; a later room key relights only that room", () => {
   const cinema = lightingReducer(initialLighting, { type: "cinema" });
-  const off = lightingReducer(cinema, { type: "all-off" });
+  const off = lightingReducer(cinema, { type: "toggle-all" });
   assert.ok(allLightsOff(off));
   assert.equal(cinemaActive(off), false);
   const kitchenOnly = lightingReducer(off, {
@@ -58,9 +58,24 @@ test("ALL OFF extinguishes both floors and TV; a later room key relights only th
 });
 
 test("cinema after ALL OFF does not relight bedrooms; reset restores the starting view", () => {
-  const off = lightingReducer(initialLighting, { type: "all-off" });
+  const off = lightingReducer(initialLighting, { type: "toggle-all" });
   const home = lightingReducer(off, { type: "cinema" });
   assert.ok(cinemaActive(home));
   assert.equal(home.rest, false);
   assert.deepEqual(lightingReducer(home, { type: "reset" }), initialLighting);
+});
+
+test("repeated ALL OFF toggles full lighting back on, even after Cinema", () => {
+  const cinema = lightingReducer(initialLighting, { type: "cinema" });
+  const off = lightingReducer(cinema, { type: "toggle-all" });
+  const restored = lightingReducer(off, { type: "toggle-all" });
+  assert.deepEqual(restored, initialLighting);
+  assert.equal(cinemaActive(restored), false);
+  assert.equal(allLightsOff(restored), false);
+  assert.ok(allLightsOff(lightingReducer(restored, { type: "toggle-all" })));
+  const kitchenOnly = lightingReducer(off, {
+    type: "toggle-room",
+    room: "kitchen",
+  });
+  assert.ok(allLightsOff(lightingReducer(kitchenOnly, { type: "toggle-all" })));
 });
