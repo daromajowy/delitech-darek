@@ -5,7 +5,7 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { iconMap } from "./icons";
 import { issues, sensors, summary, targets, type Project } from "./model";
 import { pointPhoto } from "./documents";
-import { appendPlans } from "./plan-export";
+import { isLsTouch, touchPages, touchBindingLabel } from "./touch-pages";
 
 async function base64(url: string) {
   const r = await fetch(url);
@@ -217,7 +217,14 @@ export async function buildPdf(p: Project): Promise<Blob> {
     let my = top + 9 + device.length * 5;
     for (const line of meta) { const lines = doc.splitTextToSize(line, 124); doc.text(lines, 66, my); my += lines.length * 4 + 2; }
     y = Math.max(top + 37, my + 3);
-    table([`${pt.code} · Klawisz / opis`, "Naciśnięcie", "Obwód / scena i działanie"], pt.bindings.flatMap((binding, index) => {
+    if (isLsTouch(pt)) {
+      text('Podstrony ulubionych LS TOUCH · układ do uzgodnienia w ETS', 8, true);
+      table(['Podstrona', 'Pole na ekranie', 'Funkcja / opis'], touchPages(pt).flatMap((page, index) => page.bindingIds.map((id, slot) => {
+        const binding = pt.bindings.find(b => b.id === id)!;
+        return [`${index + 1}. ${page.name || 'Bez nazwy'}`, slot + 1, `${pt.bindings.indexOf(binding) + 1} · ${touchBindingLabel(p, binding)}`];
+      })), true);
+    }
+    table([`${pt.code} · ${isLsTouch(pt) ? 'Funkcja' : 'Klawisz'} / opis`, "Naciśnięcie", "Obwód / scena i działanie"], pt.bindings.flatMap((binding, index) => {
       const name = `${index + 1}${binding.label ? ` · ${binding.label}` : ""}`;
       const rows = [[name, "Krótkie", `${lookup.get(binding.target) ?? "Do ustalenia"}\n${binding.action}${binding.notes ? `\n${binding.notes}` : ""}`]];
       if (binding.hold) rows.push([name, "Długie", `${lookup.get(binding.hold.target) ?? "Do ustalenia"}\n${binding.hold.action}`]);
@@ -325,6 +332,7 @@ export async function buildPdf(p: Project): Promise<Blob> {
     );
     doc.text(`Brief ${n} / ${doc.getNumberOfPages()}`, 192, 288, { align: "right" });
   }
+  const { appendPlans } = await import('./plan-export');
   return appendPlans(doc.output("blob"), p);
 }
 export async function buildXlsx(p: Project): Promise<Blob> {
@@ -438,6 +446,11 @@ export async function buildXlsx(p: Project): Promise<Blob> {
       ]),
     ),
   );
+  if (p.points.some(isLsTouch)) sheet('Podstrony LS TOUCH', ['Punkt', 'Podstrona', 'Pole na ekranie', 'Numer funkcji', 'Opis', 'Obwód / scena', 'Działanie'],
+    p.points.filter(isLsTouch).flatMap(pt => touchPages(pt).flatMap((page, pageIndex) => page.bindingIds.map((id, slot) => {
+      const binding = pt.bindings.find(b => b.id === id)!;
+      return [`${pt.code} · ${pt.name}`, `${pageIndex + 1}. ${page.name || 'Bez nazwy'}`, slot + 1, pt.bindings.indexOf(binding) + 1, touchBindingLabel(p, binding), lookup.get(binding.target) ?? 'Do ustalenia', binding.action];
+    }))));
   sheet(
     "Sceny",
     [

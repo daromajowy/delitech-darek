@@ -29,6 +29,8 @@ final class ProjectPayload
             'scenes.*.roomId' => ['sometimes', 'string'],
             'points.*' => ['array'], 'points.*.bindings.*' => ['array'],
             'points.*.bindings.*.hold' => ['sometimes', 'array'],
+            'points.*.panelPages' => ['sometimes', 'array'],
+            'points.*.panelPages.*' => ['array'],
             'points.*.placement' => ['sometimes', 'array'],
             'points.*.placement.documentId' => ['sometimes', 'string'],
             'points.*.photoId' => ['sometimes', 'string'],
@@ -178,6 +180,30 @@ final class ProjectPayload
                 self::fail('Nieprawidłowa wysokość.');
             }
             $bindings($pt['bindings'] ?? null);
+            if (array_key_exists('panelPages', $pt)) {
+                $pages = $pt['panelPages'];
+                if (! array_is_list($pages) || count($pages) < 1 || count($pages) > 5) {
+                    self::fail('LS TOUCH wymaga od 1 do 5 podstron.');
+                }
+                $bindingIds = array_column($pt['bindings'], 'id');
+                foreach ($pages as $page) {
+                    $addId($page['id'] ?? null);
+                    if (! isset($page['name']) || ! is_string($page['name']) || mb_strlen($page['name']) > 80) {
+                        self::fail('Nieprawidłowa nazwa podstrony.');
+                    }
+                    $fields = $page['bindingIds'] ?? null;
+                    if (! is_array($fields) || ! array_is_list($fields) || count($fields) < 1 || count($fields) > 4) {
+                        self::fail('Podstrona wymaga od 1 do 4 pól.');
+                    }
+                    $seenBindings = [];
+                    foreach ($fields as $id) {
+                        if (! is_string($id) || ! in_array($id, $bindingIds, true) || isset($seenBindings[$id])) {
+                            self::fail('Nieprawidłowa lub powtórzona funkcja podstrony.');
+                        }
+                        $seenBindings[$id] = true;
+                    }
+                }
+            }
             foreach (['deviceType', 'model'] as $field) {
                 if (isset($pt[$field])) {
                     $text($pt, [$field]);

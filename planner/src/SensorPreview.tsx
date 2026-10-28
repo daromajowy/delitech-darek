@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { Icon } from './components';
 import { pointPhoto } from './documents';
 import type { Point, Project } from './model';
+import { isLsTouch } from './touch-pages';
+import { TouchPanel } from './TouchPanel';
 
 export function SensorPhoto({ project, point }: { project: Project; point: Point }) {
   const [src, setSrc] = useState('');
@@ -16,9 +18,11 @@ export function SensorPhoto({ project, point }: { project: Project; point: Point
   return src ? <img src={src} alt={`${point.sensor} · zdjęcie ${point.photoId ? 'wybrane' : 'referencyjne'}`}/> : <div className="sensor-placeholder"><Icon name="PanelTop" size={48}/></div>;
 }
 
-export function SensorKeys({ project, point, active, choose, simulate = false }: {
+export function SensorKeys({ project, point, active, choose, simulate = false, pageId, changePage }: {
   project: Project; point: Point; active?: string; choose: (id: string) => void; simulate?: boolean;
+  pageId?: string; changePage?: (id: string) => void;
 }) {
+  if (isLsTouch(point)) return <TouchPanel key={point.id} {...{ project, point, active, choose, simulate, pageId, changePage }}/>;
   // Only the known four-key F40 has a matching spatial map. Other variants use numbered controls.
   const spatial = point.sensor === 'JUNG F40' && point.bindings.length === 4 && !point.photoId;
   return <div className={`sensor-key-preview ${spatial ? 'spatial' : ''}`}>

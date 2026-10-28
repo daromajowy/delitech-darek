@@ -3,6 +3,8 @@ import { DndContext, DragOverlay, PointerSensor, useDraggable, useSensor, useSen
 import { Field, Icon, NumberInput, Select, Tool } from "./components";
 import { addControlPoint, deviceTypes, finishes, sensors, selectSensor, targets, uid, type Attachment, type Binding, type Point, type Project } from "./model";
 import { SensorKeys } from "./SensorPreview";
+import { TouchPageEditor } from "./TouchPanel";
+import { ensureTouchPages, isLsTouch, touchPages } from "./touch-pages";
 import { ActionField } from "./ActionField";
 import { actionOptions } from "./behavior";
 import { PlanBoard } from "./PlanBoard";
@@ -22,7 +24,10 @@ export function ControlWorkspace({ project, pointId, select, edit, upload, busy,
   const point = project.points.find(p => p.id === pointId) ?? project.points[0];
   const sensor = sensors.find(s => s.name === point?.sensor);
   const [keyId, setKeyId] = useState(""), [dragId, setDragId] = useState("");
-  const key = point?.bindings.find(b => b.id === keyId) ?? point?.bindings[0];
+  const [pageId, setPageId] = useState("");
+  const touch = point && isLsTouch(point);
+  const page = touch ? touchPages(point).find(p => p.id === pageId) ?? touchPages(point)[0] : undefined;
+  const key = point?.bindings.find(b => b.id === keyId) ?? point?.bindings.find(b => b.id === page?.bindingIds[0]) ?? point?.bindings[0];
   const dragPoint = project.points.find(p => p.id === dragId);
   const allTargets = targets(project);
   const dndSensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 6 } }));
@@ -51,21 +56,25 @@ export function ControlWorkspace({ project, pointId, select, edit, upload, busy,
             <Field label="Sensor / seria" wide><Select value={point.sensor} options={[...sensors.map(s => s.name), "Inny sensor / panel"]} onChange={v => update(p => selectSensor(p, v))}/></Field>
             {sensor?.description && <div className="field wide"><p className="small muted">{sensor.description}</p></div>}
             {point.sensor === "Inny sensor / panel" && <Field label="Producent i model" wide><input value={point.model ?? ""} maxLength={250} onChange={e => update(p => { p.model = e.target.value; })}/></Field>}
-            <Field label="Liczba klawiszy / pól"><select value={point.bindings.length} onChange={e => { const n = Number(e.target.value); if (n < point.bindings.length && !confirm("Zmniejszenie liczby pól usunie przypisania ostatnich klawiszy. Kontynuować?")) return; update(p => { p.bindings = Array.from({ length: n }, (_, i) => p.bindings[i] ?? { id: uid(), target: "", action: "Włącz / wyłącz" }); }); }}>{Array.from({ length: 24 }, (_, i) => <option key={i} value={i + 1}>{i + 1}</option>)}</select></Field>
+            <Field label={touch ? "Liczba funkcji" : "Liczba klawiszy / pól"}><select value={point.bindings.length} onChange={e => { const n = Number(e.target.value); if (n < point.bindings.length && !confirm("Zmniejszenie liczby funkcji usunie ostatnie przypisania, także z podstron. Kontynuować?")) return; update(p => { p.bindings = Array.from({ length: n }, (_, i) => p.bindings[i] ?? { id: uid(), target: "", action: "Włącz / wyłącz" }); if (p.panelPages) ensureTouchPages(p); }); }}>{Array.from({ length: Math.max(point.bindings.length, touch ? 32 : 24) }, (_, i) => <option key={i} value={i + 1}>{i + 1}</option>)}</select></Field>
             <Field label="Wysokość montażu (cm)"><NumberInput value={point.height} max={500} onChange={v => update(p => { p.height = v; })}/></Field>
             <Field label={`Wykończenie · ${point.finish}`} wide><div className="swatches">{(sensors.find(s => s.name === point.sensor)?.finishes ?? Object.keys(finishes)).map(f => <button key={f} type="button" title={f} aria-label={`Wykończenie ${f}`} aria-pressed={point.finish === f} className={point.finish === f ? "selected" : ""} style={{ background: finishes[f] }} onClick={() => update(p => { p.finish = f; })}>{point.finish === f && <Icon name="Check" size={17}/>}</button>)}</div></Field>
             <Field label="Status"><Select value={point.status} options={["Propozycja", "Do uzgodnienia", "Zatwierdzony"]} onChange={v => update(p => { p.status = v; })}/></Field>
-            <Field label="Zdjęcie sensora"><select value={point.photoId ?? ""} onChange={e => update(p => { p.photoId = e.target.value || undefined; })}><option value="">Referencyjne</option>{project.attachments.filter(a => a.mime.startsWith("image/")).map(a => <option key={a.id} value={a.id}>{a.name}</option>)}</select></Field>
+            <Field label={touch ? "Zdjęcie w PDF" : "Zdjęcie sensora"}><select value={point.photoId ?? ""} onChange={e => update(p => { p.photoId = e.target.value || undefined; })}><option value="">Referencyjne</option>{project.attachments.filter(a => a.mime.startsWith("image/")).map(a => <option key={a.id} value={a.id}>{a.name}</option>)}</select></Field>
           </div></details>
-          <SensorKeys project={project} point={point} active={key?.id} choose={setKeyId}/>
-          <div className="key-list">{point.bindings.map((b, i) => <button key={b.id} className={b.id === key?.id ? "selected" : ""} aria-label={`Funkcje klawisza ${i + 1}`} onClick={() => setKeyId(b.id)}><b>{i + 1}</b><span>{b.label || allTargets.find(t => t.id === b.target)?.label || "Do ustalenia"}</span><Icon name="ChevronRight" size={15}/></button>)}</div>
-          {key && <div className="key-editor" key={`${point.id}-${key.id}`}><h3>Klawisz {point.bindings.indexOf(key) + 1}</h3>
+          <SensorKeys project={project} point={point} active={key?.id} choose={setKeyId} pageId={page?.id} changePage={id => { setPageId(id); setKeyId(''); }}/>
+          {touch && <TouchPageEditor project={project} point={point} pageId={page!.id} changePage={id => { setPageId(id); setKeyId(''); }} choose={setKeyId} update={update}/>}
+          <details className="flow-details touch-functions" open={touch ? undefined : true} key={`functions-${point.id}-${touch}`}><summary>{touch ? `Wszystkie funkcje (${point.bindings.length}/32)` : 'Lista klawiszy'}<Icon name="ChevronDown" size={16}/></summary>
+            <div className="key-list">{point.bindings.map((b, i) => <button key={b.id} className={b.id === key?.id ? "selected" : ""} aria-label={`${touch ? 'Edytuj funkcję' : 'Funkcje klawisza'} ${i + 1}`} onClick={() => { setKeyId(b.id); if (touch) { const containing = touchPages(point).find(p => p.bindingIds.includes(b.id)); if (containing) setPageId(containing.id); } }}><b>{i + 1}</b><span>{b.label || allTargets.find(t => t.id === b.target)?.label || "Do ustalenia"}</span><Icon name="ChevronRight" size={15}/></button>)}</div>
+          </details>
+          {key && <div className="key-editor" key={`${point.id}-${key.id}`}><h3>{touch ? 'Funkcja' : 'Klawisz'} {point.bindings.indexOf(key) + 1}</h3>
+            {touch && <Field label="Opis na ekranie"><input value={key.label ?? ""} placeholder="Nazwa obwodu lub sceny" maxLength={150} onChange={e => updateKey(b => { b.label = e.target.value; })}/></Field>}
             <ActionField project={project} value={key} label="Krótkie naciśnięcie" change={value => updateKey(b => Object.assign(b, value))}/>
             {project.scenes.some(s => s.id === key.target) && <p className="small muted">{project.scenes.find(s => s.id === key.target)!.actions.map(a => `${allTargets.find(t => t.id === a.target)?.label ?? 'Do ustalenia'}: ${a.action}`).join(' · ') || 'Scena nie ma jeszcze działań.'}</p>}
             <details className="flow-details"><summary>Przytrzymanie i opis klawisza<Icon name="ChevronDown" size={16}/></summary>
               <label className="check long-press"><input type="checkbox" checked={!!key.hold} onChange={e => updateKey(b => { if (e.target.checked) b.hold = { target: b.target, action: actionOptions(project, b.target)[0] }; else delete b.hold; })}/><span>Długie naciśnięcie</span></label>
               {key.hold && <ActionField project={project} value={key.hold} label="Długie naciśnięcie" change={value => updateKey(b => { b.hold = value; })}/>}
-              <Field label="Nazwa / opis klawisza"><input value={key.label ?? ""} maxLength={150} onChange={e => updateKey(b => { b.label = e.target.value; })}/></Field>
+              {!touch && <Field label="Nazwa / opis klawisza"><input value={key.label ?? ""} maxLength={150} onChange={e => updateKey(b => { b.label = e.target.value; })}/></Field>}
               <Field label="Szczegóły działania"><textarea rows={3} value={key.notes ?? ""} maxLength={3000} onChange={e => updateKey(b => { b.notes = e.target.value; })}/></Field>
             </details>
           </div>}

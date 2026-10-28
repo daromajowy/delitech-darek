@@ -80,6 +80,64 @@ class PlannerTest extends TestCase
         $this->get('/projects/'.$p['id'].'/download')->assertNotFound();
     }
 
+    public function test_touch_pages_preserve_layout_and_shared_functions_on_save_and_reload(): void
+    {
+        $p = $this->createProject();
+        $p['points'][0]['sensor'] = 'JUNG LS TOUCH';
+        $p['points'][0]['panelPages'] = [
+            ['id' => (string) Str::uuid(), 'name' => 'Światło', 'bindingIds' => array_column($p['points'][0]['bindings'], 'id')],
+            ['id' => (string) Str::uuid(), 'name' => 'Wieczór', 'bindingIds' => [$p['points'][0]['bindings'][0]['id']]],
+        ];
+        $this->save($p)->assertOk();
+        $saved = $this->getJson('/api?api=project&id='.$p['id'])->assertOk()->json('project');
+        $this->assertSame($p['points'], $saved['points']);
+    }
+
+    #[DataProvider('invalidTouchPages')]
+    public function test_invalid_touch_pages_cannot_overwrite_saved_project(string $case): void
+    {
+        $p = $this->createProject();
+        $page = ['id' => (string) Str::uuid(), 'name' => 'Ulubione', 'bindingIds' => [$p['points'][0]['bindings'][0]['id']]];
+        $pages = [$page];
+        switch ($case) {
+            case 'empty': $pages = [];
+                break;
+            case 'null': $pages = null;
+                break;
+            case 'not-list': $pages = ['a' => $page];
+                break;
+            case 'scalar-page': $pages = ['invalid'];
+                break;
+            case 'six-pages': $pages = array_fill(0, 6, $page);
+                break;
+            case 'duplicate-page-id': $pages[] = $page;
+                break;
+            case 'invalid-name': $pages[0]['name'] = [];
+                break;
+            case 'long-name': $pages[0]['name'] = str_repeat('ą', 81);
+                break;
+            case 'empty-fields': $pages[0]['bindingIds'] = [];
+                break;
+            case 'five-fields': $pages[0]['bindingIds'] = array_fill(0, 5, $page['bindingIds'][0]);
+                break;
+            case 'duplicate-field': $pages[0]['bindingIds'][] = $page['bindingIds'][0];
+                break;
+            case 'foreign-function': $pages[0]['bindingIds'] = [$p['points'][1]['bindings'][0]['id']];
+                break;
+            case 'non-string-field': $pages[0]['bindingIds'] = [[]];
+                break;
+        }
+        $p['points'][0]['panelPages'] = $pages;
+        $this->save($p)->assertUnprocessable();
+        $this->assertDatabaseHas('projects', ['id' => $p['id'], 'revision' => 1]);
+        $this->assertDatabaseCount('project_revisions', 1);
+    }
+
+    public static function invalidTouchPages(): array
+    {
+        return array_map(fn (string $case): array => [$case], ['empty', 'null', 'not-list', 'scalar-page', 'six-pages', 'duplicate-page-id', 'invalid-name', 'long-name', 'empty-fields', 'five-fields', 'duplicate-field', 'foreign-function', 'non-string-field']);
+    }
+
     public function test_polygon_room_outline_survives_save_and_reload(): void
     {
         $p = $this->createProject();

@@ -1,4 +1,5 @@
 import { reviewItems } from './behavior';
+import { clonePointControls, ensureTouchPages, isLsTouch } from './touch-pages';
 export type Category = "Oświetlenie" | "Osłony" | "Klimat" | "Pozostałe";
 export type Priority = "Konieczne" | "Opcjonalne";
 export interface Circuit {
@@ -46,6 +47,11 @@ export interface PlanView {
   centerX: number;
   centerY: number;
 }
+export interface TouchPage {
+  id: string;
+  name: string;
+  bindingIds: string[];
+}
 export interface Point {
   id: string;
   roomId: string;
@@ -56,6 +62,7 @@ export interface Point {
   status: string;
   notes: string;
   bindings: Binding[];
+  panelPages?: TouchPage[];
   code?: string;
   deviceType?: string;
   model?: string;
@@ -207,6 +214,7 @@ export function selectSensor(point: Point, name: string): void {
     delete point.model;
   }
   delete point.photoId;
+  if (isLsTouch(point)) ensureTouchPages(point);
 }
 export const finishes: Record<string, string> = {
   Biały: "#fafafa",
@@ -411,12 +419,7 @@ export function duplicateRoom(p: Project, roomId: string): Project {
         roomId: room.id,
         code: undefined,
         placement: undefined,
-        bindings: pt.bindings.map((b) => ({
-          ...b,
-          id: uid(),
-          target: ids.get(b.target) ?? b.target,
-          hold: b.hold ? { ...b.hold, target: ids.get(b.hold.target) ?? b.hold.target } : undefined,
-        })),
+        ...clonePointControls(pt, ids),
       })),
   );
   return normalizeProject(copy);
@@ -477,6 +480,7 @@ export function normalizeProject(source: Project): Project {
     if (!pt.code || !/^P\d{2,}$/.test(pt.code) || seen.has(pt.code)) pt.code = `P${String(next++).padStart(2, "0")}`;
     seen.add(pt.code);
     pt.deviceType ??= sensors.find(s => s.name === pt.sensor)?.deviceType ?? "Sensor KNX";
+    if (isLsTouch(pt)) ensureTouchPages(pt);
   });
   p.nextPointNumber = next;
   return p;
@@ -484,7 +488,7 @@ export function normalizeProject(source: Project): Project {
 
 export function addControlPoint(p: Project, roomId: string, source?: Point): Point {
   const pt = source ? { ...structuredClone(source), id: uid(), name: `${source.name} (kopia)`, roomId,
-    code: undefined, placement: undefined, bindings: source.bindings.map(b => ({ ...structuredClone(b), id: uid() })) } : newPoint(roomId);
+    code: undefined, placement: undefined, ...clonePointControls(source) } : newPoint(roomId);
   const numbered = normalizeProject({ ...p, points: [...p.points, pt] });
   p.points = numbered.points;
   p.nextPointNumber = numbered.nextPointNumber;
