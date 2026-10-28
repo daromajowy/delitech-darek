@@ -12,7 +12,7 @@ export const pages: Record<PageId, { path: string; title: string; description: s
     path: '/architects/',
     title: 'KNX dla architektów i projektantów | InteliSpaces',
     description:
-      'Doradztwo KNX dla architektów i projektantów wnętrz. Dobór osprzętu, wsparcie projektowe i uzgodnienia z wykonawcami. Umów prezentację konfiguratora dla pracowni.',
+      'KNX dla pracowni architektonicznych: doradztwo, dobór osprzętu do wnętrza i współpraca z wykonawcami. Poznaj etapy współpracy i umów prezentację konfiguratora.',
   },
   homes: {
     path: '/homes/',

@@ -1,3 +1,44 @@
+# Architects page — expanded cooperation content, Janka
+
+Date: 2026-10-28. The user requested richer architect-facing content inspired by YAK, then added KNX Poland as a substantive reference. The approved option 1 visual language is retained.
+
+## Scope and sources
+
+Changes are limited to ArchitectsPage.tsx, its scoped CSS, the architects metadata and this report. Before editing, Janka was fast-forwarded to 8d81c55, preserving the separately completed homes-page redesign. The pre-existing DESIGN.md modification remains untouched.
+
+- https://yaklse.pl/designerskie-wlaczniki-i-gniazdka/ and https://yaklse.pl/ — communication principles: aesthetic decisions, practical advice and an approachable contact path.
+- https://knxpoland.pl/strefa-architekta/ — factual background: a multi-manufacturer standard, choice of finishes, combining functions and planning future changes. The page was read live in the browser after the text-fetch tool timed out.
+- Existing AboutPage, TeamPage and ContactPage — company scope, names, portraits, telephone numbers and meeting address.
+
+The wording is original. No competitor photography, client cases, credentials, training programme or showroom claims were reused. The KNX Poland link is a learning resource, not a claim of membership or endorsement.
+
+## Implemented content
+
+- Three plain-language benefits of KNX for interior design, with compatibility and future-expansion limits explained in context.
+- Four cooperation stages, each describing the work and expected discussion outcome.
+- Six expandable answers addressing the first KNX project, timing, the client's electrician, selecting scope, documentation and preparing for a conversation.
+- Jan Jasek and Dariusz Maj contact cards using the existing portraits and verified telephone numbers.
+- Additional cooperation CTAs reuse the existing inquiry modal. The configurator remains an invitation to a presentation; no application workflow or feature list was introduced.
+- Existing conceptual image labels, header/footer, forms' preview protection and backend behaviour remain.
+
+## Verification
+
+Evidence: C:/Users/Asdmin/Documents/ChatGPT/KNX/outputs/architects-expanded-20261028/.
+
+- desktop.png and focused desktop-knx-dla-pracowni.png / desktop-wspolpraca.png: hierarchy, readable type, aligned columns and consistent navy/lime palette.
+- mobile-people.png: both contact portraits, names, telephone links and team-page link at 390 px.
+- faq-checks.json: all six answers opened by click and closed with Enter, with nonempty visible text.
+- responsive.json: no page-content overflow at 320, 390, 768, 1024, 1440 or 1920 CSS px.
+- Both new consultation buttons open the architect-specific modal. Telephone hrefs are tel:+48505260848 and tel:+48885253934; no telephone call or actual inquiry was sent.
+- All five page images loaded successfully after scrolling through the page. No browser console warnings or errors during checks.
+- TypeScript passed; the branch-prefixed build generated 12 static pages; all 8 existing site-content and F50-lighting tests passed; git diff --check passed.
+
+The new sections are an authorized content extension, not a pixel clone of a competitor. Existing page artwork and responsive composition remain the visual baseline. No actionable blocking layout or interaction issues were found.
+
+**final result: passed**
+
+---
+
 # Architects page — selected concept 1, Janka
 
 Date: 2026-10-28. Scope: implement the selected “Pracownia i partner” concept at /architects/ on Janka. Main, Darka, CF production, the KNX backend and public demo access are outside this change.
