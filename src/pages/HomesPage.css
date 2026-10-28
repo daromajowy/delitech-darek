@@ -63,7 +63,9 @@
 .homes-design-card { display: flex; flex-direction: column; min-width: 0; }
 .homes-design-card figure { margin: 0 0 24px; overflow: hidden; background: #eeedeb; }
 .homes-design-card img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; }
-.homes-design-card--2 img { object-position: center 35%; }
+.homes-design-card--1 img { object-position: 72% center; }
+.homes-design-card--2 img { object-position: center 48%; transform: scale(1.4); transform-origin: 38% 30%; }
+.homes-design-card--3 img { object-position: 72% center; }
 .homes-design-card--4 img { object-fit: contain; background: #f0f0f0; }
 .homes-design-card--6 img { object-position: 80% center; }
 .homes-design-card__model { margin: 0 0 10px; color: #617b16; font-size: 11px; line-height: 1.6; font-weight: 600; letter-spacing: .03em; }

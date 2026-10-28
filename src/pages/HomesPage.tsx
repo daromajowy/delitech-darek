@@ -7,9 +7,9 @@ import morningImage from '../assets/images/homes-morning.webp';
 import leavingImage from '../assets/images/homes-leaving.webp';
 import eveningImage from '../assets/images/homes-evening-scene.webp';
 import contactImage from '../assets/images/homes-contact.webp';
-import jungColourImage from '../assets/images/homes-jung-colour.webp';
-import jungBrassImage from '../assets/images/homes-jung-f40-brass.webp';
-import jungFlushImage from '../assets/images/homes-jung-ls-zero.webp';
+import jungPhoneImage from '../assets/images/homes-jung-phone.webp';
+import jungF40Image from '../assets/images/homes-jung-f40-interior.webp';
+import jungF50Image from '../assets/images/homes-jung-f50-interior.webp';
 import jungTouchImage from '../assets/images/homes-jung-ls-touch.webp';
 import jungPanelImage from '../assets/images/homes-jung-sc5.webp';
 import jungDoorImage from '../assets/images/homes-jung-intercom.webp';
@@ -117,28 +117,28 @@ const scenes = [
 
 const controls = [
   {
-    name: 'Kolor jako część wnętrza', model: 'JUNG LS 990 · Les Couleurs® Le Corbusier',
-    image: jungColourImage, width: 882, height: 662,
-    alt: 'Sensor JUNG F 40 w kolorze rouge clair na tle tkanin w odcieniach koralowych',
-    text: 'Paleta 63 kolorów pozwala dopasować osprzęt do ściany lub wyeksponować go jako detal. Łączniki, gniazda i wybrane sensory KNX mogą zachować wspólny wygląd.',
-    use: 'W sypialni: światło przy łóżku, zasłony i scena „Dobranoc” na dobranym sensorze KNX.',
-    source: 'https://www.jung-group.com/fr-FR/Produits/Gammes-d-interrupteurs/LS-990-Les-Couleurs-Le-Corbusier/',
+    name: 'Dom w Twoim telefonie', model: 'JUNG Smart Visu Server · aplikacja KNX',
+    image: jungPhoneImage, width: 1309, height: 561,
+    alt: 'Telefon w dłoni z aplikacją JUNG Smart Visu Server do sterowania oświetleniem, na tle jadalni i salonu',
+    text: 'Sprawdzasz stan świateł, zmieniasz ustawienia osłon i temperatury lub uruchamiasz scenę. Aplikację łączymy z instalacją przez serwer wizualizacji; dostęp spoza domu wymaga skonfigurowanego bezpiecznego połączenia.',
+    use: 'Z kanapy: przyciemniasz lampy nad stołem lub wybierasz przygotowaną scenę wieczorną.',
+    source: 'https://www.jung-group.com/en-UK/Products/Systems/KNX-building-technology/Smart-Visu-Server/',
   },
   {
-    name: 'Metal, który czuć pod palcem', model: 'JUNG F 40 · sensory przyciskowe KNX',
-    image: jungBrassImage, width: 1582, height: 1582,
-    alt: 'Zbliżenie metalowego sensora przyciskowego JUNG F 40 w mosiężnym wykończeniu',
-    text: 'Mosiądz, stal, aluminium i inne wykończenia dobieramy do klamek, opraw oraz materiałów we wnętrzu. Duże klawisze obsługują światło, rolety i zaprogramowane sceny.',
+    name: 'Światło i sceny pod palcem', model: 'JUNG F 40 · sensory przyciskowe KNX',
+    image: jungF40Image, width: 1582, height: 1582,
+    alt: 'Cały grafitowy sensor JUNG F 40 z opisanymi klawiszami na ciemnej drewnianej ścianie, obok półki z dekoracją',
+    text: 'Duże klawisze obsługują światło, rolety i zaprogramowane sceny. Dobieramy liczbę przycisków, ich opisy oraz wykończenie: od matowych kolorów po stal, aluminium i mosiądz.',
     use: 'Przy kanapie: osobny klawisz do czytania, przyciemnienia światła lub sceny „Film”.',
     source: 'https://www.jung-group.com/en-UK/Products/Systems/KNX-building-technology/KNX-F-40-push-button/',
   },
   {
-    name: 'Zlicowany ze ścianą', model: 'JUNG LS ZERO · osprzęt w jednej płaszczyźnie',
-    image: jungFlushImage, width: 1309, height: 561,
-    alt: 'Grafitowy sensor JUNG F 40 w serii LS ZERO zlicowany z ciemną ścianą',
-    text: 'Ramka może licować z powierzchnią ściany lub zabudowy. Taki detal planujemy przed wykończeniem: wymaga odpowiedniego zestawu montażowego i przygotowania podłoża.',
-    use: 'Przy wyjściu: dyskretny przycisk sceny „Wychodzę” zamiast szeregu osobnych łączników.',
-    source: 'https://www.jung-group.com/en-UK/Products/Systems/KNX-building-technology/KNX-F-40-push-button/',
+    name: 'Funkcje pokoju w jednym miejscu', model: 'JUNG F 50 · sensory i regulatory KNX',
+    image: jungF50Image, width: 1309, height: 561,
+    alt: 'Grafitowy regulator pokojowy JUNG F 50 z wyświetlaczem i przyciskami na ścianie, obok przejścia do jasnego salonu',
+    text: 'Smukłe klawisze, czytelne oznaczenia i sygnalizacja stanu pomagają rozpoznać funkcje. Wersja z wyświetlaczem łączy sterowanie światłem i osłonami z regulacją temperatury.',
+    use: 'Przy wejściu do pokoju: ustawiasz temperaturę, sterujesz roletami i wywołujesz scenę „Dobranoc”.',
+    source: 'https://www.jung-group.com/en-UK/Products/Systems/KNX-building-technology/KNX-F-50-push-button/',
   },
   {
     name: 'Cały pokój pod ręką', model: 'JUNG LS TOUCH · regulator pokojowy KNX',

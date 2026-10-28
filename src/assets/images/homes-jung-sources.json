@@ -1,41 +1,5 @@
 [
   {
-    "name": "colours-CM-1750-44418",
-    "url": "https://www.jung-group.com/cms-assets/shop/media/40/40878/h662/standard/LS990_LC_GAL_JUNG_AMBI-PH_LC32102_CM-1750-44418_2_CMYK.webp",
-    "alt": "KNX F 40 Taster LS 990 in Les Couleurs® Le Corbusier in 32102 rouge clair, frontal fotografiert, auf mit Textil bespannten Quadraten der gleichen Farbwelt.",
-    "size": [
-      882,
-      662
-    ],
-    "file": "homes-jung-colour.webp",
-    "rights": "JUNG / Albrecht JUNG GmbH & Co. KG. User explicitly authorized use of JUNG photos in this task.",
-    "processing": "Original manufacturer WebP rendition, unchanged. CSS crop only."
-  },
-  {
-    "name": "f40-1",
-    "url": "https://www.jung-group.com/cms-assets/dam/media/22/22448/44298/1582x1582/standard-webp/9ec1908f91529aab75000b312f19b10c/KNX_F40_Header.webp",
-    "alt": "KNX push-button F40 in the LS 990 programme in brass, close-up against a black background.",
-    "size": [
-      1582,
-      1582
-    ],
-    "file": "homes-jung-f40-brass.webp",
-    "rights": "JUNG / Albrecht JUNG GmbH & Co. KG. User explicitly authorized use of JUNG photos in this task.",
-    "processing": "Original manufacturer WebP rendition, unchanged. CSS crop only."
-  },
-  {
-    "name": "f40-85",
-    "url": "https://www.jung-group.com/cms-assets/dam/media/51/5179/31815/1309x561/standard-webp/JUNG_Ambi-PH_Dordrecht_SWM_CM-1826-370_CMYK%402x.webp",
-    "alt": "F 40 push-button in the LS ZERO switch range in matt graphite black.",
-    "size": [
-      1309,
-      561
-    ],
-    "file": "homes-jung-ls-zero.webp",
-    "rights": "JUNG / Albrecht JUNG GmbH & Co. KG. User explicitly authorized use of JUNG photos in this task.",
-    "processing": "Original manufacturer WebP rendition, unchanged. CSS crop only."
-  },
-  {
     "name": "touch-94",
     "url": "https://www.jung-group.com/cms-assets/shop/media/58/58171/h662/standard/LSTouch_GAL_ME459D1SC_RGB_1500px.webp",
     "alt": "Detailaufnahme LS TOUCH KNX Raumcontroller aus Messing, frontal fotografiert.",
@@ -71,5 +35,41 @@
     "rights": "JUNG / Albrecht JUNG GmbH & Co. KG. User explicitly authorized use of JUNG photos in this task.",
     "processing": "Original manufacturer WebP rendition, unchanged. CSS crop only.",
     "photographer": "Constantin Meyer (manufacturer source caption)"
+  },
+  {
+    "name": "apps-33",
+    "url": "https://www.jung-group.com/cms-assets/dam/media/33/33894/69734/1309x561/standard-webp/JUNG_App_Image_SVS-App_EN.webp",
+    "alt": "",
+    "size": [
+      1309,
+      561
+    ],
+    "file": "homes-jung-phone.webp",
+    "rights": "JUNG / Albrecht JUNG GmbH & Co. KG. User explicitly authorized use of JUNG photos in this task.",
+    "processing": "Original manufacturer WebP rendition, unchanged. CSS crop only, device kept fully visible."
+  },
+  {
+    "name": "f40-200",
+    "url": "https://www.jung-group.com/cms-assets/dam/media/45/45811/206545/1582x1582/standard-webp/81819fd84749eb9212106bde99f1bc6b/JUNG_AMBI-PH_Dordrecht_SWM_CM-1826-384_ret_GT-2.webp",
+    "alt": "LS 990 push-button F 40 in matt graphite black on dark wood panelling.",
+    "size": [
+      1582,
+      1582
+    ],
+    "file": "homes-jung-f40-interior.webp",
+    "rights": "JUNG / Albrecht JUNG GmbH & Co. KG. User explicitly authorized use of JUNG photos in this task.",
+    "processing": "Original manufacturer WebP rendition, unchanged. CSS crop only, device kept fully visible."
+  },
+  {
+    "name": "f50-181",
+    "url": "https://www.jung-group.com/cms-assets/dam/media/22/22712/44575/1309x561/standard-webp/KNX_F50_Flexible_Geba%CC%88udesteuerung.webp",
+    "alt": "KNX room controller F 50 in the LS 990 programme in graphite black matt, ambience shot with red armchair in the background.",
+    "size": [
+      1309,
+      561
+    ],
+    "file": "homes-jung-f50-interior.webp",
+    "rights": "JUNG / Albrecht JUNG GmbH & Co. KG. User explicitly authorized use of JUNG photos in this task.",
+    "processing": "Original manufacturer WebP rendition, unchanged. CSS crop only, device kept fully visible."
   }
 ]

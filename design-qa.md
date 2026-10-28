@@ -312,3 +312,16 @@ Visually checked 1440px desktop, 820px tablet, 390px mobile and DOM overflow at 
 TypeScript passed; preview build generated 12 pages; all eight existing site-content/F50 tests passed. Existing Vite native-config warning unchanged. Publication target Janka only; no backend or physical system changes.
 
 final result: passed
+
+# Homes gallery refinement — 2026-10-29
+
+Latest user revision: replace the LS ZERO card with F50, change the F40 photograph and framing, and replace the Corbusier card with smartphone operation. Implemented these three specific replacements. Remaining gallery cards and page sections are retained.
+
+All three new images are genuine JUNG manufacturer assets: Smart Visu Server on a phone held in a dining/living room, an F40 on dark wood beside a shelf, and an F50 room controller beside a bright living room. Original WebP renditions are unchanged; CSS selects device-focused 4:3 crops. F40 is enlarged within its image frame while retaining the complete device. Replaced unused images were removed; the source manifest now describes the active six images.
+
+Copy and links match the displayed devices. F50 distinguishes the display-equipped room controller from push-button sensors; smartphone copy states the visualization server and secure remote access requirements. Sources: JUNG's KNX F 50 product-family page, Smart Visu Server page and JUNG apps page.
+
+Evidence: C:/Users/Asdmin/Documents/ChatGPT/KNX/outputs/homes-control-crops-20261029/.
+Checked desktop 1440px and mobile 390px; all six images load, crops keep their 4:3 ratio and there is no horizontal overflow. TypeScript, preview build and eight existing site-content/F50 tests passed. Final framing adjustment rebuilt successfully. Target: Janka only.
+
+final result: passed
