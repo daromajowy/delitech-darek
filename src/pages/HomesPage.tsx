@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { ArrowDown, ArrowRight, Blinds, Layers3, Lightbulb, Plus, Thermometer } from 'lucide-react';
+import { ArrowDown, ArrowRight, Blinds, Camera, DoorOpen, Droplets, Fan, Layers3, Lightbulb, Network, Plus, ShieldCheck, Smartphone, Sprout, Thermometer, Zap } from 'lucide-react';
 import type { PageId } from '../types';
 import { pageUrl } from '../site';
 import heroImage from '../assets/images/homes-evening-hero.webp';
@@ -32,11 +32,76 @@ const functions = [
     plan: 'Rodzaj ogrzewania, podział na strefy, pomiar temperatury i możliwość integracji klimatyzacji. Podłogówka reaguje wolniej niż klimatyzator.',
   },
   {
+    title: 'Wentylacja i jakość powietrza', icon: Fan,
+    benefit: 'Zmiana intensywności wentylacji według obecności, wilgotności lub poziomu CO₂. Podgląd stanu rekuperatora i dostępnych komunikatów serwisowych.',
+    plan: 'Model centrali, dostępny moduł komunikacji, miejsca czujników oraz zakres odczytu i sterowania. Nastawy uzgadniamy z wykonawcą wentylacji.',
+  },
+  {
     title: 'Sceny i wspólne polecenia', icon: Layers3,
     benefit: 'Kilka ustalonych działań pod jednym przyciskiem. Na przykład wyłączenie wybranych świateł i zmiana ustawień domu przy wyjściu.',
     plan: 'Dokładną listę działań, sposób uruchamiania i możliwość osobnej obsługi każdej funkcji. Ustalamy też, co ma pozostać włączone.',
   },
 ];
+
+const integrations = [
+  {
+    title: 'Wideodomofony, furtki i bramy', icon: DoorOpen,
+    benefit: 'Obraz i rozmowa z gościem na zgodnym panelu lub telefonie, otwarcie furtki i sterowanie bramą. Wywołanie może też włączyć światło przy wejściu.',
+    plan: 'Model wideodomofonu i napędów, sieć, moduły połączeniowe, dostępne sygnały położenia oraz uprawnienia do otwierania. Zakres obsługi poza domem zależy od wybranego rozwiązania.',
+  },
+  {
+    title: 'Kamery i podgląd posesji', icon: Camera,
+    benefit: 'Podgląd wybranych kamer w panelu lub aplikacji. Obsługiwane zdarzenie z kamery może uruchomić oświetlenie albo powiadomienie.',
+    plan: 'Zgodność obrazu i zdarzeń z systemem wizualizacji, sieć oraz dostęp użytkowników. Zapis i odtwarzanie nagrań dobieramy osobno, w systemie monitoringu.',
+  },
+  {
+    title: 'Alarmy i czujniki', icon: ShieldCheck,
+    benefit: 'Reakcja domu na uzbrojenie alarmu, informacja o otwartym oknie lub wykrytym zalaniu. Możliwe są ustalone reakcje światła, temperatury i powiadomienia.',
+    plan: 'Centralę alarmową, czujniki, moduł integracji i dozwolone sygnały. Automatykę uzgadniamy z instalatorem alarmu; dedykowany system ochrony zachowuje własne funkcje.',
+  },
+  {
+    title: 'Zdalny dostęp', icon: Smartphone,
+    benefit: 'Sprawdzenie stanu domu i zmiana wybranych ustawień spoza posesji. Powiadomienia o uzgodnionych zdarzeniach oraz dostęp serwisowy, jeśli go potrzebujesz.',
+    plan: 'Szyfrowane połączenie przez odpowiednią bramkę lub VPN, konta i uprawnienia, dostęp do internetu oraz ewentualne opłaty. Dostęp serwisowy uruchamiamy za Twoją zgodą.',
+  },
+  {
+    title: 'Urządzenia IoT i audio', icon: Network,
+    benefit: 'Włączenie zgodnych lamp, gniazd, czujników i systemu audio do obsługi przyciskiem lub wspólnych scen. Wybrane urządzenia IoT mogą współpracować z instalacją KNX.',
+    plan: 'Konkretny model, obsługiwane funkcje i sposób połączenia, np. Matter albo interfejs producenta. Dobieramy bramkę lub serwer i sprawdzamy zależność od chmury.',
+  },
+  {
+    title: 'Podlewanie ogrodu', icon: Droplets,
+    benefit: 'Osobne harmonogramy dla stref ogrodu, podlewanie zależne od wilgotności gleby lub opadów i możliwość wstrzymania go, gdy korzystasz z tarasu.',
+    plan: 'Podział na sekcje, elektrozawory, sterownik, czujniki i okablowanie. Z wykonawcą ogrodu ustalamy czasy pracy, warunki blokady i obsługę ręczną.',
+  },
+  {
+    title: 'Roboty koszące', icon: Sprout,
+    benefit: 'Dla zgodnych modeli: podgląd stanu, wstrzymanie koszenia i polecenie powrotu do stacji. Możemy uzgodnić pracę kosiarki z harmonogramem podlewania i korzystaniem z ogrodu.',
+    plan: 'Model robota, dostępne polecenia, moduł łączności i integrację producenta. Część połączeń wymaga konta oraz chmury; uwzględniamy reakcję na brak łączności.',
+  },
+  {
+    title: 'Energia, fotowoltaika i ładowanie', icon: Zap,
+    benefit: 'Podgląd zużycia i produkcji energii, wykorzystanie nadwyżki z fotowoltaiki do ładowania auta oraz dopasowanie ładowania do dostępnej mocy.',
+    plan: 'Liczniki, falownik, ładowarkę, dostępne dane i możliwość sterowania. Wymagane są zgodne urządzenia oraz uzgodnione limity i priorytety zarządzania energią.',
+  },
+];
+
+function FunctionRows({ items }: { items: typeof functions }) {
+  return (
+    <>
+      <div className="homes-functions__head" aria-hidden="true"><span>Obszar</span><span>Co możesz uzyskać</span><span>Co ustalamy przed wykonaniem</span></div>
+      <div className="homes-functions__list">
+        {items.map(({ title, icon: Icon, benefit, plan }) => (
+          <article className="homes-function" key={title}>
+            <h3><Icon size={30} strokeWidth={1.4} aria-hidden="true" />{title}</h3>
+            <div><span className="homes-function__label">Co możesz uzyskać</span><p>{benefit}</p></div>
+            <div className="homes-function__plan"><span className="homes-function__label">Co ustalamy przed wykonaniem</span><p>{plan}</p></div>
+          </article>
+        ))}
+      </div>
+    </>
+  );
+}
 
 const scenes = [
   { title: 'Dzień dobry', text: 'O ustalonej porze odsłaniają się wybrane okna, a światło w sypialni włącza się łagodnie. Pozostałe pokoje mogą działać według własnych ustawień.', image: morningImage, alt: 'Wizualizacja jasnej sypialni z lnianą pościelą i odsłoniętym oknem' },
@@ -63,6 +128,8 @@ const questions = [
   { id: 'etapowanie', title: 'Czy mogę zacząć od części funkcji?', text: 'Tak. Wybieramy zakres na pierwszy etap i ustalamy, co przygotować pod późniejszą rozbudowę. Warto od razu zaplanować potrzebne przewody oraz miejsce w rozdzielnicy — samo przeprogramowanie nie zastąpi brakującej infrastruktury.' },
   { id: 'apartament', title: 'Co trzeba sprawdzić w apartamencie?', text: 'Możliwości sterowania ogrzewaniem, klimatyzacją i osłonami, zakres instalacji dewelopera oraz wymagane uzgodnienia z administracją. Z architektem ustalamy położenie i wygląd osprzętu, zanim zostaną zamknięte ściany i zabudowy.' },
   { id: 'modernizacja', title: 'Czy KNX ma sens w gotowym wnętrzu?', text: 'Najpierw sprawdzamy istniejące okablowanie, rozdzielnicę i urządzenia, które chcesz zachować. Dopiero po tym określamy dostępne funkcje, sposób sterowania i zakres ingerencji we wnętrze. Możliwość integracji weryfikujemy dla konkretnych modeli.' },
+  { id: 'zgodnosc', title: 'Czy połączymy urządzenia, które już mam?', text: 'Podaj producenta, model i funkcję, na której Ci zależy. Sprawdzamy dostępny interfejs, obsługiwane polecenia i informacje zwrotne. Na tej podstawie określamy potrzebne moduły, zakres integracji oraz ewentualne koszty usług producenta.' },
+  { id: 'internet', title: 'Co działa po utracie internetu?', text: 'Podstawowe funkcje KNX planujemy lokalnie. Zdalny dostęp wymaga internetu, a działanie integracji IoT zależy od sposobu połączenia. W projekcie określamy, które funkcje pozostaną dostępne lokalnie, które korzystają z chmury i jak instalacja ma reagować na utratę łączności.' },
   { id: 'koszt', title: 'Od czego zależy koszt instalacji?', text: 'Od liczby sterowanych obwodów światła, osłon i stref temperatury, wybranego osprzętu, integracji oraz zakresu prac. Sam metraż nie wystarcza. Do wstępnej rozmowy przydadzą się plan pomieszczeń, etap inwestycji i lista oczekiwanych funkcji.' },
 ];
 
@@ -83,7 +150,7 @@ export function HomesPage({ onOpenConsultation, initialHash }: HomesPageProps) {
         </div>
         <div className="homes-intro__copy">
           <p>Łączymy instalacje domu w standardzie KNX. Ustalamy, które funkcje mają działać automatycznie, co chcesz obsługiwać przyciskiem i gdzie potrzebujesz indywidualnych ustawień.</p>
-          <p>Dobieramy urządzenia, uzgadniamy wymagania z wykonawcami i uruchamiamy ustalony zakres.</p>
+          <p>Dobieramy też integracje: od wideodomofonu i alarmu po urządzenia IoT i automatykę ogrodu. Uzgadniamy wymagania z wykonawcami i uruchamiamy ustalony zakres.</p>
           <button type="button" className="homes-button" onClick={onOpenConsultation}>Omów instalację w swoim domu <ArrowRight size={20} aria-hidden="true" /></button>
         </div>
       </section>
@@ -91,6 +158,7 @@ export function HomesPage({ onOpenConsultation, initialHash }: HomesPageProps) {
       <nav className="homes-jump homes-width" aria-label="Na tej stronie">
         <span>Przejdź do</span>
         <a href={pageUrl('homes', 'mozliwosci')}>Funkcje domu <ArrowDown size={14} aria-hidden="true" /></a>
+        <a href={pageUrl('homes', 'integracje')}>Integracje i ogród <ArrowDown size={14} aria-hidden="true" /></a>
         <a href={pageUrl('homes', 'dlaczego-knx')}>Dlaczego KNX <ArrowDown size={14} aria-hidden="true" /></a>
         <a href={pageUrl('homes', 'etapy')}>Etapy współpracy <ArrowDown size={14} aria-hidden="true" /></a>
         <a href={pageUrl('homes', 'koszt')}>Koszt i przygotowanie <ArrowDown size={14} aria-hidden="true" /></a>
@@ -106,17 +174,19 @@ export function HomesPage({ onOpenConsultation, initialHash }: HomesPageProps) {
           <div><p className="homes-eyebrow">Funkcje, które wybierasz</p><h2 id="homes-functions-title">Co może obsługiwać<br />Twój dom?</h2></div>
           <p>Zaczynamy od konkretnych potrzeb. Przy każdej funkcji ustalamy sposób działania i wymagania dla instalacji.</p>
         </div>
-        <div className="homes-functions__head" aria-hidden="true"><span>Obszar</span><span>Co możesz uzyskać</span><span>Co ustalamy przed wykonaniem</span></div>
-        <div className="homes-functions__list">
-          {functions.map(({ title, icon: Icon, benefit, plan }) => (
-            <article className="homes-function" key={title}>
-              <h3><Icon size={30} strokeWidth={1.4} aria-hidden="true" />{title}</h3>
-              <div><span className="homes-function__label">Co możesz uzyskać</span><p>{benefit}</p></div>
-              <div className="homes-function__plan"><span className="homes-function__label">Co ustalamy przed wykonaniem</span><p>{plan}</p></div>
-            </article>
-          ))}
-        </div>
+        <FunctionRows items={functions} />
         <p className="homes-note">Zakres dobieramy do konkretnych urządzeń. Możliwość integracji sprawdzamy przed ich zakupem.</p>
+      </section>
+
+      <section id="integracje" className="homes-integrations" aria-labelledby="homes-integrations-title">
+        <div className="homes-width homes-section">
+          <div className="homes-section-heading">
+            <div><p className="homes-eyebrow">Dom, wejście i ogród</p><h2 id="homes-integrations-title">Co jeszcze możemy<br />połączyć z KNX?</h2></div>
+            <p>Łączymy KNX z wybranymi systemami IP i IoT. Ustalamy, co ma współpracować, gdzie będzie obsługiwane i jakie informacje zobaczysz w panelu lub aplikacji.</p>
+          </div>
+          <FunctionRows items={integrations} />
+          <p className="homes-note">Każdą integrację potwierdzamy dla konkretnego modelu: dostępne funkcje, potrzebny moduł lub serwer, działanie lokalne albo przez chmurę oraz ewentualne opłaty. Zakres obsługi w jednej aplikacji zależy od wybranych systemów.</p>
+        </div>
       </section>
 
       <section className="homes-scenes homes-width homes-section" aria-labelledby="homes-scenes-title">

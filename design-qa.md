@@ -264,3 +264,32 @@ TypeScript passed. Preview build generated 12 static pages. Existing eight site/
 Publication target: Janka only. No inquiry submitted; this preview intentionally cannot send data. No backend, shared component, production or physical KNX installation change.
 
 final result: passed
+
+# Homes integrations and garden content — 2026-10-28
+
+Request: extend the visible home-functions content with IoT, video intercoms, remote access, cameras, alarms, watering and mowing. Added eight integration areas in the same benefit/preparation row layout, directly below the original functions. Also added ventilation/air quality, energy/PV/EV charging, an integration shortcut and FAQs about existing devices and internet loss. New rows are visible without expanding accordions.
+
+## Technical content verification
+
+Primary documentation reviewed before writing original Polish copy:
+- IoT/Matter bridging and audio cloud dependency: https://www.1home.io/iot-gateway
+- Video intercom, smartphone operation and IP-camera connection: https://www.gira.com/en/en/products/door-communication/?d=1
+- KNX visualization, cameras and remote S1/VPN access: https://www.apps.gira.de/systeme/smart-home/x1.html
+- Alarm integration through a dedicated module: https://www.satel.pl/produkty/sswin/integra/konwertery-magistral-integra/int-knx-2/
+- KNX irrigation zones, schedules and soil sensors: https://www.elsner-elektronik.de/de/jardana.html
+- Mower connectivity/model restrictions and cloud API: https://www.home-assistant.io/integrations/husqvarna_automower
+- Available mower actions: https://www.home-assistant.io/integrations/lawn_mower
+- KNX connection through an integration server: https://www.home-assistant.io/integrations/knx/
+- PV, measurement and charging integration: https://www.ise.de/en/products/smart-connect-series/e-charge-2
+- Ventilation sensors and compatible interfaces: https://www.knx.org/knx-en/Microsites/docs/brochure_en.pdf
+
+The page describes available project options, not universal model compatibility. It calls out modules/servers, supported signals and commands, network/user permissions, cloud dependencies and possible service fees. Camera viewing/events are distinguished from recording. Alarm protection remains a dedicated system. Mower commands depend on the model and connectivity; no hard safety interlock with irrigation is promised.
+
+## QA
+
+Evidence folder: C:/Users/Asdmin/Documents/ChatGPT/KNX/outputs/homes-integrations-20261028/.
+Desktop 1440x1000 and mobile 390x844 visually inspected. Widths 390 and 320 have no horizontal overflow. Eight integration headings present; matching icons, fonts, open rows and subtle surface change remain consistent with the selected design. #integracje shortcut works; #internet opens its matching FAQ. Existing CTA handler and legacy anchors retained.
+
+TypeScript passed; preview build produced 12 pages; eight existing content/F50 tests passed. Existing Vite native-loader deprecation warning unchanged. No backend/device-control changes and no form submitted. Target: Janka only.
+
+final result: passed

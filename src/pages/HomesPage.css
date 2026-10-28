@@ -37,6 +37,7 @@
 .homes-function__plan { color: var(--homes-muted); }
 .homes-function__label { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; }
 .homes-note { margin: 24px 0 0; padding-left: 18px; border-left: 2px solid var(--color-accent); color: var(--homes-muted); font-size: 13px; line-height: 1.7; max-width: 1000px; }
+.homes-integrations { background: #f1f2ec; border-block: 1px solid var(--homes-line); }
 .homes-scenes { border-top: 1px solid var(--homes-line); }
 .homes-scenes__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; }
 .homes-scene > img { display: block; width: 100%; aspect-ratio: 1.22; object-fit: cover; }
