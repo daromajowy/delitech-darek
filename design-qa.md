@@ -243,3 +243,24 @@ P3: raster reference and native font weight differ subtly; existing navigation/f
 Implementation checklist: assets complete; responsive layout checked; CTA/details/menu checked; legacy anchors retained; build/types/tests passed; publish Janka and verify live release.
 
 final result: passed
+
+# Homes substantive content expansion — 2026-10-28
+
+Approved direction: preserve the second daily-rhythm concept and implement the substantive Polish copy approved in chat. Research context: YAK (yaklse.pl) and KNX Polska (knxpoland.pl), reviewed before the copy proposal. Original copy; no competitor service, portfolio, showroom or reliability claims imported.
+
+## Delivered scope
+
+HomesPage.tsx and scoped HomesPage.css only. Existing five WebP images, global navigation/footer and inquiry handler retained. Added a concrete hero, section shortcuts, four function rows with benefits and installation decisions, detailed scenes, four qualified KNX reasons, control/finish selection, four cooperation stages with deliverables, five FAQs and final contact invitation. Legacy dom/apartament/koszt/modernizacja anchors retained; etapy now targets the actual process section.
+
+## Visual and functional checks
+
+Evidence: C:/Users/Asdmin/Documents/ChatGPT/KNX/outputs/homes-content-expansion-20261028/.
+Desktop 1440x1000, tablet 820x1000, mobile 390x844 and 320x800 checked in the in-app browser. No horizontal overflow. Full captures: desktop-final.png, tablet-820.png and mobile-390.png; overview sheets show the complete sequence. Warm ivory, navy and lime, existing fonts, open rows and the three scene photos preserve the chosen visual direction. Native sticky header appears at its current scroll position in full-page captures.
+
+Main content is visible without expanding accordions. Mobile function rows expose their benefit/preparation labels; desktop screen-reader labels remain accessible. Responsive heading spacing corrected. Both consultation buttons opened the household modal and close worked. Section shortcuts worked; #koszt opened the matching FAQ below the header. Native FAQ collapse and mobile menu worked. All five images loaded. No console errors or warnings.
+
+TypeScript passed. Preview build generated 12 static pages. Existing eight site/content and F50 tests passed. Final copy/CSS polish rebuilt successfully. Vite's existing future native-config warning remains unrelated.
+
+Publication target: Janka only. No inquiry submitted; this preview intentionally cannot send data. No backend, shared component, production or physical KNX installation change.
+
+final result: passed
