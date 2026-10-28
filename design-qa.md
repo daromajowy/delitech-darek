@@ -293,3 +293,22 @@ Desktop 1440x1000 and mobile 390x844 visually inspected. Widths 390 and 320 have
 TypeScript passed; preview build produced 12 pages; eight existing content/F50 tests passed. Existing Vite native-loader deprecation warning unchanged. No backend/device-control changes and no form submitted. Target: Janka only.
 
 final result: passed
+
+# Homes JUNG design gallery — 2026-10-29
+
+User requested real JUNG photos to demonstrate switch, KNX sensor, panel and video-intercom design and explicitly authorized their use. Added six manufacturer images with model labels, specific household uses, official source links and image credits. The gallery follows the hero; the three existing scene examples now immediately follow the gallery. Added Design/Scenes navigation shortcuts. Existing function and integration tables remain intact.
+
+## Sources and scope
+
+Original manufacturer WebP renditions are stored locally, without retouching; CSS uses responsive cropping. Exact download URLs, original descriptions, dimensions and authorization context are recorded in src/assets/images/homes-jung-sources.json. Six images add approximately 190 kB. Product facts were checked against official JUNG pages for LS 990 Les Couleurs Le Corbusier, metal finishes, F 40, LS TOUCH, Smart Control 5 and door communication. Each card links to its manufacturer page.
+
+Copy distinguishes design ranges from KNX functionality. Smart Control 5 requires an appropriate visualization server; Siedle intercom operation requires the relevant gateway. The photographed JUNG video station is explicitly described as an indoor station, used with a properly selected JUNG/Siedle system. Flush mounting requires advance preparation. Colour/material availability is confirmed for each selected device. Real manufacturer photos are credited separately from the existing labelled concept imagery.
+
+## Verification
+
+Evidence: C:/Users/Asdmin/Documents/ChatGPT/KNX/outputs/homes-jung-design-20261028/.
+Visually checked 1440px desktop, 820px tablet, 390px mobile and DOM overflow at 320px: no horizontal overflow. Gallery responds in three, two and one columns. All six manufacturer images load. Links have descriptive accessible names, new-tab notices and visible focus styling. The Design navigation shortcut scrolls to the gallery. The source order places Scenes before Functions and Integrations. Browser console has no errors or warnings.
+
+TypeScript passed; preview build generated 12 pages; all eight existing site-content/F50 tests passed. Existing Vite native-config warning unchanged. Publication target Janka only; no backend or physical system changes.
+
+final result: passed

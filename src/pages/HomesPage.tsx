@@ -7,6 +7,12 @@ import morningImage from '../assets/images/homes-morning.webp';
 import leavingImage from '../assets/images/homes-leaving.webp';
 import eveningImage from '../assets/images/homes-evening-scene.webp';
 import contactImage from '../assets/images/homes-contact.webp';
+import jungColourImage from '../assets/images/homes-jung-colour.webp';
+import jungBrassImage from '../assets/images/homes-jung-f40-brass.webp';
+import jungFlushImage from '../assets/images/homes-jung-ls-zero.webp';
+import jungTouchImage from '../assets/images/homes-jung-ls-touch.webp';
+import jungPanelImage from '../assets/images/homes-jung-sc5.webp';
+import jungDoorImage from '../assets/images/homes-jung-intercom.webp';
 import './HomesPage.css';
 
 interface HomesPageProps {
@@ -109,6 +115,57 @@ const scenes = [
   { title: 'Dobry wieczór', text: 'Jedno naciśnięcie ustawia światło w salonie i zamyka wybrane osłony. Każdą z tych funkcji nadal możesz obsłużyć osobno.', image: eveningImage, alt: 'Wizualizacja jadalni z ciepłym światłem i widokiem na ogród o zmierzchu' },
 ];
 
+const controls = [
+  {
+    name: 'Kolor jako część wnętrza', model: 'JUNG LS 990 · Les Couleurs® Le Corbusier',
+    image: jungColourImage, width: 882, height: 662,
+    alt: 'Sensor JUNG F 40 w kolorze rouge clair na tle tkanin w odcieniach koralowych',
+    text: 'Paleta 63 kolorów pozwala dopasować osprzęt do ściany lub wyeksponować go jako detal. Łączniki, gniazda i wybrane sensory KNX mogą zachować wspólny wygląd.',
+    use: 'W sypialni: światło przy łóżku, zasłony i scena „Dobranoc” na dobranym sensorze KNX.',
+    source: 'https://www.jung-group.com/fr-FR/Produits/Gammes-d-interrupteurs/LS-990-Les-Couleurs-Le-Corbusier/',
+  },
+  {
+    name: 'Metal, który czuć pod palcem', model: 'JUNG F 40 · sensory przyciskowe KNX',
+    image: jungBrassImage, width: 1582, height: 1582,
+    alt: 'Zbliżenie metalowego sensora przyciskowego JUNG F 40 w mosiężnym wykończeniu',
+    text: 'Mosiądz, stal, aluminium i inne wykończenia dobieramy do klamek, opraw oraz materiałów we wnętrzu. Duże klawisze obsługują światło, rolety i zaprogramowane sceny.',
+    use: 'Przy kanapie: osobny klawisz do czytania, przyciemnienia światła lub sceny „Film”.',
+    source: 'https://www.jung-group.com/en-UK/Products/Systems/KNX-building-technology/KNX-F-40-push-button/',
+  },
+  {
+    name: 'Zlicowany ze ścianą', model: 'JUNG LS ZERO · osprzęt w jednej płaszczyźnie',
+    image: jungFlushImage, width: 1309, height: 561,
+    alt: 'Grafitowy sensor JUNG F 40 w serii LS ZERO zlicowany z ciemną ścianą',
+    text: 'Ramka może licować z powierzchnią ściany lub zabudowy. Taki detal planujemy przed wykończeniem: wymaga odpowiedniego zestawu montażowego i przygotowania podłoża.',
+    use: 'Przy wyjściu: dyskretny przycisk sceny „Wychodzę” zamiast szeregu osobnych łączników.',
+    source: 'https://www.jung-group.com/en-UK/Products/Systems/KNX-building-technology/KNX-F-40-push-button/',
+  },
+  {
+    name: 'Cały pokój pod ręką', model: 'JUNG LS TOUCH · regulator pokojowy KNX',
+    image: jungTouchImage, width: 662, height: 662,
+    alt: 'Panel dotykowy JUNG LS TOUCH w mosiężnej ramce z widokiem temperatury i sterowania żaluzją',
+    text: 'Kompaktowy ekran w stylistyce LS 990 łączy obsługę światła, osłon, temperatury i scen. Kolor lub metalową ramkę dobieramy do pozostałego osprzętu.',
+    use: 'W salonie lub sypialni: wybór sceny, zmiana temperatury i sprawdzenie ustawień pokoju.',
+    source: 'https://www.jung-group.com/en-UK/Products/Systems/KNX-building-technology/LS-TOUCH/',
+  },
+  {
+    name: 'Wspólny panel domu', model: 'JUNG Smart Control 5 · panel dotykowy',
+    image: jungPanelImage, width: 1582, height: 1582,
+    alt: 'Obsługa pionowego panelu dotykowego JUNG Smart Control 5 na jasnej ścianie',
+    text: 'Ekran do obsługi pomieszczeń i podglądu wybranych funkcji. Do KNX dobieramy serwer wizualizacji; obsługa domofonu Siedle wymaga odpowiedniej bramki.',
+    use: 'W centralnym miejscu: sprawdzenie świateł, osłon i temperatur bez chodzenia po pokojach.',
+    source: 'https://www.jung-group.com/en-ASIA/Products/Solutions/Display-devices/Smart-Control-5/',
+  },
+  {
+    name: 'Wideodomofon w tym samym stylu', model: 'JUNG · wewnętrzna stacja wideo',
+    image: jungDoorImage, width: 1309, height: 561,
+    alt: 'Wewnętrzna stacja wideodomofonu JUNG w drewnianej zabudowie, obok wejścia do salonu',
+    text: 'Stacja wewnętrzna może pasować do ramek i łączników w domu. Zapewnia obraz, rozmowę i otwieranie wejścia w odpowiednio dobranym systemie JUNG / Siedle.',
+    use: 'Przy wejściu lub w kuchni: widzisz gościa i otwierasz furtkę. Integrację ze scenami ustalamy osobno.',
+    source: 'https://www.jung-group.com/nl-NL/Producten/Oplossingen/Deurcommunicatie/',
+  },
+];
+
 const reasons = [
   { title: 'Wybór urządzeń różnych marek', text: 'KNX jest wspólnym standardem wielu producentów. Dobieramy zgodne urządzenia według funkcji, wyglądu i budżetu oraz sprawdzamy ich współpracę.' },
   { title: 'Przycisk do codziennej obsługi', text: 'Światło, osłony czy scenę możesz uruchomić przyciskiem na ścianie. Aplikacja i panel mogą uzupełniać obsługę tam, gdzie są potrzebne.' },
@@ -157,6 +214,8 @@ export function HomesPage({ onOpenConsultation, initialHash }: HomesPageProps) {
 
       <nav className="homes-jump homes-width" aria-label="Na tej stronie">
         <span>Przejdź do</span>
+        <a href={pageUrl('homes', 'osprzet')}>Design i obsługa <ArrowDown size={14} aria-hidden="true" /></a>
+        <a href={pageUrl('homes', 'sceny')}>Sceny na co dzień <ArrowDown size={14} aria-hidden="true" /></a>
         <a href={pageUrl('homes', 'mozliwosci')}>Funkcje domu <ArrowDown size={14} aria-hidden="true" /></a>
         <a href={pageUrl('homes', 'integracje')}>Integracje i ogród <ArrowDown size={14} aria-hidden="true" /></a>
         <a href={pageUrl('homes', 'dlaczego-knx')}>Dlaczego KNX <ArrowDown size={14} aria-hidden="true" /></a>
@@ -168,6 +227,47 @@ export function HomesPage({ onOpenConsultation, initialHash }: HomesPageProps) {
         <img src={heroImage} alt="Wizualizacja salonu o zmierzchu: ciepłe oświetlenie, wygodna sofa i otwarcie na ogród" width={1942} height={809} fetchPriority="high" />
         <figcaption><span>Twój dom. Twój rytm dnia.</span><span>Wizualizacja koncepcyjna</span></figcaption>
       </figure>
+
+      <section id="osprzet" className="homes-design homes-width homes-section" aria-labelledby="homes-design-title">
+        <div className="homes-section-heading">
+          <div><p className="homes-eyebrow">Design i obsługa · przykłady JUNG</p><h2 id="homes-design-title">Osprzęt dopasowany<br />do Twojego wnętrza.</h2></div>
+          <p>Łącznik, sensor przyciskowy, panel czy wideodomofon — każdy może być częścią projektu wnętrza. Dobieramy wygląd i funkcje do miejsca: inaczej przy łóżku, inaczej przy wejściu.</p>
+        </div>
+        <div className="homes-design__grid">
+          {controls.map((control, index) => (
+            <article className={`homes-design-card homes-design-card--${index + 1}`} key={control.name}>
+              <figure><img src={control.image} alt={control.alt} width={control.width} height={control.height} loading="lazy" decoding="async" /></figure>
+              <p className="homes-design-card__model">{control.model}</p>
+              <h3>{control.name}</h3>
+              <p className="homes-design-card__text">{control.text}</p>
+              <p className="homes-design-card__use"><span>W Twoim domu</span>{control.use}</p>
+              <a href={control.source} target="_blank" rel="noreferrer" className="homes-text-link" aria-label={`Zobacz u producenta: ${control.model} (nowa karta)`}>Zobacz u producenta <ArrowRight size={16} aria-hidden="true" /></a>
+            </article>
+          ))}
+        </div>
+        <div className="homes-design__planning">
+          <div><h3>Najpierw funkcja i miejsce.<br />Potem seria i wykończenie.</h3><p>Uzgadniamy wysokość montażu, liczbę klawiszy, opisy i symbole. Sprawdzamy dostępność wybranego materiału dla każdego urządzenia oraz potrzebne puszki, przewody i moduły.</p></div>
+          <a className="homes-text-link" href={pageUrl('architects')}>Planujesz wnętrze z architektem? <ArrowRight size={18} aria-hidden="true" /></a>
+        </div>
+        <p className="homes-design__credits">Zdjęcia i materiały produktowe: JUNG / Albrecht JUNG GmbH &amp; Co. KG. Wnętrze ze stacją wideo: fot. Constantin Meyer. Przykłady producenta; funkcje i dostępność wykończeń potwierdzamy dla wybranych modeli.</p>
+      </section>
+
+      <section id="sceny" className="homes-scenes homes-width homes-section" aria-labelledby="homes-scenes-title">
+        <div className="homes-section-heading">
+          <div><p className="homes-eyebrow">Sceny w codziennym użyciu</p><h2 id="homes-scenes-title">Jedno polecenie.<br />Kilka ustalonych działań.</h2></div>
+          <p>Scena łączy wybrane funkcje domu. Ty decydujesz, co się wydarzy po naciśnięciu przycisku lub o określonej porze.</p>
+        </div>
+        <div className="homes-scenes__grid">
+          {scenes.map((scene, index) => (
+            <article className="homes-scene" key={scene.title}>
+              <img src={scene.image} alt={scene.alt} width={1322} height={1190} loading="lazy" decoding="async" />
+              <h3><span aria-hidden="true">0{index + 1}</span>{scene.title}</h3>
+              <p>{scene.text}</p>
+            </article>
+          ))}
+        </div>
+        <p className="homes-note">Przykłady scen — ich działanie ustalamy z domownikami. Zdjęcia są wizualizacjami koncepcyjnymi.</p>
+      </section>
 
       <section id="mozliwosci" className="homes-functions homes-width homes-section" aria-labelledby="homes-functions-title">
         <div className="homes-section-heading">
@@ -189,23 +289,6 @@ export function HomesPage({ onOpenConsultation, initialHash }: HomesPageProps) {
         </div>
       </section>
 
-      <section className="homes-scenes homes-width homes-section" aria-labelledby="homes-scenes-title">
-        <div className="homes-section-heading">
-          <div><p className="homes-eyebrow">Sceny w codziennym użyciu</p><h2 id="homes-scenes-title">Jedno polecenie.<br />Kilka ustalonych działań.</h2></div>
-          <p>Scena łączy wybrane funkcje domu. Ty decydujesz, co się wydarzy po naciśnięciu przycisku lub o określonej porze.</p>
-        </div>
-        <div className="homes-scenes__grid">
-          {scenes.map((scene, index) => (
-            <article className="homes-scene" key={scene.title}>
-              <img src={scene.image} alt={scene.alt} width={1322} height={1190} loading="lazy" decoding="async" />
-              <h3><span aria-hidden="true">0{index + 1}</span>{scene.title}</h3>
-              <p>{scene.text}</p>
-            </article>
-          ))}
-        </div>
-        <p className="homes-note">Przykłady scen — ich działanie ustalamy z domownikami. Zdjęcia są wizualizacjami koncepcyjnymi.</p>
-      </section>
-
       <section id="dlaczego-knx" className="homes-knx" aria-labelledby="homes-knx-title">
         <div className="homes-width homes-section homes-knx__layout">
           <div className="homes-knx__intro">
@@ -220,20 +303,6 @@ export function HomesPage({ onOpenConsultation, initialHash }: HomesPageProps) {
             ))}
           </div>
         </div>
-      </section>
-
-      <section className="homes-controls homes-width homes-section" aria-labelledby="homes-controls-title">
-        <div>
-          <p className="homes-eyebrow">Osprzęt i obsługa</p>
-          <h2 id="homes-controls-title">Przycisk dopasowany<br />do miejsca i wnętrza.</h2>
-          <p className="homes-controls__intro">Przy wejściu, łóżku i kanapie potrzebujesz innych funkcji. Uwzględniamy to przy planowaniu instalacji, zanim wybierzesz materiał i kolor osprzętu.</p>
-          <a className="homes-text-link" href={pageUrl('architects')}>Planujesz wnętrze z architektem? <ArrowRight size={18} aria-hidden="true" /></a>
-        </div>
-        <ol className="homes-controls__list">
-          <li><span className="homes-number" aria-hidden="true">01</span><div><h3>Miejsce</h3><p>Ustalamy położenie przycisków i funkcje potrzebne w każdym punkcie. Z architektem uzgadniamy rozmieszczenie, a z elektrykiem wymagania montażowe.</p></div></li>
-          <li><span className="homes-number" aria-hidden="true">02</span><div><h3>Sposób obsługi</h3><p>Dobieramy liczbę klawiszy, ich opisy i przypisane działania. Określamy, co uruchamia scenę, a co steruje pojedynczą lampą lub osłoną.</p></div></li>
-          <li><span className="homes-number" aria-hidden="true">03</span><div><h3>Wykończenie</h3><p>Dobieramy serię, materiał i kolor do wnętrza. Sprawdzamy, czy wybrany osprzęt zapewnia potrzebne funkcje i pasuje do założeń montażowych.</p></div></li>
-        </ol>
       </section>
 
       <section id="etapy" className="homes-process" aria-labelledby="homes-process-title">
