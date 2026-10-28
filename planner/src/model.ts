@@ -150,26 +150,64 @@ export const controls: Record<Category, string[]> = {
     "Do ustalenia",
   ],
 };
-export const sensors = [
+export interface Sensor {
+  name: string;
+  image: string;
+  keys: number;
+  finishes: string[];
+  deviceType: string;
+  description?: string;
+}
+export const sensors: Sensor[] = [
   {
     name: "JUNG F50",
+    deviceType: "Sensor KNX",
     image: "jung-f50.webp",
     keys: 4,
     finishes: ["Biały", "Czarny", "Aluminium", "Stal", "Mosiądz"],
   },
   {
     name: "JUNG F40",
+    deviceType: "Sensor KNX",
     image: "jung-f40.webp",
     keys: 4,
     finishes: ["Biały", "Czarny", "Aluminium", "Stal"],
   },
   {
     name: "JUNG LS TOUCH",
+    deviceType: "Panel dotykowy",
     image: "jung-ls-touch.png",
     keys: 6,
     finishes: ["Biały", "Czarny", "Aluminium", "Stal", "Mosiądz"],
   },
+  {
+    name: "Ekinex FF · bez ramki (NF)",
+    deviceType: "Sensor KNX",
+    image: "ekinex-ff-nf.png",
+    keys: 4,
+    finishes: ["Biały", "Czarny", "Aluminium", "Mosiądz"],
+    description: "Seria FF w wersji NF (No Frame), bez ramki. Układ klawiszy i materiał do uzgodnienia; zdjęcie referencyjne przedstawia wariant z dwoma pionowymi klawiszami.",
+  },
+  {
+    name: "JUNG Smart Control 5″",
+    deviceType: "Panel dotykowy",
+    image: "jung-smart-control-5.webp",
+    keys: 6,
+    finishes: ["Czarny"],
+    description: "Panel dotykowy 5″ · SC 5 SW. Wizualizacja KNX wymaga serwera Smart Visu lub Visu Pro. Montaż pionowy; zasilanie PoE lub 24 V DC.",
+  },
 ];
+export function selectSensor(point: Point, name: string): void {
+  point.sensor = name;
+  const sensor = sensors.find(s => s.name === name);
+  if (sensor) {
+    point.deviceType = sensor.deviceType;
+    if (!sensor.finishes.includes(point.finish)) point.finish = sensor.finishes[0];
+    // A previous custom model must not override the selected catalogue device in the brief.
+    delete point.model;
+  }
+  delete point.photoId;
+}
 export const finishes: Record<string, string> = {
   Biały: "#fafafa",
   Czarny: "#25292a",
@@ -438,7 +476,7 @@ export function normalizeProject(source: Project): Project {
   p.points.forEach(pt => {
     if (!pt.code || !/^P\d{2,}$/.test(pt.code) || seen.has(pt.code)) pt.code = `P${String(next++).padStart(2, "0")}`;
     seen.add(pt.code);
-    pt.deviceType ??= pt.sensor === "JUNG LS TOUCH" ? "Panel dotykowy" : "Sensor KNX";
+    pt.deviceType ??= sensors.find(s => s.name === pt.sensor)?.deviceType ?? "Sensor KNX";
   });
   p.nextPointNumber = next;
   return p;

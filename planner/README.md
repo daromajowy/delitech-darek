@@ -36,4 +36,9 @@ Kod publikujemy przez PR do `main`. Automat buduje statyczną stronę i konfigur
 
 ## Materiały
 
-Zdjęcia JUNG F40/F50/LS TOUCH są referencyjne; wybór koloru nie potwierdza dostępności konkretnego wykonania. Brief zbiera wymagania i nie jest projektem wykonawczym ani konfiguracją ETS. Fonty Noto Sans zawierają licencję SIL OFL, ikony pochodzą z Lucide. Biblioteki PDF/XLSX są ładowane na żądanie.
+Zdjęcia JUNG F40/F50/LS TOUCH, JUNG Smart Control 5 i Ekinex FF NF są referencyjne; wybór koloru nie potwierdza dostępności konkretnego wykonania. Brief zbiera wymagania i nie jest projektem wykonawczym ani konfiguracją ETS. Fonty Noto Sans zawierają licencję SIL OFL, ikony pochodzą z Lucide. Biblioteki PDF/XLSX są ładowane na żądanie.
+
+Źródła nowych modeli i zdjęć (28.10.2026):
+
+- [Ekinex FF z termostatem, wariant NF bez ramki](https://www.ekinex.com/en/15/pushbutton-with-thermostat.html?conf=1&v=3&m=101), [zdjęcie dwóch pionowych klawiszy](https://www.ekinex.com/media/pr/EK-TRV-GAR.png). Wykończenia są ogólnymi preferencjami; dokładny materiał, klawisze i kod urządzenia wymagają doboru.
+- [JUNG Smart Control 5, SC 5 SW, panel 5 cali](https://www.jung-group.com/en-DE/p/Smart-Control-5/SC-5-SW), [zdjęcie producenta](https://www.jung-group.com/downloads/catalogue/images/455x455_webp/JUNG_SC5SW.webp). KNX wymaga serwera Smart Visu lub Visu Pro; zasilanie PoE albo 24 V DC. Jest to Smart Control 5, nie starszy Smart Panel SP 5.1 KNX z ekranem 5,7 cala. Producent podaje planowaną datę wycofania SC 5 SW: 01.03.2027; dostępność trzeba potwierdzić przy doborze.

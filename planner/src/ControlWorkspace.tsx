@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { DndContext, DragOverlay, PointerSensor, useDraggable, useSensor, useSensors } from "@dnd-kit/core";
 import { Field, Icon, NumberInput, Select, Tool } from "./components";
-import { addControlPoint, deviceTypes, finishes, sensors, targets, uid, type Attachment, type Binding, type Point, type Project } from "./model";
+import { addControlPoint, deviceTypes, finishes, sensors, selectSensor, targets, uid, type Attachment, type Binding, type Point, type Project } from "./model";
 import { SensorKeys } from "./SensorPreview";
 import { ActionField } from "./ActionField";
 import { actionOptions } from "./behavior";
@@ -20,6 +20,7 @@ export function ControlWorkspace({ project, pointId, select, edit, upload, busy,
   upload: (file: File) => Promise<Attachment | undefined>; busy: boolean; goRooms: () => void;
 }) {
   const point = project.points.find(p => p.id === pointId) ?? project.points[0];
+  const sensor = sensors.find(s => s.name === point?.sensor);
   const [keyId, setKeyId] = useState(""), [dragId, setDragId] = useState("");
   const key = point?.bindings.find(b => b.id === keyId) ?? point?.bindings[0];
   const dragPoint = project.points.find(p => p.id === dragId);
@@ -47,7 +48,8 @@ export function ControlWorkspace({ project, pointId, select, edit, upload, busy,
             <Field label="Nazwa punktu"><input value={point.name} maxLength={150} onChange={e => update(p => { p.name = e.target.value; })}/></Field>
             <Field label="Pomieszczenie"><select value={point.roomId} onChange={e => update(p => { p.roomId = e.target.value; })}>{project.rooms.map(r => <option key={r.id} value={r.id}>{r.name}</option>)}</select></Field>
             <Field label="Rodzaj urządzenia"><Select value={point.deviceType ?? "Sensor KNX"} options={deviceTypes} onChange={v => update(p => { p.deviceType = v; })}/></Field>
-            <Field label="Sensor / seria"><Select value={point.sensor} options={[...sensors.map(s => s.name), "Inny sensor / panel"]} onChange={v => update(p => { p.sensor = v; if (v === "JUNG LS TOUCH") p.deviceType = "Panel dotykowy"; else if (sensors.some(s => s.name === v)) p.deviceType = "Sensor KNX"; const s = sensors.find(x => x.name === v); if (s && !s.finishes.includes(p.finish)) p.finish = s.finishes[0]; delete p.photoId; })}/></Field>
+            <Field label="Sensor / seria" wide><Select value={point.sensor} options={[...sensors.map(s => s.name), "Inny sensor / panel"]} onChange={v => update(p => selectSensor(p, v))}/></Field>
+            {sensor?.description && <div className="field wide"><p className="small muted">{sensor.description}</p></div>}
             {point.sensor === "Inny sensor / panel" && <Field label="Producent i model" wide><input value={point.model ?? ""} maxLength={250} onChange={e => update(p => { p.model = e.target.value; })}/></Field>}
             <Field label="Liczba klawiszy / pól"><select value={point.bindings.length} onChange={e => { const n = Number(e.target.value); if (n < point.bindings.length && !confirm("Zmniejszenie liczby pól usunie przypisania ostatnich klawiszy. Kontynuować?")) return; update(p => { p.bindings = Array.from({ length: n }, (_, i) => p.bindings[i] ?? { id: uid(), target: "", action: "Włącz / wyłącz" }); }); }}>{Array.from({ length: 24 }, (_, i) => <option key={i} value={i + 1}>{i + 1}</option>)}</select></Field>
             <Field label="Wysokość montażu (cm)"><NumberInput value={point.height} max={500} onChange={v => update(p => { p.height = v; })}/></Field>
