@@ -29,7 +29,8 @@ import {
 } from "./homeLighting";
 
 const temperatureText = (t) => t.toFixed(1).replace(".", ",");
-export function F50HomeDemo() {
+export function F50HomeDemo({ asHero = false }) {
+  const Heading = asHero ? 'h1' : 'h2';
   const feedback = useTransientFeedback();
   const [home, dispatchHome] = useReducer(lightingReducer, initialLighting);
   const [sceneFeedback, setSceneFeedback] = useState("cinema");
@@ -387,7 +388,7 @@ export function F50HomeDemo() {
               <span />
               CO MOŻE TWÓJ DOM
             </p>
-            <h2 id="f50-demo-title">Naciśnij. Dom odpowie.</h2>
+            <Heading id="f50-demo-title">Naciśnij. Dom odpowie.</Heading>
             <p className="intro">
               Światło, prywatność, ciepło i domowe kino.
               <br className="mobile-break" /> Zobacz, jak łatwo nimi sterować.

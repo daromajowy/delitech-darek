@@ -54,7 +54,7 @@ export const pages: Record<PageId, { path: string; title: string; description: s
     path: '/solutions/',
     title: 'Co może Twój dom? Funkcje smart home | InteliSpaces',
     description:
-      'Poznaj możliwości automatyki domowej: światło, rolety, temperatura, sceny, powiadomienia i integracje. Prosty opis zastosowań KNX w codziennym życiu.',
+      'Zobacz, jak funkcje KNX działają razem. Wypróbuj pokazowy dom, poznaj sceny Poranek, Kino i Dobranoc oraz możliwości integracji światła, klimatu, muzyki i energii.',
   },
   knowledge: {
     path: '/knowledge/',

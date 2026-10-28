@@ -1,23 +1,17 @@
 import React from 'react';
-import { F50HomeDemo } from '../components/F50HomeDemo/F50HomeDemo';
-import type { PageId } from '../types';
 import {
-  Sun,
-  Blinds,
-  Thermometer,
-  SlidersHorizontal,
-  Bell,
-  Music2,
-  ArrowRight,
+  ArrowUpRight, Blinds, CarFront, CirclePlay, DoorOpen, Fan, Lightbulb, Moon,
+  Music2, PanelsTopLeft, ShieldCheck, ShowerHead, Smartphone, Snowflake,
+  BatteryCharging, Sprout, Sun, Thermometer, type LucideIcon,
 } from 'lucide-react';
-import { pageUrl } from '../site';
-import { IMAGES } from '../assets';
-import light from '../assets/images/day-rhythm-relax.webp';
-import blinds from '../assets/images/smart-home-blinds.webp';
-import climate from '../assets/images/day-rhythm-morning.webp';
-import intercom from '../assets/images/smart-home-intercom.webp';
-import energy from '../assets/images/smart-home-energy.webp';
-import { ContentHero, ContactCta, FeatureList, contentWidth } from '../components/ContentSections';
+import type { PageId } from '../types';
+import { F50HomeDemo } from '../components/F50HomeDemo/F50HomeDemo';
+import cinema from '../assets/images/solutions-scene-cinema.webp';
+import morning from '../assets/images/solutions-scene-morning.webp';
+import leaving from '../assets/images/solutions-scene-leaving.webp';
+import returning from '../assets/images/solutions-scene-return.webp';
+import night from '../assets/images/solutions-scene-night.webp';
+import './SolutionsPage.css';
 
 interface SolutionsPageProps {
   onNavigate: (page: PageId, hash?: string) => void;
@@ -25,169 +19,170 @@ interface SolutionsPageProps {
   initialHash?: string;
 }
 
-const capabilities = [
+interface SceneEffect {
+  icon: LucideIcon;
+  text: string;
+}
+
+const cinemaEffects: SceneEffect[] = [
+  { icon: Lightbulb, text: 'Światło przygasa' },
+  { icon: Blinds, text: 'Zasłony się zamykają' },
+  { icon: CirclePlay, text: 'Kino startuje' },
+];
+
+const scenes = [
   {
-    id: 'dali',
-    title: 'Światło na każdą chwilę',
-    icon: Sun,
-    image: light,
-    alt: 'Wieczorne oświetlenie salonu',
-    lead: 'Jasno do pracy przy blacie, spokojnie do kolacji i delikatnie w nocy.',
-    items: [
-      'Włączanie i ściemnianie wybranych lamp.',
-      'Sceny obejmujące kilka obwodów jednocześnie.',
-      'Sterowanie przyciskiem, czujnikiem lub harmonogramem.',
+    title: 'Poranek',
+    image: morning,
+    alt: 'Jasna sypialnia z odsłoniętym oknem i łazienką w głębi — wizualizacja',
+    lead: 'Dom spokojnie zaczyna dzień.',
+    effects: [
+      { icon: Blinds, text: 'Rolety w górę' },
+      { icon: Sun, text: 'Delikatne światło' },
+      { icon: ShowerHead, text: 'Komfort w łazience' },
     ],
-    condition:
-      'Sposób ściemniania i ewentualną zmianę barwy dobieramy do opraw oraz ich zasilaczy. DALI jest jednym z możliwych rozwiązań.',
   },
   {
-    id: 'fasady',
-    title: 'Rolety, żaluzje i zasłony',
-    icon: Blinds,
-    image: blinds,
-    alt: 'Zasłony i duże przeszklenia w salonie',
-    lead: 'Odsłaniasz widok rano i dbasz o prywatność wieczorem.',
-    items: [
-      'Sterowanie pojedynczym oknem lub grupą osłon.',
-      'Ustawienia dopasowane do pory dnia i nasłonecznienia.',
-      'Wspólna scena światła oraz zasłon.',
+    title: 'Wyjście',
+    image: leaving,
+    alt: 'Strefa wejścia z drzwiami i przyciskiem na ścianie — wizualizacja',
+    lead: 'Jedno naciśnięcie przed zamknięciem drzwi.',
+    effects: [
+      { icon: Lightbulb, text: 'Wybrane światła gasną' },
+      { icon: ShieldCheck, text: 'Tryb nieobecności' },
+      { icon: PanelsTopLeft, text: 'Informacja o oknach' },
     ],
-    condition:
-      'Automatykę pogodową i priorytety ochronne ustalamy według wymagań producenta osłon, napędów i czujników.',
   },
   {
-    id: 'hvac',
-    title: 'Temperatura i świeże powietrze',
-    icon: Thermometer,
-    image: climate,
-    alt: 'Jasne wnętrze domu o poranku',
-    lead: 'W sypialni chłodniej, w łazience cieplej. Ustawienia dopasowane do pomieszczenia.',
-    items: [
-      'Osobne nastawy w wybranych strefach ogrzewania.',
-      'Uzgodniona współpraca ogrzewania i klimatyzacji.',
-      'Sterowanie wentylacją według dostępnych trybów i pomiarów.',
+    title: 'Powrót',
+    image: returning,
+    alt: 'Przytulne wejście i salon oświetlony na powrót domowników — wizualizacja',
+    lead: 'Przygotuj dom na swój powrót.',
+    effects: [
+      { icon: Lightbulb, text: 'Światło przy wejściu' },
+      { icon: Thermometer, text: 'Ustalone temperatury' },
+      { icon: Music2, text: 'Wybrana muzyka' },
     ],
-    condition:
-      'Sprawdzamy modele urządzeń i dostępne interfejsy wspólnie z wykonawcą ogrzewania, klimatyzacji lub wentylacji.',
   },
   {
-    id: 'sceny',
-    title: 'Przyciski, panele i sceny',
-    icon: SlidersHorizontal,
-    image: IMAGES.knxSwitchHardware,
-    alt: 'Przykładowy przycisk do sterowania funkcjami pomieszczenia',
-    lead: 'Jeden zrozumiały sposób obsługi dla domowników i gości.',
-    items: [
-      'Funkcje klawiszy ustalone dla każdego miejsca w domu.',
-      'Sceny „Wyjście”, „Kolacja” czy „Dobranoc”.',
-      'Panel lub aplikacja jako uzupełnienie przycisków.',
+    title: 'Dobranoc',
+    image: night,
+    alt: 'Przyciemniona sypialnia z niskim światłem prowadzącym do łazienki — wizualizacja',
+    lead: 'Dom zwalnia razem z Tobą.',
+    effects: [
+      { icon: Lightbulb, text: 'Światła gasną' },
+      { icon: Blinds, text: 'Rolety w dół' },
+      { icon: Moon, text: 'Nocna droga do łazienki' },
     ],
-    condition:
-      'Wygląd, liczbę klawiszy i opisy wybieramy razem z Tobą i architektem. Obsługa zdalna zależy od wybranego systemu.',
-  },
-  {
-    id: 'bezpieczenstwo',
-    title: 'Powiadomienia i reakcje domu',
-    icon: Bell,
-    image: intercom,
-    alt: 'Przykładowa strefa wejścia z domofonem',
-    lead: 'Wiesz o zdarzeniach, które wymagają Twojej uwagi.',
-    items: [
-      'Informacja o otwartym oknie lub wykryciu wody.',
-      'Uzgodniona reakcja światła na sygnał z alarmu.',
-      'Domofon i podgląd wejścia na zgodnym panelu.',
-    ],
-    condition:
-      'Zakres zależy od czujników, centrali alarmowej i interfejsów. Automatyka uzupełnia dedykowane systemy ochrony; reakcje ustalamy z ich wykonawcą.',
-  },
-  {
-    id: 'integracje',
-    title: 'Muzyka, energia i inne urządzenia',
-    icon: Music2,
-    image: energy,
-    alt: 'Przykładowy dom z instalacją fotowoltaiczną i ładowaniem samochodu',
-    lead: 'Łączymy te elementy, które mają sens w Twoim domu.',
-    items: [
-      'Muzyka w wybranych pokojach i scenach.',
-      'Podgląd zużycia energii z odpowiednich liczników.',
-      'Współpraca z fotowoltaiką lub ładowarką, jeśli urządzenia ją umożliwiają.',
-    ],
-    condition:
-      'Każde połączenie sprawdzamy dla konkretnego modelu, oprogramowania i dostępnej komunikacji.',
   },
 ];
 
+const integrations = [
+  { id: 'dali', icon: Lightbulb, title: 'Oświetlenie', text: 'Lampy, ściemnianie i grupy światła.' },
+  { id: 'fasady', icon: Blinds, title: 'Rolety i zasłony', text: 'Prywatność i kontrola słońca.' },
+  { id: 'hvac', icon: Thermometer, title: 'Ogrzewanie', text: 'Temperatura dla każdego pokoju.' },
+  { id: 'klimatyzacja', icon: Snowflake, title: 'Klimatyzacja', text: 'Chłodzenie dopasowane do potrzeb.' },
+  { id: 'wentylacja', icon: Fan, title: 'Wentylacja', text: 'Tryby pracy i pomiary powietrza.' },
+  { id: 'multimedia', icon: Music2, title: 'Muzyka i kino', text: 'Dźwięk i obraz w domowych scenach.' },
+  { id: 'wejscie', icon: DoorOpen, title: 'Domofon i brama', text: 'Wygodna obsługa wejścia.' },
+  { id: 'bezpieczenstwo', icon: ShieldCheck, title: 'Alarm i czujniki', text: 'Sygnały z okien i czujników wody.' },
+  { id: 'ogrod', icon: Sprout, title: 'Ogród i podlewanie', text: 'Światło na zewnątrz i nawadnianie.' },
+  { id: 'energia', icon: BatteryCharging, title: 'Fotowoltaika i magazyn', text: 'Informacje o energii w domu.' },
+  { id: 'ladowanie', icon: CarFront, title: 'Ładowanie samochodu', text: 'Współpraca ze zgodną ładowarką.' },
+  { id: 'obsluga', icon: Smartphone, title: 'Panel, aplikacja i głos', text: 'Sposób obsługi dobrany do Ciebie.' },
+];
+
+function SceneEffects({ items, className = '' }: { items: SceneEffect[]; className?: string }) {
+  return (
+    <ul className={`solutions-effects ${className}`}>
+      {items.map(({ icon: Icon, text }) => (
+        <li key={text}>
+          <Icon size={31} strokeWidth={1.5} aria-hidden="true" />
+          <span>{text}</span>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 export function SolutionsPage({ onOpenConsultation }: SolutionsPageProps) {
   return (
-    <>
-      <ContentHero eyebrow="Możliwości inteligentnego domu" title="Co może Twój dom?">
-        <p>
-          Wybierz funkcje, które ułatwią Ci codzienność. Pokażemy, jak je połączyć w instalacji KNX
-          i co będzie potrzebne do ich działania.
-        </p>
-      </ContentHero>
-      <F50HomeDemo />
-      <section className="py-14 sm:py-20 bg-white">
-        <div className={contentWidth}>
-          <div className="grid md:grid-cols-2 gap-7 lg:gap-9">
-            {capabilities.map(({ id, title, icon: Icon, image, alt, lead, items, condition }) => (
-              <article
-                id={id}
-                key={id}
-                className="rounded-2xl overflow-hidden border border-ink/15 bg-surface flex flex-col"
-              >
-                <img
-                  src={image}
-                  alt={alt}
-                  width={900}
-                  height={560}
-                  loading="lazy"
-                  className="w-full aspect-[16/9] object-cover"
-                />
-                <div className="p-6 sm:p-8 flex flex-col flex-grow">
-                  <div className="flex items-start gap-3">
-                    <Icon className="shrink-0 mt-1" size={23} aria-hidden="true" />
-                    <h2 className="text-2xl font-bold font-display">{title}</h2>
-                  </div>
-                  <p className="text-ink/80 my-5">{lead}</p>
-                  <FeatureList items={items} />
-                  <p
-                    id={id === 'integracje' ? 'energia' : undefined}
-                    className="text-sm text-ink/70 border-t border-ink/15 pt-5 mt-6"
-                  >
-                    {condition}
-                  </p>
-                </div>
-              </article>
-            ))}
+    <div className="solutions-page">
+      <F50HomeDemo asHero />
+
+      <section className="solutions-cinema" aria-labelledby="solutions-together-title">
+        <div className="solutions-container solutions-cinema__intro">
+          <h2 id="solutions-together-title">Najwięcej daje to, co działa razem.</h2>
+          <p>Światło, klimat i urządzenia dopasowane do Twoich codziennych sytuacji.</p>
+        </div>
+        <div className="solutions-cinema__image">
+          <img
+            src={cinema}
+            alt="Wieczór filmowy w salonie: przygaszone światło, zamknięte zasłony i włączony telewizor — wizualizacja"
+            width={2216}
+            height={709}
+            loading="lazy"
+          />
+          <div className="solutions-container solutions-cinema__caption">
+            <h3>Jeden przycisk.<br />Wieczór gotowy.</h3>
           </div>
-          <p className="text-xs text-ink/65 mt-5">
-            Ilustracje przedstawiają przykładowe rozwiązania i aranżacje.
-          </p>
-          <div className="mt-12 flex flex-wrap gap-6 text-sm font-semibold">
-            <a
-              href={pageUrl('homes', 'etapy')}
-              className="inline-flex items-center gap-2 underline underline-offset-4"
-            >
-              Jak powstaje instalacja <ArrowRight size={17} />
-            </a>
-            <a
-              href={pageUrl('knx')}
-              className="inline-flex items-center gap-2 underline underline-offset-4"
-            >
-              KNX prostym językiem <ArrowRight size={17} />
-            </a>
-            <a
-              href={pageUrl('projects')}
-              className="inline-flex items-center gap-2 underline underline-offset-4"
-            >
-              Przykłady do domu i apartamentu <ArrowRight size={17} />
-            </a>
+        </div>
+        <div className="solutions-cinema__reactions">
+          <div className="solutions-container">
+            <p>Scena „Kino”</p>
+            <SceneEffects items={cinemaEffects} />
           </div>
         </div>
       </section>
-      <ContactCta onClick={onOpenConsultation} />
-    </>
+
+      <section className="solutions-scenes solutions-container" id="sceny" aria-labelledby="solutions-scenes-title">
+        <div className="solutions-section-intro">
+          <h2 id="solutions-scenes-title">Przykładowe sceny. Twój własny rytm.</h2>
+          <p>Jedno polecenie uruchamia kilka ustalonych działań.</p>
+        </div>
+        <div className="solutions-scenes__grid">
+          {scenes.map(({ title, image, alt, lead, effects }) => (
+            <article className="solutions-scene" key={title}>
+              <img src={image} alt={alt} width={2025} height={779} loading="lazy" />
+              <h3>{title}</h3>
+              <p>{lead}</p>
+              <SceneEffects items={effects} />
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="solutions-integrations" id="integracje" aria-labelledby="solutions-integrations-title">
+        <div className="solutions-container">
+          <div className="solutions-section-intro">
+            <h2 id="solutions-integrations-title">Co jeszcze możemy połączyć?</h2>
+            <p>Wybierasz to, co ma sens w Twoim domu.</p>
+          </div>
+          <ul className="solutions-integrations__grid">
+            {integrations.map(({ id, icon: Icon, title, text }) => (
+              <li key={id} id={id}>
+                <Icon size={36} strokeWidth={1.5} aria-hidden="true" />
+                <div><h3>{title}</h3><p>{text}</p></div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section className="solutions-cta" aria-labelledby="solutions-cta-title">
+        <div className="solutions-container">
+          <div className="solutions-cta__action">
+            <h2 id="solutions-cta-title">Zaplanujmy możliwości Twojego domu.</h2>
+            <button type="button" onClick={onOpenConsultation}>
+              Omów projekt <ArrowUpRight size={20} aria-hidden="true" />
+            </button>
+          </div>
+          <div className="solutions-cta__notes">
+            <p>Sceny są przykładami. Zakres integracji sprawdzamy dla konkretnych urządzeń i instalacji.</p>
+            <p>Wizualizacje koncepcyjne</p>
+          </div>
+        </div>
+      </section>
+    </div>
   );
 }

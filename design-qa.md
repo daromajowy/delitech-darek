@@ -1,3 +1,57 @@
+# Solutions page — expanded option 3, Janka
+
+Date: 2026-10-29. Selected direction: devices working together, with more integrations and example scenes.
+
+## Scope and source
+
+Visual truth: C:/Users/Asdmin/Documents/ChatGPT/KNX/outputs/solutions-rozbudowa-20261029/selected-expanded.png (839 × 1875 pixels).
+The user selected option 3 from the three concepts and requested more integrations and example scenes. The expanded mock was displayed before implementation.
+
+Implementation: http://127.0.0.1:3081/delitech-darek/Janka/solutions/.
+Evidence directory: C:/Users/Asdmin/Documents/ChatGPT/KNX/outputs/solutions-rozbudowa-20261029/.
+
+The working F50/house demo is the hero. A separate generic page banner was removed; the hero now has the page's single h1. Below it are a full-width cinema story, four supporting scene entries, twelve integration entries and a consultation CTA.
+
+## Comparison and iteration
+
+- Desktop: 1440 × 1000 CSS px, devicePixelRatio 1, content screenshot 1425 × 4223 px (15 px scrollbar excluded).
+- Source is a generated composition at 839 px wide, not a browser capture. For paired comparison the browser content was scaled uniformly to 839 px width, without stretching its height. Footer was excluded from the paired full-view comparison.
+- comparison-first.png: first complete side-by-side comparison. P2: supporting text and icons were too small relative to the reference.
+- Fix: section headings increased from 40 to 46 px maximum, leads from 20 to 22 px, scene headings from 24 to 27 px, supporting text from 13/14 to 15/16 px and icons from 31/36 to 38/42 px. Hero spacing was compacted while retaining controls and feedback.
+- desktop-final.png and comparison-final.png: final rendered page and normalized full-view pair.
+- comparison-cinema.png, comparison-scenes.png and comparison-integrations.png: same-width focused pairs reviewed for imagery, text, spacing, icons and color.
+- mobile-390.png, mobile-320.png and mobile-hero.png: narrow layouts. responsive.json records 1024, 768, 390 and 320 px checks; desktop-geometry.json records desktop section dimensions.
+
+Intentional differences from the concept: the existing house uses its original 1448:1086 geometry, not the wider image-generator reinterpretation. Its live status, blind instructions, reset, configurator CTA and disclaimer are retained, so the functional hero is taller. Existing site navigation, preview strip and footer remain. The page follows the site's Manrope / Plus Jakarta Sans typography and 1216 px content width. Lucide icons use the existing installed library; the energy entry uses a charging battery to represent storage. Newly generated photos follow the composition, not exact pixel identity.
+
+## Required fidelity surfaces
+
+- Fonts: existing Manrope display and Plus Jakarta Sans body families, bold navy headings, readable 15–17 px desktop supporting copy. Responsive wrapping inspected at 390 and 320 px; no clipped words or overlapping labels.
+- Spacing: wide cinema banner; two-column, unboxed scene grid; four-column integration grid on desktop, two on tablet/mobile. Scenes stack on mobile. Faint separators and compact CTA match the selected structure.
+- Colors: navy #182C3D, white, warm off-white #F7F8F5 and lime #9FBF36. White text on photography has a controlled dark overlay.
+- Images: five new WebP visualizations, approximately 1 MB total, loaded lazily with reserved dimensions. All loaded in the browser. Subjects, aspect ratios and crops inspected. No screenshot fragments, CSS drawings or hand-drawn asset replacements.
+- Content: five example scenes including the featured Kino; twelve integrations; plain Polish. Illustrations are marked conceptual and integration scope is qualified against specific equipment. No invented client projects, savings figures, universal compatibility, portraits or personal phone numbers.
+
+## Functional verification
+
+- Existing F50 tests: salon/kitchen isolation, cinema, ALL OFF, repeated ALL OFF, reset and manual lighting behavior passed.
+- Browser: cinema dims the ground-floor zones and starts TV; ALL OFF extinguishes the house, a second click restores full lighting; independent salon/kitchen toggles work; temperature changes to 21.5; a short blind click moves to 15%; reset returns to baseline after animation.
+- The existing demonstration's cinema controls and the example scene narrative retain their respective scopes; no control logic was changed.
+- Omów projekt opens the existing house consultation modal. No form was submitted. The branch preview continues to block inquiry submission.
+- One h1; four supporting scene articles plus the featured cinema scene; twelve integration items.
+- Legacy anchors dali, fasady, hvac, sceny, bezpieczenstwo, integracje and energia each exist once. Direct #sceny navigation verified.
+- No horizontal overflow at tested widths. No failed page images. Browser warnings/errors: none.
+- TypeScript, branch-prefix static build, all eight existing tests and git diff --check passed.
+
+Janka was first fast-forwarded to d85aac8 and then 8bb5200, retaining concurrent Homes gallery work. DESIGN.md was already modified and remains outside this change. Publication is limited to Janka.
+
+No actionable P0/P1/P2 findings remain. Browser UI checks verify the website demonstration, not a physical KNX installation.
+
+**final result: passed**
+
+---
+
+
 # Architects page — expanded cooperation content, Janka
 
 Date: 2026-10-28. The user requested richer architect-facing content inspired by YAK, then added KNX Poland as a substantive reference. The approved option 1 visual language is retained.
