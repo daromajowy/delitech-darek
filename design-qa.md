@@ -1,3 +1,35 @@
+# Navigation — selected Linia option, Janka
+
+Date: 2026-10-29. The user selected displayed option 1 and explicitly limited implementation to the area above the existing Hero.
+
+## Scope and visual evidence
+
+- Source: `C:/Users/Asdmin/Documents/ChatGPT/KNX/outputs/menu-architekci-20261029/01-linia.png` (1968 x 799 px). Only its first 166 px, containing the contact strip and navigation, are in scope. The generated hero is excluded.
+- Implementation and evidence directory: `C:/Users/Asdmin/Documents/ChatGPT/KNX/outputs/menu-linia-implementation-20261029/`.
+- Desktop: `desktop-first.png`, CSS viewport 1440 x 900, browser capture 1425 x 891 px. The existing preview banner is outside the comparison region. `comparison-first.png` combines the source header, normalized to 1425 x 120 px, and the implementation header crop (1425 x 121 px). Browser scrollbar/chrome and density differences are excluded from findings.
+- State: `/homes/`, active Domy i apartamenty, light theme, mobile menu closed. Full navigation and contact-strip comparison inspected together. No smaller crop was needed because all labels, logo, icons and spacing are legible in this focused comparison.
+- `homepage-final.png` records the unchanged homepage under the new header. `mobile-320-open.png`, `mobile-320-closed.png`, `mobile-390-open.png` and `responsive.json` record narrow layouts and breakpoint checks.
+
+## Findings and comparison history
+
+First visual comparison passed: the pale contact strip, white navigation row, supplied logo, navy configurator CTA, lime underline, fine separator and spacing follow the selected concept. The existing site font families and supplied vector logo are retained. Phone and envelope icons use the installed Lucide library; the source illustration's filled phone is represented by the existing outline style (minor P3 stylistic difference). No generated hero, new photography or page content was introduced.
+
+No actionable P0/P1/P2 findings or visual repair iterations were required. The mobile layout adapts the desktop reference: both contacts remain visible, and six links plus the configurator action expand below the logo row. No clipped text, overlapping controls or horizontal overflow at 1440, 1280, 1024, 768, 390 or 320 px.
+
+## Functional checks
+
+- Phone is `tel:+48505260715`; email is `mailto:kontakt@delitech.pl`. No call or message was sent.
+- Biura opens the existing `/offices/` landing page. Its ProAV link opens `/offices/proav/`; Biura stays indicated as the parent section using `aria-current=location`.
+- Navigation and logo preserve the Janka base path. The preview configurator points to `/delitech-darek/Janka/projektant-knx/`; production continues to use the configured KNX address.
+- The architects page keeps its existing `Poznaj konfigurator` invitation and valid `#pakiet` target.
+- Mobile opening, closing with Escape, focus return, navigation closure and automatic closure after resizing to desktop verified in the browser.
+- No browser console warnings/errors. TypeScript, static branch-prefix build, eight existing tests and `git diff --check` passed.
+- Source diff is limited to Navbar.tsx, Navbar.css and this report. No files under src/pages or src/assets changed. The pre-existing DESIGN.md edit is excluded.
+
+**final result: passed**
+
+---
+
 # Solutions page — expanded option 3, Janka
 
 Date: 2026-10-29. Selected direction: devices working together, with more integrations and example scenes.

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { ArrowUpRight, Menu, Phone, X } from 'lucide-react';
+import { ArrowUpRight, Mail, Menu, Phone, X } from 'lucide-react';
 import { pageUrl, plannerUrl } from '../site';
 import { Logo } from './Logo';
 import type { PageId } from '../types';
@@ -8,6 +8,7 @@ import './Navbar.css';
 const navigation: { page: PageId; label: string }[] = [
   { page: 'homes', label: 'Domy i apartamenty' },
   { page: 'solutions', label: 'Co może Twój dom' },
+  { page: 'offices', label: 'Biura' },
   { page: 'architects', label: 'Dla architektów' },
   { page: 'about', label: 'O nas' },
   { page: 'contact', label: 'Kontakt' },
@@ -17,7 +18,7 @@ export function Navbar({ currentPage }: { currentPage: PageId }) {
   const [open, setOpen] = useState(false);
   const header = useRef<HTMLElement>(null);
   const toggle = useRef<HTMLButtonElement>(null);
-  const activePage = currentPage === 'team' ? 'about' : currentPage;
+  const activePage = currentPage === 'team' ? 'about' : currentPage === 'proav' ? 'offices' : currentPage;
   const plannerHref = currentPage === 'architects' ? pageUrl('architects', 'pakiet') : plannerUrl();
   const plannerLabel = currentPage === 'architects' ? 'Poznaj konfigurator' : 'Konfigurator KNX';
 
@@ -53,7 +54,7 @@ export function Navbar({ currentPage }: { currentPage: PageId }) {
     <a
       key={page}
       href={pageUrl(page)}
-      aria-current={activePage === page ? 'page' : undefined}
+      aria-current={currentPage === page ? 'page' : activePage === page ? 'location' : undefined}
       onClick={() => setOpen(false)}
     >
       {label}
@@ -65,6 +66,21 @@ export function Navbar({ currentPage }: { currentPage: PageId }) {
       <a className="primary-header__skip" href="#main-content">
         Przejdź do treści
       </a>
+      <div className="primary-header__utility">
+        <div className="primary-header__utility-inner">
+          <p className="primary-header__intro">Inteligentne domy i apartamenty</p>
+          <nav className="primary-header__contact" aria-label="Szybki kontakt">
+            <a href="tel:+48505260715">
+              <Phone size={16} aria-hidden="true" />
+              <span>+48 505 260 715</span>
+            </a>
+            <a href="mailto:kontakt@delitech.pl">
+              <Mail size={17} aria-hidden="true" />
+              <span>kontakt@delitech.pl</span>
+            </a>
+          </nav>
+        </div>
+      </div>
       <div className="primary-header__bar">
         <a
           href={pageUrl('home')}
@@ -99,9 +115,6 @@ export function Navbar({ currentPage }: { currentPage: PageId }) {
           {links}
           <a href={plannerHref} className="primary-header__mobile-planner" onClick={() => setOpen(false)}>
             {plannerLabel} <ArrowUpRight size={18} aria-hidden="true" />
-          </a>
-          <a className="primary-header__phone" href="tel:+48505260715">
-            <Phone size={17} aria-hidden="true" /> +48 505 260 715
           </a>
         </nav>
       )}
