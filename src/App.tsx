@@ -171,7 +171,7 @@ export default function App() {
         {currentPage === 'architects' && (
           <ArchitectsPage
             onNavigate={handleNavigate}
-            onOpenConsultation={() => handleOpenConsultation('Konsultacja projektu z pracownią architektoniczną')}
+            onOpenConsultation={(topic) => handleOpenConsultation(topic || 'Konsultacja projektu z pracownią architektoniczną')}
           />
         )}
 
@@ -235,7 +235,7 @@ export default function App() {
         isOpen={consultationModalOpen}
         onClose={() => setConsultationModalOpen(false)}
         initialTopic={consultationTopic}
-        variant={currentPage === 'proav' || currentPage === 'offices' ? 'proav' : 'knx'}
+        variant={currentPage === 'proav' || currentPage === 'offices' ? 'proav' : currentPage === 'architects' ? 'architects' : 'knx'}
         onOpenPrivacy={() => handleOpenPrivacy('privacy')}
       />
 

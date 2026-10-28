@@ -12,7 +12,7 @@ export const pages: Record<PageId, { path: string; title: string; description: s
     path: '/architects/',
     title: 'KNX dla architektów i projektantów | InteliSpaces',
     description:
-      'Wsparcie w planowaniu automatyki domu: funkcje pomieszczeń, przyciski, dobór osprzętu i uzgodnienia instalacyjne. Zbierz założenia w konfiguratorze KNX.',
+      'Doradztwo KNX dla architektów i projektantów wnętrz. Dobór osprzętu, wsparcie projektowe i uzgodnienia z wykonawcami. Umów prezentację konfiguratora dla pracowni.',
   },
   homes: {
     path: '/homes/',

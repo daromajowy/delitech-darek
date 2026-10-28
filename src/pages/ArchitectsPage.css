@@ -1,0 +1,231 @@
+.architects-page {
+  --architects-paper: #faf9f6;
+  --architects-muted: #586470;
+  color: #182c3d;
+  background: #fff;
+}
+.architects-hero,
+.architects-support,
+.architects-advice,
+.architects-presentation {
+  max-width: 1800px;
+  margin-inline: auto;
+}
+.architects-page section[id] { scroll-margin-top: 108px; }
+.architects-hero {
+  display: grid;
+  grid-template-columns: 49% 51%;
+  min-height: min(53vw, 850px);
+  background: var(--architects-paper);
+}
+.architects-hero__copy {
+  align-self: center;
+  padding: clamp(42px, 4.8vw, 86px);
+}
+.architects-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  font-size: clamp(10px, .85vw, 14px);
+  font-weight: 700;
+  line-height: 1.5;
+  letter-spacing: .17em;
+  text-transform: uppercase;
+  color: #556c12;
+}
+.architects-eyebrow::before {
+  content: '';
+  width: 42px;
+  height: 2px;
+  background: #9fbf36;
+  flex-shrink: 0;
+}
+.architects-hero h1 {
+  margin: 29px 0 0;
+  font-family: 'Manrope', sans-serif;
+  font-size: clamp(46px, 4.95vw, 85px);
+  font-weight: 750;
+  line-height: 1.065;
+  letter-spacing: -.045em;
+}
+.architects-hero h1 span { display: block; }
+.architects-hero__intro {
+  max-width: 520px;
+  margin-top: 30px;
+  font-size: clamp(16px, 1.5vw, 22px);
+  line-height: 1.65;
+  color: var(--architects-muted);
+}
+.architects-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 22px 30px;
+  margin-top: 40px;
+}
+.architects-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  min-height: 56px;
+  padding: 16px 26px;
+  border-radius: 3px;
+  background: #182c3d;
+  color: #bdd855;
+  font-size: clamp(14px, 1.25vw, 19px);
+  font-weight: 700;
+  line-height: 1.5;
+  text-align: left;
+  transition: background .18s ease;
+}
+.architects-button svg { flex-shrink: 0; }
+.architects-button:hover { background: #28475f; }
+.architects-text-link {
+  padding-block: 10px;
+  font-size: clamp(14px, 1.2vw, 18px);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 6px;
+}
+.architects-button:focus-visible,
+.architects-text-link:focus-visible,
+.architects-advice summary:focus-visible {
+  outline: 3px solid #416184;
+  outline-offset: 6px;
+}
+.architects-image { position: relative; margin: 0; overflow: hidden; }
+.architects-image img { width: 100%; height: 100%; object-fit: cover; }
+.architects-hero__image img,
+.architects-advice__image img { position: absolute; inset: 0; }
+.architects-image figcaption {
+  position: absolute;
+  right: 16px;
+  bottom: 14px;
+  padding: 5px 8px;
+  border-radius: 2px;
+  background: #182c3dcc;
+  color: #fff;
+  font-size: 10px;
+  line-height: 1.5;
+}
+.architects-support {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 48px clamp(24px, 4.8vw, 86px) 52px;
+}
+.architects-support article { padding-inline: 32px; }
+.architects-support article:first-of-type { padding-left: 0; }
+.architects-support article:last-of-type { padding-right: 0; }
+.architects-support article + article { border-left: 1px solid #182c3d20; }
+.architects-support article > svg { width: clamp(36px, 3.7vw, 58px); height: clamp(36px, 3.7vw, 58px); }
+.architects-support h3::before { content: ''; display: block; width: 26px; height: 2px; margin-bottom: 20px; background: #9fbf36; }
+.architects-support h3 {
+  margin-top: 20px;
+  font-family: 'Manrope', sans-serif;
+  font-size: clamp(20px, 1.8vw, 26px);
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -.025em;
+}
+.architects-support p {
+  margin-top: 14px;
+  font-size: clamp(16px, 1.4vw, 21px);
+  line-height: 1.65;
+  color: var(--architects-muted);
+  max-width: 390px;
+}
+.architects-advice {
+  display: grid;
+  grid-template-columns: 58% 42%;
+  background: var(--architects-paper);
+}
+.architects-advice__image { min-height: 560px; }
+.architects-advice__copy { align-self: center; padding: 44px clamp(32px, 4vw, 70px); }
+.architects-advice h2,
+.architects-presentation h2 {
+  font-family: 'Manrope', sans-serif;
+  font-size: clamp(32px, 3.45vw, 55px);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -.035em;
+}
+.architects-advice__intro {
+  margin-top: 23px;
+  font-size: clamp(16px, 1.35vw, 20px);
+  line-height: 1.7;
+  color: var(--architects-muted);
+}
+.architects-advice__topics { margin-top: 27px; }
+.architects-advice details { border-top: 1px solid #182c3d26; }
+.architects-advice summary {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  min-height: 70px;
+  padding-block: 16px;
+  font-size: clamp(14px, 1.25vw, 19px);
+  font-weight: 600;
+  line-height: 1.5;
+  list-style: none;
+  cursor: pointer;
+}
+.architects-advice summary::-webkit-details-marker { display: none; }
+.architects-advice summary::before { content: ''; width: 15px; height: 2px; background: #9fbf36; flex-shrink: 0; }
+.architects-advice summary span { flex: 1; }
+.architects-advice summary svg { flex-shrink: 0; transition: transform .2s ease; }
+.architects-advice details[open] summary svg { transform: rotate(90deg); }
+.architects-advice details p { margin: 0 0 22px 30px; font-size: 14px; line-height: 1.75; color: var(--architects-muted); }
+.architects-presentation { position: relative; min-height: 440px; overflow: hidden; background: #182c3d; color: #fff; }
+.architects-presentation__image { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.architects-presentation__copy { position: relative; width: 59%; padding: 55px clamp(24px, 4.8vw, 86px); }
+.architects-presentation .architects-eyebrow { color: #c0d685; }
+.architects-presentation h2 { margin-top: 22px; }
+.architects-presentation__intro { max-width: 580px; margin-top: 22px; font-size: clamp(16px, 1.4vw, 21px); line-height: 1.65; color: #e1e6ea; }
+.architects-button--lime { margin-top: 28px; background: #9fbf36; color: #182c3d; }
+.architects-button--lime:hover { background: #b2ce52; }
+.architects-button--lime:focus-visible { outline-color: #fff; }
+@media (min-width: 1800px) {
+  .architects-hero { min-height: 850px; }
+  .architects-advice__image { min-height: 650px; }
+  .architects-presentation { min-height: 510px; }
+}
+@media (max-width: 1100px) {
+  .architects-hero__copy { padding: 44px 30px; }
+  .architects-hero h1 { font-size: clamp(40px, 4.8vw, 55px); }
+  .architects-hero__intro { margin-top: 24px; }
+  .architects-hero__actions { margin-top: 28px; gap: 12px 24px; }
+  .architects-support { padding: 36px 30px; }
+  .architects-support article { padding-inline: 24px; }
+  .architects-advice { grid-template-columns: 52% 48%; }
+  .architects-advice__copy { padding: 36px 30px; }
+  .architects-presentation__copy { width: 65%; padding: 44px 30px; }
+}
+@media (max-width: 760px) {
+  .architects-page section[id] { scroll-margin-top: 90px; }
+  .architects-hero { display: flex; flex-direction: column; }
+  .architects-hero__copy { padding: 42px 24px; width: 100%; }
+  .architects-eyebrow { font-size: 9px; gap: 9px; letter-spacing: .13em; }
+  .architects-eyebrow::before { width: 26px; }
+  .architects-hero h1 { font-size: clamp(32px, 8.8vw, 58px); margin-top: 24px; }
+  .architects-hero__intro { font-size: 16px; max-width: 540px; }
+  .architects-hero__actions { align-items: flex-start; flex-direction: column; gap: 10px; }
+  .architects-button { max-width: 100%; font-size: 13px; padding: 15px 19px; gap: 18px; }
+  .architects-hero__image { aspect-ratio: 1.18; width: 100%; }
+  .architects-support { grid-template-columns: 1fr; padding: 14px 24px; }
+  .architects-support article,
+  .architects-support article:first-of-type,
+  .architects-support article:last-of-type { padding: 28px 0; }
+  .architects-support article + article { border-left: 0; border-top: 1px solid #182c3d20; }
+  .architects-support h3 { margin-top: 14px; font-size: 22px; }
+  .architects-support p { max-width: 560px; }
+  .architects-advice { grid-template-columns: 1fr; }
+  .architects-advice__image { min-height: 0; aspect-ratio: 1.43; }
+  .architects-advice__copy { padding: 36px 24px; }
+  .architects-advice h2,
+  .architects-presentation h2 { font-size: clamp(31px, 7.3vw, 43px); }
+  .architects-presentation { display: flex; flex-direction: column; }
+  .architects-presentation__copy { width: 100%; padding: 40px 24px 20px; }
+  .architects-presentation__intro { font-size: 16px; }
+  .architects-presentation__image { position: static; order: 2; height: 270px; object-fit: cover; object-position: right center; }
+}

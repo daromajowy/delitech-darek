@@ -6,7 +6,7 @@ interface ConsultationModalProps {
   isOpen: boolean;
   onClose: () => void;
   initialTopic?: string;
-  variant?: 'knx' | 'proav';
+  variant?: 'knx' | 'proav' | 'architects';
   onOpenPrivacy: () => void;
 }
 
@@ -37,11 +37,22 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({
     if (isOpen) {
       setSubmitted(false);
       setError('');
-      setFormData(data => ({ ...data, investmentType: variant === 'proav' ? 'sala-spotkan' : 'dom' }));
+      setFormData(data => ({ ...data, investmentType: variant === 'proav' ? 'sala-spotkan' : variant === 'architects' ? 'projekt-pracowni' : 'dom' }));
     }
   }, [isOpen, variant]);
 
   if (!isOpen) return null;
+
+  const isPresentation = variant === 'architects' && initialTopic === 'Prezentacja konfiguratora KNX dla pracowni';
+  const introLabel = variant === 'proav' ? 'ProAV · wyposażenie sal spotkań' : variant === 'architects' ? 'Dla architektów i projektantów' : 'Bezpośredni kontakt z inżynierem KNX';
+  const introTitle = variant === 'proav' ? 'Porozmawiajmy o Twojej sali' : isPresentation ? 'Umów prezentację konfiguratora' : variant === 'architects' ? 'Porozmawiajmy o Twoim projekcie' : 'Porozmawiajmy o Twoim domu';
+  const introText = variant === 'proav'
+    ? 'Omówimy wielkość sali, sposób prowadzenia spotkań, obecny sprzęt i budżet. Ustalimy zakres wspólnie z Twoim IT i architektem.'
+    : isPresentation
+      ? 'Zostaw kontakt do swojej pracowni. Odezwiemy się, aby uzgodnić dogodny termin i pokazać narzędzie podczas krótkiej prezentacji.'
+      : variant === 'architects'
+        ? 'Opowiedz, nad czym pracujesz i na jakim etapie jest projekt. Uzgodnimy zakres wsparcia oraz termin rozmowy.'
+        : 'Opisz etap inwestycji i potrzebne funkcje. Skontaktujemy się, aby ustalić zakres rozmowy oraz dogodny termin.';
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -88,9 +99,9 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({
         ) : (
           <div>
             <div className="mb-5">
-              <span className="text-[10px] font-mono font-semibold uppercase tracking-wider text-ink bg-silver/30 px-2 py-0.5 rounded">{variant === 'proav' ? 'ProAV · wyposażenie sal spotkań' : 'Bezpośredni kontakt z inżynierem KNX'}</span>
-              <h2 id="consultation-title" className="text-2xl font-bold font-display text-ink mt-2">{variant === 'proav' ? 'Porozmawiajmy o Twojej sali' : 'Porozmawiajmy o Twoim domu'}</h2>
-              <p className="text-xs text-ink/70 mt-1">{variant === 'proav' ? 'Omówimy wielkość sali, sposób prowadzenia spotkań, obecny sprzęt i budżet. Ustalimy zakres wspólnie z Twoim IT i architektem.' : 'Opisz etap inwestycji i potrzebne funkcje. Skontaktujemy się, aby ustalić zakres rozmowy oraz dogodny termin.'}</p>
+              <span className="text-[10px] font-mono font-semibold uppercase tracking-wider text-ink bg-silver/30 px-2 py-0.5 rounded">{introLabel}</span>
+              <h2 id="consultation-title" className="text-2xl font-bold font-display text-ink mt-2 pr-5">{introTitle}</h2>
+              <p className="text-xs text-ink/70 mt-1">{introText}</p>
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-4">

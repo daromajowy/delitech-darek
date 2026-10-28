@@ -18,6 +18,8 @@ export function Navbar({ currentPage }: { currentPage: PageId }) {
   const header = useRef<HTMLElement>(null);
   const toggle = useRef<HTMLButtonElement>(null);
   const activePage = currentPage === 'team' ? 'about' : currentPage;
+  const plannerHref = currentPage === 'architects' ? pageUrl('architects', 'pakiet') : plannerUrl();
+  const plannerLabel = currentPage === 'architects' ? 'Poznaj konfigurator' : 'Konfigurator KNX';
 
   useEffect(() => {
     setOpen(false);
@@ -75,8 +77,8 @@ export function Navbar({ currentPage }: { currentPage: PageId }) {
           {links}
         </nav>
         <div className="primary-header__actions">
-          <a href={plannerUrl()} className="primary-header__planner">
-            Konfigurator KNX <ArrowUpRight size={17} aria-hidden="true" />
+          <a href={plannerHref} className="primary-header__planner">
+            {plannerLabel} <ArrowUpRight size={17} aria-hidden="true" />
           </a>
           <button
             ref={toggle}
@@ -95,8 +97,8 @@ export function Navbar({ currentPage }: { currentPage: PageId }) {
       {open && (
         <nav id="mobile-navigation" className="primary-header__mobile" aria-label="Menu mobilne">
           {links}
-          <a href={plannerUrl()} className="primary-header__mobile-planner">
-            Konfigurator KNX <ArrowUpRight size={18} aria-hidden="true" />
+          <a href={plannerHref} className="primary-header__mobile-planner" onClick={() => setOpen(false)}>
+            {plannerLabel} <ArrowUpRight size={18} aria-hidden="true" />
           </a>
           <a className="primary-header__phone" href="tel:+48505260715">
             <Phone size={17} aria-hidden="true" /> +48 505 260 715

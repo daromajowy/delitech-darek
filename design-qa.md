@@ -1,3 +1,53 @@
+# Architects page — selected concept 1, Janka
+
+Date: 2026-10-28. Scope: implement the selected “Pracownia i partner” concept at /architects/ on Janka. Main, Darka, CF production, the KNX backend and public demo access are outside this change.
+
+## Visual source and evidence
+
+Approved source: C:/Users/Asdmin/Documents/ChatGPT/KNX/outputs/architects-knx-concepts-20261028/01-pracownia-i-partner.png (992 × 1586).
+
+Local implementation: http://127.0.0.1:3081/delitech-darek/Janka/architects/. Evidence directory: C:/Users/Asdmin/Documents/ChatGPT/KNX/outputs/architects-knx-concepts-20261028/.
+
+- qa-desktop-final.png and qa-geometry.json: rendered page and measured section geometry at a 1440 × 1000 CSS viewport; screenshot content width 1425 px, excluding the scrollbar.
+- qa-comparison-final.png: selected concept and browser content together, each normalized to 850 px width, with the shared navigation, preview strip and footer excluded.
+- qa-hero-comparison-final.png and qa-banner-comparison-final.png: paired focused views of typography, spacing, image composition and CTA.
+- qa-mobile-final.png, qa-mobile-presentation-form.png, qa-tablet.png and qa-narrow-final.png: phone, presentation form, tablet and 320 px checks.
+- qa-responsive.json: width and overflow observations. The final 320 px headline correction was checked separately in qa-narrow-final.png.
+
+## Findings and fixes
+
+1. P2, resolved: initial supporting text and CTAs were smaller than the selected concept. Increased responsive body/button type, support icons and small lime dividers.
+2. P2, resolved: the first typography adjustment wrapped “zaplanować KNX.” into two lines on desktop. Restored the four-line headline and verified each line's DOM height.
+3. P2, resolved: the 320 px viewport also split that phrase. Lowered the mobile font minimum to 32 px; all four headline lines now fit without horizontal overflow.
+4. Final full-page and focused paired comparisons have no actionable P0/P1/P2 issues within this scope.
+
+## Fidelity and content
+
+The implementation retains the split ivory hero, large warm interior image, three open support columns, image/advice split and navy configurator invitation. Typography uses the existing Manrope and Plus Jakarta Sans families; navy and lime follow the established brand. Three dedicated ImageGen assets are optimized as WebP (about 789 kB total); only the hero loads eagerly.
+
+The photographs are conceptual illustrations, explicitly labeled in the hero and advice section. No invented project counts, years of experience, certifications or testimonials were added. The configurator is promoted through a private presentation invitation without screenshots, workflow details or feature descriptions. This is an editorial change, not a new access restriction: the existing demo and footer link remain available.
+
+## Functional and responsive checks
+
+- Project CTA opens “Porozmawiajmy o Twoim projekcie”.
+- Presentation CTA opens “Umów prezentację konfiguratora”, selects “Projekt dla klienta pracowni” and supplies a dedicated inquiry topic through the existing form integration.
+- Hero/header invitation links target #pakiet; on mobile the menu closes and the section clears the sticky header.
+- All three advice disclosures open and close; Enter and Space keyboard activation were checked on native summary elements.
+- No horizontal overflow at 320, 390, 768, 1024, 1440 or 1920 CSS px. Phone composition stacks imagery and copy; the form stays inside the viewport and scrolls internally.
+- All three images load successfully. Browser logs contain no warnings or errors during the checked interactions.
+- TypeScript check passed. All 8 existing site-content/F50-lighting tests passed. The branch-prefixed preview build produced all 12 static pages. Existing Vite __dirname warning is unrelated to this change.
+- No real inquiry was submitted. GitHub preview form sending remains disabled, verified by the existing preview test.
+
+## Intentional differences
+
+The existing shared navigation/footer and preview notice remain, rather than replacing them with the mock's simplified presentation chrome. The new header invitation destination is scoped to architects. Generated photos reproduce the composition, not every material detail. Image captions use a dark backing for readable contrast. Mobile layout is adapted for touch; the selected source supplied only desktop artwork.
+
+Implementation checklist: completed. Follow-up polish: none required.
+
+**final result: passed**
+
+---
+
 # Smart-home integrations — selected concept 2, Janka
 
 Selection: 2026-10-20. Scope: add the interactive house immediately AFTER the existing “Co automatyzujemy w obiekcie” section and BEFORE DayRhythm. The original section is preserved in full. No changes to the hero video, planner, backend, main or Darka.
