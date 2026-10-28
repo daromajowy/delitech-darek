@@ -162,3 +162,43 @@ P3 follow-up: more model-specific sensor key maps can be added when exact varian
 Implementation checklist: all P2 findings above fixed; responsive layouts checked; exports checked; tests passed; publish to Janka and verify Pages.
 
 final result: passed
+
+# Homes daily-rhythm page — 2026-10-28
+
+Source visual truth: C:/Users/Asdmin/Documents/ChatGPT/KNX/outputs/domy-apartamenty-concepts-20261028/02-w-rytmie-twojego-dnia.png (second displayed concept selected by the user).
+Implementation: http://127.0.0.1:3084/homes/
+Evidence folder: C:/Users/Asdmin/Documents/ChatGPT/KNX/outputs/domy-apartamenty-concepts-20261028/
+Final screenshot: local-desktop-final.png; mobile screenshot: local-mobile.png.
+Full-view comparison: comparison-final.png. Focused type/copy comparison: comparison-typography.png.
+
+## State and normalization
+Desktop CSS viewport 1440 x 1000, device density 1. Screenshot is 1425 x 3244 (native 15px scrollbar excluded). Source is 990 x 1588.
+Source page body from y=72 to 1519 and implemented body from y=121 to 2265 were each proportionally normalized to 720px width; no stretching.
+Preview notice, shared navigation and shared full footer intentionally retain the existing site components. A compact FAQ preserves the previous dom/apartament/koszt/modernizacja deep links. These additions are outside the selected editorial body comparison.
+Mobile checked at 390 x 844 and 320 x 800, density 1. No horizontal overflow; at 320px both main CTA buttons fit their 257px content width. Closed modal/menu and collapsed FAQ used for primary captures.
+
+## Findings and history
+- V1: P2 hero heading was smaller than the selected concept and scene photos were too inset. Evidence comparison-v1.png. Fixed headline scale from 7.15vw to 7.95vw, widened the desktop scene strip and adjusted section spacing/contact headline.
+- V2: comparison-v2.png confirmed the two-line hero, panoramic image, scenario strip and contact band hierarchy. Existing cookie prompt dismissed through its necessary-only control before comparison.
+- Final integrated build on top of Janka 67b1c0d: comparison-final.png and comparison-typography.png checked. No actionable P0/P1/P2 findings.
+
+## Required fidelity surfaces
+- Fonts/type: existing Manrope headings and Plus Jakarta Sans body retained; two-line hero and reading order match. Native font rendering differs slightly from raster concept but no clipping or unwanted line breaks.
+- Spacing/layout: heading/copy split, 2.4:1 hero, three open photographic columns and contact band preserved. Mobile reflows to single columns with legible copy and image crops.
+- Colors/tokens: existing navy and lime retained; warm ivory surfaces; slightly darkened small green text for readability; no ornamental gradients or boxed cards.
+- Images: five independently generated scene assets match the reference palette/materials. WebP total 966898 bytes, actual hero 1942x809, scene assets 1322x1190 and contact 2172x724. No synthetic UI, copied raster typography or placeholders. Images labelled as conceptual visualizations.
+- Copy: selected Polish headings/scenario copy preserved, meaningful household consultation CTA, no unsupported metrics or savings guarantees. Short retained FAQ explains real project limitations.
+
+## Functionality and verification
+Both hero and bottom CTAs opened the existing household consultation form. Close/cancel works. Native details expand/collapse. Existing footer cost link navigated to #koszt, opened the matching details and placed its heading below the sticky header. Mobile menu opened at 320px.
+No form submitted. Preview configuration has no inquiry endpoint; existing automated test asserts preview submission rejection.
+Browser console: no errors or warnings during these checks.
+TypeScript check passed. Preview build passed (12 static pages). All 8 existing site/content and F50 tests passed, repeated after integrating the concurrent architects commit. Existing Vite future-config warning only.
+Only HomesPage.tsx, scoped HomesPage.css, five new WebP files and this QA addition belong to this change. Architects work retained. Publication target is Janka only.
+
+## Follow-up polish
+P3: raster reference and native font weight differ subtly; existing navigation/footer remain shared site components by design. No hardware or physical KNX installation tests are implied.
+
+Implementation checklist: assets complete; responsive layout checked; CTA/details/menu checked; legacy anchors retained; build/types/tests passed; publish Janka and verify live release.
+
+final result: passed
