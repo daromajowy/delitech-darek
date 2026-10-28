@@ -1,12 +1,10 @@
 import React from 'react';
-import { ArrowRight, ArrowUpRight, Blocks, Layers, MessageCircle, Palette, Phone, Plus, RefreshCw, UsersRound } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, Blocks, Layers, MessageCircle, Palette, Plus, RefreshCw, UsersRound } from 'lucide-react';
 import { PageId } from '../types';
 import { pageUrl } from '../site';
 import heroImage from '../assets/images/architects-hero.webp';
 import adviceImage from '../assets/images/architects-advice.webp';
 import presentationImage from '../assets/images/architects-presentation.webp';
-import janPhoto from '../assets/images/janek.jpg';
-import dariuszPhoto from '../assets/images/darek.jpg';
 import './ArchitectsPage.css';
 
 interface ArchitectsPageProps {
@@ -92,11 +90,6 @@ const questions = [
     title: 'Jak przygotować się do pierwszej rozmowy?',
     text: 'Przygotuj etap i lokalizację inwestycji, najważniejsze potrzeby klienta oraz planowany termin. Jeśli masz już kierunek stylistyczny lub wybrane urządzenia, opowiedz nam o nich. Nie potrzebujesz gotowej listy produktów.',
   },
-];
-
-const projectContacts = [
-  { name: 'Jan Jasek', photo: janPhoto, phone: '+48 505 260 848', href: 'tel:+48505260848' },
-  { name: 'Dariusz Maj', photo: dariuszPhoto, phone: '+48 885 253 934', href: 'tel:+48885253934' },
 ];
 
 export const ArchitectsPage: React.FC<ArchitectsPageProps> = ({ onOpenConsultation }) => (
@@ -236,20 +229,13 @@ export const ArchitectsPage: React.FC<ArchitectsPageProps> = ({ onOpenConsultati
         <p className="architects-eyebrow">Porozmawiajmy po ludzku</p>
         <h2 id="architects-contact-title">Za technologią<br />stoją konkretne osoby.</h2>
         <p className="architects-section-lead">InteliSpaces rozwijamy w ramach Delitech. Łączymy dobór osprzętu, planowanie automatyki i koordynację wdrożenia. Porozmawiasz z ludźmi zaangażowanymi w Twój projekt.</p>
-        <button type="button" className="architects-button" onClick={() => onOpenConsultation()}>
-          Porozmawiajmy o współpracy <ArrowRight size={20} aria-hidden="true" />
-        </button>
+        <div className="architects-contact__actions">
+          <button type="button" className="architects-button" onClick={() => onOpenConsultation()}>
+            Porozmawiajmy o współpracy <ArrowRight size={20} aria-hidden="true" />
+          </button>
+          <a className="architects-text-link architects-contact__team-link" href={pageUrl('team')}>Poznaj cały zespół InteliSpaces <ArrowRight size={18} aria-hidden="true" /></a>
+        </div>
         <p className="architects-contact__location">Warszawa, ul. Konwaliowa 7, lok. 103 — po umówieniu terminu. Możemy też zacząć od rozmowy online.</p>
-      </div>
-      <div className="architects-contact__people">
-        {projectContacts.map(({ name, photo, phone, href }) => (
-          <article key={name}>
-            <img src={photo} alt={name} width={420} height={460} loading="lazy" decoding="async" />
-            <h3>{name}</h3>
-            <a href={href} aria-label={'Zadzwoń: ' + name + ', ' + phone}><Phone size={16} aria-hidden="true" />{phone}</a>
-          </article>
-        ))}
-        <a className="architects-text-link architects-contact__team-link" href={pageUrl('team')}>Poznaj cały zespół InteliSpaces <ArrowRight size={18} aria-hidden="true" /></a>
       </div>
     </section>
   </div>
