@@ -22,9 +22,9 @@ export const pages: Record<PageId, { path: string; title: string; description: s
   },
   offices: {
     path: '/offices/',
-    title: 'Sale spotkań i ProAV — dodatkowa usługa | InteliSpaces',
+    title: 'Biura i sale konferencyjne — automatyka i ProAV | InteliSpaces',
     description:
-      'Wyposażenie sal spotkań: obraz, dźwięk, wideokonferencje i przyłącza. Dodatkowa usługa InteliSpaces dopasowana do konkretnego pomieszczenia.',
+      'Światło, osłony, temperatura i wideospotkania w jednym pomieszczeniu. Automatyka KNX i ProAV do gabinetów, mniejszych biur oraz sal konferencyjnych.',
   },
   proav: {
     path: '/offices/proav/',

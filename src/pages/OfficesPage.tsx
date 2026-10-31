@@ -1,5 +1,5 @@
 import React from 'react';
-import { Camera, Cable, Monitor, ArrowRight } from 'lucide-react';
+import { ArrowRight, Blinds, Camera, Moon, Sun, Thermometer } from 'lucide-react';
 import { PageId } from '../types';
 import { pageUrl } from '../site';
 import room from '../assets/images/proav-room-hybrid.webp';
@@ -13,16 +13,17 @@ interface OfficesPageProps {
 
 export const OfficesPage: React.FC<OfficesPageProps> = ({ onOpenConsultation }) => (
   <div>
-    <ContentHero eyebrow="Usługa dodatkowa · ProAV" title="Dobrze wyposażona sala spotkań.">
+    <ContentHero eyebrow="Smart Workspace · Biura i sale konferencyjne" title="Przestrzeń gotowa do pracy i spotkań.">
       <p>
-        Pomagamy dobrać obraz, dźwięk i przyłącza do konkretnego pomieszczenia. Przygotowujemy
-        rozwiązania do wideorozmów, prezentacji i spotkań zespołu.
+        Światło, osłony, temperatura oraz obraz i dźwięk mogą działać razem. Dobieramy automatykę
+        do gabinetów, mniejszych biur i sal konferencyjnych — tak, żeby łatwiej było pracować,
+        prowadzić prezentacje i rozmawiać z zespołem.
       </p>
       <a
         href={pageUrl('proav')}
         className="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-accent text-ink text-sm font-semibold"
       >
-        Zobacz rozwiązania ProAV <ArrowRight size={18} aria-hidden="true" />
+        Poznaj wyposażenie sal ProAV <ArrowRight size={18} aria-hidden="true" />
       </a>
     </ContentHero>
     <section id="konferencyjne" className="py-16 sm:py-20 bg-white">
@@ -31,40 +32,58 @@ export const OfficesPage: React.FC<OfficesPageProps> = ({ onOpenConsultation }) 
           <img
             src={room}
             alt="Przykładowa sala spotkań z wideobarem i ekranem"
+            width={1672}
+            height={941}
             className="w-full max-h-[520px] object-cover rounded-2xl"
           />
           <figcaption className="text-xs text-ink/65 mt-3">
             Wizualizacja przykładowego rozwiązania ProAV
           </figcaption>
         </figure>
-        <div className="grid md:grid-cols-3 gap-6 mt-10">
+        <div id="funkcje-biura" className="grid sm:grid-cols-2 lg:grid-cols-6 gap-6 mt-10 scroll-mt-36" aria-label="Pięć sposobów na wygodniejsze biuro i spotkania">
           {[
             {
+              id: 'swiatlo',
+              icon: Sun,
+              title: 'Światło dopasowane do pracy',
+              text: 'Jasno przy biurku, łagodniej podczas prezentacji. Oświetlenie może reagować na obecność i ilość światła dziennego albo zmieniać się po naciśnięciu przycisku.',
+            },
+            {
+              id: 'oslony',
+              icon: Blinds,
+              title: 'Prezentacja bez odblasków',
+              text: 'Rolety i żaluzje ograniczają ostre słońce na ekranie oraz przy stanowiskach pracy. Ich pozycję możemy połączyć ze sceną „Prezentacja” lub dopasować do nasłonecznienia.',
+            },
+            {
+              id: 'klimat',
+              icon: Thermometer,
+              title: 'Komfort przez całe spotkanie',
+              text: 'Temperatura dopasowana do pomieszczenia, a wentylacja do aktualnych potrzeb. Czujnik CO₂ może sygnalizować potrzebę przewietrzenia lub sterować zgodną instalacją wentylacyjną.',
+            },
+            {
+              id: 'wideospotkania',
               icon: Camera,
-              title: 'Rozmowy online',
-              text: 'Kamery, wideobary i mikrofony dobrane do wielkości stołu, akustyki oraz platformy spotkań.',
+              title: 'Dobrze widać. Dobrze słychać.',
+              text: 'Kamera, mikrofony i ekran dobrane do stołu oraz akustyki sali. Mediaporty porządkują połączenia, a rozmowę uruchamiasz z laptopa lub panelu — zależnie od wybranego zestawu.',
             },
             {
-              icon: Monitor,
-              title: 'Czytelny obraz',
-              text: 'Monitor lub ekran, wygodne udostępnianie prezentacji oraz uzgodniony sposób obsługi.',
+              id: 'po-spotkaniu',
+              icon: Moon,
+              title: 'Sala odpoczywa po spotkaniu',
+              text: 'Po ustalonym czasie bez obecności światła mogą zgasnąć, a ogrzewanie i chłodzenie przejść w tryb ograniczonej pracy. Ustawiamy opóźnienia i sposób ręcznej obsługi pod rytm Waszego biura.',
             },
-            {
-              icon: Cable,
-              title: 'Porządek w połączeniach',
-              text: 'Mediaporty, gniazda w stole, trasy przewodów i okablowanie dopasowane do urządzeń.',
-            },
-          ].map(({ icon: Icon, title, text }) => (
-            <article key={title} className="bg-surface rounded-xl p-7 border border-ink/15">
-              <Icon size={26} aria-hidden="true" />
+          ].map(({ id, icon: Icon, title, text }, index) => (
+            <article key={id} id={id} className={`bg-surface rounded-xl p-7 border border-ink/15 scroll-mt-36 ${index < 3 ? 'lg:col-span-2' : index === 3 ? 'lg:col-span-3' : 'sm:col-span-2 lg:col-span-3'}`}>
+              <Icon size={44} strokeWidth={1.3} aria-hidden="true" />
               <h2 className="font-bold text-xl mt-4 mb-3">{title}</h2>
               <p className="text-sm leading-relaxed text-ink/80">{text}</p>
             </article>
           ))}
         </div>
         <p className="mt-8 max-w-3xl text-ink/80 leading-relaxed">
-          Zakres obejmuje wyposażenie i uzgodnione sterowanie salą. Wymagania sieciowe, konta i
-          licencje omawiamy z osobą odpowiedzialną za IT.
+          Scena „Prezentacja” może jednocześnie ustawić światło i osłony oraz uruchomić zgodny ekran.
+          Potrzebne czujniki, urządzenia i sposób sterowania ustalamy dla konkretnego pomieszczenia.
+          Wymagania sieciowe, konta i licencje do wideospotkań omawiamy z osobą odpowiedzialną za IT.
         </p>
         <a href={pageUrl('proav')} className={actionClass + ' mt-6'}>
           Poznaj pełny zakres ProAV <ArrowRight size={18} aria-hidden="true" />
@@ -72,8 +91,8 @@ export const OfficesPage: React.FC<OfficesPageProps> = ({ onOpenConsultation }) 
       </div>
     </section>
     <ContactCta
-      title="Opowiedz nam o swojej sali."
-      text="Podaj liczbę miejsc, używane aplikacje i obecny sprzęt. Ustalimy, co można wykorzystać i czego brakuje."
+      title="Opowiedz nam o swoim biurze lub sali."
+      text="Powiedz, ile osób korzysta z pomieszczenia i co dziś utrudnia pracę. Sprawdzimy istniejącą instalację, sprzęt i możliwości ich połączenia."
       onClick={onOpenConsultation}
     />
   </div>

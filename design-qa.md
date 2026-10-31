@@ -1,3 +1,18 @@
+# Five office and meeting-room benefits — Janka
+
+Date: 2026-10-31. Scope: Offices page and its metadata on Janka.
+
+- Five existing-style icon cards cover task lighting, shading for presentations, temperature/ventilation, video meetings and reducing operation after vacancy. The introduction and consultation copy now cover individual offices, smaller workplaces and meeting rooms. No large-office delivery claim.
+- Reused the existing illustrative conference-room image, navy/lime palette, shared hero and consultation action. Three-plus-two cards on desktop, two columns on tablet (last card spans both), one column on phones. ProAV remains the linked equipment/detail page.
+- Conditional copy reflects compatible ventilation/display hardware, sensors, configured timeouts, meeting-platform accounts and IT coordination. Capability references checked: Theben KNX presence/HVAC controls (https://www.theben.de/en/planospot-360-knx-de-wh-2039100), MDT CO2/VOC ventilation control (https://www.mdt-group.com/company/news-press/newsdetail/perfect-room-climate-thanks-to-knx-combi-sensor.html), Logitech room systems (https://www.logi.com/en-us/business/solutions/meeting-room-solutions).
+- TypeScript, eight existing tests and twelve-page preview build passed. Browser verified the ProAV link and consultation dialog without submitting a form. Responsive checks at 320, 390, 768, 1024 and 1440 px each found five cards with no document/card overflow. Browser error/warning log empty. Existing DESIGN.md edit remains excluded.
+
+Evidence: `C:/Users/Asdmin/Documents/ChatGPT/KNX/outputs/offices-five-benefits-janka-20261031/`.
+
+**final result: passed (local checks)**
+
+---
+
 # Six home benefits and linked function descriptions — Janka
 
 Date: 2026-10-31. Scope: Janka homepage and the corresponding descriptions on Solutions.
