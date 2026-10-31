@@ -1,12 +1,12 @@
 import React, { useEffect, useRef, useState, type CSSProperties, type KeyboardEvent } from 'react';
 import { ArrowDown, ArrowRight, Blinds, Lightbulb, Thermometer, TvMinimal } from 'lucide-react';
 import { plannerUrl } from '../site';
-import morning from '../assets/images/day-rhythm-morning.webp';
-import away from '../assets/images/day-rhythm-away.webp';
-import returning from '../assets/images/day-rhythm-return-blinds.webp';
-import relax from '../assets/images/day-rhythm-relax.webp';
-import cinema from '../assets/images/day-rhythm-cinema.webp';
-import night from '../assets/images/day-rhythm-night.webp';
+import morning from '../assets/images/day-rhythm-morning-tv-wall.webp';
+import away from '../assets/images/day-rhythm-away-tv-wall.webp';
+import returning from '../assets/images/day-rhythm-return-tv-wall.webp';
+import relax from '../assets/images/day-rhythm-relax-tv-wall.webp';
+import cinema from '../assets/images/day-rhythm-cinema-tv-wall.webp';
+import night from '../assets/images/day-rhythm-night-tv-wall.webp';
 import shade from '../assets/images/day-rhythm-shade.webp';
 import './DayRhythm.css';
 
@@ -156,7 +156,7 @@ export function DayRhythm({ asHero = false }: { asHero?: boolean }) {
           </div>
           <div className="day-rhythm__status" aria-label="Przykładowe ustawienia sceny">
             <span><Lightbulb size={16} aria-hidden="true" />{current.light}</span>
-            {current.id === 'cinema' && <span><TvMinimal size={16} aria-hidden="true" />TV włączony</span>}
+            <span><TvMinimal size={16} aria-hidden="true" />{current.id === 'cinema' ? 'TV włączony' : 'TV wyłączony'}</span>
             <span><Blinds size={16} aria-hidden="true" />{current.curtains}</span>
             <span><Thermometer size={16} aria-hidden="true" />{current.temperature}</span>
           </div>

@@ -1,3 +1,19 @@
+# Day Rhythm — permanent TV and continuous supporting wall, Janka
+
+Date: 2026-10-31. Follow-up correction: the TV must stay installed in every scene, switched off except in Kino, with solid wall behind its entire footprint.
+
+- Re-edited the six backgrounds using built-in imagegen. The corrected Kino image establishes the broad travertine wall and TV placement; the other five images use it as the geometry reference and the previous scenes as lighting/shading references. All selected sources are 1536 x 1024 px.
+- Five scenes show a dark, non-emitting TV. Kino alone shows a film and TV backlight. The continuous travertine surface extends beyond all four screen edges and down to the sideboard. The 15:00 exterior blinds and changing curtain/light states remain visible.
+- Versioned assets: `src/assets/images/day-rhythm-{morning,away,return,relax,cinema,night}-tv-wall.webp`. Original sources remain available. The status now explicitly reports TV on/off in every scene.
+- Every mobile scene uses the same right-aligned crop, keeping the TV in frame and avoiding a crop jump when Kino is selected.
+- Evidence and prompts: `C:/Users/Asdmin/Documents/ChatGPT/KNX/outputs/day-rhythm-tv-wall-20261031/` (`asset-prompts.md`, six selected PNGs, `desktop-morning.png`, `desktop-cinema.png`, `mobile-morning-390.png`, `mobile-cinema-390.png`).
+- Browser checks at 1440 x 900, 390 x 844 and 320 x 740: all six images load and tabs select the matching status; no horizontal overflow; mobile hit areas remain at least 44.16 px. The existing short-screen normal-flow fallback remains. No browser console errors.
+- TypeScript, static Janka-prefix build, eight existing tests and `git diff --check` passed. Scope is the shared DayRhythm component/CSS, six new image assets and this report. The existing unrelated DESIGN.md modification is excluded. Publish to Janka only.
+
+**final result: passed**
+
+---
+
 # Day Rhythm — cinema and sun-screening blinds, Janka
 
 Date: 2026-10-31. Added the requested Kino scene between Relaks and Noc and exterior slatted blinds in the 15:00 Powrót scene.

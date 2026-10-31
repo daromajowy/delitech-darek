@@ -94,8 +94,7 @@
 @media (max-width: 780px) {
   .day-rhythm { height: calc(var(--day-rhythm-scene-count) * (68svh + 60px)); }
   .day-rhythm__stage { min-height: 660px; max-height: none; padding: 30px 24px 20px; }
-  .day-rhythm__image { object-position: 52% center; filter: brightness(.84); }
-  .day-rhythm__image[data-scene='cinema'] { object-position: right center; }
+  .day-rhythm__image { object-position: right center; filter: brightness(.84); }
   .day-rhythm__intro { padding-bottom: 20px; }
   .day-rhythm__intro .day-rhythm__title { font-size: clamp(54px, 10vw, 76px); line-height: 1.02; margin-top: 24px; }
   .day-rhythm__eyebrow { font-size: 8px; letter-spacing: .22em; }
