@@ -65,7 +65,7 @@
 .primary-header__bar {
   min-height: 80px;
   display: grid;
-  grid-template-columns: minmax(215px, 1fr) auto minmax(170px, 1fr);
+  grid-template-columns: minmax(279.5px, 1fr) auto minmax(170px, 1fr);
   align-items: center;
   gap: 24px;
 }
@@ -75,7 +75,7 @@
   flex-shrink: 0;
 }
 .primary-header__logo img {
-  width: 215px;
+  width: 279.5px;
 }
 .primary-header__desktop {
   display: flex;
@@ -210,6 +210,10 @@
   }
 }
 @media (max-width: 767px) {
+  .primary-header__bar {
+    padding-inline: 16px;
+    gap: 12px;
+  }
   .primary-header__intro {
     display: none;
   }
@@ -244,7 +248,7 @@
     gap: 12px;
   }
   .primary-header__logo img {
-    width: 176px;
+    width: 228.8px;
   }
   .primary-header__planner {
     display: none;
@@ -255,5 +259,17 @@
   .primary-header__toggle {
     gap: 5px;
     padding: 8px;
+  }
+}
+@media (max-width: 374px) {
+  .primary-header__bar {
+    padding-inline: 12px;
+    gap: 8px;
+  }
+  .primary-header__toggle {
+    min-width: 44px;
+  }
+  .primary-header__toggle span {
+    display: none;
   }
 }
