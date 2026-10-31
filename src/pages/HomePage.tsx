@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowRight, AudioLines, Blinds, Monitor, Sun, Thermometer, Users } from 'lucide-react';
+import { ArrowRight, AudioLines, Blinds, CloudRain, Droplets, Monitor, Sprout, Sun, Thermometer, Users } from 'lucide-react';
 import type { PageId } from '../types';
 import { pageUrl, plannerUrl } from '../site';
 import { HeroVideo } from '../components/HeroVideo';
@@ -16,9 +16,12 @@ interface HomePageProps {
 export const WORKSPACE_CONSULTATION = 'Konsultacja Smart Workspace / sala konferencyjna';
 
 const homeBenefits = [
-  { icon: Sun, title: 'Światło i nastrój', text: 'Sceny świetlne dopasowane do Twojego dnia.', hash: 'dali' },
-  { icon: Blinds, title: 'Rolety i prywatność', text: 'Automatycznie lub wtedy, kiedy tego potrzebujesz.', hash: 'fasady' },
-  { icon: Thermometer, title: 'Komfortowa temperatura', text: 'Ogrzewanie i chłodzenie dopasowane do pomieszczenia.', hash: 'hvac' },
+  { icon: Sun, title: 'Światło w Twoim rytmie', text: 'Jasno przy pracy, przytulnie wieczorem. Jednym przyciskiem lub automatycznie.', hash: 'dali' },
+  { icon: Blinds, title: 'Cień i prywatność', text: 'Osłony ograniczają ostre słońce w dzień, a wieczorem zapewniają prywatność.', hash: 'fasady' },
+  { icon: Thermometer, title: 'Temperatura po Twojemu', text: 'Ogrzewanie i chłodzenie dopasowane do pomieszczenia i Twojego dnia.', hash: 'hvac' },
+  { icon: CloudRain, title: 'Dom reaguje na pogodę', text: 'Zaczyna padać? Okna z napędem mogą zamknąć się automatycznie.', hash: 'pogoda' },
+  { icon: Sprout, title: 'Ogród podlewany z głową', text: 'Podlewanie uwzględnia wilgotność ziemi i deszcz. Także podczas Twojego wyjazdu.', hash: 'ogrod' },
+  { icon: Droplets, title: 'Reakcja na wyciek', text: 'Czujnik wykrywa wodę, a system zamyka jej dopływ przez sterowany zawór.', hash: 'wyciek' },
 ];
 const steps = [
   { title: 'Porozmawiajmy.', text: 'Poznajemy potrzeby, styl życia i pomysł na wnętrze.' },
@@ -50,7 +53,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenConsultation }) => (
     <section id="dom" className="home-editorial__homes home-editorial__wrap" aria-labelledby="home-dom-title">
       <p className="home-editorial__eyebrow">Domy i apartamenty</p>
       <h2 id="home-dom-title">Dom w Twoim rytmie.</h2>
-      <p className="home-editorial__lead">Światło, rolety i temperatura dopasowane do Twojej codzienności.</p>
+      <p className="home-editorial__lead">Codzienny komfort, zadbany ogród i reakcja wtedy, kiedy jej potrzebujesz.</p>
       <div className="home-editorial__photo-pair">
         <figure>
           <img src={planningImage} alt="Rzut mieszkania obok próbek kamienia, drewna i tkaniny oraz przycisku ściennego" width={1440} height={1008} loading="lazy" decoding="async" />
@@ -61,7 +64,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenConsultation }) => (
           <figcaption><span>Do codziennej wygody</span></figcaption>
         </figure>
       </div>
-      <ul className="home-editorial__benefits">
+      <ul className="home-editorial__benefits" id="funkcje-domu">
         {homeBenefits.map(({ icon: Icon, title, text, hash }) => (
           <li key={title}>
             <a href={pageUrl('solutions', hash)}>
@@ -71,6 +74,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenConsultation }) => (
           </li>
         ))}
       </ul>
+      <p className="home-editorial__benefits-note">Funkcje dobieramy do Twojego domu, urządzeń i sposobu życia.</p>
       <section className="home-editorial__process" aria-labelledby="home-process-title">
         <h3 id="home-process-title" className="home-editorial__eyebrow">Jak pracujemy</h3>
         <ol className="home-editorial__steps">

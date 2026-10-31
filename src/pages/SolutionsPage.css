@@ -23,7 +23,7 @@
   font-family: Manrope, sans-serif;
 }
 
-.solutions-page :is(.solutions-scenes, .solutions-integrations, .solutions-integrations__grid li) {
+.solutions-page :is(.solutions-scenes, .solutions-functions, .solutions-functions__grid li, .solutions-integrations, .solutions-integrations__grid li) {
   scroll-margin-top: 132px;
 }
 
@@ -165,6 +165,15 @@
 .solutions-scene .solutions-effects { color: var(--solutions-muted); }
 .solutions-scene .solutions-effects svg { color: var(--solutions-ink); }
 
+.solutions-functions { padding-block: 48px 40px; background: #f7f8f5; }
+.solutions-functions__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px 36px; margin: 36px 0 24px; padding: 0; list-style: none; }
+.solutions-functions__grid li { min-width: 0; padding-top: 24px; border-top: 1px solid var(--solutions-line); }
+.solutions-functions__grid svg { display: block; width: 48px; height: 48px; margin-bottom: 20px; }
+.solutions-functions__grid h3 { font-size: 22px; line-height: 1.35; letter-spacing: -.025em; font-weight: 800; margin: 0 0 12px; }
+.solutions-functions__grid p { margin: 0; font-size: 16px; line-height: 1.75; color: var(--solutions-muted); }
+.solutions-functions__grid li:target { border-top-color: #9fbf36; }
+.solutions-functions__note { margin: 0; font-size: 14px; line-height: 1.7; color: var(--solutions-muted); }
+
 .solutions-integrations {
   padding-block: 40px 42px;
   background: #f7f8f5;
@@ -263,6 +272,7 @@
 .solutions-cta__notes p:last-child { flex-shrink: 0; }
 
 @media (max-width: 1050px) {
+  .solutions-functions__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; }
   .solutions-cinema__reactions > div { grid-template-columns: 160px minmax(0, 1fr); }
   .solutions-cinema__reactions li { padding-inline: 16px; gap: 10px; }
   .solutions-scenes__grid { gap: 36px 28px; }
@@ -277,6 +287,13 @@
 }
 
 @media (max-width: 700px) {
+  .solutions-functions { padding-block: 32px; }
+  .solutions-functions__grid { grid-template-columns: 1fr; gap: 28px; margin-top: 28px; }
+  .solutions-functions__grid li { display: grid; grid-template-columns: 36px minmax(0, 1fr); column-gap: 16px; padding-top: 20px; }
+  .solutions-functions__grid svg { width: 36px; height: 36px; grid-row: span 2; margin: 0; }
+  .solutions-functions__grid h3 { font-size: 20px; margin-bottom: 10px; }
+  .solutions-functions__grid p { font-size: 15px; }
+  .solutions-functions__note { font-size: 13px; }
   .solutions-page .f50-demo .f50-demo__inner { padding-top: 28px; }
   .solutions-page .f50-demo .intro { font-size: 14px; }
   .solutions-container { width: calc(100% - 40px); }

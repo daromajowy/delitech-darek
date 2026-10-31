@@ -1,3 +1,20 @@
+# Six home benefits and linked function descriptions — Janka
+
+Date: 2026-10-31. Scope: Janka homepage and the corresponding descriptions on Solutions.
+
+- Homepage has six benefits with the existing navy Lucide line icons: lighting, shading/privacy, temperature, weather, irrigation and leak response. Desktop retains three columns; phones use one column. Existing hero, imagery, navigation and other sections are retained.
+- Each benefit links to one unique Solutions target: `dali`, `fasady`, `hvac`, `pogoda`, `ogrod`, `wyciek`. Existing anchors remain valid, including `integracje` and the eight additional integrations. The homepage benefit list also has the `funkcje-domu` anchor.
+- Expanded descriptions explain daily use and required equipment. Rain closing is limited to compatible motorized windows; wind response depends on the shading product and manufacturer instructions. Irrigation accounts for soil/rain sensors, and leak response requires sensors plus a controlled valve. No arbitrary-device compatibility or guaranteed prevention of damage is claimed.
+- Content follows the user-approved market review of Gira weather controls, Elsner weather/Jardana systems and ABB leak detection. No new images or runtime dependencies.
+- All six links were clicked in the browser and reached their matching heading and description. Weather anchor alignment was checked on desktop and mobile. Responsive checks at 320, 390, 768 and 1024 px found no document or integration-item overflow. Desktop is three columns, tablet two, phone one on Solutions.
+- TypeScript, all eight existing tests and the twelve-page Janka preview build passed. Browser warning/error log was empty. The existing uncommitted DESIGN.md edit is preserved and excluded.
+
+Evidence: `C:/Users/Asdmin/Documents/ChatGPT/KNX/outputs/home-benefits-janka-20261031/` — desktop/mobile screenshots, link-checks.json, responsive.json and build.log.
+
+**final result: passed (local checks)**
+
+---
+
 # About and team profiles — Janka
 
 Date: 2026-10-31. User requested restored portraits, expanded biographies and a clearer About page.

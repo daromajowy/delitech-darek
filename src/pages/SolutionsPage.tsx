@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  ArrowUpRight, Blinds, CarFront, CirclePlay, DoorOpen, Fan, Lightbulb, Moon,
+  ArrowUpRight, Blinds, CarFront, CirclePlay, CloudRain, DoorOpen, Droplets, Fan, Lightbulb, Moon,
   Music2, PanelsTopLeft, ShieldCheck, ShowerHead, Smartphone, Snowflake,
   BatteryCharging, Sprout, Sun, Thermometer, type LucideIcon,
 } from 'lucide-react';
@@ -77,16 +77,39 @@ const scenes = [
   },
 ];
 
+const everydayFunctions = [
+  {
+    id: 'dali', icon: Sun, title: 'Światło w Twoim rytmie',
+    text: 'Jasne światło do pracy, łagodne wieczorem i dyskretne przejście do łazienki w nocy. Jednym przyciskiem zmieniasz nastrój kilku lamp, a czujniki i harmonogramy mogą uruchamiać ustalone sceny automatycznie.',
+  },
+  {
+    id: 'fasady', icon: Blinds, title: 'Cień i prywatność',
+    text: 'Rolety i żaluzje ograniczają ostre słońce, zanim salon zdąży się nagrzać. Wieczorem osłony lub zasłony zapewniają prywatność. Mogą reagować na nasłonecznienie, działać według harmonogramu albo na Twoje polecenie.',
+  },
+  {
+    id: 'hvac', icon: Thermometer, title: 'Temperatura po Twojemu',
+    text: 'Ustalasz temperaturę osobno w sypialni, salonie czy łazience. Ogrzewanie i chłodzenie współpracują, zamiast działać przeciwko sobie. Czujnik otwarcia okna może ograniczyć ich pracę na czas wietrzenia, a tryb wyjazdu zmienić ustawienia na czas nieobecności.',
+  },
+  {
+    id: 'pogoda', icon: CloudRain, title: 'Dom reaguje na pogodę',
+    text: 'Gdy czujnik wykryje deszcz, okna wyposażone w zgodne napędy mogą zamknąć się automatycznie. Przy silnym wietrze system ustawia zewnętrzne osłony w pozycji ochronnej. Reakcje dobieramy do rodzaju okien, markiz i żaluzji oraz zaleceń ich producentów.',
+  },
+  {
+    id: 'ogrod', icon: Sprout, title: 'Ogród podlewany z głową',
+    text: 'Trawnik i rabaty mogą mieć osobne pory i długość podlewania. Czujniki wilgotności gleby i deszczu pozwalają wstrzymać nawadnianie, gdy wody już wystarcza. Sterowane zawory obsługują wybrane części ogrodu także podczas Twojego wyjazdu.',
+  },
+  {
+    id: 'wyciek', icon: Droplets, title: 'Reakcja na wyciek',
+    text: 'Czujnik przy pralce, zmywarce lub pod zlewem wykrywa wodę tam, gdzie nie powinno jej być. System może wtedy odciąć dopływ wody przez odpowiednio dobrany, sterowany zawór. Zakres ochrony planujemy razem z rozmieszczeniem czujników i instalacją wodną.',
+  },
+];
+
 const integrations = [
-  { id: 'dali', icon: Lightbulb, title: 'Oświetlenie', text: 'Lampy, ściemnianie i grupy światła.' },
-  { id: 'fasady', icon: Blinds, title: 'Rolety i zasłony', text: 'Prywatność i kontrola słońca.' },
-  { id: 'hvac', icon: Thermometer, title: 'Ogrzewanie', text: 'Temperatura dla każdego pokoju.' },
   { id: 'klimatyzacja', icon: Snowflake, title: 'Klimatyzacja', text: 'Chłodzenie dopasowane do potrzeb.' },
   { id: 'wentylacja', icon: Fan, title: 'Wentylacja', text: 'Tryby pracy i pomiary powietrza.' },
   { id: 'multimedia', icon: Music2, title: 'Muzyka i kino', text: 'Dźwięk i obraz w domowych scenach.' },
   { id: 'wejscie', icon: DoorOpen, title: 'Domofon i brama', text: 'Wygodna obsługa wejścia.' },
-  { id: 'bezpieczenstwo', icon: ShieldCheck, title: 'Alarm i czujniki', text: 'Sygnały z okien i czujników wody.' },
-  { id: 'ogrod', icon: Sprout, title: 'Ogród i podlewanie', text: 'Światło na zewnątrz i nawadnianie.' },
+  { id: 'bezpieczenstwo', icon: ShieldCheck, title: 'Alarm i czujniki', text: 'Sygnały z okien, drzwi i zgodnego systemu alarmowego.' },
   { id: 'energia', icon: BatteryCharging, title: 'Fotowoltaika i magazyn', text: 'Informacje o energii w domu.' },
   { id: 'ladowanie', icon: CarFront, title: 'Ładowanie samochodu', text: 'Współpraca ze zgodną ładowarką.' },
   { id: 'obsluga', icon: Smartphone, title: 'Panel, aplikacja i głos', text: 'Sposób obsługi dobrany do Ciebie.' },
@@ -152,7 +175,26 @@ export function SolutionsPage({ onOpenConsultation }: SolutionsPageProps) {
         </div>
       </section>
 
-      <section className="solutions-integrations" id="integracje" aria-labelledby="solutions-integrations-title">
+      <section className="solutions-functions" id="integracje" aria-labelledby="solutions-functions-title">
+        <div className="solutions-container">
+          <div className="solutions-section-intro">
+            <h2 id="solutions-functions-title">Dom reaguje. Ty korzystasz.</h2>
+            <p>Codzienna wygoda w domu i ogrodzie. Zobacz, jak to może działać u Ciebie.</p>
+          </div>
+          <ul className="solutions-functions__grid">
+            {everydayFunctions.map(({ id, icon: Icon, title, text }) => (
+              <li key={id} id={id} aria-labelledby={`function-${id}-title`}>
+                <Icon size={48} strokeWidth={1.3} aria-hidden="true" />
+                <h3 id={`function-${id}-title`}>{title}</h3>
+                <p>{text}</p>
+              </li>
+            ))}
+          </ul>
+          <p className="solutions-functions__note">Funkcje dobieramy do Twojego domu, urządzeń i sposobu życia. Potrzebne czujniki i napędy uwzględniamy w projekcie.</p>
+        </div>
+      </section>
+
+      <section className="solutions-integrations" aria-labelledby="solutions-integrations-title">
         <div className="solutions-container">
           <div className="solutions-section-intro">
             <h2 id="solutions-integrations-title">Co jeszcze możemy połączyć?</h2>
