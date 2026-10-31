@@ -1,6 +1,6 @@
 # Homes — Day Rhythm hero, Janka
 
-Date: 2026-10-31. User requested the existing “Twój dzień. Jego rytm.” demonstration as the hero of Domy i apartamenty.
+Date: 2026-10-31. User requested the existing “Twój dzień. Jego rytm.” demonstration as the hero of Domy i apartamenty. Follow-up correction restores its original scroll-driven interaction, which was incorrectly disabled in the first hero implementation.
 
 ## Scope and visual evidence
 
@@ -8,12 +8,15 @@ Date: 2026-10-31. User requested the existing “Twój dzień. Jego rytm.” dem
 - Reused the existing DayRhythm component and all five scene photographs, navy overlay, typography, descriptions, timeline and configurator action. The hero is directly below the global navigation; the previous static Homes hero was removed. The introductory copy and all remaining Homes sections follow the new hero.
 - Evidence: `C:/Users/Asdmin/Documents/ChatGPT/KNX/outputs/homes-day-rhythm-hero-20261031/desktop-morning.png`, `mobile-morning.png`, `mobile-320-top.png`.
 - CSS viewports checked: 1555 x 970, 390 x 844 and 320 x 740. The desktop matches the supplied section, with the existing site navigation and preview notice above it. Mobile crops the photograph, keeps all five timeline controls and allows ordinary scrolling on short screens. No horizontal overflow or overlapping text.
+- Follow-up evidence: `scroll-restored-desktop.png` and `scroll-restored-night.png` in the same directory. The restored scroll sequence was checked at 1440 x 900 and 390 x 844; the existing normal-flow fallback and manual tabs were checked at 390 x 740.
 
 ## Functional checks
 
 - Starts at 07:00, with a single page h1. The scene title and the previous introductory title use h2.
 - All five tabs switch the image, time, description and status. Every active image loaded successfully. ArrowRight selects and focuses the next tab; the next-scene button advances the scene.
-- Native pointer click on the desktop timeline changed morning to away with scrollY unchanged at 0. Hero mode does not use the homepage's long sticky scroll sequence or automatic scroll-to-scene behavior.
+- Hero and homepage now share the same sticky scroll sequence and automatic scroll-to-scene behavior. At 1440 x 900, native wheel input selected away at scrollY 900, return at 1575, relax at 2250 and night at 2925, while the stage remained at y=121 below the header. Scrolling beyond the sequence exposed the following content; scrolling upward returned to relax. Clicking the morning tab moved to scrollY 129 and selected morning.
+- On mobile 390 x 844, scrolling selected away while the stage stayed at y=115 below the header. On a short 390 x 740 screen, the original normal-flow fallback remained available and manual selection changed to night.
+- Fixed a CTA clipping issue found at 900 px viewport height by extending the existing compact typography breakpoint to 950 px. The CTA now ends at y=856.5 inside the 900 px viewport and is fully visible while the stage is sticky.
 - Configurator CTA retains `/delitech-darek/Janka/projektant-knx/`.
 - Homepage still has its own original h1. Its DayRhythm remains a separate h2 section, initially evening, with its existing sticky stage and 4280 px scroll track at the desktop test viewport.
 - TypeScript, static Janka-prefix build, eight existing content/lighting tests and diff whitespace checks passed. Browser console has no warnings or errors.

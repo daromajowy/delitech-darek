@@ -69,7 +69,7 @@ export function DayRhythm({ asHero = false }: { asHero?: boolean }) {
   }, []);
 
   useEffect(() => {
-    if (asHero || reducedMotion || !nearby) return;
+    if (reducedMotion || !nearby) return;
     let frame = 0;
     const update = () => {
       frame = 0;
@@ -91,14 +91,14 @@ export function DayRhythm({ asHero = false }: { asHero?: boolean }) {
       window.removeEventListener('resize', queueUpdate);
       cancelAnimationFrame(frame);
     };
-  }, [asHero, reducedMotion, nearby]);
+  }, [reducedMotion, nearby]);
 
   function selectScene(index: number, focus = false) {
     setActive(index);
     setNearby(true);
     setEngaged(true);
     manualUntil.current = performance.now() + 1500;
-    if (!asHero && track.current && stage.current && !reducedMotion) {
+    if (track.current && stage.current && !reducedMotion) {
       const distance = track.current.offsetHeight - stage.current.offsetHeight;
       if (distance > 1) {
         const top = window.scrollY + track.current.getBoundingClientRect().top - headerHeight.current;

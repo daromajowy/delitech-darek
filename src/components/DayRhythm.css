@@ -81,7 +81,8 @@
 
 @media (min-width: 1500px) { .day-rhythm__image { object-position: center 57%; } }
 @media (max-width: 1150px) { .day-rhythm__status { display: none; } }
-@media (max-height: 880px) {
+/* Keep the timeline and CTA inside the sticky stage below the two-row site header. */
+@media (max-height: 950px) {
   .day-rhythm__intro .day-rhythm__title { font-size: clamp(52px, 9svh, 78px); margin-top: 18px; }
   .day-rhythm__description { font-size: 18px; margin-top: 18px; }
   .day-rhythm__next { margin-top: 16px; }
@@ -129,7 +130,3 @@
   .day-rhythm *, .day-rhythm *::before { animation: none !important; transition: none !important; }
   .day-rhythm__image { transform: none; }
 }
-
-/* The page hero uses normal flow; its timeline changes scenes without scrolling the page. */
-.day-rhythm--hero { height: auto; }
-.day-rhythm--hero .day-rhythm__stage { position: relative; top: 0; }
