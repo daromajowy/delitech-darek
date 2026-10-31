@@ -23,9 +23,10 @@
 }
 .primary-header__intro {
   margin: 0;
-  color: #59636b;
+  color: #617b16;
   font-size: 13px;
-  font-weight: 500;
+  font-weight: 700;
+  letter-spacing: .04em;
 }
 .primary-header__contact {
   display: flex;

@@ -68,7 +68,7 @@ export function Navbar({ currentPage }: { currentPage: PageId }) {
       </a>
       <div className="primary-header__utility">
         <div className="primary-header__utility-inner">
-          <p className="primary-header__intro">Inteligentne domy i apartamenty</p>
+          <p className="primary-header__intro">INTEGRATOR AUTOMATYKI BUDYNKU</p>
           <nav className="primary-header__contact" aria-label="Szybki kontakt">
             <a href="tel:+48505260715">
               <Phone size={16} aria-hidden="true" />
