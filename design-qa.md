@@ -1,3 +1,42 @@
+# Editorial homepage — intelligent spaces, homes, Smart Workspace, Janka
+
+Date: 2026-10-31. Target: homepage of Janka only.
+
+## Selected direction and scope
+
+Source of visual truth: `C:/Users/Asdmin/Documents/ChatGPT/KNX/outputs/homepage-five-directions-20261031/selected-rhythm-v5/homepage-refined.png` (731 × 2149), with its adjacent `design-spec.json`. The user's latest choice keeps the actual navigation and JUNG film, then places one universal brand introduction above the home chapter, a concise process, one navy advice/configurator band and the conference room as the final major section. The homepage has exactly three supporting photographs.
+
+Implementation: `http://127.0.0.1:3091/delitech-darek/Janka/`. Evidence: `C:/Users/Asdmin/Documents/ChatGPT/KNX/outputs/homepage-editorial-janka-20261031/`.
+
+- Existing `HeroVideo` and `Navbar` source and assets are unchanged. The interactive day story remains on HomesPage.
+- Reused `architects-advice.webp`; generated two supporting interior illustrations and optimized them to WebP (approximately 550 KB combined). No photographs imply completed client projects. The room figure is explicitly described as an example.
+- Existing Manrope / Plus Jakarta Sans, navy #182C3D, off-white #F3F5F2 and lime #9FBF36. The installed Lucide line-icon family matches the reference's function and line weight.
+- Added a compact homepage footer. Other pages retain their existing footer. No changes to main, Darka, deployment workflows, backend or production are part of this patch.
+
+## Visual comparison and repairs
+
+`desktop-first.png` and `comparison-first.png` show the first implementation alongside the selected mockup, both normalized to 731 px width without vertical stretching. P2: supporting typography and icons were too small relative to the selected image. Increased desktop headline, section headings, CTA text, benefit icons and process text; slightly enlarged the image pair. Rechecked responsive overrides.
+
+`desktop-final.png` and `comparison-final.png` record the reviewed result at 1440 × 1000 CSS px (1425 × 4163 content screenshot). The combined source/implementation image was inspected for hierarchy, section order, density, image composition, typography, spacing, colors, copy and buttons. All source sections are present once; the H1 is unique. The visual rhythm and limited image count match the selected direction.
+
+Intentional differences: the original film continues playing, so its captured frame differs; the actual header and preview notice are retained. The footer keeps working privacy, RODO and cookie controls and company details. Supporting copy avoids absolute promises, and source-generated photographic details are represented by new assets in the same composition. The source's decorative texture is replaced by the existing solid site colors.
+
+`responsive-1024.png`, `responsive-768.png`, `responsive-390.png`, `responsive-320.png` and `responsive.json` record tablet/mobile checks. `mobile-contact-sheet.png` was visually inspected: paired photos and process stack, the navy support list separates horizontally, buttons and contact links remain readable. No element or document overflow at 1440, 1024, 768, 390 or 320 px. Touch targets use at least 44 px for new controls.
+
+## Functional verification
+
+- Home and room consultation CTAs open the appropriate existing form variants with the correct investment selection; forms were not submitted.
+- Benefit links preserve the Janka base path and target existing `dali`, `fasady`, `hvac` anchors. Clicked the blinds link and verified the destination content.
+- Configurator links use the branch demo URL. Footer telephone, email, menu and ProAV links retain their existing destinations.
+- Mobile menu opens and closes with Escape. Cookie notice can be dismissed.
+- P2 found and repaired during footer testing: PrivacyModal retained its initial tab across reopenings. Mount it when opened so the requested RODO/cookies/privacy tab appears; all three footer controls now verified against their visible headings. Legal text is unchanged.
+- Browser warning/error log empty. TypeScript passed; 12-page branch-prefix preview build passed; all eight existing site-content/F50 tests passed; diff whitespace check passed. Existing Vite native-config deprecation warning is unrelated.
+- Pre-existing `DESIGN.md` edit preserved and excluded from this change.
+
+**final result: passed**
+
+---
+
 # Day Rhythm — permanent TV and continuous supporting wall, Janka
 
 Date: 2026-10-31. Follow-up correction: the TV must stay installed in every scene, switched off except in Kino, with solid wall behind its entire footprint.

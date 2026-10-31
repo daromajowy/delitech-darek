@@ -1,0 +1,35 @@
+.home-footer { background: var(--color-ink); color: #fff; padding-block: 40px 16px; }
+.home-footer__wrap { max-width: 1440px; margin-inline: auto; padding-inline: 64px; }
+.home-footer a, .home-footer button { text-decoration: none; }
+.home-footer a:hover, .home-footer button:hover { color: var(--color-accent); }
+.home-footer__top { display: flex; align-items: center; justify-content: space-between; gap: 48px; }
+.home-footer__logo { display: inline-flex; align-items: center; min-height: 44px; flex-shrink: 0; }
+.home-footer nav { display: flex; flex-wrap: wrap; justify-content: flex-end; column-gap: 28px; font-size: 14px; }
+.home-footer nav a { display: inline-flex; align-items: center; min-height: 44px; }
+.home-footer__contact-row { display: flex; justify-content: space-between; align-items: center; gap: 32px; margin-top: 28px; }
+.home-footer address { display: flex; flex-wrap: wrap; column-gap: 32px; font-size: 15px; font-style: normal; }
+.home-footer address a, .home-footer__proav { display: inline-flex; align-items: center; gap: 12px; min-height: 44px; }
+.home-footer address svg { flex-shrink: 0; }
+.home-footer__proav { font-size: 14px; border-left: 1px solid var(--color-accent); padding-left: 32px; }
+.home-footer__legal { display: flex; align-items: center; justify-content: space-between; gap: 16px; border-top: 1px solid #ffffff24; margin-top: 28px; padding-top: 8px; font-size: 12px; line-height: 1.7; color: #c5ced3; }
+.home-footer__legal div { display: flex; flex-wrap: wrap; column-gap: 24px; }
+.home-footer__legal button { min-height: 44px; cursor: pointer; }
+@media (max-width: 1100px) {
+  .home-footer__wrap { padding-inline: 40px; }
+  .home-footer__top { align-items: flex-start; gap: 24px; }
+  .home-footer nav { column-gap: 20px; }
+  .home-footer address { column-gap: 24px; }
+  .home-footer__legal { align-items: flex-start; flex-direction: column; gap: 0; padding-top: 20px; }
+}
+@media (max-width: 760px) {
+  .home-footer { padding-top: 32px; }
+  .home-footer__wrap { padding-inline: 24px; }
+  .home-footer__top { flex-direction: column; gap: 20px; }
+  .home-footer nav { display: grid; grid-template-columns: 1fr 1fr; gap: 0 24px; width: 100%; }
+  .home-footer nav a { font-size: 13px; }
+  .home-footer__contact-row { flex-direction: column; align-items: flex-start; gap: 16px; margin-top: 24px; }
+  .home-footer address { flex-direction: column; font-size: 14px; }
+  .home-footer__proav { padding-left: 16px; }
+  .home-footer__legal { margin-top: 24px; }
+  .home-footer__legal div { column-gap: 20px; }
+}

@@ -9,12 +9,13 @@ import { pages } from './page-config';
 import { PageId } from './types.ts';
 import { Navbar } from './components/Navbar.tsx';
 import { Footer } from './components/Footer.tsx';
+import { HomeFooter } from './components/HomeFooter.tsx';
 import { PrivacyModal } from './components/PrivacyModal.tsx';
 import { ConsultationModal } from './components/ConsultationModal.tsx';
 import { CookieBanner } from './components/CookieBanner.tsx';
 
 // Pages
-import { HomePage } from './pages/HomePage.tsx';
+import { HomePage, WORKSPACE_CONSULTATION } from './pages/HomePage.tsx';
 import { OfficesPage } from './pages/OfficesPage.tsx';
 import { ProAVPage } from './pages/ProAVPage.tsx';
 import { HomesPage } from './pages/HomesPage.tsx';
@@ -133,7 +134,7 @@ export default function App() {
         {currentPage === 'home' && (
           <HomePage
             onNavigate={handleNavigate}
-            onOpenConsultation={() => handleOpenConsultation()}
+            onOpenConsultation={handleOpenConsultation}
           />
         )}
 
@@ -218,24 +219,27 @@ export default function App() {
       </main>
 
       {/* Editorial Footer */}
-      <Footer
-        onNavigate={handleNavigate}
-        onOpenPrivacy={handleOpenPrivacy}
-      />
+      {currentPage === 'home' ? (
+        <HomeFooter onOpenPrivacy={handleOpenPrivacy} />
+      ) : (
+        <Footer onNavigate={handleNavigate} onOpenPrivacy={handleOpenPrivacy} />
+      )}
 
       {/* Legal Privacy & Cookies Modal */}
-      <PrivacyModal
-        isOpen={privacyModalOpen}
-        onClose={() => setPrivacyModalOpen(false)}
-        defaultTab={privacyTab}
-      />
+      {privacyModalOpen && (
+        <PrivacyModal
+          isOpen={privacyModalOpen}
+          onClose={() => setPrivacyModalOpen(false)}
+          defaultTab={privacyTab}
+        />
+      )}
 
       {/* Consultation Booking Modal */}
       <ConsultationModal
         isOpen={consultationModalOpen}
         onClose={() => setConsultationModalOpen(false)}
         initialTopic={consultationTopic}
-        variant={currentPage === 'proav' || currentPage === 'offices' ? 'proav' : currentPage === 'architects' ? 'architects' : 'knx'}
+        variant={currentPage === 'proav' || currentPage === 'offices' || (currentPage === 'home' && consultationTopic === WORKSPACE_CONSULTATION) ? 'proav' : currentPage === 'architects' ? 'architects' : 'knx'}
         onOpenPrivacy={() => handleOpenPrivacy('privacy')}
       />
 
