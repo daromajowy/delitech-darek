@@ -1,3 +1,20 @@
+# Day Rhythm — cinema and sun-screening blinds, Janka
+
+Date: 2026-10-31. Added the requested Kino scene between Relaks and Noc and exterior slatted blinds in the 15:00 Powrót scene.
+
+- Six scenes: 07:00 Poranek, 09:00 Wyjście, 15:00 Powrót, 19:30 Relaks, 21:00 Kino, 23:00 Noc. Cinema shows a widescreen TV, subtle wall LEDs and dim lighting; Powrót shows exterior slats and filtered afternoon sunlight. Existing room composition is retained in both image edits.
+- Assets were edited with built-in imagegen and optimized to WebP: `src/assets/images/day-rhythm-cinema.webp` and `src/assets/images/day-rhythm-return-blinds.webp`. The original return asset remains available.
+- Prompts, selected PNG sources and browser evidence: `C:/Users/Asdmin/Documents/ChatGPT/KNX/outputs/day-rhythm-cinema-blinds-20261031/` (`asset-prompts.md`, `desktop-cinema.png`, `desktop-return-blinds.png`, `mobile-cinema-390.png`).
+- Desktop 1440 x 900, mobile 390 x 844 and narrow 320 x 740 checked. Six timeline controls fit without horizontal overflow; the narrowest hit area is 44.16 px. The mobile cinema crop keeps the TV visible. The existing normal-flow fallback for short screens remains intact.
+- Native wheel input selected Relaks at scrollY 2143, Kino at 2818 and Noc at 3493; scrolling back selected Kino. The stage remains below the fixed header. ArrowRight advances through Relaks, Kino and Noc and wraps to Poranek with matching keyboard focus.
+- Active images load; the TV status appears only in Kino. The configurator CTA remains visible. Browser console has no errors.
+- TypeScript, Janka-prefix static build, eight existing content/lighting tests and `git diff --check` passed. No new low-impact implementation-mirroring tests were added.
+- Scope: DayRhythm.tsx/CSS, the two new WebP assets and this report. The existing unrelated DESIGN.md modification is excluded. Publication target is Janka only.
+
+**final result: passed**
+
+---
+
 # Homes — Day Rhythm hero, Janka
 
 Date: 2026-10-31. User requested the existing “Twój dzień. Jego rytm.” demonstration as the hero of Domy i apartamenty. Follow-up correction restores its original scroll-driven interaction, which was incorrectly disabled in the first hero implementation.

@@ -1,10 +1,11 @@
-import React, { useEffect, useRef, useState, type KeyboardEvent } from 'react';
-import { ArrowDown, ArrowRight, Blinds, Lightbulb, Thermometer } from 'lucide-react';
+import React, { useEffect, useRef, useState, type CSSProperties, type KeyboardEvent } from 'react';
+import { ArrowDown, ArrowRight, Blinds, Lightbulb, Thermometer, TvMinimal } from 'lucide-react';
 import { plannerUrl } from '../site';
 import morning from '../assets/images/day-rhythm-morning.webp';
 import away from '../assets/images/day-rhythm-away.webp';
-import returning from '../assets/images/day-rhythm-return.webp';
+import returning from '../assets/images/day-rhythm-return-blinds.webp';
 import relax from '../assets/images/day-rhythm-relax.webp';
+import cinema from '../assets/images/day-rhythm-cinema.webp';
 import night from '../assets/images/day-rhythm-night.webp';
 import shade from '../assets/images/day-rhythm-shade.webp';
 import './DayRhythm.css';
@@ -12,8 +13,9 @@ import './DayRhythm.css';
 const scenes = [
   { id: 'morning', image: morning, time: '07:00', label: 'Poranek', title: 'Dzień zaczyna się łagodnie.', text: 'Zasłony odsłaniają widok. Dom budzi się razem z Tobą.', light: 'Naturalne światło', curtains: 'Zasłony otwarte', temperature: '21°C' },
   { id: 'away', image: away, time: '09:00', label: 'Wyjście', title: 'Wychodzisz. Dom pamięta.', text: 'Światła gasną. Zasłony osłaniają wnętrze przed słońcem.', light: 'Światła wyłączone', curtains: 'Ochrona przed słońcem', temperature: '19°C' },
-  { id: 'return', image: returning, time: '15:00', label: 'Powrót', title: 'Dobrze być z powrotem.', text: 'Ulubione światło. Przyjemna temperatura. Jesteś u siebie.', light: 'Delikatne światło', curtains: 'Zasłony otwarte', temperature: '21°C' },
+  { id: 'return', image: returning, time: '15:00', label: 'Powrót', title: 'Dobrze być z powrotem.', text: 'Żaluzje osłaniają salon przed słońcem. W środku przyjemnie i jasno.', light: 'Światło dzienne', curtains: 'Żaluzje przeciwsłoneczne', temperature: '21°C' },
   { id: 'relax', image: relax, time: '19:30', label: 'Relaks', title: 'Wieczór, który zwalnia.', text: 'Ciepłe światło. Zasłony przymknięte. Czas dla siebie.', light: 'Ciepłe światło', curtains: 'Zasłony przymknięte', temperature: '22°C' },
+  { id: 'cinema', image: cinema, time: '21:00', label: 'Kino', title: 'Czas na dobry film.', text: 'Światło przygasa. Telewizor i delikatne LED-y tworzą kinowy klimat.', light: 'Delikatne LED-y', curtains: 'Zasłony przymknięte', temperature: '21°C' },
   { id: 'night', image: night, time: '23:00', label: 'Noc', title: 'Dobranoc. Dom też zwalnia.', text: 'Zasłony zamknięte. Tylko dyskretne światło przy podłodze.', light: 'Światło nocne', curtains: 'Zasłony zamknięte', temperature: '19°C' },
 ] as const;
 
@@ -122,11 +124,12 @@ export function DayRhythm({ asHero = false }: { asHero?: boolean }) {
   }
 
   return (
-    <section id="rytm-dnia" ref={track} className={`day-rhythm${asHero ? ' day-rhythm--hero' : ''}`} aria-labelledby="day-rhythm-title">
+    <section id="rytm-dnia" ref={track} className={`day-rhythm${asHero ? ' day-rhythm--hero' : ''}`} aria-labelledby="day-rhythm-title"
+      style={{ '--day-rhythm-scene-count': scenes.length } as CSSProperties}>
       <div ref={stage} className="day-rhythm__stage" data-scene={current.id}>
         <div className="day-rhythm__images" aria-hidden="true">
           {scenes.map((scene, index) => (
-            <img key={scene.id} src={index === initialScene || nearby ? scene.image : undefined}
+            <img key={scene.id} data-scene={scene.id} src={index === initialScene || nearby ? scene.image : undefined}
               alt="" width={1536} height={1024} decoding="async" loading={asHero || nearby ? 'eager' : 'lazy'}
               fetchPriority={asHero && index === initialScene ? 'high' : undefined}
               className={`day-rhythm__image${index === active ? ' is-active' : ''}`} />
@@ -153,6 +156,7 @@ export function DayRhythm({ asHero = false }: { asHero?: boolean }) {
           </div>
           <div className="day-rhythm__status" aria-label="Przykładowe ustawienia sceny">
             <span><Lightbulb size={16} aria-hidden="true" />{current.light}</span>
+            {current.id === 'cinema' && <span><TvMinimal size={16} aria-hidden="true" />TV włączony</span>}
             <span><Blinds size={16} aria-hidden="true" />{current.curtains}</span>
             <span><Thermometer size={16} aria-hidden="true" />{current.temperature}</span>
           </div>

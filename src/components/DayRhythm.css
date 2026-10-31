@@ -1,7 +1,8 @@
 .day-rhythm {
   --day-rhythm-header: 90px;
+  --day-rhythm-scene-count: 6;
   position: relative;
-  height: calc(400svh + 400px);
+  height: calc(var(--day-rhythm-scene-count) * (80svh + 80px));
   scroll-margin-top: var(--day-rhythm-header);
   background: var(--color-ink);
   color: var(--color-surface);
@@ -91,9 +92,10 @@
   .day-rhythm__scene-description { font-size: 14px; }
 }
 @media (max-width: 780px) {
-  .day-rhythm { height: calc(340svh + 300px); }
+  .day-rhythm { height: calc(var(--day-rhythm-scene-count) * (68svh + 60px)); }
   .day-rhythm__stage { min-height: 660px; max-height: none; padding: 30px 24px 20px; }
   .day-rhythm__image { object-position: 52% center; filter: brightness(.84); }
+  .day-rhythm__image[data-scene='cinema'] { object-position: right center; }
   .day-rhythm__intro { padding-bottom: 20px; }
   .day-rhythm__intro .day-rhythm__title { font-size: clamp(54px, 10vw, 76px); line-height: 1.02; margin-top: 24px; }
   .day-rhythm__eyebrow { font-size: 8px; letter-spacing: .22em; }
@@ -105,8 +107,8 @@
   .day-rhythm__summary .day-rhythm__scene-title { font-size: 24px; }
   .day-rhythm__scene-description { font-size: 12px; line-height: 1.5; max-width: 360px; }
   .day-rhythm__timeline { margin-bottom: 15px; }
-  .day-rhythm__timeline::before { left: 9%; right: 9%; }
-  .day-rhythm__stop { width: 18%; font-size: 11px; min-height: 68px; }
+  .day-rhythm__timeline::before { left: calc(50% / var(--day-rhythm-scene-count)); right: calc(50% / var(--day-rhythm-scene-count)); }
+  .day-rhythm__stop { width: calc(100% / var(--day-rhythm-scene-count)); font-size: 11px; min-height: 68px; }
   .day-rhythm__label { font-size: 10px; }
   .day-rhythm__dot { margin-bottom: 8px; }
   .day-rhythm__plan { min-height: 46px; font-size: 11px; min-width: 255px; padding: 12px 16px; gap: 10px; }
