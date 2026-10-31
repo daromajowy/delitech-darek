@@ -18,11 +18,14 @@ const scenes = [
 ] as const;
 
 /** A self-contained, decorative demonstration; no connection to a real installation. */
-export function DayRhythm() {
-  const [active, setActive] = useState(3);
+export function DayRhythm({ asHero = false }: { asHero?: boolean }) {
+  const initialScene = asHero ? 0 : 3;
+  const Heading = asHero ? 'h1' : 'h2';
+  const SceneHeading = asHero ? 'h2' : 'h3';
+  const [active, setActive] = useState(initialScene);
   const [nearby, setNearby] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
-  const [engaged, setEngaged] = useState(false);
+  const [engaged, setEngaged] = useState(asHero);
   const track = useRef<HTMLElement>(null);
   const stage = useRef<HTMLDivElement>(null);
   const tabs = useRef<Array<HTMLButtonElement | null>>([]);
@@ -33,7 +36,7 @@ export function DayRhythm() {
   useEffect(() => {
     const element = track.current;
     if (!element) return;
-    // Load the other scenes shortly before reaching this part of the homepage.
+    // Load the other scenes shortly before this demonstration comes into view.
     if (!('IntersectionObserver' in window)) { setNearby(true); return; }
     const observer = new IntersectionObserver(entries => {
       if (entries.some(entry => entry.isIntersecting)) {
@@ -66,7 +69,7 @@ export function DayRhythm() {
   }, []);
 
   useEffect(() => {
-    if (reducedMotion || !nearby) return;
+    if (asHero || reducedMotion || !nearby) return;
     let frame = 0;
     const update = () => {
       frame = 0;
@@ -88,14 +91,14 @@ export function DayRhythm() {
       window.removeEventListener('resize', queueUpdate);
       cancelAnimationFrame(frame);
     };
-  }, [reducedMotion, nearby]);
+  }, [asHero, reducedMotion, nearby]);
 
   function selectScene(index: number, focus = false) {
     setActive(index);
     setNearby(true);
     setEngaged(true);
     manualUntil.current = performance.now() + 1500;
-    if (track.current && stage.current && !reducedMotion) {
+    if (!asHero && track.current && stage.current && !reducedMotion) {
       const distance = track.current.offsetHeight - stage.current.offsetHeight;
       if (distance > 1) {
         const top = window.scrollY + track.current.getBoundingClientRect().top - headerHeight.current;
@@ -119,12 +122,13 @@ export function DayRhythm() {
   }
 
   return (
-    <section id="rytm-dnia" ref={track} className="day-rhythm" aria-labelledby="day-rhythm-title">
+    <section id="rytm-dnia" ref={track} className={`day-rhythm${asHero ? ' day-rhythm--hero' : ''}`} aria-labelledby="day-rhythm-title">
       <div ref={stage} className="day-rhythm__stage" data-scene={current.id}>
         <div className="day-rhythm__images" aria-hidden="true">
           {scenes.map((scene, index) => (
-            <img key={scene.id} src={index === 3 || nearby ? scene.image : undefined}
-              alt="" width={1536} height={1024} decoding="async" loading={nearby ? 'eager' : 'lazy'}
+            <img key={scene.id} src={index === initialScene || nearby ? scene.image : undefined}
+              alt="" width={1536} height={1024} decoding="async" loading={asHero || nearby ? 'eager' : 'lazy'}
+              fetchPriority={asHero && index === initialScene ? 'high' : undefined}
               className={`day-rhythm__image${index === active ? ' is-active' : ''}`} />
           ))}
         </div>
@@ -133,7 +137,7 @@ export function DayRhythm() {
           aria-hidden="true" />
         <div className="day-rhythm__intro">
           <p className="day-rhythm__eyebrow"><span aria-hidden="true" />JEDEN DZIEŃ Z INTELISPACES</p>
-          <h2 id="day-rhythm-title">Twój dzień.<br />Jego rytm.</h2>
+          <Heading id="day-rhythm-title" className="day-rhythm__title">Twój dzień.<br />Jego rytm.</Heading>
           <p className="day-rhythm__description">Dom dopasowuje światło, temperaturę<br className="day-rhythm__break" /> i prywatność do Ciebie.</p>
           <button type="button" className="day-rhythm__next" onClick={() => selectScene(engaged ? (active + 1) % scenes.length : 0)}>
             <ArrowDown size={28} strokeWidth={1} aria-hidden="true" />
@@ -144,7 +148,7 @@ export function DayRhythm() {
           aria-labelledby={`day-rhythm-tab-${current.id}`} aria-live="polite" aria-atomic="true">
           <div key={current.id} className="day-rhythm__copy">
             <p className="day-rhythm__time">{current.time}</p>
-            <h3>{current.title}</h3>
+            <SceneHeading className="day-rhythm__scene-title">{current.title}</SceneHeading>
             <p className="day-rhythm__scene-description">{current.text}</p>
           </div>
           <div className="day-rhythm__status" aria-label="Przykładowe ustawienia sceny">

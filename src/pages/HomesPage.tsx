@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { ArrowDown, ArrowRight, Blinds, Camera, DoorOpen, Droplets, Fan, Layers3, Lightbulb, Network, Plus, ShieldCheck, Smartphone, Sprout, Thermometer, Zap } from 'lucide-react';
 import type { PageId } from '../types';
 import { pageUrl } from '../site';
-import heroImage from '../assets/images/homes-evening-hero.webp';
+import { DayRhythm } from '../components/DayRhythm';
 import morningImage from '../assets/images/homes-morning.webp';
 import leavingImage from '../assets/images/homes-leaving.webp';
 import eveningImage from '../assets/images/homes-evening-scene.webp';
@@ -200,10 +200,11 @@ export function HomesPage({ onOpenConsultation, initialHash }: HomesPageProps) {
 
   return (
     <div className="homes-page" ref={page}>
+      <DayRhythm asHero />
       <section className="homes-intro homes-width" aria-labelledby="homes-title">
         <div>
           <p className="homes-eyebrow">Domy i apartamenty · KNX</p>
-          <h1 id="homes-title">Oświetlenie, rolety i temperatura.<span>Zaplanowane jako jeden system.</span></h1>
+          <h2 id="homes-title">Oświetlenie, rolety i temperatura.<span>Zaplanowane jako jeden system.</span></h2>
         </div>
         <div className="homes-intro__copy">
           <p>Łączymy instalacje domu w standardzie KNX. Ustalamy, które funkcje mają działać automatycznie, co chcesz obsługiwać przyciskiem i gdzie potrzebujesz indywidualnych ustawień.</p>
@@ -222,11 +223,6 @@ export function HomesPage({ onOpenConsultation, initialHash }: HomesPageProps) {
         <a href={pageUrl('homes', 'etapy')}>Etapy współpracy <ArrowDown size={14} aria-hidden="true" /></a>
         <a href={pageUrl('homes', 'koszt')}>Koszt i przygotowanie <ArrowDown size={14} aria-hidden="true" /></a>
       </nav>
-
-      <figure className="homes-hero">
-        <img src={heroImage} alt="Wizualizacja salonu o zmierzchu: ciepłe oświetlenie, wygodna sofa i otwarcie na ogród" width={1942} height={809} fetchPriority="high" />
-        <figcaption><span>Twój dom. Twój rytm dnia.</span><span>Wizualizacja koncepcyjna</span></figcaption>
-      </figure>
 
       <section id="osprzet" className="homes-design homes-width homes-section" aria-labelledby="homes-design-title">
         <div className="homes-section-heading">

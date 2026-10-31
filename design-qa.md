@@ -1,3 +1,30 @@
+# Homes — Day Rhythm hero, Janka
+
+Date: 2026-10-31. User requested the existing “Twój dzień. Jego rytm.” demonstration as the hero of Domy i apartamenty.
+
+## Scope and visual evidence
+
+- Reference: `C:/Users/Asdmin/AppData/Local/Temp/codex-clipboard-b086567d-8805-40c5-a27a-5ea452b22b01.png`, morning 07:00 state.
+- Reused the existing DayRhythm component and all five scene photographs, navy overlay, typography, descriptions, timeline and configurator action. The hero is directly below the global navigation; the previous static Homes hero was removed. The introductory copy and all remaining Homes sections follow the new hero.
+- Evidence: `C:/Users/Asdmin/Documents/ChatGPT/KNX/outputs/homes-day-rhythm-hero-20261031/desktop-morning.png`, `mobile-morning.png`, `mobile-320-top.png`.
+- CSS viewports checked: 1555 x 970, 390 x 844 and 320 x 740. The desktop matches the supplied section, with the existing site navigation and preview notice above it. Mobile crops the photograph, keeps all five timeline controls and allows ordinary scrolling on short screens. No horizontal overflow or overlapping text.
+
+## Functional checks
+
+- Starts at 07:00, with a single page h1. The scene title and the previous introductory title use h2.
+- All five tabs switch the image, time, description and status. Every active image loaded successfully. ArrowRight selects and focuses the next tab; the next-scene button advances the scene.
+- Native pointer click on the desktop timeline changed morning to away with scrollY unchanged at 0. Hero mode does not use the homepage's long sticky scroll sequence or automatic scroll-to-scene behavior.
+- Configurator CTA retains `/delitech-darek/Janka/projektant-knx/`.
+- Homepage still has its own original h1. Its DayRhythm remains a separate h2 section, initially evening, with its existing sticky stage and 4280 px scroll track at the desktop test viewport.
+- TypeScript, static Janka-prefix build, eight existing content/lighting tests and diff whitespace checks passed. Browser console has no warnings or errors.
+- Source scope: DayRhythm.tsx/CSS, HomesPage.tsx/CSS and this report. The unrelated existing DESIGN.md modification is excluded.
+
+No actionable P0/P1/P2 findings.
+
+**final result: passed**
+
+---
+
 # Navigation — selected Linia option, Janka
 
 Date: 2026-10-29. The user selected displayed option 1 and explicitly limited implementation to the area above the existing Hero.
