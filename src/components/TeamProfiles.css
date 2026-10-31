@@ -1,0 +1,37 @@
+.team-profiles { display: grid; gap: 64px; }
+.team-profile { display: grid; grid-template-columns: 280px minmax(0, 1fr); align-items: start; gap: 64px; padding-top: 48px; border-top: 1px solid #182c3d28; scroll-margin-top: 155px; }
+.team-profile__portrait { min-width: 0; }
+.team-profile__portrait img { display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: center top; }
+.team-profile__monogram { display: flex; align-items: center; justify-content: center; position: relative; aspect-ratio: 4 / 5; background: var(--color-ink); color: #fff; }
+.team-profile__monogram > span:first-child { font: 400 88px/1 'Manrope', sans-serif; letter-spacing: -.06em; }
+.team-profile__mark { position: absolute; width: 16px; height: 16px; top: 30px; right: 30px; background: var(--color-accent); }
+.team-profile__specialty { font-size: 14px; line-height: 1.6; margin-top: 18px; padding-left: 14px; border-left: 3px solid var(--color-accent); }
+.team-profile__details h3 { font: 750 40px/1.15 'Manrope', sans-serif; letter-spacing: -.04em; }
+.team-profile__role { margin-top: 12px; font-size: 18px; line-height: 1.55; font-weight: 600; max-width: 760px; }
+.team-profile__bio { max-width: 760px; margin-top: 26px; font-size: 17px; line-height: 1.85; color: #374c5b; }
+.team-profile__bio p + p { margin-top: 16px; }
+.team-profile__focus { list-style: none; display: flex; flex-wrap: wrap; column-gap: 22px; row-gap: 8px; padding: 0; margin-top: 26px; font-size: 13px; line-height: 1.6; font-weight: 600; }
+.team-profile__focus li { display: flex; align-items: center; gap: 8px; }
+.team-profile__focus li::before { content: ''; width: 6px; height: 6px; flex-shrink: 0; background: var(--color-accent); }
+.team-profile__contact { display: flex; flex-wrap: wrap; gap: 8px 32px; margin-top: 22px; font-size: 15px; font-style: normal; }
+.team-profile__contact a { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; text-decoration: none; }
+.team-profile__contact a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.team-profile__contact svg { flex-shrink: 0; }
+@media (max-width: 1000px) {
+  .team-profile { grid-template-columns: 240px minmax(0, 1fr); gap: 36px; }
+  .team-profile__details h3 { font-size: 34px; }
+  .team-profile__role { font-size: 16px; }
+  .team-profile__bio { font-size: 16px; line-height: 1.75; }
+}
+@media (max-width: 700px) {
+  .team-profiles { gap: 40px; }
+  .team-profile { grid-template-columns: 1fr; gap: 28px; padding-top: 32px; scroll-margin-top: 140px; }
+  .team-profile__portrait { max-width: 320px; width: 100%; }
+  .team-profile__portrait img { aspect-ratio: 4 / 5; }
+  .team-profile__monogram { aspect-ratio: 2 / 1; }
+  .team-profile__monogram > span:first-child { font-size: 64px; }
+  .team-profile__specialty { font-size: 13px; margin-top: 14px; }
+  .team-profile__bio { margin-top: 22px; }
+  .team-profile__focus { margin-top: 20px; }
+  .team-profile__contact { flex-direction: column; gap: 0; margin-top: 20px; font-size: 14px; }
+}

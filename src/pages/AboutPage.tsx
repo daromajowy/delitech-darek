@@ -1,101 +1,76 @@
 import React from 'react';
-import { ArrowRight } from 'lucide-react';
-import { PageId } from '../types';
+import { ArrowDown, ArrowRight, Lightbulb, Layers, Wrench } from 'lucide-react';
+import type { PageId } from '../types';
 import { pageUrl } from '../site';
-import {
-  ContentHero,
-  ContactCta,
-  FeatureList,
-  ProjectSteps,
-  contentWidth,
-  actionClass,
-} from '../components/ContentSections';
+import { TeamProfiles } from '../components/TeamProfiles';
+import { ContactCta } from '../components/ContentSections';
+import './AboutPage.css';
 
 interface AboutPageProps {
   onNavigate: (page: PageId, subHash?: string) => void;
   onOpenConsultation: () => void;
 }
 
+const strengths = [
+  { icon: Lightbulb, title: 'Dobór z doświadczeniem.', text: 'Znamy urządzenia i ich zastosowania. Pomagamy wybrać rozwiązania pasujące do wnętrza, potrzeb i budżetu.' },
+  { icon: Layers, title: 'Wspólny język z projektantem.', text: 'Łączymy pomysł na wnętrze z techniką. Uzgadniamy funkcje, osprzęt i szczegóły potrzebne do przygotowania instalacji.' },
+  { icon: Wrench, title: 'Plan, który da się wykonać.', text: 'Patrzymy na projekt także oczami wykonawcy. Łączymy doradztwo, programowanie i praktyczną wiedzę o montażu.' },
+];
+
 export const AboutPage: React.FC<AboutPageProps> = ({ onOpenConsultation }) => (
-  <div>
-    <ContentHero eyebrow="O InteliSpaces" title="Technologia ma pasować do ludzi i wnętrza.">
-      <p>
-        Łączymy automatykę KNX z codziennym życiem w domach i apartamentach. Pracujemy z
-        inwestorami, architektami wnętrz i projektantami instalacji — od ustalenia funkcji po
-        uruchomienie uzgodnionego zakresu.
-      </p>
-    </ContentHero>
-    <section className="py-16 sm:py-20 bg-white">
-      <div className={contentWidth + ' grid lg:grid-cols-2 gap-10 items-start'}>
-        <div>
-          <h2 className="text-3xl font-bold font-display">
-            Poznaj ludzi, z którymi będziesz pracować.
-          </h2>
-          <p className="my-5 text-ink/80 leading-relaxed">
-            InteliSpaces rozwijamy w ramach Delitech. Nasz zespół łączy doświadczenie w koordynacji
-            projektów, integracji automatyki i instalacjach elektrycznych. Rozmawiasz z osobami
-            zaangażowanymi w przygotowanie i wdrożenie rozwiązania.
-          </p>
-          <a href={pageUrl('team')} className={actionClass}>
-            Poznaj nasz zespół <ArrowRight size={18} aria-hidden="true" />
-          </a>
-        </div>
-        <div className="p-7 sm:p-9 bg-surface rounded-2xl border border-ink/15">
-          <h2 className="text-2xl font-bold font-display mb-5">Co ustalamy przed rozpoczęciem?</h2>
-          <FeatureList
-            items={[
-              'Jakie funkcje są potrzebne i jak będą obsługiwane.',
-              'Jakie urządzenia można ze sobą połączyć.',
-              'Za co odpowiadamy my, projektant i pozostali wykonawcy.',
-              'Zakres prac, dokumentacji, budżet oraz terminy.',
-              'Sposób sprawdzenia działania i przekazania instalacji.',
-            ]}
-          />
+  <div className="about-page">
+    <section className="about-page__intro about-page__wrap" aria-labelledby="about-title">
+      <p className="about-page__eyebrow">O InteliSpaces</p>
+      <div className="about-page__intro-grid">
+        <h1 id="about-title">Za technologią<br />stoją ludzie.</h1>
+        <div className="about-page__intro-copy">
+          <p>Łączymy znajomość rynku, programowanie KNX i doświadczenie na budowie. Dzięki temu patrzymy na Twój projekt od pierwszych decyzji po działającą instalację.</p>
+          <p>InteliSpaces rozwijamy w ramach Delitech. Pracujemy z inwestorami i projektantami domów, apartamentów oraz sal spotkań.</p>
         </div>
       </div>
+      <a href="#zespol" className="about-page__text-link">Poznaj nasz zespół <ArrowDown size={18} aria-hidden="true" /></a>
     </section>
-    <section className="py-16 sm:py-20 bg-surface">
-      <div className={contentWidth}>
-        <h2 className="text-3xl font-bold font-display mb-4">Jasny proces współpracy.</h2>
-        <p className="text-ink/80 mb-8 max-w-2xl">
-          Rozpoczynamy od potrzeb domowników. Szczegółowy zakres usług potwierdzamy w ofercie dla
-          danej inwestycji.
-        </p>
-        <ProjectSteps />
+
+    <section id="zespol" className="about-page__team about-page__wrap" aria-labelledby="about-team-title">
+      <div className="about-page__section-heading">
+        <p className="about-page__eyebrow">Ludzie InteliSpaces</p>
+        <h2 id="about-team-title">Wiesz, z kim pracujesz.</h2>
+        <p>Trzy uzupełniające się obszary: doradztwo, integracja i wykonawstwo.</p>
+      </div>
+      <TeamProfiles />
+    </section>
+
+    <section className="about-page__strengths" aria-labelledby="about-strengths-title">
+      <div className="about-page__wrap">
+        <p className="about-page__eyebrow">Co to daje Twojemu projektowi</p>
+        <h2 id="about-strengths-title">Dobre decyzje. Od początku.</h2>
+        <div className="about-page__strength-grid">
+          {strengths.map(({ icon: Icon, title, text }) => (
+            <article key={title}>
+              <Icon size={32} strokeWidth={1.5} aria-hidden="true" />
+              <h3>{title}</h3><p>{text}</p>
+            </article>
+          ))}
+        </div>
+        <a href={pageUrl('architects')} className="about-page__text-link">Zobacz, jak wspieramy projektantów <ArrowRight size={18} aria-hidden="true" /></a>
       </div>
     </section>
-    <section className="py-14 bg-white">
-      <div className={contentWidth + ' grid md:grid-cols-2 gap-8'}>
-        <div>
-          <h2 className="text-2xl font-bold font-display">Spotkajmy się w Warszawie.</h2>
-          <p className="text-ink/80 leading-relaxed mt-4">
-            Nasze biuro mieści się przy ul. Konwaliowej 7, lok. 103. Możemy też zacząć od rozmowy
-            online. Miejsce realizacji i możliwość dojazdu ustalamy przy omawianiu projektu.
-          </p>
-          <a
-            href={pageUrl('contact')}
-            className="inline-flex font-semibold text-sm underline underline-offset-4 mt-5"
-          >
-            Dane kontaktowe i dojazd
-          </a>
-        </div>
-        <div className="border border-ink/15 rounded-xl p-6">
-          <p className="text-xs uppercase font-mono tracking-widest text-ink/65">
-            Dodatkowa usługa
-          </p>
-          <h2 className="text-2xl font-bold font-display mt-3">Wyposażenie sal spotkań ProAV.</h2>
-          <p className="text-ink/80 leading-relaxed mt-4">
-            Pomagamy dobrać obraz, dźwięk, wideokonferencje i przyłącza do konkretnej sali.
-          </p>
-          <a
-            href={pageUrl('proav')}
-            className="inline-flex items-center gap-2 mt-5 font-semibold text-sm underline underline-offset-4"
-          >
-            Poznaj zakres ProAV <ArrowRight size={16} aria-hidden="true" />
-          </a>
-        </div>
+
+    <section className="about-page__meeting about-page__wrap" aria-labelledby="about-meeting-title">
+      <div>
+        <p className="about-page__eyebrow">Zacznijmy od rozmowy</p>
+        <h2 id="about-meeting-title">Spotkajmy się w Warszawie.<br />Albo porozmawiajmy online.</h2>
+        <p>Nasze biuro: ul. Konwaliowa 7, lok. 103, 03-194 Warszawa. Omówimy Twój pomysł, etap inwestycji i zakres, w którym możemy pomóc.</p>
+        <a href={pageUrl('contact')} className="about-page__text-link">Kontakt i dojazd <ArrowRight size={18} aria-hidden="true" /></a>
       </div>
+      <aside className="about-page__proav" aria-labelledby="about-proav-title">
+        <p className="about-page__eyebrow">Również do pracy</p>
+        <h3 id="about-proav-title">Sala spotkań, która ułatwia rozmowę.</h3>
+        <p>Obraz, dźwięk, wideokonferencje i wygodne przyłącza — jako dodatkowy zakres do Twojej przestrzeni.</p>
+        <a href={pageUrl('proav')} className="about-page__text-link">Poznaj ProAV <ArrowRight size={18} aria-hidden="true" /></a>
+      </aside>
     </section>
-    <ContactCta onClick={onOpenConsultation} />
+
+    <ContactCta title="Opowiedz nam o swoim projekcie." text="Dom, apartament lub sala spotkań — ustalimy, jakie wsparcie będzie potrzebne i od czego zacząć." onClick={onOpenConsultation} />
   </div>
 );

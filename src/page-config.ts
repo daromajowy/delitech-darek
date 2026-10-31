@@ -34,9 +34,9 @@ export const pages: Record<PageId, { path: string; title: string; description: s
   },
   about: {
     path: '/about/',
-    title: 'O nas — automatyka domów i apartamentów | InteliSpaces',
+    title: 'O nas — Jan Jasek, Dariusz Maj, Marek Sakowski | InteliSpaces',
     description:
-      'Poznaj InteliSpaces i nasz sposób pracy. Łączymy planowanie funkcji, dobór urządzeń oraz uruchomienie automatyki KNX w domach i apartamentach.',
+      'Poznaj Jana Jaska, Dariusza Maja i Marka Sakowskiego. Doradztwo dla inwestorów i projektantów, integracja KNX oraz wykonawstwo instalacji elektrycznych.',
   },
   team: {
     path: '/team/',

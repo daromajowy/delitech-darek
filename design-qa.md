@@ -1,3 +1,22 @@
+# About and team profiles — Janka
+
+Date: 2026-10-31. User requested restored portraits, expanded biographies and a clearer About page.
+
+- About now presents Jan Jasek, Dariusz Maj and Marek Sakowski directly, followed by concise benefits of cooperation, contact/location and the existing consultation action. Existing navy, off-white, lime and site fonts are retained.
+- Jan's 20 years in the industry and work with designers, KNX expertise, ownership of Delitech and Elektromotyw, production of boxes/mediaports and residential/office experience come from the user's supplied description.
+- Dariusz's IT/project-management background, corporate experience, technical concepts, KNX programming and coordination were recovered from the previous TeamPage biography (commits 175c4a9 and b508abf) and the current profile. No numeric tenure or unverified certifications were added. Public search did not identify additional reliable, person-specific information.
+- Marek's 20 years, general contracting, electrical/KNX work, alarms and photovoltaics come from the user; monitoring is also present in the earlier biography. Formal qualifications and exact licenses are not inferred.
+- Original janek.jpg and darek.jpg are reused without image edits; their displayed crops retain faces. No portrait of Marek was found among named project assets, so his profile uses an intentional initials panel, not a generated person. Existing individual contact addresses and phone numbers are retained.
+- TeamProfiles.tsx contains the shared editable profile text used by both AboutPage and TeamPage. There is no CMS override or second biography to maintain. Updated About metadata.
+
+Evidence: `C:/Users/Asdmin/Documents/ChatGPT/KNX/outputs/about-team-janka-20261031/`. Reviewed about-desktop.png (1440 px viewport), desktop-review.png, about-390.png and mobile-review.png. responsive.json records 1024, 768, 390 and 320 px with no content/document overflow. The mobile layout stacks the portrait and biography, keeps readable text and 44 px contact targets. The initials panel becomes shorter on phones.
+
+Browser checks: two portraits load, one H1, three distinct named profiles, correct tel/mailto targets, team anchor URL, consultation opening/closing without submission, and the Team page showing the same profiles. Warning/error log empty. The existing content-propagation test initially exposed its old hardcoded TeamPage field location; it now edits the shared profile component and verifies the escaped change on both About and Team in Vite and in production/branch HTML. All eight tests, TypeScript and the 12-page Janka preview build pass. Pre-existing DESIGN.md edit is preserved and excluded.
+
+**final result: passed**
+
+---
+
 # Editorial homepage — intelligent spaces, homes, Smart Workspace, Janka
 
 Date: 2026-10-31. Target: homepage of Janka only.

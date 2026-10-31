@@ -12,7 +12,7 @@ import {createSiteConfig, pageFromPath, submitInquiry} from '../src/site.ts';
 
 const root = path.resolve(import.meta.dirname, '..');
 
-test('a component edit reaches Vite, production HTML and branch previews without a content override', {timeout:120000}, async () => {
+test('a shared team profile edit reaches both pages, Vite and published HTML without a content override', {timeout:120000}, async () => {
   const fixture = fs.mkdtempSync(path.join(os.tmpdir(), 'intelispaces-content-'));
   const originalConfig = globalThis.__INTELISPACES__;
   let server;
@@ -22,10 +22,10 @@ test('a component edit reaches Vite, production HTML and branch previews without
       fs.cpSync(path.join(root,file), path.join(fixture,file), {recursive:true});
     }
     fs.symlinkSync(fs.realpathSync(path.join(root,'node_modules')), path.join(fixture,'node_modules'), process.platform==='win32'?'junction':'dir');
-    const component = path.join(fixture,'src/pages/TeamPage.tsx');
+    const component = path.join(fixture,'src/components/TeamProfiles.tsx');
     const before = fs.readFileSync(component,'utf8');
     const marker = 'Opis zmieniony bezpośrednio w komponencie: <test> & KNX';
-    const edited = before.replace(/role: "[^"]+"/, `role: ${JSON.stringify(marker)}`);
+    const edited = before.replace(/role: '[^']+'/, `role: ${JSON.stringify(marker)}`);
     assert.notEqual(edited,before,'The test must edit a real visible field');
     fs.writeFileSync(component,edited);
     fs.mkdirSync(path.join(fixture,'content'));
@@ -34,11 +34,13 @@ test('a component edit reaches Vite, production HTML and branch previews without
     server = await createServer({root:fixture, logLevel:'error', server:{host:'127.0.0.1',port:0}});
     await server.listen();
     const {default:App} = await server.ssrLoadModule('/src/App.tsx');
-    globalThis.__INTELISPACES__ = {...createSiteConfig('team','/',true),values:{'teampage.1923d56770':'STARY TEKST Z EKSPORTU'}};
-    const devHtml = renderToString(React.createElement(App));
     const escaped = 'Opis zmieniony bezpośrednio w komponencie: &lt;test&gt; &amp; KNX';
-    assert.ok(devHtml.includes(escaped));
-    assert.ok(!devHtml.includes('STARY TEKST Z EKSPORTU'));
+    for (const page of ['about', 'team']) {
+      globalThis.__INTELISPACES__ = {...createSiteConfig(page,'/',true),values:{'teampage.1923d56770':'STARY TEKST Z EKSPORTU'}};
+      const devHtml = renderToString(React.createElement(App));
+      assert.ok(devHtml.includes(escaped), page + ' must show the edited profile');
+      assert.ok(!devHtml.includes('STARY TEKST Z EKSPORTU'));
+    }
     await server.close(); server = undefined;
 
     for (const preview of [false,true]) {
@@ -57,7 +59,9 @@ test('a component edit reaches Vite, production HTML and branch previews without
         assert.equal(config.urls.team,base+'team/');
         assert.equal(config.plannerUrl,preview?base+'projektant-knx/':'https://knx.intelispaces.pl/');
       }
-      assert.ok(fs.readFileSync(path.join(fixture,'dist/team/index.html'),'utf8').includes(escaped));
+      for (const page of ['about', 'team']) {
+        assert.ok(fs.readFileSync(path.join(fixture,'dist',page,'index.html'),'utf8').includes(escaped));
+      }
     }
   } finally {
     await server?.close();
