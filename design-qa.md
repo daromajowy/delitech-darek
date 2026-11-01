@@ -601,3 +601,13 @@ Added IoT (Wi-Fi icon) and Ogród (tree icon) in the same logo green as the six 
 Checked 1440, 1280, 1024, 768, 390 and 320px widths: no horizontal overflow or clipped headings. All eight icons retain #9FBF36. TypeScript and the 12-page preview build passed; browser console is clear. No application logic or dependencies changed. Evidence: outputs/home-icons-eight-janka-20261101 (in the KNX workspace). Target: Janka only.
 
 final result: passed
+
+# Homepage handwritten hero caption — 2026-11-01
+
+Added the white handwritten caption "Tworzymy inteligentne przestrzenie" over the existing homepage video. The local Caveat Medium font loads ahead of the animation. The caption starts 2000ms after document load, writes sequentially over 4800ms, then erases from the last letter to the first over the same 4800ms. Letters use smooth horizontal ink reveals; there is no blinking cursor. The caption is removed at the end. A module-level guard prevents another pass during the same document lifetime. Timers and load/media-query listeners are cleaned up on unmount. Reduced-motion users skip this decorative animation; the existing semantic heading below the hero remains available.
+
+Timed browser observations after reload: absent at 1118ms, "Twor" visible at 2721ms, the complete phrase visible at 6911ms, only "Tworzymy inteligentne" remaining at 8755ms, absent at 12614ms and 15116ms. Each letter has equal 141.176ms write/erase durations and a single iteration. Scrolling to IoT and back did not restart it. Screenshots captured during writing/erasing. Verified 1440px desktop and 390/320px mobile: caption stays within the video and the document does not overflow horizontally. Two lines at 390px, three at 320px. No layout shift from the absolute overlay. Browser console is clear. TypeScript and the 12-page preview build passed.
+
+Evidence: C:/Users/Asdmin/Documents/ChatGPT/KNX/outputs/hero-handwriting-janka-20261101/ (timing-checks.json, desktop-6800.png, desktop-8600.png, mobile screenshots and bounds). Font source: https://github.com/google/fonts/tree/main/ofl/caveat ; Latin WOFF2 served by https://fonts.gstatic.com/s/caveat/v23/WnznHAc5bAfYB2QRah7pcpNvOx-pjcB9eIWpYQ.woff2 . The 50,904-byte font is self-hosted; its SIL Open Font License is included at src/assets/fonts/Caveat-OFL.txt. No new runtime dependency. Publication target: Janka only; pre-existing DESIGN.md edits excluded.
+
+final result: passed

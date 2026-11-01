@@ -1,0 +1,66 @@
+/* Caveat Medium, Google Fonts / Impallari Type. Licence: assets/fonts/Caveat-OFL.txt. */
+@font-face {
+  font-family: 'InteliSpaces Handwriting';
+  src: url('../assets/fonts/Caveat-Medium-latin.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 500;
+  font-display: block;
+}
+
+.hero-handwriting {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  user-select: none;
+}
+
+.hero-handwriting__text {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  column-gap: .25em;
+  width: min(1200px, calc(100% - 64px));
+  margin: 0;
+  color: #fff;
+  font: 500 clamp(36px, 6.8vw, 98px) / 1.25 'InteliSpaces Handwriting', cursive;
+  text-align: center;
+  text-shadow: 0 2px 3px rgb(8 21 31 / 65%), 0 3px 22px rgb(8 21 31 / 55%);
+}
+
+.hero-handwriting__word {
+  display: inline-flex;
+  white-space: nowrap;
+}
+
+.hero-handwriting__word:first-child {
+  flex-basis: 100%;
+  justify-content: center;
+}
+
+.hero-handwriting__letter {
+  display: inline-block;
+  clip-path: inset(0 100% 0 0);
+  animation:
+    hero-ink-write var(--letter-duration) linear var(--write-at) 1 forwards,
+    hero-ink-erase var(--letter-duration) linear var(--erase-at) 1 forwards;
+}
+
+@keyframes hero-ink-write {
+  from { clip-path: inset(0 100% 0 0); }
+  to { clip-path: inset(0 0 0 0); }
+}
+
+@keyframes hero-ink-erase {
+  from { clip-path: inset(0 0 0 0); }
+  to { clip-path: inset(0 100% 0 0); }
+}
+
+@media (max-width: 650px) {
+  .hero-handwriting__text { width: calc(100% - 32px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-handwriting { display: none; }
+}
