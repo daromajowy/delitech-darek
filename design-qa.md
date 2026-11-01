@@ -564,3 +564,32 @@ Evidence: C:/Users/Asdmin/Documents/ChatGPT/KNX/outputs/homes-control-crops-2026
 Checked desktop 1440px and mobile 390px; all six images load, crops keep their 4:3 ratio and there is no horizontal overflow. TypeScript, preview build and eight existing site-content/F50 tests passed. Final framing adjustment rebuilt successfully. Target: Janka only.
 
 final result: passed
+
+# Homepage functions, integrations and systems — 2026-11-01
+
+Implemented the four supplied Elektrodesign references on the Janka homepage. The user clarified that the six-icon strip belongs directly below the existing video hero on the homepage. Added the eight-area KNX selector, IoT section and KNX/JUNG HOME comparison below the existing home/process section. The current hero and other sections remain in place. Offices is unchanged.
+
+## Visual comparison and brand adaptation
+
+Evidence: C:/Users/Asdmin/Documents/ChatGPT/KNX/outputs/home-technology-janka-20261101/.
+
+Compared all four supplied reference screenshots side by side with the rendered desktop sections (comparison-1.png through comparison-4.png). Preserved the six separated icon columns, eight cards with investor/designer detail, three-stage IoT connection and four examples, and two equally weighted system cards. Intentional differences: InteliSpaces typography, navy text/buttons, logo-green icons (#9FBF36), pale green surfaces, and spacing matched to the existing homepage. Small green text uses a darker shade for readability. The exact Phosphor Light and Lucide glyphs used by the source are used here; no raster or newly drawn icons.
+
+Desktop 1440x1000, tablet widths 1024/768 and mobile widths 390/320 checked. No horizontal overflow or clipped content in the new sections. Mobile screenshots inspected for readable headings, wrapping, stacked system cards and the vertical IoT flow. Mobile detail navigation scrolls below the sticky header (154px measured) and focuses the chosen detail. The six icon colors are rgb(159, 191, 54). Existing hero video remains present.
+
+## Behavior and checks
+
+All eight integration buttons switch to their own heading, tags, six investor/designer points and qualification; exactly one button is selected. Enter works with a visible focus outline. The selection has a polite live announcement. Mobile users can return to the area choices; reduced-motion scrolling is respected.
+
+Verified every icon-strip destination against generated route/anchor IDs, the KNX route, the JUNG HOME external destination and the consultation CTA. The CTA opens the existing household consultation dialog; no inquiry was submitted. Browser console reported no errors or warnings. TypeScript passed; the preview build generated 12 static pages; all eight existing site-content/F50 tests passed. Build retains its existing large-chunk advisory. Dependency addition is pinned @phosphor-icons/react 2.1.10.
+
+## Content sources
+
+The user's own Elektrodesign prototype supplied the reference content and glyphs (ed-automatyka-design-20261028/prototype). Product compatibility was checked against official JUNG material:
+- https://www.jung-group.com/en-UK/Products/Systems/KNX-building-technology/Smart-Visu-Server/
+- https://www.jung-group.com/de-DE/Produkte/Systeme/KNX-Gebaeudetechnik/Smart-Visu-Server/
+- https://www.jung-group.com/en-UK/Products/Systems/JUNG-HOME/
+
+Copy keeps device/server/service compatibility requirements and distinguishes dedicated alarm protection from KNX responses. JUNG HOME is described as Bluetooth Mesh on a 230V installation. Publication scope: Janka only. No backend, physical installation, main, Darka or production change. Pre-existing DESIGN.md edits are excluded.
+
+final result: passed

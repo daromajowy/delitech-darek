@@ -3,6 +3,7 @@ import { ArrowRight, AudioLines, Blinds, CloudRain, Droplets, Monitor, Sprout, S
 import type { PageId } from '../types';
 import { pageUrl, plannerUrl } from '../site';
 import { HeroVideo } from '../components/HeroVideo';
+import { HomeFunctionStrip, HomeTechnologySections } from '../components/HomeTechnologySections';
 import planningImage from '../assets/images/architects-advice.webp';
 import homeImage from '../assets/images/home-editorial-interior.webp';
 import meetingImage from '../assets/images/home-editorial-meeting.webp';
@@ -37,6 +38,7 @@ const workspaceBenefits = [
 export const HomePage: React.FC<HomePageProps> = ({ onOpenConsultation }) => (
   <div className="home-editorial">
     <HeroVideo />
+    <HomeFunctionStrip />
     <section className="home-editorial__intro home-editorial__wrap" aria-labelledby="home-intro-title">
       <h1 id="home-intro-title">
         <span>Tworzymy </span><span>inteligentne </span><span>przestrzenie</span>
@@ -87,6 +89,8 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenConsultation }) => (
         </ol>
       </section>
     </section>
+
+    <HomeTechnologySections onOpenConsultation={onOpenConsultation} />
 
     <section className="home-editorial__advice" aria-labelledby="home-advice-title">
       <div className="home-editorial__wrap">
