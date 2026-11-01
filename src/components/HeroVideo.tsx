@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
 import heroVideoUrl from '../assets/jung-ls-touch-3-23.mp4';
-import { HeroHandwriting } from './HeroHandwriting';
 
 // JUNG LS TOUCH (EMsypeEXmUY), 00:03–00:23, with the audio track removed.
 export const HeroVideo = () => {
@@ -57,7 +56,6 @@ export const HeroVideo = () => {
         preload="auto"
         tabIndex={-1}
       />
-      <HeroHandwriting />
     </div>
   );
 };

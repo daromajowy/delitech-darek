@@ -23,19 +23,17 @@ const capabilities = [
 export function HomeFunctionStrip() {
   return (
     <section id="mozliwosci-domu" className="home-function-strip" aria-label="Możliwości inteligentnego domu">
-      <div className="home-editorial__wrap">
-        <ul>
-          {capabilities.map(({ icon: Icon, title, text, href }) => (
-            <li key={title}>
-              <a href={href()}>
-                <Icon size={56} weight="light" aria-hidden="true" />
-                <h2>{title}</h2>
-                <p>{text}</p>
-              </a>
-            </li>
-          ))}
-        </ul>
-      </div>
+      <ul>
+        {capabilities.map(({ icon: Icon, title, text, href }) => (
+          <li key={title}>
+            <a href={href()}>
+              <Icon size={56} weight="light" aria-hidden="true" />
+              <h2>{title}</h2>
+              <p>{text}</p>
+            </a>
+          </li>
+        ))}
+      </ul>
     </section>
   );
 }

@@ -623,3 +623,13 @@ Browser verification: 1440px desktop and 390/320px phones. Measured width ratio 
 Evidence: C:/Users/Asdmin/Documents/ChatGPT/KNX/outputs/hero-pen-writing-janka-20261101/ (desktop-final.png, desktop-timing.json, mobile screenshots and mobile-checks.json). Target: Janka only. Pre-existing DESIGN.md edits are excluded.
 
 final result: passed
+
+# Homepage: clean hero and full-width icon strip — 2026-11-01
+
+Removed the handwriting component from the video hero. The caption and its animation are no longer rendered or included in the built JS/CSS bundle. Removed the shared, width-limited editorial wrapper from HomeFunctionStrip, allowing its grid to span the same full content width as the video. Existing green icons, text, destination links, separators and responsive 8/4/2-column behavior are preserved.
+
+Verified 1920, 1440, 1280, 1024, 390 and 320px viewports in the browser. At every width, the icon grid starts at x=0 and ends at the page content edge; its width matches the hero exactly. No horizontal overflow, all eight icons retain #9FBF36, and every link's route and anchor exists in the generated site. Desktop and mobile screenshots visually checked. Browser console is clear. TypeScript, the 12-page preview build and the eight existing site-content/F50 tests passed. Source files for the removed effect remain unreferenced; no animation CSS or geometry ships in the page bundle.
+
+Evidence: C:/Users/Asdmin/Documents/ChatGPT/KNX/outputs/hero-clean-fullwidth-icons-janka-20261101/. Scope: Janka only. Pre-existing DESIGN.md edits excluded.
+
+final result: passed
