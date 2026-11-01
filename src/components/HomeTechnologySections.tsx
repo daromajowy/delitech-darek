@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import {
   ArrowDown, ArrowRight, ArrowsLeftRight, Bluetooth, Check, Circuitry,
   HouseLine, Lightbulb, Microphone, MusicNotes, PersonSimpleWalk,
-  PlugsConnected, Ruler, Thermometer, VideoCamera, WifiHigh,
+  PlugsConnected, Ruler, Thermometer, Tree, VideoCamera, WifiHigh,
 } from '@phosphor-icons/react';
 import { pageUrl } from '../site';
 import { BlindsIcon, ScenesIcon } from './HomeTechnologyIcons';
@@ -16,6 +16,8 @@ const capabilities = [
   { icon: PersonSimpleWalk, title: 'Obecność', text: 'Dom reaguje na to, gdzie jesteś.', href: () => pageUrl('homes', 'mozliwosci') },
   { icon: ScenesIcon, title: 'Sceny', text: 'Kilka zmian jednym przyciskiem.', href: () => pageUrl('solutions', 'sceny') },
   { icon: MusicNotes, title: 'Multimedia', text: 'Muzyka i obraz w Twoim rytmie.', href: () => pageUrl('solutions', 'multimedia') },
+  { icon: WifiHigh, title: 'IoT', text: 'Ulubione urządzenia we wspólnych scenach.', href: () => pageUrl('home', 'iot') },
+  { icon: Tree, title: 'Ogród', text: 'Podlewanie dopasowane do pogody i potrzeb roślin.', href: () => pageUrl('solutions', 'ogrod') },
 ];
 
 export function HomeFunctionStrip() {

@@ -593,3 +593,11 @@ The user's own Elektrodesign prototype supplied the reference content and glyphs
 Copy keeps device/server/service compatibility requirements and distinguishes dedicated alarm protection from KNX responses. JUNG HOME is described as Bluetooth Mesh on a 230V installation. Publication scope: Janka only. No backend, physical installation, main, Darka or production change. Pre-existing DESIGN.md edits are excluded.
 
 final result: passed
+
+# Homepage icon strip: IoT and garden — 2026-11-01
+
+Added IoT (Wi-Fi icon) and Ogród (tree icon) in the same logo green as the six existing icons. IoT scrolls to the homepage IoT section; Ogród opens the watering description at solutions/#ogrod. Verified both by clicking in the browser. The strip uses eight desktop columns, four below 1280px and two below 651px, with separators reset at each row start.
+
+Checked 1440, 1280, 1024, 768, 390 and 320px widths: no horizontal overflow or clipped headings. All eight icons retain #9FBF36. TypeScript and the 12-page preview build passed; browser console is clear. No application logic or dependencies changed. Evidence: outputs/home-icons-eight-janka-20261101 (in the KNX workspace). Target: Janka only.
+
+final result: passed
