@@ -1,64 +1,47 @@
-/* Caveat Medium, Google Fonts / Impallari Type. Licence: assets/fonts/Caveat-OFL.txt. */
-@font-face {
-  font-family: 'InteliSpaces Handwriting';
-  src: url('../assets/fonts/Caveat-Medium-latin.woff2') format('woff2');
-  font-style: normal;
-  font-weight: 500;
-  font-display: block;
-}
-
 .hero-handwriting {
   position: absolute;
-  inset: 0;
-  display: grid;
-  place-items: center;
+  left: 10%;
+  bottom: clamp(14px, 2vw, 30px);
+  width: 80%;
   pointer-events: none;
   user-select: none;
 }
 
-.hero-handwriting__text {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  column-gap: .25em;
-  width: min(1200px, calc(100% - 64px));
-  margin: 0;
-  color: #fff;
-  font: 500 clamp(36px, 6.8vw, 98px) / 1.25 'InteliSpaces Handwriting', cursive;
-  text-align: center;
-  text-shadow: 0 2px 3px rgb(8 21 31 / 65%), 0 3px 22px rgb(8 21 31 / 55%);
+.hero-handwriting__ink {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  fill: none;
+  stroke: #fff;
+  stroke-width: clamp(1px, .18vw, 2.8px);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 1px 2px rgb(8 21 31 / 80%)) drop-shadow(0 2px 8px rgb(8 21 31 / 65%));
 }
 
-.hero-handwriting__word {
-  display: inline-flex;
-  white-space: nowrap;
-}
-
-.hero-handwriting__word:first-child {
-  flex-basis: 100%;
-  justify-content: center;
-}
-
-.hero-handwriting__letter {
-  display: inline-block;
-  clip-path: inset(0 100% 0 0);
+/* A dash follows each actual pen stroke, including loops and crossbars.
+   No text mask, rectangular reveal or animated glyph outline is used. */
+.hero-handwriting__stroke {
+  vector-effect: non-scaling-stroke;
+  visibility: hidden;
+  opacity: 0;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
   animation:
-    hero-ink-write var(--letter-duration) linear var(--write-at) 1 forwards,
-    hero-ink-erase var(--letter-duration) linear var(--erase-at) 1 forwards;
+    hero-pen-write var(--stroke-duration) linear var(--write-at) 1 forwards,
+    hero-pen-erase var(--stroke-duration) linear var(--erase-at) 1 forwards;
 }
 
-@keyframes hero-ink-write {
-  from { clip-path: inset(0 100% 0 0); }
-  to { clip-path: inset(0 0 0 0); }
+@keyframes hero-pen-write {
+  from { visibility: visible; opacity: 1; stroke-dashoffset: 1; }
+  to { visibility: visible; opacity: 1; stroke-dashoffset: 0; }
 }
 
-@keyframes hero-ink-erase {
-  from { clip-path: inset(0 0 0 0); }
-  to { clip-path: inset(0 100% 0 0); }
-}
-
-@media (max-width: 650px) {
-  .hero-handwriting__text { width: calc(100% - 32px); }
+@keyframes hero-pen-erase {
+  from { visibility: visible; opacity: 1; stroke-dashoffset: 0; }
+  99.99% { opacity: 1; }
+  to { visibility: hidden; opacity: 0; stroke-dashoffset: 1; }
 }
 
 @media (prefers-reduced-motion: reduce) {

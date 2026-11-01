@@ -611,3 +611,15 @@ Timed browser observations after reload: absent at 1118ms, "Twor" visible at 272
 Evidence: C:/Users/Asdmin/Documents/ChatGPT/KNX/outputs/hero-handwriting-janka-20261101/ (timing-checks.json, desktop-6800.png, desktop-8600.png, mobile screenshots and bounds). Font source: https://github.com/google/fonts/tree/main/ofl/caveat ; Latin WOFF2 served by https://fonts.gstatic.com/s/caveat/v23/WnznHAc5bAfYB2QRah7pcpNvOx-pjcB9eIWpYQ.woff2 . The 50,904-byte font is self-hosted; its SIL Open Font License is included at src/assets/fonts/Caveat-OFL.txt. No new runtime dependency. Publication target: Janka only; pre-existing DESIGN.md edits excluded.
 
 final result: passed
+
+# Homepage hero: actual pen strokes — 2026-11-01
+
+Revised the previous caption after the user's feedback: connected cursive lettering, one line, 80% of the hero width and close to the bottom edge. Replaced the Caveat letter rectangles with 41 continuous SVG pen centre-lines derived from EMS Allure (Allura). These are stroke paths, not glyph outlines or clipping masks. Each stroke is drawn in pen order with a duration proportional to its measured length; erasing follows the same paths in reverse at the same speed. Rounded curves preserve the original handwriting. Font source, attribution, SIL OFL 1.1 and a dependency-free regeneration script are included. Removed the unused Caveat web font.
+
+The original behavior remains: start 2 seconds after document load, write over 4.8 seconds, immediately erase over 4.8 seconds, then remove the overlay. The document-level one-pass guard and reduced-motion opt-out remain. Layout is absolute with left 10%, width 80% and bottom clamp(14px, 2vw, 30px); a single SVG prevents wrapping at all widths.
+
+Browser verification: 1440px desktop and 390/320px phones. Measured width ratio exactly 0.8, bottom gap 28.8px desktop / 14px mobile, no horizontal overflow. Desktop caption dimensions 1140 x 98.67px. Mobile caption heights 25.95 / 21.11px. Screenshots visually checked for connected cursive lettering, correct wording and a single baseline. Timed DOM checks show the caption absent at 1.0s, pen strokes growing at 2.8/4.5/6.8s, reversing at 8.5s, and absent at 12.5s. Exactly one stroke is partially drawn/erased at a time (ignoring floating-point completion residue). No clipPath or mask is used. Erased strokes also reset opacity so round-cap dots cannot remain. Console is clear. TypeScript, the 12-page preview build and all 8 existing tests passed.
+
+Evidence: C:/Users/Asdmin/Documents/ChatGPT/KNX/outputs/hero-pen-writing-janka-20261101/ (desktop-final.png, desktop-timing.json, mobile screenshots and mobile-checks.json). Target: Janka only. Pre-existing DESIGN.md edits are excluded.
+
+final result: passed
