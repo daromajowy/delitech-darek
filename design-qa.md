@@ -633,3 +633,13 @@ Verified 1920, 1440, 1280, 1024, 390 and 320px viewports in the browser. At ever
 Evidence: C:/Users/Asdmin/Documents/ChatGPT/KNX/outputs/hero-clean-fullwidth-icons-janka-20261101/. Scope: Janka only. Pre-existing DESIGN.md edits excluded.
 
 final result: passed
+
+# Homepage hero: JUNG logo — 2026-11-01
+
+Added the original JUNG wordmark in the bottom-right corner of the homepage video. The SVG is self-hosted without geometry changes; CSS renders it white with a subtle shadow for contrast over the moving image. Width scales from 72px on phones to 112px on desktop. Insets scale from 16px right / 14px bottom to 40px right / 32px bottom. It is a decorative, non-interactive overlay within the existing aria-hidden hero. The asset URL uses the same page-base mechanism as the site logo, so it resolves under Janka and root deployments.
+
+Original asset: https://www.jung-group.com/media/41/10/8e/1652260131/jung-logo.svg?ts=1652260131 (referenced by https://www.jung-group.com/en-UK/).
+
+TypeScript and the 12-page preview build passed. Browser checks at 1440, 390 and 320px confirmed that the image loads, stays fully inside the video, and causes no horizontal overflow. Desktop and phone screenshots visually checked. Browser console is clear. Evidence: C:/Users/Asdmin/Documents/ChatGPT/KNX/outputs/hero-jung-logo-janka-20261101/. Target: Janka only; pre-existing DESIGN.md edits excluded.
+
+final result: passed

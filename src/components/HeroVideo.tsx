@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import heroVideoUrl from '../assets/jung-ls-touch-3-23.mp4';
+import { pageUrl } from '../site';
 
 // JUNG LS TOUCH (EMsypeEXmUY), 00:03–00:23, with the audio track removed.
 export const HeroVideo = () => {
@@ -56,6 +57,7 @@ export const HeroVideo = () => {
         preload="auto"
         tabIndex={-1}
       />
+      <img className="hero-video__brand" src={`${pageUrl('home')}assets/brand/jung-logo.svg`} alt="" width={96} height={24} />
     </div>
   );
 };
