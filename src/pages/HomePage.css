@@ -2,30 +2,12 @@
 .home-editorial__wrap { width: 100%; max-width: 1440px; margin-inline: auto; padding-inline: 64px; }
 .home-editorial h1, .home-editorial h2, .home-editorial h3, .home-editorial h4 { font-family: 'Manrope', system-ui, sans-serif; font-weight: 750; letter-spacing: -.045em; }
 .home-editorial h2 { font-size: var(--text-section-title); line-height: 1.12; text-wrap: balance; }
-.home-editorial__eyebrow { display: flex; align-items: center; gap: 24px; margin: 0 0 32px; font: 600 13px/1.6 'Plus Jakarta Sans', sans-serif !important; text-transform: uppercase; letter-spacing: .2em !important; }
-.home-editorial__eyebrow::after { content: ''; flex: 1; min-width: 28px; border-top: 1px solid #182c3d3b; }
-.home-editorial__process { padding-bottom: 80px; }
-.home-editorial__steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); list-style: none; padding: 0; margin: 48px 0 0; }
-.home-editorial__steps li { padding: 0 44px; border-left: 1px solid #182c3d30; }
-.home-editorial__steps li:first-child { padding-left: 0; border-left: 0; }
-.home-editorial__steps li:last-child { padding-right: 0; }
-.home-editorial__step-number { display: block; color: #6b861f; font: 500 34px/1.2 'Manrope', sans-serif; margin-bottom: 12px; }
-.home-editorial__steps h3 { font-size: var(--text-subheading); line-height: 1.2; }
-.home-editorial__steps p { margin-top: 20px; font-size: 24px; line-height: 1.55; }
 
 @media (max-width: 1100px) {
   .home-editorial__wrap { padding-inline: 40px; }
-  .home-editorial__steps li { padding-inline: 26px; }
-  .home-editorial__steps p { font-size: 19px; }
 }
 @media (max-width: 760px) {
   .home-editorial__wrap { padding-inline: 24px; }
-  .home-editorial__eyebrow { gap: 16px; font-size: 11px !important; letter-spacing: .16em !important; margin-bottom: 24px; }
-  .home-editorial__process { padding-bottom: 48px; }
-  .home-editorial__steps { grid-template-columns: 1fr; gap: 28px; margin-top: 28px; }
-  .home-editorial__steps li { padding: 0 0 0 54px !important; border-left: 0; position: relative; }
-  .home-editorial__step-number { position: absolute; top: 0; left: 0; font-size: 26px; }
-  .home-editorial__steps p { font-size: 17px; margin-top: 10px; }
 }
 @media (max-width: 359px) {
   .home-editorial__wrap { padding-inline: 18px; }
