@@ -70,7 +70,8 @@ export const pages: Record<PageId, { path: string; previousPath?: string; title:
       'Kiedy planować automatykę, czym jest scena i od czego zależy koszt? Praktyczne odpowiedzi dla inwestorów oraz architektów domów i apartamentów.',
   },
   knx: {
-    path: '/knx/',
+    path: '/standard-knx/',
+    previousPath: '/knx/',
     title: 'Czym jest KNX? Prosto o automatyce domu | InteliSpaces',
     description:
       'KNX to otwarty standard automatyki budynkowej. Dowiedz się, jak łączy urządzenia i na co zwrócić uwagę przy planowaniu inteligentnego domu.',
