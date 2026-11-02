@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { ArrowDown, ArrowRight, Blinds, Camera, DoorOpen, Droplets, Fan, Layers3, Lightbulb, Network, Plus, ShieldCheck, Smartphone, Sprout, Thermometer, Zap } from 'lucide-react';
+import { ArrowDown, ArrowRight, ArrowUpRight, Blinds, Camera, DoorOpen, Droplets, Fan, Layers3, Lightbulb, Network, Plus, ShieldCheck, Smartphone, Sprout, Thermometer, Zap } from 'lucide-react';
 import type { PageId } from '../types';
 import { pageUrl } from '../site';
 import { DayRhythm } from '../components/DayRhythm';
@@ -166,13 +166,6 @@ const controls = [
   },
 ];
 
-const reasons = [
-  { title: 'Wybór urządzeń różnych marek', text: 'KNX jest wspólnym standardem wielu producentów. Dobieramy zgodne urządzenia według funkcji, wyglądu i budżetu oraz sprawdzamy ich współpracę.' },
-  { title: 'Przycisk do codziennej obsługi', text: 'Światło, osłony czy scenę możesz uruchomić przyciskiem na ścianie. Aplikacja i panel mogą uzupełniać obsługę tam, gdzie są potrzebne.' },
-  { title: 'Podstawowe funkcje działają lokalnie', text: 'Odpowiednio zaprojektowane sterowanie światłem, osłonami i temperaturą nie wymaga internetu. Zdalny dostęp i usługi internetowe potrzebują dodatkowych rozwiązań.' },
-  { title: 'Ustawienia można zmienić', text: 'Funkcje przycisków i scen można przeprogramować. Dodanie nowych urządzeń zależy od przygotowanego okablowania, miejsca w rozdzielnicy i możliwości instalacji.' },
-];
-
 const steps = [
   { title: 'Potrzeby domowników', text: 'Przechodzimy przez pomieszczenia i codzienne sytuacje. Ustalamy, co ma działać automatycznie, a co uruchamiasz samodzielnie.', result: 'Uzgodniona lista funkcji.' },
   { title: 'Dobór i wycena', text: 'Dobieramy urządzenia do ustalonego zakresu. Oddzielamy funkcje potrzebne teraz od opcji, które możesz zaplanować na później.', result: 'Lista urządzeń, zakres i warianty.' },
@@ -194,6 +187,10 @@ export function HomesPage({ onOpenConsultation, initialHash }: HomesPageProps) {
   const page = useRef<HTMLDivElement>(null);
   useEffect(() => {
     if (!initialHash) return;
+    if (initialHash === 'dlaczego-knx') {
+      window.location.replace(pageUrl('home', 'dlaczego-knx'));
+      return;
+    }
     const question = Array.from(page.current?.querySelectorAll('details') || []).find((item) => item.id === initialHash);
     if (question) question.open = true;
   }, [initialHash]);
@@ -213,13 +210,13 @@ export function HomesPage({ onOpenConsultation, initialHash }: HomesPageProps) {
         </div>
       </section>
 
-      <nav className="homes-jump homes-width" aria-label="Na tej stronie">
+      <nav className="homes-jump homes-width" aria-label="Skróty dla domów i apartamentów">
         <span>Przejdź do</span>
         <a href={pageUrl('homes', 'osprzet')}>Design i obsługa <ArrowDown size={14} aria-hidden="true" /></a>
         <a href={pageUrl('homes', 'sceny')}>Sceny na co dzień <ArrowDown size={14} aria-hidden="true" /></a>
         <a href={pageUrl('homes', 'mozliwosci')}>Funkcje domu <ArrowDown size={14} aria-hidden="true" /></a>
         <a href={pageUrl('homes', 'integracje')}>Integracje i ogród <ArrowDown size={14} aria-hidden="true" /></a>
-        <a href={pageUrl('homes', 'dlaczego-knx')}>Dlaczego KNX <ArrowDown size={14} aria-hidden="true" /></a>
+        <a href={pageUrl('home', 'dlaczego-knx')} aria-label="Dlaczego KNX – sekcja na stronie głównej">Dlaczego KNX <ArrowUpRight size={14} aria-hidden="true" /></a>
         <a href={pageUrl('homes', 'etapy')}>Etapy współpracy <ArrowDown size={14} aria-hidden="true" /></a>
         <a href={pageUrl('homes', 'koszt')}>Koszt i przygotowanie <ArrowDown size={14} aria-hidden="true" /></a>
       </nav>
@@ -282,22 +279,6 @@ export function HomesPage({ onOpenConsultation, initialHash }: HomesPageProps) {
           </div>
           <FunctionRows items={integrations} />
           <p className="homes-note">Każdą integrację potwierdzamy dla konkretnego modelu: dostępne funkcje, potrzebny moduł lub serwer, działanie lokalne albo przez chmurę oraz ewentualne opłaty. Zakres obsługi w jednej aplikacji zależy od wybranych systemów.</p>
-        </div>
-      </section>
-
-      <section id="dlaczego-knx" className="homes-knx" aria-labelledby="homes-knx-title">
-        <div className="homes-width homes-section homes-knx__layout">
-          <div className="homes-knx__intro">
-            <p className="homes-eyebrow">Wspólny standard</p>
-            <h2 id="homes-knx-title">Dlaczego<br /> KNX?</h2>
-            <p>Oświetlenie, osłony i temperatura mogą współpracować w jednej instalacji. O jej działaniu decydują dobrane urządzenia i zaprogramowane funkcje.</p>
-            <a className="homes-text-link" href={pageUrl('solutions')}>Poznaj funkcje domu <ArrowRight size={18} aria-hidden="true" /></a>
-          </div>
-          <div className="homes-knx__reasons">
-            {reasons.map((reason, index) => (
-              <article key={reason.title}><span className="homes-number" aria-hidden="true">0{index + 1}</span><h3>{reason.title}</h3><p>{reason.text}</p></article>
-            ))}
-          </div>
         </div>
       </section>
 

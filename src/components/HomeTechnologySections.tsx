@@ -38,6 +38,51 @@ export function HomeFunctionStrip() {
   );
 }
 
+const knxReasons = [
+  {
+    title: 'Wybór urządzeń różnych marek',
+    text: 'KNX jest wspólnym standardem wielu producentów. Dobieramy zgodne urządzenia według funkcji, wyglądu i budżetu oraz sprawdzamy ich współpracę.',
+  },
+  {
+    title: 'Przycisk do codziennej obsługi',
+    text: 'Światło, osłony czy scenę możesz uruchomić przyciskiem na ścianie. Aplikacja i panel mogą uzupełniać obsługę tam, gdzie są potrzebne.',
+  },
+  {
+    title: 'Podstawowe funkcje działają lokalnie',
+    text: 'Odpowiednio zaprojektowane sterowanie światłem, osłonami i temperaturą nie wymaga internetu. Zdalny dostęp i usługi internetowe potrzebują dodatkowych rozwiązań.',
+  },
+  {
+    title: 'Ustawienia można zmienić',
+    text: 'Funkcje przycisków i scen można przeprogramować. Dodanie nowych urządzeń zależy od przygotowanego okablowania, miejsca w rozdzielnicy i możliwości instalacji.',
+  },
+];
+
+export function HomeKnxReasons() {
+  return (
+    <section id="dlaczego-knx" className="home-technology ht-why" aria-labelledby="home-why-knx-title">
+      <div className="home-editorial__wrap ht-why__layout">
+        <div>
+          <p className="ht-eyebrow">Wspólny standard</p>
+          <h2 id="home-why-knx-title">Dlaczego <br />KNX?</h2>
+          <p className="ht-why__lead">Oświetlenie, osłony i temperatura mogą współpracować w jednej instalacji. O jej działaniu decydują dobrane urządzenia i zaprogramowane funkcje.</p>
+          <a className="ht-why__link" href={pageUrl('solutions')}>
+            Poznaj funkcje domu <ArrowRight size={18} aria-hidden="true" />
+          </a>
+        </div>
+        <ol className="ht-why__reasons">
+          {knxReasons.map(({ title, text }, index) => (
+            <li key={title}>
+              <span className="ht-why__number" aria-hidden="true">0{index + 1}</span>
+              <h3>{title}</h3>
+              <p>{text}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+  );
+}
+
 function FeatureList({ items }: { items: readonly string[] }) {
   return <ul className="ht-check-list">{items.map(item => <li key={item}><Check size={18} weight="light" aria-hidden="true" /><span>{item}</span></li>)}</ul>;
 }
