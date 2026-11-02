@@ -4,6 +4,7 @@ import type { PageId } from '../types';
 import { HeroVideo } from '../components/HeroVideo';
 import { HomeFunctionStrip } from '../components/HomeFunctionStrip';
 import { HomeIntegrations, HomeKnxReasons } from '../components/HomeTechnologySections';
+import { JungEquipment } from '../components/JungEquipment';
 import meetingImage from '../assets/images/home-editorial-meeting.webp';
 import './HomePage.css';
 
@@ -30,6 +31,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenConsultation }) => (
     <HeroVideo />
     <HomeFunctionStrip />
     <HomeKnxReasons />
+    <JungEquipment />
 
     <section className="home-editorial__process home-editorial__wrap" aria-labelledby="home-process-title">
       <h2 id="home-process-title" className="home-editorial__eyebrow">Jak pracujemy</h2>
