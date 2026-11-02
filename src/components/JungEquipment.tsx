@@ -1,6 +1,5 @@
 import React from 'react';
 import { ArrowRight } from 'lucide-react';
-import { pageUrl } from '../site';
 import jungPhoneImage from '../assets/images/homes-jung-phone.webp';
 import jungF40Image from '../assets/images/homes-jung-f40-interior.webp';
 import jungF50Image from '../assets/images/homes-jung-f50-interior.webp';
@@ -79,10 +78,6 @@ export function JungEquipment() {
               <a href={control.source} target="_blank" rel="noreferrer" className="homes-design__link" aria-label={`Zobacz u producenta: ${control.model} (nowa karta)`}>Zobacz u producenta <ArrowRight size={16} aria-hidden="true" /></a>
             </article>
           ))}
-        </div>
-        <div className="homes-design__planning">
-          <div><h3>Najpierw funkcja i miejsce.<br />Potem seria i wykończenie.</h3><p>Uzgadniamy wysokość montażu, liczbę klawiszy, opisy i symbole. Sprawdzamy dostępność wybranego materiału dla każdego urządzenia oraz potrzebne puszki, przewody i moduły.</p></div>
-          <a className="homes-design__link" href={pageUrl('architects')}>Planujesz wnętrze z architektem? <ArrowRight size={18} aria-hidden="true" /></a>
         </div>
         <p className="homes-design__credits">Zdjęcia i materiały produktowe: JUNG / Albrecht JUNG GmbH &amp; Co. KG. Wnętrze ze stacją wideo: fot. Constantin Meyer. Przykłady producenta; funkcje i dostępność wykończeń potwierdzamy dla wybranych modeli.</p>
       </div>
