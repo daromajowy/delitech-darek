@@ -1,15 +1,20 @@
 import React from 'react';
-import { ArrowRight, Blinds, Camera, Moon, Sun, Thermometer } from 'lucide-react';
-import { PageId } from '../types';
+import { ArrowRight, AudioLines, Blinds, Camera, Monitor, Moon, Sun, Thermometer, Users } from 'lucide-react';
 import { pageUrl } from '../site';
 import room from '../assets/images/proav-room-hybrid.webp';
+import meetingImage from '../assets/images/home-editorial-meeting.webp';
 import { ContentHero, ContactCta, contentWidth, actionClass } from '../components/ContentSections';
+import './OfficesPage.css';
 
 interface OfficesPageProps {
-  onNavigate: (page: PageId, subHash?: string) => void;
-  onOpenConsultation: () => void;
-  initialHash?: string;
+  onOpenConsultation: (topic: string) => void;
 }
+
+const workspaceBenefits = [
+  { icon: Monitor, text: 'Prezentacja bez odblasków' },
+  { icon: Users, text: 'Komfort podczas spotkań' },
+  { icon: AudioLines, text: 'Obraz i dźwięk pod kontrolą' },
+];
 
 export const OfficesPage: React.FC<OfficesPageProps> = ({ onOpenConsultation }) => (
   <div>
@@ -26,6 +31,25 @@ export const OfficesPage: React.FC<OfficesPageProps> = ({ onOpenConsultation }) 
         Poznaj wyposażenie sal ProAV <ArrowRight size={18} aria-hidden="true" />
       </a>
     </ContentHero>
+    <section id="smart-workspace" className="smart-workspace" aria-labelledby="smart-workspace-title">
+      <div className="smart-workspace__copy">
+        <p className="smart-workspace__eyebrow">Smart Workspace</p>
+        <h2 id="smart-workspace-title">Sala gotowa do spotkania.</h2>
+        <p className="smart-workspace__lead">Światło, rolety, temperatura i sprzęt do wideorozmów. Połączone tak, żeby łatwiej prowadzić spotkania.</p>
+        <ul className="smart-workspace__benefits">
+          {workspaceBenefits.map(({ icon: Icon, text }) => (
+            <li key={text}><Icon size={40} strokeWidth={1.3} aria-hidden="true" /><span>{text}</span></li>
+          ))}
+        </ul>
+        <button type="button" className="smart-workspace__button" onClick={() => onOpenConsultation('Konsultacja Smart Workspace / sala konferencyjna')}>
+          Porozmawiajmy o Twojej sali <ArrowRight size={19} aria-hidden="true" />
+        </button>
+      </div>
+      <figure className="smart-workspace__image">
+        <img src={meetingImage} alt="Przykładowa sala spotkań z ekranem, wideobarem, żaluzjami i oświetleniem nad stołem" width={1254} height={1254} loading="lazy" decoding="async" />
+        <figcaption>Przykładowy scenariusz — dobieramy do instalacji.</figcaption>
+      </figure>
+    </section>
     <section id="konferencyjne" className="py-16 sm:py-20 bg-white">
       <div className={contentWidth}>
         <figure>
@@ -93,7 +117,7 @@ export const OfficesPage: React.FC<OfficesPageProps> = ({ onOpenConsultation }) 
     <ContactCta
       title="Opowiedz nam o swoim biurze lub sali."
       text="Powiedz, ile osób korzysta z pomieszczenia i co dziś utrudnia pracę. Sprawdzimy istniejącą instalację, sprzęt i możliwości ich połączenia."
-      onClick={onOpenConsultation}
+      onClick={() => onOpenConsultation('Konsultacja ProAV / sala spotkań')}
     />
   </div>
 );

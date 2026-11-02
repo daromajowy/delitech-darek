@@ -15,7 +15,7 @@ import { ConsultationModal } from './components/ConsultationModal.tsx';
 import { CookieBanner } from './components/CookieBanner.tsx';
 
 // Pages
-import { HomePage, WORKSPACE_CONSULTATION } from './pages/HomePage.tsx';
+import { HomePage } from './pages/HomePage.tsx';
 import { OfficesPage } from './pages/OfficesPage.tsx';
 import { ProAVPage } from './pages/ProAVPage.tsx';
 import { HomesPage } from './pages/HomesPage.tsx';
@@ -30,6 +30,8 @@ import { ContactPage } from './pages/ContactPage.tsx';
 
 const formerHomeSections = new Map<string, [PageId, string]>([
   ['integracje-knx', ['homes', 'integracje-knx']],
+  ['smart-workspace', ['offices', 'smart-workspace']],
+  ['home-workspace-title', ['offices', 'smart-workspace-title']],
   ['projekt-knx', ['solutions', 'projekt-knx']],
   ['iot', ['solutions', 'iot']],
   ['systemy', ['solutions', 'systemy']],
@@ -145,20 +147,9 @@ export default function App() {
 
       {/* Main Content Viewport */}
       <main id="main-content" tabIndex={-1} className="flex-grow">
-        {currentPage === 'home' && (
-          <HomePage
-            onNavigate={handleNavigate}
-            onOpenConsultation={handleOpenConsultation}
-          />
-        )}
+        {currentPage === 'home' && <HomePage />}
 
-        {currentPage === 'offices' && (
-          <OfficesPage
-            onNavigate={handleNavigate}
-            onOpenConsultation={() => handleOpenConsultation('Konsultacja ProAV / sala spotkań')}
-            initialHash={currentHash}
-          />
-        )}
+        {currentPage === 'offices' && <OfficesPage onOpenConsultation={handleOpenConsultation} />}
 
         {currentPage === 'proav' && (
           <ProAVPage
@@ -249,7 +240,7 @@ export default function App() {
         isOpen={consultationModalOpen}
         onClose={() => setConsultationModalOpen(false)}
         initialTopic={consultationTopic}
-        variant={currentPage === 'proav' || currentPage === 'offices' || (currentPage === 'home' && consultationTopic === WORKSPACE_CONSULTATION) ? 'proav' : currentPage === 'architects' ? 'architects' : 'knx'}
+        variant={currentPage === 'proav' || currentPage === 'offices' ? 'proav' : currentPage === 'architects' ? 'architects' : 'knx'}
         onOpenPrivacy={() => handleOpenPrivacy('privacy')}
       />
 
