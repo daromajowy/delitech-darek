@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState, type CSSProperties } from 'react';
 import { Lightbulb, MusicNotes, PersonSimpleWalk, Thermometer, Tree, WifiHigh } from '@phosphor-icons/react';
-import { HERO_PEN_STROKES, HERO_PEN_VIEWBOX } from '../assets/handwriting/hero-pen-paths';
 import { BlindsIcon, ScenesIcon } from './HomeTechnologyIcons';
 import './HomeFunctionStrip.css';
 
@@ -15,35 +14,11 @@ const capabilities = [
   { icon: Tree, title: 'Ogród', text: 'Podlewanie dopasowane do pogody i potrzeb roślin.' },
 ];
 
-const START_DELAY_MS = 2000;
-const PEN_MS = 2800;
-const READ_MS = 900;
-const ERASE_START_MS = START_DELAY_MS + PEN_MS + READ_MS;
-const ICON_START_MS = ERASE_START_MS + PEN_MS;
 const ICON_STAGGER_MS = 130;
 let playedThisDocument = false;
 
-function PenLettering() {
-  return (
-    <svg className="home-function-strip__ink" viewBox={HERO_PEN_VIEWBOX} aria-hidden="true" focusable="false">
-      {HERO_PEN_STROKES.map((stroke, index) => (
-        <path
-          key={index}
-          d={stroke.d}
-          pathLength={1}
-          style={{
-            '--stroke-duration': `${stroke.duration * PEN_MS}ms`,
-            '--write-at': `${START_DELAY_MS + stroke.at * PEN_MS}ms`,
-            '--erase-at': `${ERASE_START_MS + stroke.at * PEN_MS}ms`,
-          } as CSSProperties}
-        />
-      ))}
-    </svg>
-  );
-}
-
 export function HomeFunctionStrip() {
-  const heading = useRef<HTMLHeadingElement>(null);
+  const list = useRef<HTMLUListElement>(null);
   const [phase, setPhase] = useState<'waiting' | 'playing' | 'done'>(() => playedThisDocument ? 'done' : 'waiting');
 
   useEffect(() => {
@@ -56,7 +31,7 @@ export function HomeFunctionStrip() {
       if (motion.matches) {
         playedThisDocument = true;
         setPhase('done');
-      } else if (!playedThisDocument && inView && document.readyState === 'complete' && !document.hidden) {
+      } else if (!playedThisDocument && inView && !document.hidden) {
         playedThisDocument = true;
         setPhase('playing');
       } else {
@@ -65,22 +40,20 @@ export function HomeFunctionStrip() {
       observer?.disconnect();
     }
 
-    if (heading.current && 'IntersectionObserver' in window) {
+    if (list.current && 'IntersectionObserver' in window) {
       observer = new IntersectionObserver(([entry]) => {
         inView = entry.isIntersecting;
         syncSequence();
       });
-      observer.observe(heading.current);
+      observer.observe(list.current);
     } else {
       inView = true;
     }
     syncSequence();
-    window.addEventListener('load', syncSequence, { once: true });
     document.addEventListener('visibilitychange', syncSequence);
     motion.addEventListener('change', syncSequence);
     return () => {
       observer?.disconnect();
-      window.removeEventListener('load', syncSequence);
       document.removeEventListener('visibilitychange', syncSequence);
       motion.removeEventListener('change', syncSequence);
     };
@@ -88,17 +61,14 @@ export function HomeFunctionStrip() {
 
   return (
     <section id="mozliwosci-domu" className="home-function-strip" data-phase={phase} aria-label="Możliwości inteligentnego domu">
-      <h1 ref={heading} id="home-intro-title" className="home-function-strip__signature">
-        <span className="sr-only">Tworzymy inteligentne przestrzenie</span>
-        {phase === 'playing' && <PenLettering />}
-      </h1>
-      <ul onAnimationEnd={event => {
+      <h1 id="home-intro-title" className="sr-only">InteliSpaces – automatyka KNX do domów, apartamentów i biur</h1>
+      <ul ref={list} onAnimationEnd={event => {
         if (event.animationName === 'strip-icon-in' && event.target === event.currentTarget.lastElementChild) {
           setPhase('done');
         }
       }}>
         {capabilities.map(({ icon: Icon, title, text }, index) => (
-          <li key={title} style={{ '--icon-at': `${ICON_START_MS + index * ICON_STAGGER_MS}ms` } as CSSProperties}>
+          <li key={title} style={{ '--icon-at': `${index * ICON_STAGGER_MS}ms` } as CSSProperties}>
             <Icon size={56} weight="light" aria-hidden="true" />
             <h2>{title}</h2>
             <p>{text}</p>
