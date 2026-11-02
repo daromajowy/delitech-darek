@@ -1,7 +1,7 @@
 import React from 'react';
 import { ArrowRight, AudioLines, Blinds, CloudRain, Droplets, Monitor, Sprout, Sun, Thermometer, Users } from 'lucide-react';
 import type { PageId } from '../types';
-import { pageUrl, plannerUrl } from '../site';
+import { pageUrl } from '../site';
 import { HeroVideo } from '../components/HeroVideo';
 import { KnxFilm } from '../components/KnxFilm';
 import { HomeFunctionStrip, HomeKnxReasons, HomeTechnologySections } from '../components/HomeTechnologySections';
@@ -126,24 +126,6 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenConsultation }) => (
     </section>
 
     <HomeTechnologySections onOpenConsultation={onOpenConsultation} />
-
-    <section className="home-editorial__advice" aria-labelledby="home-advice-title">
-      <div className="home-editorial__wrap">
-        <p className="home-editorial__eyebrow">Wsparcie dla inwestorów i projektantów</p>
-        <div className="home-editorial__advice-grid">
-          <div>
-            <h2 id="home-advice-title">Nie musisz znać KNX.</h2>
-            <p className="home-editorial__lead">Opowiedz, jak chcesz korzystać z wnętrza. Pomożemy dobrać rozwiązania i uzgodnić je z architektem oraz elektrykiem.</p>
-            <a href={plannerUrl()} className="home-editorial__button">Poznaj konfigurator KNX <ArrowRight size={19} aria-hidden="true" /></a>
-          </div>
-          <ul className="home-editorial__support">
-            <li>Zrozumiały język.</li>
-            <li>Osprzęt dopasowany do wnętrza.</li>
-            <li>Wsparcie od pomysłu do uruchomienia.</li>
-          </ul>
-        </div>
-      </div>
-    </section>
 
     <section id="smart-workspace" className="home-editorial__workspace home-editorial__wrap" aria-labelledby="home-workspace-title">
       <div className="home-editorial__workspace-copy">

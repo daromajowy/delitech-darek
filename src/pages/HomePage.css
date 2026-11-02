@@ -43,16 +43,6 @@
 .home-editorial__step-number { display: block; color: #6b861f; font: 500 34px/1.2 'Manrope', sans-serif; margin-bottom: 12px; }
 .home-editorial__steps h4 { font-size: clamp(27px, 3.05vw, 44px); line-height: 1.2; }
 .home-editorial__steps p { margin-top: 20px; font-size: 24px; line-height: 1.55; }
-.home-editorial__advice { padding-block: 64px 72px; background: var(--color-ink); color: #fff; }
-.home-editorial__advice .home-editorial__eyebrow { color: var(--color-mist); }
-.home-editorial__advice .home-editorial__eyebrow::after { border-color: #ffffff55; }
-.home-editorial__advice-grid { display: grid; grid-template-columns: 1.75fr 1fr; gap: 64px; }
-.home-editorial__advice h2 { font-size: clamp(36px, 4.72vw, 68px); }
-.home-editorial__advice .home-editorial__lead { max-width: 790px; color: var(--color-mist); }
-.home-editorial__advice .home-editorial__button { margin-top: 28px; }
-.home-editorial__support { display: flex; flex-direction: column; justify-content: center; gap: 36px; border-left: 1px solid #ffffff66; padding: 12px 0 12px 50px; margin: 0; list-style: none; font-size: 21px; line-height: 1.5; }
-.home-editorial__support li { position: relative; padding-left: 44px; }
-.home-editorial__support li::before { content: ''; position: absolute; left: 0; top: .75em; width: 25px; border-top: 2px solid var(--color-accent); }
 .home-editorial__workspace { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; padding-block: 80px; }
 .home-editorial__workspace-copy { display: flex; flex-direction: column; align-items: flex-start; }
 .home-editorial__workspace .home-editorial__eyebrow { width: 100%; }
@@ -77,8 +67,6 @@
   .home-editorial__benefits a { flex-direction: column; gap: 16px; }
   .home-editorial__steps li { padding-inline: 26px; }
   .home-editorial__steps p { font-size: 19px; }
-  .home-editorial__advice-grid { gap: 36px; grid-template-columns: 1.6fr 1fr; }
-  .home-editorial__support { padding-left: 28px; font-size: 18px; }
   .home-editorial__workspace { gap: 36px; }
   .home-editorial__workspace-benefits { gap: 14px; }
 }
@@ -110,10 +98,6 @@
   .home-editorial__step-number { position: absolute; top: 0; left: 0; font-size: 26px; }
   .home-editorial__steps h4 { font-size: 28px; }
   .home-editorial__steps p { font-size: 17px; margin-top: 10px; }
-  .home-editorial__advice { padding-block: 44px 48px; }
-  .home-editorial__advice h2 { font-size: 34px; }
-  .home-editorial__advice-grid { grid-template-columns: 1fr; gap: 32px; }
-  .home-editorial__support { border-left: 0; border-top: 1px solid #ffffff40; padding: 24px 0 0; gap: 18px; font-size: 17px; }
   .home-editorial__workspace { grid-template-columns: 1fr; gap: 32px; padding-block: 48px; }
   .home-editorial__workspace-benefits { gap: 16px; margin-block: 28px; }
   .home-editorial__workspace-benefits li { font-size: 14px; gap: 12px; }

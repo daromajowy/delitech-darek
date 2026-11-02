@@ -147,6 +147,24 @@ export const ArchitectsPage: React.FC<ArchitectsPageProps> = ({ onOpenConsultati
       </div>
     </section>
 
+    <section id="nie-musisz-znac-knx" className="architects-guidance" aria-labelledby="architects-guidance-title">
+      <div className="architects-guidance__inner">
+        <p className="architects-guidance__eyebrow">Wsparcie dla inwestorów i projektantów</p>
+        <div className="architects-guidance__grid">
+          <div>
+            <h2 id="architects-guidance-title">Nie musisz znać KNX.</h2>
+            <p className="architects-guidance__lead">Opowiedz, jak chcesz korzystać z wnętrza. Pomożemy dobrać rozwiązania i uzgodnić je z architektem oraz elektrykiem.</p>
+            <a href={pageUrl('architects', 'pakiet')} className="architects-button architects-button--lime">Poznaj konfigurator KNX <ArrowRight size={19} aria-hidden="true" /></a>
+          </div>
+          <ul className="architects-guidance__benefits">
+            <li>Zrozumiały język.</li>
+            <li>Osprzęt dopasowany do wnętrza.</li>
+            <li>Wsparcie od pomysłu do uruchomienia.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
     <section id="knx-dla-pracowni" className="architects-standard architects-content-width" aria-labelledby="architects-standard-title">
       <div className="architects-section-intro">
         <div>

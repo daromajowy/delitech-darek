@@ -185,6 +185,16 @@
 .architects-button--lime { margin-top: 28px; background: #9fbf36; color: #182c3d; }
 .architects-button--lime:hover { background: #b2ce52; }
 .architects-button--lime:focus-visible { outline-color: #fff; }
+.architects-guidance { padding-block: 64px 72px; background: var(--color-ink); color: #fff; }
+.architects-guidance__inner { max-width: 1440px; margin-inline: auto; padding-inline: 64px; }
+.architects-guidance__eyebrow { display: flex; align-items: center; gap: 24px; margin: 0 0 32px; color: var(--color-mist); font-size: 13px; font-weight: 600; line-height: 1.6; letter-spacing: .2em; text-transform: uppercase; }
+.architects-guidance__eyebrow::after { content: ''; flex: 1; min-width: 28px; border-top: 1px solid #ffffff55; }
+.architects-guidance__grid { display: grid; grid-template-columns: minmax(0, 1.75fr) minmax(0, 1fr); gap: 64px; }
+.architects-guidance h2 { margin: 0; font-size: clamp(36px, 4.72vw, 68px); font-weight: 750; line-height: 1.12; letter-spacing: -.045em; text-wrap: balance; }
+.architects-guidance__lead { max-width: 790px; margin: 18px 0 0; color: var(--color-mist); font-size: 29px; line-height: 1.5; }
+.architects-guidance__benefits { display: flex; flex-direction: column; justify-content: center; gap: 36px; margin: 0; padding: 12px 0 12px 50px; border-left: 1px solid #ffffff66; list-style: none; font-size: 21px; line-height: 1.5; }
+.architects-guidance__benefits li { position: relative; padding-left: 44px; }
+.architects-guidance__benefits li::before { content: ''; position: absolute; left: 0; top: .75em; width: 25px; border-top: 2px solid var(--color-accent); }
 .architects-content-width {
   max-width: 1800px;
   margin-inline: auto;
@@ -263,6 +273,10 @@
   .architects-presentation { min-height: 510px; }
 }
 @media (max-width: 1100px) {
+  .architects-guidance__inner { padding-inline: 40px; }
+  .architects-guidance__grid { grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 36px; }
+  .architects-guidance__lead { font-size: 22px; }
+  .architects-guidance__benefits { padding-left: 28px; font-size: 18px; }
   .architects-content-width { padding: 56px 30px; }
   .architects-section-intro { gap: 36px; }
   .architects-standard__grid { gap: 28px; }
@@ -280,6 +294,13 @@
   .architects-presentation__copy { width: 65%; padding: 44px 30px; }
 }
 @media (max-width: 760px) {
+  .architects-guidance { padding-block: 44px 48px; }
+  .architects-guidance__inner { padding-inline: 24px; }
+  .architects-guidance__eyebrow { margin-bottom: 24px; gap: 16px; font-size: 11px; letter-spacing: .16em; }
+  .architects-guidance__grid { grid-template-columns: 1fr; gap: 32px; }
+  .architects-guidance h2 { font-size: 34px; }
+  .architects-guidance__lead { font-size: 19px; line-height: 1.6; }
+  .architects-guidance__benefits { border-left: 0; border-top: 1px solid #ffffff40; padding: 24px 0 0; gap: 18px; font-size: 17px; }
   .architects-content-width { padding: 44px 24px; }
   .architects-content-width h2 { font-size: clamp(31px, 7.3vw, 43px); }
   .architects-section-intro, .architects-standard__grid, .architects-process, .architects-faq { grid-template-columns: 1fr; gap: 28px; }
