@@ -643,3 +643,15 @@ Original asset: https://www.jung-group.com/media/41/10/8e/1652260131/jung-logo.s
 TypeScript and the 12-page preview build passed. Browser checks at 1440, 390 and 320px confirmed that the image loads, stays fully inside the video, and causes no horizontal overflow. Desktop and phone screenshots visually checked. Browser console is clear. Evidence: C:/Users/Asdmin/Documents/ChatGPT/KNX/outputs/hero-jung-logo-janka-20261101/. Target: Janka only; pre-existing DESIGN.md edits excluded.
 
 final result: passed
+
+# Co może Twój dom: restore the KNX Polska film section — 2026-11-02
+
+Reference: the supplied 1317 × 500 screenshot (codex-clipboard-a328c1ea-5165-4abc-8a1b-c79c9946a682.png) and the original homepage section in Git before 798006c. Compared the reference and browser rendering together in reference-comparison.png. Scope: Janka, /solutions/#projekt-knx.
+
+Restored the two-column presentation below the interactive F50 house: the original headline, text, architectural grid, two calls to action, self-hosted KNX Polska film and caption. The entire previous cinema feature is absent, including its intro and reaction strip. The F50 simulator still has its cinema key, and all four examples remain directly after the film. The relocated headline is an h2 under the page's existing h1.
+
+Desktop check at 1317px content width: the left column starts at x=50.5px; the 483px-wide 16:9 player starts at x=783px. The title wraps into the same three lines as the reference. The reference captures a laptop partway through the content; the real player shows the original poster before play and a KNX end card at the end. At 390px and 320px viewport widths the player follows the text and both buttons; neither width has horizontal overflow. Mouse and keyboard activated the consultation dialog and the link to the Janka offices page. Native playback, pause and seeking to the end were confirmed (82.06 seconds). No warning or error in the browser console. TypeScript, the twelve-page preview build and all eight site/F50 regression tests passed.
+
+Evidence: C:/Users/Asdmin/Documents/ChatGPT/KNX/outputs/solutions-knx-film-janka-20261102/ (reference-comparison.png, desktop.json, phone390.json, phone320.json, screenshots and build/test logs).
+
+final result: passed

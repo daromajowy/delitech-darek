@@ -23,14 +23,11 @@
   font-family: Manrope, sans-serif;
 }
 
-.solutions-page :is(.solutions-scenes, .solutions-functions, .solutions-functions__grid li, .solutions-integrations, .solutions-integrations__grid li) {
+.solutions-page :is(#projekt-knx, .solutions-scenes, .solutions-functions, .solutions-functions__grid li, .solutions-integrations, .solutions-integrations__grid li) {
   scroll-margin-top: 132px;
 }
 
-.solutions-cinema { background: #f7f8f5; }
-.solutions-cinema__intro { padding-block: 34px 28px; }
-
-.solutions-page :is(.solutions-cinema__intro, .solutions-section-intro) h2 {
+.solutions-page .solutions-section-intro h2 {
   font-size: clamp(28px, 3.4vw, 46px);
   font-weight: 800;
   line-height: 1.2;
@@ -38,68 +35,11 @@
   margin: 0 0 12px;
 }
 
-.solutions-page :is(.solutions-cinema__intro, .solutions-section-intro) p {
+.solutions-page .solutions-section-intro p {
   margin: 0;
   font-size: clamp(16px, 1.7vw, 22px);
   line-height: 1.6;
   color: var(--solutions-muted);
-}
-
-.solutions-cinema__image {
-  position: relative;
-  max-width: 1920px;
-  margin-inline: auto;
-  overflow: hidden;
-  background: #25221d;
-}
-
-.solutions-cinema__image img {
-  display: block;
-  width: 100%;
-  height: clamp(320px, 32vw, 560px);
-  object-fit: cover;
-}
-
-.solutions-cinema__image::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(0deg, rgb(11 19 25 / 62%), transparent 65%);
-  pointer-events: none;
-}
-
-.solutions-cinema__caption {
-  position: absolute;
-  z-index: 1;
-  inset: auto 0 30px;
-}
-
-.solutions-cinema__caption h3 {
-  font-size: clamp(32px, 3.5vw, 48px);
-  font-weight: 800;
-  letter-spacing: -.04em;
-  line-height: 1.12;
-  color: #fff;
-  margin: 0;
-}
-
-.solutions-cinema__reactions {
-  background: var(--solutions-ink);
-  color: #fff;
-}
-
-.solutions-cinema__reactions > div {
-  display: grid;
-  grid-template-columns: 220px minmax(0, 1fr);
-  align-items: center;
-  min-height: 100px;
-  padding-block: 24px;
-}
-
-.solutions-cinema__reactions p {
-  font-weight: 700;
-  font-size: 20px;
-  margin: 0;
 }
 
 .solutions-effects {
@@ -121,14 +61,6 @@
 }
 
 .solutions-effects svg { flex: 0 0 auto; width: 38px; height: 38px; }
-.solutions-cinema__reactions .solutions-effects { gap: 0; }
-
-.solutions-cinema__reactions li {
-  border-left: 1px solid rgb(255 255 255 / 30%);
-  padding: 0 24px;
-  font-size: 17px;
-  font-weight: 600;
-}
 
 .solutions-scenes { padding-block: 52px 56px; }
 .solutions-section-intro { margin-bottom: 28px; }
@@ -273,8 +205,6 @@
 
 @media (max-width: 1050px) {
   .solutions-functions__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; }
-  .solutions-cinema__reactions > div { grid-template-columns: 160px minmax(0, 1fr); }
-  .solutions-cinema__reactions li { padding-inline: 16px; gap: 10px; }
   .solutions-scenes__grid { gap: 36px 28px; }
   .solutions-effects { gap: 14px; }
   .solutions-scene .solutions-effects li { flex-direction: column; align-items: flex-start; gap: 8px; }
@@ -297,19 +227,6 @@
   .solutions-page .f50-demo .f50-demo__inner { padding-top: 28px; }
   .solutions-page .f50-demo .intro { font-size: 14px; }
   .solutions-container { width: calc(100% - 40px); }
-  .solutions-cinema__intro { padding-block: 30px; }
-  .solutions-cinema__image img { height: 340px; object-position: 55% center; }
-  .solutions-cinema__caption { bottom: 24px; }
-  .solutions-cinema__reactions > div { display: block; padding-block: 24px; }
-  .solutions-cinema__reactions p { margin-bottom: 20px; font-size: 18px; }
-  .solutions-cinema__reactions .solutions-effects { gap: 16px; }
-  .solutions-cinema__reactions li {
-    flex-direction: column;
-    align-items: flex-start;
-    border: 0;
-    padding: 0;
-    font-size: 12px;
-  }
   .solutions-scenes { padding-block: 36px 40px; }
   .solutions-scenes__grid { grid-template-columns: 1fr; gap: 36px; }
   .solutions-scene h3 { font-size: 23px; }
@@ -328,5 +245,4 @@
 @media (max-width: 400px) {
   .solutions-container { width: calc(100% - 32px); }
   .solutions-integrations__grid li { flex-direction: column; gap: 10px; }
-  .solutions-cinema__caption h3 { font-size: 30px; }
 }
