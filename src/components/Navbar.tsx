@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { ArrowUpRight, Mail, Menu, Phone, X } from 'lucide-react';
-import { pageUrl, plannerUrl } from '../site';
+import { contactEmail, pageUrl, plannerUrl } from '../site';
 import { Logo } from './Logo';
 import type { PageId } from '../types';
 import './Navbar.css';
@@ -74,9 +74,9 @@ export function Navbar({ currentPage }: { currentPage: PageId }) {
               <Phone size={16} aria-hidden="true" />
               <span>+48 505 260 715</span>
             </a>
-            <a href="mailto:kontakt@delitech.pl">
+            <a href={'mailto:' + contactEmail}>
               <Mail size={17} aria-hidden="true" />
-              <span>kontakt@delitech.pl</span>
+              <span>{contactEmail}</span>
             </a>
           </nav>
         </div>

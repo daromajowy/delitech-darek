@@ -1,6 +1,8 @@
 import type { PageId } from './types';
 import { pages } from './page-config.ts';
 
+export const contactEmail = 'biuro@intelispaces.pl';
+
 export interface SiteConfig {
   page: PageId;
   urls: Record<PageId, string>;

@@ -1,5 +1,6 @@
 import React from 'react';
 import { X, ShieldCheck, Lock, FileCheck } from 'lucide-react';
+import { contactEmail } from '../site';
 
 interface PrivacyModalProps {
   isOpen: boolean;
@@ -77,7 +78,10 @@ export const PrivacyModal: React.FC<PrivacyModalProps> = ({
           {activeTab === 'privacy' && (
             <div className="space-y-3">
               <h3 className="font-bold text-ink text-base">{"1. Administrator Danych Osobowych"}</h3>
-              <p>{"Administratorem danych osobowych zbieranych za pośrednictwem portalu jest Delitech Sp.j. z siedzibą przy ul. Konwaliowej 7 lok. 103, 03-194 Warszawa, NIP: 1132919580, e-mail: kontakt@delitech.pl, tel: +48 505 260 715."}</p>
+              <p>
+                Administratorem danych osobowych zbieranych za pośrednictwem portalu jest Delitech Sp.j. z siedzibą przy ul. Konwaliowej 7 lok. 103, 03-194 Warszawa, NIP: 1132919580, e-mail:{' '}
+                <a className="underline" href={'mailto:' + contactEmail}>{contactEmail}</a>, tel: +48 505 260 715.
+              </p>
 
               <h3 className="font-bold text-ink text-base pt-2">{"2. Zakres i Cel Zbierania Danych"}</h3>
               <p>{"Przetwarzamy dane osobowe (imię, nazwisko, adres e-mail, numer telefonu, nazwa pracowni/firmy, dokumentacja rzutów architektonicznych i instalacyjnych) wyłącznie w celach:"}</p>

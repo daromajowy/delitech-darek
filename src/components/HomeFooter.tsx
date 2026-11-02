@@ -1,7 +1,7 @@
 import React from 'react';
 import { ArrowUpRight, Globe, Mail, Phone } from 'lucide-react';
 import type { PageId } from '../types';
-import { pageUrl } from '../site';
+import { contactEmail, pageUrl } from '../site';
 import { Logo } from './Logo';
 import './HomeFooter.css';
 
@@ -32,7 +32,7 @@ export const HomeFooter: React.FC<HomeFooterProps> = ({ onOpenPrivacy }) => (
       <div className="home-footer__contact-row">
         <address>
           <a href="tel:+48505260715"><Phone size={21} aria-hidden="true" />+48 505 260 715</a>
-          <a href="mailto:kontakt@delitech.pl"><Mail size={21} aria-hidden="true" />kontakt@delitech.pl</a>
+          <a href={'mailto:' + contactEmail}><Mail size={21} aria-hidden="true" />{contactEmail}</a>
           <a href="https://intelispaces.pl/"><Globe size={21} aria-hidden="true" />intelispaces.pl</a>
         </address>
         <a href={pageUrl('proav')} className="home-footer__proav">ProAV do sal spotkań <ArrowUpRight size={18} aria-hidden="true" /></a>

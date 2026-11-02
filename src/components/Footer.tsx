@@ -1,7 +1,7 @@
 import React from 'react';
 import { Logo } from './Logo';
 import { PageId } from '../types';
-import { pageUrl, plannerUrl } from '../site';
+import { contactEmail, pageUrl, plannerUrl } from '../site';
 import { MapPin, Phone, Mail, ArrowUpRight } from 'lucide-react';
 
 interface FooterProps {
@@ -109,11 +109,11 @@ export const Footer: React.FC<FooterProps> = ({ onOpenPrivacy }) => (
               +48 505 260 715
             </a>
             <a
-              href="mailto:kontakt@delitech.pl"
+              href={'mailto:' + contactEmail}
               className="flex items-center gap-2 hover:text-white break-all"
             >
               <Mail size={18} className="shrink-0 text-accent" aria-hidden="true" />
-              kontakt@delitech.pl
+              {contactEmail}
             </a>
           </address>
           <a

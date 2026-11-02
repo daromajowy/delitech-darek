@@ -1,6 +1,6 @@
 import React from 'react';
 import { ArrowRight, MapPin, Phone, Mail } from 'lucide-react';
-import { pageUrl, plannerUrl } from '../site';
+import { contactEmail, pageUrl, plannerUrl } from '../site';
 import { ContentHero, FeatureList, contentWidth, actionClass } from '../components/ContentSections';
 
 interface ContactPageProps {
@@ -27,11 +27,11 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onOpenConsultation }) 
               +48 505 260 715
             </a>
             <a
-              href="mailto:kontakt@delitech.pl"
+              href={'mailto:' + contactEmail}
               className="flex items-center gap-3 font-semibold break-all hover:underline"
             >
               <Mail size={24} className="shrink-0" aria-hidden="true" />
-              kontakt@delitech.pl
+              {contactEmail}
             </a>
             <p className="flex gap-3">
               <MapPin size={24} className="shrink-0" aria-hidden="true" />
