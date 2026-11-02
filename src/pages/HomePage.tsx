@@ -4,7 +4,7 @@ import type { PageId } from '../types';
 import { pageUrl } from '../site';
 import { HeroVideo } from '../components/HeroVideo';
 import { KnxFilm } from '../components/KnxFilm';
-import { HomeFunctionStrip, HomeKnxReasons, HomeTechnologySections } from '../components/HomeTechnologySections';
+import { HomeFunctionStrip, HomeIntegrations, HomeKnxReasons } from '../components/HomeTechnologySections';
 import planningImage from '../assets/images/architects-advice.webp';
 import homeImage from '../assets/images/home-editorial-interior.webp';
 import meetingImage from '../assets/images/home-editorial-meeting.webp';
@@ -125,7 +125,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenConsultation }) => (
       </section>
     </section>
 
-    <HomeTechnologySections onOpenConsultation={onOpenConsultation} />
+    <HomeIntegrations />
 
     <section id="smart-workspace" className="home-editorial__workspace home-editorial__wrap" aria-labelledby="home-workspace-title">
       <div className="home-editorial__workspace-copy">

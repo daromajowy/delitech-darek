@@ -16,7 +16,7 @@ const capabilities = [
   { icon: PersonSimpleWalk, title: 'Obecność', text: 'Dom reaguje na to, gdzie jesteś.', href: () => pageUrl('homes', 'mozliwosci') },
   { icon: ScenesIcon, title: 'Sceny', text: 'Kilka zmian jednym przyciskiem.', href: () => pageUrl('solutions', 'sceny') },
   { icon: MusicNotes, title: 'Multimedia', text: 'Muzyka i obraz w Twoim rytmie.', href: () => pageUrl('solutions', 'multimedia') },
-  { icon: WifiHigh, title: 'IoT', text: 'Ulubione urządzenia we wspólnych scenach.', href: () => pageUrl('home', 'iot') },
+  { icon: WifiHigh, title: 'IoT', text: 'Ulubione urządzenia we wspólnych scenach.', href: () => pageUrl('solutions', 'iot') },
   { icon: Tree, title: 'Ogród', text: 'Podlewanie dopasowane do pogody i potrzeb roślin.', href: () => pageUrl('solutions', 'ogrod') },
 ];
 
@@ -87,7 +87,7 @@ function FeatureList({ items }: { items: readonly string[] }) {
   return <ul className="ht-check-list">{items.map(item => <li key={item}><Check size={18} weight="light" aria-hidden="true" /><span>{item}</span></li>)}</ul>;
 }
 
-function HomeIntegrations() {
+export function HomeIntegrations() {
   const [selected, setSelected] = useState(homeIntegrationAreas[0].id);
   const detail = useRef<HTMLElement>(null);
   const active = homeIntegrationAreas.find(area => area.id === selected) || homeIntegrationAreas[0];
@@ -157,7 +157,7 @@ const iotExamples = [
   { icon: VideoCamera, title: 'Kamery IP', text: 'Podgląd obsługiwanej kamery pojawia się w wizualizacji domu.', connection: 'Zgodny strumień obrazu + wizualizacja' },
 ];
 
-function HomeIoT() {
+export function IoTIntegrations() {
   return (
     <section id="iot" className="home-technology ht-iot" aria-labelledby="ht-iot-title">
       <div className="home-editorial__wrap">
@@ -181,7 +181,7 @@ function HomeIoT() {
   );
 }
 
-function HomeSystems({ onOpenConsultation }: { onOpenConsultation: (topic?: string) => void }) {
+export function HomeSystemComparison({ onOpenConsultation }: { onOpenConsultation: (topic: string) => void }) {
   return (
     <section id="systemy" className="home-technology ht-systems" aria-labelledby="ht-systems-title">
       <div className="home-editorial__wrap">
@@ -212,8 +212,4 @@ function HomeSystems({ onOpenConsultation }: { onOpenConsultation: (topic?: stri
       </div>
     </section>
   );
-}
-
-export function HomeTechnologySections({ onOpenConsultation }: { onOpenConsultation: (topic?: string) => void }) {
-  return <><HomeIntegrations /><HomeIoT /><HomeSystems onOpenConsultation={onOpenConsultation} /></>;
 }

@@ -12,8 +12,8 @@
 .home-technology svg { flex-shrink: 0; color: var(--color-accent); }
 .home-technology p { line-height: 1.7; }
 .home-technology ul { padding: 0; margin: 0; list-style: none; }
-.home-editorial .home-technology h2 { margin: 0; font-size: clamp(34px, 4vw, 56px); line-height: 1.12; letter-spacing: -.04em; text-wrap: initial; }
-.home-editorial .home-technology h3 { letter-spacing: -.025em; }
+:is(.home-editorial, .solutions-page) .home-technology h2 { margin: 0; font-size: clamp(34px, 4vw, 56px); font-weight: 750; line-height: 1.12; letter-spacing: -.04em; text-wrap: initial; }
+:is(.home-editorial, .solutions-page) .home-technology h3 { font-weight: 750; letter-spacing: -.025em; }
 .home-technology [id] { scroll-margin-top: 152px; }
 .home-technology[id], .home-function-strip[id] { scroll-margin-top: 152px; }
 .ht-heading { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: end; }

@@ -4,7 +4,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { siteConfig } from './site';
+import { pageUrl, siteConfig } from './site';
 import { pages } from './page-config';
 import { PageId } from './types.ts';
 import { Navbar } from './components/Navbar.tsx';
@@ -107,6 +107,10 @@ export default function App() {
 
   useEffect(() => {
     if (!currentHash) return;
+    if (currentPage === 'home' && (currentHash === 'iot' || currentHash === 'systemy')) {
+      window.location.replace(pageUrl('solutions', currentHash));
+      return;
+    }
     const frame = requestAnimationFrame(() => document.getElementById(currentHash)?.scrollIntoView({ block: 'start' }));
     return () => cancelAnimationFrame(frame);
   }, [currentPage, currentHash]);
@@ -164,7 +168,7 @@ export default function App() {
         {currentPage === 'solutions' && (
           <SolutionsPage
             onNavigate={handleNavigate}
-            onOpenConsultation={() => handleOpenConsultation('Funkcje inteligentnego domu')}
+            onOpenConsultation={handleOpenConsultation}
             initialHash={currentHash}
           />
         )}

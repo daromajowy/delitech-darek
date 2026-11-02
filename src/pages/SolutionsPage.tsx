@@ -7,6 +7,7 @@ import {
 import type { PageId } from '../types';
 import { pageUrl } from '../site';
 import { F50HomeDemo } from '../components/F50HomeDemo/F50HomeDemo';
+import { HomeSystemComparison, IoTIntegrations } from '../components/HomeTechnologySections';
 import morning from '../assets/images/solutions-scene-morning.webp';
 import leaving from '../assets/images/solutions-scene-leaving.webp';
 import returning from '../assets/images/solutions-scene-return.webp';
@@ -15,7 +16,7 @@ import './SolutionsPage.css';
 
 interface SolutionsPageProps {
   onNavigate: (page: PageId, hash?: string) => void;
-  onOpenConsultation: () => void;
+  onOpenConsultation: (topic: string) => void;
   initialHash?: string;
 }
 
@@ -186,11 +187,14 @@ export function SolutionsPage({ onOpenConsultation, initialHash }: SolutionsPage
         </div>
       </section>
 
+      <IoTIntegrations />
+      <HomeSystemComparison onOpenConsultation={onOpenConsultation} />
+
       <section className="solutions-cta" aria-labelledby="solutions-cta-title">
         <div className="solutions-container">
           <div className="solutions-cta__action">
             <h2 id="solutions-cta-title">Zaplanujmy możliwości Twojego domu.</h2>
-            <button type="button" onClick={onOpenConsultation}>
+            <button type="button" onClick={() => onOpenConsultation('Funkcje inteligentnego domu')}>
               Omów projekt <ArrowUpRight size={20} aria-hidden="true" />
             </button>
           </div>
