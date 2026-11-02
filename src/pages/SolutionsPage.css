@@ -23,7 +23,7 @@
   font-family: Manrope, sans-serif;
 }
 
-.solutions-page :is(#projekt-knx, .solutions-scenes, .solutions-functions, .solutions-functions__grid li, .solutions-integrations, .solutions-integrations__grid li) {
+.solutions-page :is(.solutions-scenes, .solutions-functions, .solutions-functions__grid li, .solutions-integrations, .solutions-integrations__grid li) {
   scroll-margin-top: 132px;
 }
 
