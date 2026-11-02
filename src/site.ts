@@ -25,8 +25,9 @@ export function createSiteConfig(page: PageId, base: string, preview: boolean): 
 }
 
 export function pageFromPath(pathname: string, base = '/'): PageId {
-  const relative = '/' + pathname.slice(base.length).replace(/^\/+/, '');
-  return (Object.entries(pages).find(([, page]) => page.path === relative.replace(/\/?$/, '/'))?.[0] as PageId) || 'home';
+  const relative = '/' + pathname.slice(base.length).replace(/^\/+/, '').replace(/(^|\/)index\.html$/, '$1');
+  const path = relative.replace(/\/?$/, '/');
+  return (Object.entries(pages).find(([, page]) => page.path === path || page.previousPath === path)?.[0] as PageId) || 'home';
 }
 
 export function plannerUrl(): string {

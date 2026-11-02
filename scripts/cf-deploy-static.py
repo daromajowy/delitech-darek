@@ -24,7 +24,8 @@ TARGETS = {
                 'database': 'horcwnciix_knxstage', 'trigger': 'main'},
 }
 TOP_LEVEL = {'index.html', '404.html', 'robots.txt', 'sitemap.xml', '.htaccess', 'assets', 'media',
-             'architects', 'homes', 'offices', 'about', 'team', 'projects', 'solutions', 'knowledge', 'knx', 'contact'}
+             'architects', 'homes', 'offices', 'about', 'team', 'projects', 'solutions', 'knowledge', 'knx', 'contact',
+             'dla-architektow', 'o-nas', 'zespol', 'przyklady-automatyki', 'co-moze-twoj-dom', 'pytania-o-knx', 'kontakt'}
 REQUIRED = {'index.html', '.htaccess', 'robots.txt', 'sitemap.xml', '404.html'} | {
     name + '/index.html' for name in ['architects', 'homes', 'offices', 'about', 'team', 'projects', 'solutions', 'knowledge', 'knx', 'contact']}
 MANAGED = (TOP_LEVEL - {'knx'}) | {'knx/index.html', 'static-manifest.json'}

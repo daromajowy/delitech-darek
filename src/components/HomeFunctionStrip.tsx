@@ -61,7 +61,7 @@ export function HomeFunctionStrip() {
 
   return (
     <section id="mozliwosci-domu" className="home-function-strip" data-phase={phase} aria-label="Możliwości inteligentnego domu">
-      <h1 id="home-intro-title" className="sr-only">InteliSpaces – automatyka KNX do domów, apartamentów i biur</h1>
+      <h1 id="home-intro-title" className="sr-only">InteliSpaces – automatyka KNX dla domów i apartamentów</h1>
       <ul ref={list} onAnimationEnd={event => {
         if (event.animationName === 'strip-icon-in' && event.target === event.currentTarget.lastElementChild) {
           setPhase('done');

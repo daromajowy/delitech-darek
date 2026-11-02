@@ -18,7 +18,7 @@ test('a shared team profile edit reaches both pages, Vite and published HTML wit
   const originalConfig = globalThis.__INTELISPACES__;
   let server;
   try {
-    for (const file of ['src','scripts/build-site.mjs','scripts/site.htaccess','index.html','vite.config.ts','package.json']) {
+    for (const file of ['src','scripts/build-site.mjs','scripts/site-seo.mjs','scripts/site.htaccess','index.html','vite.config.ts','package.json']) {
       fs.mkdirSync(path.dirname(path.join(fixture,file)), {recursive:true});
       fs.cpSync(path.join(root,file), path.join(fixture,file), {recursive:true});
     }
@@ -62,18 +62,32 @@ test('a shared team profile edit reaches both pages, Vite and published HTML wit
           if (href.startsWith(base)) assert.doesNotMatch(href.slice(base.length), /^(?:homes|offices)(?:\/|#|$)/);
         }
         assert.ok(html.includes(`<title>${page.title}</title>`));
+        const canonical = 'https://intelispaces.pl' + page.path;
+        assert.ok(html.includes(`rel="canonical" href="${canonical}"`));
+        assert.ok(html.includes(`property="og:url" content="${canonical}"`));
+        assert.equal((html.match(/<h1(?:\s|>)/g) || []).length, 1, page.path);
+        const entity = JSON.parse(html.match(/<script type="application\/ld\+json">(.*?)<\/script>/s)[1]);
+        assert.ok(entity['@graph'].some(item => item.url === canonical));
+        if (page.previousPath) {
+          assert.ok(!sitemap.includes(`<loc>https://intelispaces.pl${page.previousPath}</loc>`));
+          const redirect = fs.readFileSync(path.join(fixture,'dist',page.previousPath,'index.html'),'utf8');
+          let destination;
+          runInNewContext(redirect.match(/<script>(.*?)<\/script>/s)[1],
+            {location:{search:'?from=menu', hash:'#etapy', replace(url) { destination=url; }}});
+          assert.equal(destination, base+page.path.slice(1)+'?from=menu#etapy');
+        }
         assert.ok(!html.includes('/wp-content/') && !html.includes('STARY TEKST Z EKSPORTU'));
         const config = JSON.parse(html.match(/globalThis\.__INTELISPACES__=(.*?);<\/script>/)[1]);
         assert.equal(config.preview,preview);
         assert.equal(config.endpoint,preview?undefined:'https://knx.intelispaces.pl/api/inquiries');
         assert.ok(!Object.hasOwn(config,'values'));
-        assert.equal(config.urls.team,base+'team/');
+        assert.equal(config.urls.team,base+'zespol/');
         assert.equal(config.plannerUrl,preview?base+'projektant-knx/':'https://knx.intelispaces.pl/');
       }
       for (const [route, hash, target] of [
-        ['homes','','solutions/#sceny'], ['homes','#rytm-dnia','solutions/#sceny'],
-        ['homes','#etapy','solutions/#etapy'], ['homes','#koszt','knowledge/#koszt'],
-        ['offices','#smart-workspace','contact/'], ['offices/proav','','contact/'],
+        ['homes','','co-moze-twoj-dom/#sceny'], ['homes','#rytm-dnia','co-moze-twoj-dom/#sceny'],
+        ['homes','#etapy','co-moze-twoj-dom/#etapy'], ['homes','#koszt','pytania-o-knx/#koszt'],
+        ['offices','#smart-workspace','kontakt/'], ['offices/proav','','kontakt/'],
       ]) {
         const html = fs.readFileSync(path.join(fixture,'dist',route,'index.html'),'utf8');
         const script = html.match(/<script>(.*?)<\/script>/s)[1];
@@ -84,7 +98,7 @@ test('a shared team profile edit reaches both pages, Vite and published HTML wit
         const next = fs.readFileSync(path.join(fixture,'dist',nextPage,'index.html'),'utf8');
         if (anchor) assert.ok(next.includes(`id="${anchor}"`), 'Missing destination: '+target);
       }
-      for (const page of ['about', 'team']) {
+      for (const page of ['o-nas', 'zespol']) {
         assert.ok(fs.readFileSync(path.join(fixture,'dist',page,'index.html'),'utf8').includes(escaped));
       }
     }
