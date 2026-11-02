@@ -28,6 +28,13 @@ import { AboutPage } from './pages/AboutPage.tsx';
 import { TeamPage } from './pages/TeamPage.tsx';
 import { ContactPage } from './pages/ContactPage.tsx';
 
+const formerHomeSections = new Map([
+  ['iot', 'iot'],
+  ['systemy', 'systemy'],
+  ['dom', 'integracje'],
+  ['funkcje-domu', 'integracje'],
+]);
+
 export default function App() {
   const [currentPage, setCurrentPage] = useState<PageId>(() => siteConfig()?.page || 'home');
   const [currentHash, setCurrentHash] = useState<string | undefined>(undefined);
@@ -107,8 +114,9 @@ export default function App() {
 
   useEffect(() => {
     if (!currentHash) return;
-    if (currentPage === 'home' && (currentHash === 'iot' || currentHash === 'systemy')) {
-      window.location.replace(pageUrl('solutions', currentHash));
+    const solutionsAnchor = currentPage === 'home' && formerHomeSections.get(currentHash);
+    if (solutionsAnchor) {
+      window.location.replace(pageUrl('solutions', solutionsAnchor));
       return;
     }
     const frame = requestAnimationFrame(() => document.getElementById(currentHash)?.scrollIntoView({ block: 'start' }));

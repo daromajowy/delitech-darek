@@ -1,12 +1,10 @@
 import React from 'react';
-import { ArrowRight, AudioLines, Blinds, CloudRain, Droplets, Monitor, Sprout, Sun, Thermometer, Users } from 'lucide-react';
+import { ArrowRight, AudioLines, Monitor, Users } from 'lucide-react';
 import type { PageId } from '../types';
 import { pageUrl } from '../site';
 import { HeroVideo } from '../components/HeroVideo';
 import { KnxFilm } from '../components/KnxFilm';
 import { HomeFunctionStrip, HomeIntegrations, HomeKnxReasons } from '../components/HomeTechnologySections';
-import planningImage from '../assets/images/architects-advice.webp';
-import homeImage from '../assets/images/home-editorial-interior.webp';
 import meetingImage from '../assets/images/home-editorial-meeting.webp';
 import './HomePage.css';
 
@@ -17,14 +15,6 @@ interface HomePageProps {
 
 export const WORKSPACE_CONSULTATION = 'Konsultacja Smart Workspace / sala konferencyjna';
 
-const homeBenefits = [
-  { icon: Sun, title: 'Światło w Twoim rytmie', text: 'Jasno przy pracy, przytulnie wieczorem. Jednym przyciskiem lub automatycznie.', hash: 'dali' },
-  { icon: Blinds, title: 'Cień i prywatność', text: 'Osłony ograniczają ostre słońce w dzień, a wieczorem zapewniają prywatność.', hash: 'fasady' },
-  { icon: Thermometer, title: 'Temperatura po Twojemu', text: 'Ogrzewanie i chłodzenie dopasowane do pomieszczenia i Twojego dnia.', hash: 'hvac' },
-  { icon: CloudRain, title: 'Dom reaguje na pogodę', text: 'Zaczyna padać? Okna z napędem mogą zamknąć się automatycznie.', hash: 'pogoda' },
-  { icon: Sprout, title: 'Ogród podlewany z głową', text: 'Podlewanie uwzględnia wilgotność ziemi i deszcz. Także podczas Twojego wyjazdu.', hash: 'ogrod' },
-  { icon: Droplets, title: 'Reakcja na wyciek', text: 'Czujnik wykrywa wodę, a system zamyka jej dopływ przez sterowany zawór.', hash: 'wyciek' },
-];
 const steps = [
   { title: 'Porozmawiajmy.', text: 'Poznajemy potrzeby, styl życia i pomysł na wnętrze.' },
   { title: 'Zaplanujmy.', text: 'Dobieramy funkcje i osprzęt. Uzgadniamy rozwiązania z projektantem.' },
@@ -87,42 +77,16 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenConsultation }) => (
       </div>
     </section>
 
-    <section id="dom" className="home-editorial__homes home-editorial__wrap" aria-labelledby="home-dom-title">
-      <p className="home-editorial__eyebrow">Domy i apartamenty</p>
-      <h2 id="home-dom-title">Dom w Twoim rytmie.</h2>
-      <p className="home-editorial__lead">Codzienny komfort, zadbany ogród i reakcja wtedy, kiedy jej potrzebujesz.</p>
-      <div className="home-editorial__photo-pair">
-        <figure>
-          <img src={planningImage} alt="Rzut mieszkania obok próbek kamienia, drewna i tkaniny oraz przycisku ściennego" width={1440} height={1008} loading="lazy" decoding="async" />
-          <figcaption><span>Od pomysłu</span></figcaption>
-        </figure>
-        <figure>
-          <img src={homeImage} alt="Przykładowe wnętrze salonu z dużymi oknami, zasłonami i dyskretnym oświetleniem" width={1402} height={1122} loading="lazy" decoding="async" />
-          <figcaption><span>Do codziennej wygody</span></figcaption>
-        </figure>
-      </div>
-      <ul className="home-editorial__benefits" id="funkcje-domu">
-        {homeBenefits.map(({ icon: Icon, title, text, hash }) => (
+    <section className="home-editorial__process home-editorial__wrap" aria-labelledby="home-process-title">
+      <h2 id="home-process-title" className="home-editorial__eyebrow">Jak pracujemy</h2>
+      <ol className="home-editorial__steps">
+        {steps.map(({ title, text }, index) => (
           <li key={title}>
-            <a href={pageUrl('solutions', hash)}>
-              <Icon size={48} strokeWidth={1.3} aria-hidden="true" />
-              <div><h3>{title}</h3><p>{text}</p></div>
-            </a>
+            <span className="home-editorial__step-number" aria-hidden="true">0{index + 1}</span>
+            <h3>{title}</h3><p>{text}</p>
           </li>
         ))}
-      </ul>
-      <p className="home-editorial__benefits-note">Funkcje dobieramy do Twojego domu, urządzeń i sposobu życia.</p>
-      <section className="home-editorial__process" aria-labelledby="home-process-title">
-        <h3 id="home-process-title" className="home-editorial__eyebrow">Jak pracujemy</h3>
-        <ol className="home-editorial__steps">
-          {steps.map(({ title, text }, index) => (
-            <li key={title}>
-              <span className="home-editorial__step-number" aria-hidden="true">0{index + 1}</span>
-              <h4>{title}</h4><p>{text}</p>
-            </li>
-          ))}
-        </ol>
-      </section>
+      </ol>
     </section>
 
     <HomeIntegrations />
