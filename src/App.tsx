@@ -28,12 +28,13 @@ import { AboutPage } from './pages/AboutPage.tsx';
 import { TeamPage } from './pages/TeamPage.tsx';
 import { ContactPage } from './pages/ContactPage.tsx';
 
-const formerHomeSections = new Map([
-  ['projekt-knx', 'projekt-knx'],
-  ['iot', 'iot'],
-  ['systemy', 'systemy'],
-  ['dom', 'integracje'],
-  ['funkcje-domu', 'integracje'],
+const formerHomeSections = new Map<string, [PageId, string]>([
+  ['integracje-knx', ['homes', 'integracje-knx']],
+  ['projekt-knx', ['solutions', 'projekt-knx']],
+  ['iot', ['solutions', 'iot']],
+  ['systemy', ['solutions', 'systemy']],
+  ['dom', ['solutions', 'integracje']],
+  ['funkcje-domu', ['solutions', 'integracje']],
 ]);
 
 export default function App() {
@@ -115,9 +116,9 @@ export default function App() {
 
   useEffect(() => {
     if (!currentHash) return;
-    const solutionsAnchor = currentPage === 'home' && formerHomeSections.get(currentHash);
-    if (solutionsAnchor) {
-      window.location.replace(pageUrl('solutions', solutionsAnchor));
+    const destination = currentPage === 'home' && formerHomeSections.get(currentHash);
+    if (destination) {
+      window.location.replace(pageUrl(...destination));
       return;
     }
     const frame = requestAnimationFrame(() => document.getElementById(currentHash)?.scrollIntoView({ block: 'start' }));

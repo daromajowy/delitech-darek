@@ -2,8 +2,8 @@
 .home-technology svg { flex-shrink: 0; color: var(--color-accent); }
 .home-technology p { line-height: 1.7; }
 .home-technology ul { padding: 0; margin: 0; list-style: none; }
-:is(.home-editorial, .solutions-page) .home-technology h2 { margin: 0; font-size: var(--text-section-title); font-weight: 750; line-height: 1.12; letter-spacing: -.04em; text-wrap: initial; }
-:is(.home-editorial, .solutions-page) .home-technology h3 { font-weight: 750; letter-spacing: -.025em; }
+:is(.home-editorial, .homes-page, .solutions-page) .home-technology h2 { margin: 0; font-size: var(--text-section-title); font-weight: 750; line-height: 1.12; letter-spacing: -.04em; text-wrap: initial; }
+:is(.home-editorial, .homes-page, .solutions-page) .home-technology h3 { font-weight: 750; letter-spacing: -.025em; }
 .home-technology [id] { scroll-margin-top: 152px; }
 .home-technology[id] { scroll-margin-top: 152px; }
 .ht-heading { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: end; }
@@ -39,12 +39,12 @@
 .ht-detail { margin-top: 24px; padding: 38px 40px 30px; border: 1px solid var(--ht-line); border-top: 3px solid var(--color-accent); background: #fff; }
 .ht-detail-heading { display: flex; align-items: center; gap: 22px; }
 .ht-detail-category { font-size: 12px; font-weight: 600; color: var(--ht-green-text); margin-bottom: 6px; }
-.ht-detail h3 { font-size: 30px; line-height: 1.25; }
+.ht-integrations .ht-detail h3 { font-size: 30px; line-height: 1.25; }
 .home-technology .ht-tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 26px 0 30px; }
 .ht-tags li { padding: 7px 11px; background: var(--color-surface); color: var(--ht-muted); font-size: 11px; line-height: 1.5; }
 .ht-perspectives { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
 .ht-perspectives > div + div { border-left: 1px solid var(--ht-line); padding-left: 36px; }
-.ht-perspectives h4 { display: flex; align-items: center; gap: 10px; margin: 0 0 22px; font-size: 16px; line-height: 1.4; }
+.ht-perspectives h4 { display: flex; align-items: center; gap: 10px; margin: 0 0 22px; font-size: 16px; font-weight: 750; letter-spacing: -.045em; line-height: 1.4; }
 .ht-perspectives h4 span { margin-left: auto; font-size: 11px; font-weight: 400; letter-spacing: 0; white-space: nowrap; color: var(--ht-muted); }
 .home-technology .ht-check-list { display: grid; gap: 13px; }
 .ht-check-list li { display: flex; align-items: flex-start; gap: 11px; color: var(--ht-muted); font-size: 14px; line-height: 1.65; }
@@ -118,7 +118,7 @@
   .home-technology .ht-principles { gap: 16px 24px; margin-block: 28px; }
   .ht-detail { padding: 28px; }
   .ht-detail-heading { align-items: flex-start; gap: 16px; }
-  .ht-detail h3 { font-size: 26px; }
+  .ht-integrations .ht-detail h3 { font-size: 26px; }
   .ht-perspectives { grid-template-columns: 1fr; gap: 28px; }
   .ht-perspectives > div + div { border-left: 0; border-top: 1px solid var(--ht-line); padding: 24px 0 0; }
   .ht-perspectives h4 { flex-wrap: nowrap; }

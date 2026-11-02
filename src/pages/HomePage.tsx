@@ -3,7 +3,7 @@ import { ArrowRight, AudioLines, Monitor, Users } from 'lucide-react';
 import type { PageId } from '../types';
 import { HeroVideo } from '../components/HeroVideo';
 import { HomeFunctionStrip } from '../components/HomeFunctionStrip';
-import { HomeIntegrations, HomeKnxReasons } from '../components/HomeTechnologySections';
+import { HomeKnxReasons } from '../components/HomeTechnologySections';
 import { JungEquipment } from '../components/JungEquipment';
 import meetingImage from '../assets/images/home-editorial-meeting.webp';
 import './HomePage.css';
@@ -44,8 +44,6 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenConsultation }) => (
         ))}
       </ol>
     </section>
-
-    <HomeIntegrations />
 
     <section id="smart-workspace" className="home-editorial__workspace home-editorial__wrap" aria-labelledby="home-workspace-title">
       <div className="home-editorial__workspace-copy">

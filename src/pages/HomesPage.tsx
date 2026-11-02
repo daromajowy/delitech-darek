@@ -3,6 +3,7 @@ import { ArrowDown, ArrowRight, ArrowUpRight, Blinds, Camera, DoorOpen, Droplets
 import type { PageId } from '../types';
 import { pageUrl } from '../site';
 import { DayRhythm } from '../components/DayRhythm';
+import { HomeIntegrations } from '../components/HomeTechnologySections';
 import morningImage from '../assets/images/homes-morning.webp';
 import leavingImage from '../assets/images/homes-leaving.webp';
 import eveningImage from '../assets/images/homes-evening-scene.webp';
@@ -155,6 +156,7 @@ export function HomesPage({ onOpenConsultation, initialHash }: HomesPageProps) {
 
       <nav className="homes-jump homes-width" aria-label="Skróty dla domów i apartamentów">
         <span>Przejdź do</span>
+        <a href={pageUrl('homes', 'integracje-knx')}>Możliwości KNX <ArrowDown size={14} aria-hidden="true" /></a>
         <a href={pageUrl('home', 'osprzet')} aria-label="Design i obsługa – sekcja na stronie głównej">Design i obsługa <ArrowUpRight size={14} aria-hidden="true" /></a>
         <a href={pageUrl('homes', 'sceny')}>Sceny na co dzień <ArrowDown size={14} aria-hidden="true" /></a>
         <a href={pageUrl('homes', 'mozliwosci')}>Funkcje domu <ArrowDown size={14} aria-hidden="true" /></a>
@@ -163,6 +165,8 @@ export function HomesPage({ onOpenConsultation, initialHash }: HomesPageProps) {
         <a href={pageUrl('homes', 'etapy')}>Etapy współpracy <ArrowDown size={14} aria-hidden="true" /></a>
         <a href={pageUrl('homes', 'koszt')}>Koszt i przygotowanie <ArrowDown size={14} aria-hidden="true" /></a>
       </nav>
+
+      <HomeIntegrations />
 
       <section id="sceny" className="homes-scenes homes-width homes-section" aria-labelledby="homes-scenes-title">
         <div className="homes-section-heading">
