@@ -6,9 +6,7 @@ import type { PageId } from '../types';
 import './Navbar.css';
 
 const navigation: { page: PageId; label: string }[] = [
-  { page: 'homes', label: 'Domy i apartamenty' },
   { page: 'solutions', label: 'Co może Twój dom' },
-  { page: 'offices', label: 'Biura' },
   { page: 'architects', label: 'Dla architektów' },
   { page: 'about', label: 'O nas' },
   { page: 'contact', label: 'Kontakt' },
@@ -18,7 +16,7 @@ export function Navbar({ currentPage }: { currentPage: PageId }) {
   const [open, setOpen] = useState(false);
   const header = useRef<HTMLElement>(null);
   const toggle = useRef<HTMLButtonElement>(null);
-  const activePage = currentPage === 'team' ? 'about' : currentPage === 'proav' ? 'offices' : currentPage;
+  const activePage = currentPage === 'team' ? 'about' : currentPage;
   const plannerHref = currentPage === 'architects' ? pageUrl('architects', 'pakiet') : plannerUrl();
   const plannerLabel = currentPage === 'architects' ? 'Poznaj konfigurator' : 'Konfigurator KNX';
 

@@ -2,12 +2,13 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
+import {runInNewContext} from 'node:vm';
 import {execFileSync} from 'node:child_process';
 import {test} from 'node:test';
 import {createServer} from 'vite';
 import React from 'react';
 import {renderToString} from 'react-dom/server';
-import {pages} from '../src/page-config.ts';
+import {pages, retiredPages} from '../src/page-config.ts';
 import {createSiteConfig, pageFromPath, submitInquiry} from '../src/site.ts';
 
 const root = path.resolve(import.meta.dirname, '..');
@@ -48,8 +49,18 @@ test('a shared team profile edit reaches both pages, Vite and published HTML wit
       execFileSync(process.execPath,['scripts/build-site.mjs',...(preview?['--preview']:[])],{
         cwd:fixture,env:{...process.env,SITE_BASE:base},stdio:'pipe',timeout:45000,
       });
-      for (const page of Object.values(pages)) {
+      const sitemap = fs.readFileSync(path.join(fixture,'dist/sitemap.xml'),'utf8');
+      for (const [id,page] of Object.entries(pages)) {
         const html = fs.readFileSync(path.join(fixture,'dist',page.path,'index.html'),'utf8');
+        if (retiredPages[id]) {
+          assert.ok(!sitemap.includes(`<loc>https://intelispaces.pl${page.path}</loc>`));
+          assert.match(html, /name="robots" content="noindex"/);
+          assert.ok(!html.includes('id="root"'), 'A retired category must not publish its content');
+          continue;
+        }
+        for (const [, href] of html.matchAll(/<a\b[^>]*\bhref="([^"]+)"/g)) {
+          if (href.startsWith(base)) assert.doesNotMatch(href.slice(base.length), /^(?:homes|offices)(?:\/|#|$)/);
+        }
         assert.ok(html.includes(`<title>${page.title}</title>`));
         assert.ok(!html.includes('/wp-content/') && !html.includes('STARY TEKST Z EKSPORTU'));
         const config = JSON.parse(html.match(/globalThis\.__INTELISPACES__=(.*?);<\/script>/)[1]);
@@ -58,6 +69,20 @@ test('a shared team profile edit reaches both pages, Vite and published HTML wit
         assert.ok(!Object.hasOwn(config,'values'));
         assert.equal(config.urls.team,base+'team/');
         assert.equal(config.plannerUrl,preview?base+'projektant-knx/':'https://knx.intelispaces.pl/');
+      }
+      for (const [route, hash, target] of [
+        ['homes','','solutions/#sceny'], ['homes','#rytm-dnia','solutions/#sceny'],
+        ['homes','#etapy','solutions/#etapy'], ['homes','#koszt','knowledge/#koszt'],
+        ['offices','#smart-workspace','contact/'], ['offices/proav','','contact/'],
+      ]) {
+        const html = fs.readFileSync(path.join(fixture,'dist',route,'index.html'),'utf8');
+        const script = html.match(/<script>(.*?)<\/script>/s)[1];
+        let destination;
+        runInNewContext(script, {location:{hash, replace(url) { destination = url; }}});
+        assert.equal(destination, base + target);
+        const [nextPage, anchor] = target.split('#');
+        const next = fs.readFileSync(path.join(fixture,'dist',nextPage,'index.html'),'utf8');
+        if (anchor) assert.ok(next.includes(`id="${anchor}"`), 'Missing destination: '+target);
       }
       for (const page of ['about', 'team']) {
         assert.ok(fs.readFileSync(path.join(fixture,'dist',page,'index.html'),'utf8').includes(escaped));

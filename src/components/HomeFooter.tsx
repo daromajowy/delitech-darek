@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowUpRight, Globe, Mail, Phone } from 'lucide-react';
+import { Globe, Mail, Phone } from 'lucide-react';
 import type { PageId } from '../types';
 import { contactEmail, pageUrl } from '../site';
 import { Logo } from './Logo';
@@ -10,9 +10,7 @@ interface HomeFooterProps {
 }
 
 const links: { page: PageId; label: string }[] = [
-  { page: 'homes', label: 'Domy i apartamenty' },
   { page: 'solutions', label: 'Co może Twój dom' },
-  { page: 'offices', label: 'Biura' },
   { page: 'architects', label: 'Dla architektów' },
   { page: 'about', label: 'O nas' },
   { page: 'contact', label: 'Kontakt' },
@@ -35,7 +33,6 @@ export const HomeFooter: React.FC<HomeFooterProps> = ({ onOpenPrivacy }) => (
           <a href={'mailto:' + contactEmail}><Mail size={21} aria-hidden="true" />{contactEmail}</a>
           <a href="https://intelispaces.pl/"><Globe size={21} aria-hidden="true" />intelispaces.pl</a>
         </address>
-        <a href={pageUrl('proav')} className="home-footer__proav">ProAV do sal spotkań <ArrowUpRight size={18} aria-hidden="true" /></a>
       </div>
       <div className="home-footer__legal">
         <p>© {new Date().getFullYear()} InteliSpaces · Delitech Sp.j. · NIP 1132919580</p>

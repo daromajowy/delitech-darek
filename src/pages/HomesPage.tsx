@@ -2,7 +2,6 @@ import React, { useEffect, useRef } from 'react';
 import { ArrowDown, ArrowRight, ArrowUpRight, Plus } from 'lucide-react';
 import type { PageId } from '../types';
 import { pageUrl } from '../site';
-import { DayRhythm } from '../components/DayRhythm';
 import contactImage from '../assets/images/homes-contact.webp';
 import './HomesPage.css';
 
@@ -20,12 +19,6 @@ const redirectedSections = new Map<string, [PageId, string]>([
   ['dlaczego-knx', ['home', 'dlaczego-knx']],
 ]);
 
-const steps = [
-  { title: 'Potrzeby domowników', text: 'Przechodzimy przez pomieszczenia i codzienne sytuacje. Ustalamy, co ma działać automatycznie, a co uruchamiasz samodzielnie.', result: 'Uzgodniona lista funkcji.' },
-  { title: 'Dobór i wycena', text: 'Dobieramy urządzenia do ustalonego zakresu. Oddzielamy funkcje potrzebne teraz od opcji, które możesz zaplanować na później.', result: 'Lista urządzeń, zakres i warianty.' },
-  { title: 'Uzgodnienia instalacyjne', text: 'Z architektem i wykonawcami ustalamy wymagania dla przewodów, rozdzielnicy, osprzętu i podłączanych urządzeń.', result: 'Wymagania i podział prac.' },
-  { title: 'Programowanie i odbiór', text: 'Uruchamiamy uzgodniony zakres, sprawdzamy funkcje i sceny oraz pokazujemy domownikom, jak korzystać z instalacji.', result: 'Sprawdzone działanie i instruktaż.' },
-];
 
 const questions = [
   { id: 'dom', title: 'Kiedy najlepiej się odezwać?', text: 'Przed wykonaniem instalacji elektrycznej i zamówieniem napędów osłon. Wtedy możemy uwzględnić przewody, miejsca sterowania i rozdzielnicę bez późniejszego przerabiania gotowych wnętrz.' },
@@ -52,7 +45,6 @@ export function HomesPage({ onOpenConsultation, initialHash }: HomesPageProps) {
 
   return (
     <div className="homes-page" ref={page}>
-      <DayRhythm asHero />
       <section className="homes-intro homes-width" aria-labelledby="homes-title">
         <div>
           <p className="homes-eyebrow">Domy i apartamenty · KNX</p>
@@ -70,21 +62,10 @@ export function HomesPage({ onOpenConsultation, initialHash }: HomesPageProps) {
         <a href={pageUrl('solutions', 'integracje-knx')} aria-label="Możliwości KNX – w kategorii Co może Twój dom">Możliwości KNX <ArrowUpRight size={14} aria-hidden="true" /></a>
         <a href={pageUrl('home', 'osprzet')} aria-label="Design i obsługa – sekcja na stronie głównej">Design i obsługa <ArrowUpRight size={14} aria-hidden="true" /></a>
         <a href={pageUrl('home', 'dlaczego-knx')} aria-label="Dlaczego KNX – sekcja na stronie głównej">Dlaczego KNX <ArrowUpRight size={14} aria-hidden="true" /></a>
-        <a href={pageUrl('homes', 'etapy')}>Etapy współpracy <ArrowDown size={14} aria-hidden="true" /></a>
+        <a href={pageUrl('solutions', 'etapy')}>Etapy współpracy <ArrowUpRight size={14} aria-hidden="true" /></a>
         <a href={pageUrl('homes', 'koszt')}>Koszt i przygotowanie <ArrowDown size={14} aria-hidden="true" /></a>
       </nav>
 
-      <section id="etapy" className="homes-process" aria-labelledby="homes-process-title">
-        <div className="homes-width homes-section">
-          <div className="homes-section-heading"><div><p className="homes-eyebrow">Od ustaleń do uruchomienia</p><h2 id="homes-process-title">Co powstaje na<br />każdym etapie?</h2></div><p>Najpierw określamy oczekiwany sposób działania. Na tej podstawie dobieramy urządzenia i uzgadniamy prace.</p></div>
-          <ol className="homes-process__steps">
-            {steps.map((step, index) => (
-              <li key={step.title}><span className="homes-number" aria-hidden="true">0{index + 1}</span><h3>{step.title}</h3><p>{step.text}</p><p className="homes-process__result"><span>Efekt</span>{step.result}</p></li>
-            ))}
-          </ol>
-          <p className="homes-note">W ofercie określamy zakres dokumentacji, dostaw, montażu, programowania i późniejszego wsparcia. Ustalamy również podział odpowiedzialności między wykonawcami.</p>
-        </div>
-      </section>
 
       <section className="homes-questions homes-width homes-section" aria-labelledby="homes-questions-title">
         <div className="homes-questions__intro"><p className="homes-eyebrow">Przed pierwszą rozmową</p><h2 id="homes-questions-title">Etap inwestycji.<br />Zakres. Koszt.</h2><p>Budujesz, wykańczasz czy modernizujesz? Od tego zależy, co warto przygotować i jakie rozwiązania możemy zaproponować.</p></div>

@@ -67,7 +67,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onOpenConsultation }) => (
         <p className="about-page__eyebrow">Również do pracy</p>
         <h3 id="about-proav-title">Sala spotkań, która ułatwia rozmowę.</h3>
         <p>Obraz, dźwięk, wideokonferencje i wygodne przyłącza — jako dodatkowy zakres do Twojej przestrzeni.</p>
-        <a href={pageUrl('proav')} className="about-page__text-link">Poznaj ProAV <ArrowRight size={18} aria-hidden="true" /></a>
+        <a href={pageUrl('contact')} className="about-page__text-link">Porozmawiajmy o Twojej sali <ArrowRight size={18} aria-hidden="true" /></a>
       </aside>
     </section>
 

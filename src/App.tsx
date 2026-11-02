@@ -5,7 +5,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { pageUrl, siteConfig } from './site';
-import { pages } from './page-config';
+import { pages, redirectPath, retiredPages } from './page-config';
 import { PageId } from './types.ts';
 import { Navbar } from './components/Navbar.tsx';
 import { Footer } from './components/Footer.tsx';
@@ -16,9 +16,6 @@ import { CookieBanner } from './components/CookieBanner.tsx';
 
 // Pages
 import { HomePage } from './pages/HomePage.tsx';
-import { OfficesPage } from './pages/OfficesPage.tsx';
-import { ProAVPage } from './pages/ProAVPage.tsx';
-import { HomesPage } from './pages/HomesPage.tsx';
 import { SolutionsPage } from './pages/SolutionsPage.tsx';
 import { ArchitectsPage } from './pages/ArchitectsPage.tsx';
 import { KNXPage } from './pages/KNXPage.tsx';
@@ -28,10 +25,10 @@ import { AboutPage } from './pages/AboutPage.tsx';
 import { TeamPage } from './pages/TeamPage.tsx';
 import { ContactPage } from './pages/ContactPage.tsx';
 
-const formerHomeSections = new Map<string, [PageId, string]>([
+const formerHomeSections = new Map<string, [PageId, string?]>([
   ['integracje-knx', ['solutions', 'integracje-knx']],
-  ['smart-workspace', ['offices', 'smart-workspace']],
-  ['home-workspace-title', ['offices', 'smart-workspace-title']],
+  ['smart-workspace', ['contact']],
+  ['home-workspace-title', ['contact']],
   ['projekt-knx', ['solutions', 'projekt-knx']],
   ['iot', ['solutions', 'iot']],
   ['systemy', ['solutions', 'systemy']],
@@ -72,8 +69,12 @@ export default function App() {
   // Read hash on mount
   useEffect(() => {
     const handleHashChange = () => {
+      const legacy = window.location.hash.slice(1).split('/');
+      if (Object.hasOwn(retiredPages, legacy[0])) {
+        window.location.replace(pageUrl('home') + redirectPath(retiredPages[legacy[0] as PageId]!, legacy[1] || ''));
+        return;
+      }
       if (siteConfig()) {
-        const legacy = window.location.hash.slice(1).split('/');
         const target = Object.hasOwn(pages, legacy[0]) ? siteConfig()!.urls[legacy[0] as PageId] : undefined;
         if (target) { window.location.replace(target + (legacy[1] ? '#' + legacy[1] : '')); return; }
         setCurrentHash(window.location.hash.slice(1) || undefined);
@@ -84,9 +85,6 @@ export default function App() {
         const [pagePart, subPart] = rawHash.split('/');
         const validPages: PageId[] = [
           'home',
-          'offices',
-          'proav',
-          'homes',
           'solutions',
           'architects',
           'knx',
@@ -148,23 +146,6 @@ export default function App() {
       {/* Main Content Viewport */}
       <main id="main-content" tabIndex={-1} className="flex-grow">
         {currentPage === 'home' && <HomePage />}
-
-        {currentPage === 'offices' && <OfficesPage onOpenConsultation={handleOpenConsultation} />}
-
-        {currentPage === 'proav' && (
-          <ProAVPage
-            onNavigate={handleNavigate}
-            onOpenConsultation={(topic) => handleOpenConsultation(topic || 'Konsultacja ProAV / sala spotkań')}
-          />
-        )}
-
-        {currentPage === 'homes' && (
-          <HomesPage
-            onNavigate={handleNavigate}
-            onOpenConsultation={() => handleOpenConsultation('Konsultacja domu / apartamentu')}
-            initialHash={currentHash}
-          />
-        )}
 
         {currentPage === 'solutions' && (
           <SolutionsPage onOpenConsultation={handleOpenConsultation} />
@@ -240,7 +221,7 @@ export default function App() {
         isOpen={consultationModalOpen}
         onClose={() => setConsultationModalOpen(false)}
         initialTopic={consultationTopic}
-        variant={currentPage === 'proav' || currentPage === 'offices' ? 'proav' : currentPage === 'architects' ? 'architects' : 'knx'}
+        variant={currentPage === 'architects' ? 'architects' : 'knx'}
         onOpenPrivacy={() => handleOpenPrivacy('privacy')}
       />
 

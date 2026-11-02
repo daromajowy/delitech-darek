@@ -26,22 +26,17 @@ export const Footer: React.FC<FooterProps> = ({ onOpenPrivacy }) => (
           <h2 className="text-sm font-semibold mb-4 text-white">Twój inteligentny dom</h2>
           <ul className="text-sm text-mist/85 space-y-1">
             <li>
-              <a href={pageUrl('homes')} className={linkClass}>
-                Domy i apartamenty
-              </a>
-            </li>
-            <li>
               <a href={pageUrl('solutions')} className={linkClass}>
                 Co może Twój dom
               </a>
             </li>
             <li>
-              <a href={pageUrl('homes', 'etapy')} className={linkClass}>
+              <a href={pageUrl('solutions', 'etapy')} className={linkClass}>
                 Etapy współpracy
               </a>
             </li>
             <li>
-              <a href={pageUrl('homes', 'koszt')} className={linkClass}>
+              <a href={pageUrl('knowledge', 'koszt')} className={linkClass}>
                 Od czego zależy koszt
               </a>
             </li>
@@ -57,7 +52,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenPrivacy }) => (
             </li>
           </ul>
         </nav>
-        <nav aria-label="O firmie i dodatkowe usługi">
+        <nav aria-label="O firmie i wiedza o KNX">
           <h2 className="text-sm font-semibold mb-4 text-white">Poznaj InteliSpaces</h2>
           <ul className="text-sm text-mist/85 space-y-1">
             <li>
@@ -86,12 +81,6 @@ export const Footer: React.FC<FooterProps> = ({ onOpenPrivacy }) => (
               </a>
             </li>
           </ul>
-          <p className="text-xs uppercase tracking-wider text-mist/65 mt-6 mb-2">
-            Dodatkowa usługa
-          </p>
-          <a href={pageUrl('proav')} className={linkClass + ' text-sm'}>
-            Sale spotkań · ProAV
-          </a>
         </nav>
         <div>
           <h2 className="text-sm font-semibold mb-4 text-white">Porozmawiajmy o projekcie</h2>

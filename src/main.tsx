@@ -3,6 +3,7 @@ import {createRoot} from 'react-dom/client';
 import App from './App.tsx';
 import './index.css';
 import { createSiteConfig, pageFromPath, siteConfig } from './site';
+import { redirectPath, retiredPages } from './page-config';
 
 if (!siteConfig()) {
   const config = createSiteConfig(pageFromPath(window.location.pathname, import.meta.env.BASE_URL), import.meta.env.BASE_URL, true);
@@ -11,7 +12,11 @@ if (!siteConfig()) {
   (globalThis as any).__INTELISPACES__ = config;
 }
 
-createRoot(document.getElementById('root')!).render(
+const config = siteConfig()!;
+const targets = retiredPages[config.page];
+if (targets) {
+  window.location.replace(config.urls.home + redirectPath(targets, window.location.hash.slice(1)));
+} else createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <App />
   </StrictMode>,

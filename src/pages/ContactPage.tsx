@@ -78,7 +78,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onOpenConsultation }) 
             warunków wykonania.
           </p>
           <a
-            href={pageUrl('homes', 'koszt')}
+            href={pageUrl('knowledge', 'koszt')}
             className="mt-6 inline-flex underline underline-offset-4 font-semibold text-sm"
           >
             Od czego zależy koszt instalacji?
@@ -106,12 +106,11 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onOpenConsultation }) 
             </p>
           </a>
           <a
-            href={pageUrl('proav')}
+            href={pageUrl('solutions', 'sceny')}
             className="block p-6 rounded-xl border border-ink/20 bg-white hover:bg-mist/50"
           >
-            <p className="text-xs uppercase font-mono mb-2 text-ink/65">Dodatkowa usługa</p>
-            <h3 className="font-bold text-lg">Wyposażam salę spotkań</h3>
-            <p className="text-sm text-ink/80 mt-3">ProAV: wideokonferencje, ekrany i przyłącza.</p>
+            <h3 className="font-bold text-lg">Szukam pomysłu na swój dom</h3>
+            <p className="text-sm text-ink/80 mt-3">Zobacz, jak dom może reagować od poranka do nocy.</p>
           </a>
         </div>
       </div>
