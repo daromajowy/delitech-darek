@@ -15,5 +15,5 @@ a single-stroke derivative of Allura. It is not the outline of a filled font.
 The original font is retained here for reproducibility and is not shipped as a
 web font. Run `python scripts/generate-hero-handwriting.py` to generate the
 headline's SVG paths. The generator rounds the digitized traces, keeps separate
-pen lifts, and measures each stroke so drawing and reverse erasing have the same
-constant pen speed. Only the generated headline geometry enters the browser bundle.
+pen lifts, and measures each stroke. The strip writes and erases those strokes
+in reading order at the same pen speed.

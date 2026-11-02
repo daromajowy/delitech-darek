@@ -1,42 +1,12 @@
 import React, { useRef, useState } from 'react';
 import {
   ArrowDown, ArrowRight, ArrowsLeftRight, Bluetooth, Check, Circuitry,
-  HouseLine, Lightbulb, Microphone, MusicNotes, PersonSimpleWalk,
-  PlugsConnected, Ruler, Thermometer, Tree, VideoCamera, WifiHigh,
+  HouseLine, Lightbulb, Microphone, MusicNotes,
+  PlugsConnected, Ruler, VideoCamera, WifiHigh,
 } from '@phosphor-icons/react';
 import { pageUrl } from '../site';
-import { BlindsIcon, ScenesIcon } from './HomeTechnologyIcons';
 import { homeIntegrationAreas } from './home-integration-areas';
 import './HomeTechnologySections.css';
-
-const capabilities = [
-  { icon: Lightbulb, title: 'Światło', text: 'Tworzy nastrój i poprawia komfort.', href: () => pageUrl('solutions', 'dali') },
-  { icon: BlindsIcon, title: 'Rolety', text: 'Dają prywatność i kontrolę nad światłem.', href: () => pageUrl('solutions', 'fasady') },
-  { icon: Thermometer, title: 'Temperatura', text: 'Przyjemny klimat w każdym pomieszczeniu.', href: () => pageUrl('solutions', 'hvac') },
-  { icon: PersonSimpleWalk, title: 'Obecność', text: 'Dom reaguje na to, gdzie jesteś.', href: () => pageUrl('homes', 'mozliwosci') },
-  { icon: ScenesIcon, title: 'Sceny', text: 'Kilka zmian jednym przyciskiem.', href: () => pageUrl('solutions', 'sceny') },
-  { icon: MusicNotes, title: 'Multimedia', text: 'Muzyka i obraz w Twoim rytmie.', href: () => pageUrl('solutions', 'multimedia') },
-  { icon: WifiHigh, title: 'IoT', text: 'Ulubione urządzenia we wspólnych scenach.', href: () => pageUrl('solutions', 'iot') },
-  { icon: Tree, title: 'Ogród', text: 'Podlewanie dopasowane do pogody i potrzeb roślin.', href: () => pageUrl('solutions', 'ogrod') },
-];
-
-export function HomeFunctionStrip() {
-  return (
-    <section id="mozliwosci-domu" className="home-function-strip" aria-label="Możliwości inteligentnego domu">
-      <ul>
-        {capabilities.map(({ icon: Icon, title, text, href }) => (
-          <li key={title}>
-            <a href={href()}>
-              <Icon size={56} weight="light" aria-hidden="true" />
-              <h2>{title}</h2>
-              <p>{text}</p>
-            </a>
-          </li>
-        ))}
-      </ul>
-    </section>
-  );
-}
 
 const knxReasons = [
   {

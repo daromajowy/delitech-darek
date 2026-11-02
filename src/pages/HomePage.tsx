@@ -4,7 +4,8 @@ import type { PageId } from '../types';
 import { pageUrl } from '../site';
 import { HeroVideo } from '../components/HeroVideo';
 import { KnxFilm } from '../components/KnxFilm';
-import { HomeFunctionStrip, HomeIntegrations, HomeKnxReasons } from '../components/HomeTechnologySections';
+import { HomeFunctionStrip } from '../components/HomeFunctionStrip';
+import { HomeIntegrations, HomeKnxReasons } from '../components/HomeTechnologySections';
 import meetingImage from '../assets/images/home-editorial-meeting.webp';
 import './HomePage.css';
 
@@ -61,19 +62,6 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenConsultation }) => (
             <KnxFilm />
           </div>
         </div>
-      </div>
-    </section>
-
-    <section className="home-editorial__intro home-editorial__wrap" aria-labelledby="home-intro-title">
-      <h1 id="home-intro-title">
-        <span>Tworzymy </span><span>inteligentne </span><span>przestrzenie</span>
-      </h1>
-      <div className="home-editorial__intro-copy">
-        <p>Technologia ma ułatwiać codzienność. Łączymy ją z architekturą, pomagając tworzyć miejsca wygodne do życia i pracy.</p>
-        <p>Doradzamy, projektujemy i uruchamiamy.</p>
-        <button type="button" className="home-editorial__button" onClick={() => onOpenConsultation('Konsultacja projektu automatyki KNX')}>
-          Porozmawiajmy o projekcie <ArrowRight size={19} aria-hidden="true" />
-        </button>
       </div>
     </section>
 
