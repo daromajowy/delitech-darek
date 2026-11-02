@@ -4,9 +4,6 @@ import type { PageId } from '../types';
 import { pageUrl } from '../site';
 import { DayRhythm } from '../components/DayRhythm';
 import { HomeIntegrations } from '../components/HomeTechnologySections';
-import morningImage from '../assets/images/homes-morning.webp';
-import leavingImage from '../assets/images/homes-leaving.webp';
-import eveningImage from '../assets/images/homes-evening-scene.webp';
 import contactImage from '../assets/images/homes-contact.webp';
 import './HomesPage.css';
 
@@ -104,12 +101,6 @@ function FunctionRows({ items }: { items: typeof functions }) {
   );
 }
 
-const scenes = [
-  { title: 'Dzień dobry', text: 'O ustalonej porze odsłaniają się wybrane okna, a światło w sypialni włącza się łagodnie. Pozostałe pokoje mogą działać według własnych ustawień.', image: morningImage, alt: 'Wizualizacja jasnej sypialni z lnianą pościelą i odsłoniętym oknem' },
-  { title: 'Wychodzę', text: 'Przycisk przy drzwiach wyłącza wskazane światła i uruchamia ustawienia na czas nieobecności. Wcześniej ustalamy, które urządzenia mają nadal pracować.', image: leavingImage, alt: 'Wizualizacja przedpokoju z dyskretnym przyciskiem przy wyjściu' },
-  { title: 'Dobry wieczór', text: 'Jedno naciśnięcie ustawia światło w salonie i zamyka wybrane osłony. Każdą z tych funkcji nadal możesz obsłużyć osobno.', image: eveningImage, alt: 'Wizualizacja jadalni z ciepłym światłem i widokiem na ogród o zmierzchu' },
-];
-
 const steps = [
   { title: 'Potrzeby domowników', text: 'Przechodzimy przez pomieszczenia i codzienne sytuacje. Ustalamy, co ma działać automatycznie, a co uruchamiasz samodzielnie.', result: 'Uzgodniona lista funkcji.' },
   { title: 'Dobór i wycena', text: 'Dobieramy urządzenia do ustalonego zakresu. Oddzielamy funkcje potrzebne teraz od opcji, które możesz zaplanować na później.', result: 'Lista urządzeń, zakres i warianty.' },
@@ -158,7 +149,6 @@ export function HomesPage({ onOpenConsultation, initialHash }: HomesPageProps) {
         <span>Przejdź do</span>
         <a href={pageUrl('homes', 'integracje-knx')}>Możliwości KNX <ArrowDown size={14} aria-hidden="true" /></a>
         <a href={pageUrl('home', 'osprzet')} aria-label="Design i obsługa – sekcja na stronie głównej">Design i obsługa <ArrowUpRight size={14} aria-hidden="true" /></a>
-        <a href={pageUrl('homes', 'sceny')}>Sceny na co dzień <ArrowDown size={14} aria-hidden="true" /></a>
         <a href={pageUrl('homes', 'mozliwosci')}>Funkcje domu <ArrowDown size={14} aria-hidden="true" /></a>
         <a href={pageUrl('homes', 'integracje')}>Integracje i ogród <ArrowDown size={14} aria-hidden="true" /></a>
         <a href={pageUrl('home', 'dlaczego-knx')} aria-label="Dlaczego KNX – sekcja na stronie głównej">Dlaczego KNX <ArrowUpRight size={14} aria-hidden="true" /></a>
@@ -167,23 +157,6 @@ export function HomesPage({ onOpenConsultation, initialHash }: HomesPageProps) {
       </nav>
 
       <HomeIntegrations />
-
-      <section id="sceny" className="homes-scenes homes-width homes-section" aria-labelledby="homes-scenes-title">
-        <div className="homes-section-heading">
-          <div><p className="homes-eyebrow">Sceny w codziennym użyciu</p><h2 id="homes-scenes-title">Jedno polecenie.<br />Kilka ustalonych działań.</h2></div>
-          <p>Scena łączy wybrane funkcje domu. Ty decydujesz, co się wydarzy po naciśnięciu przycisku lub o określonej porze.</p>
-        </div>
-        <div className="homes-scenes__grid">
-          {scenes.map((scene, index) => (
-            <article className="homes-scene" key={scene.title}>
-              <img src={scene.image} alt={scene.alt} width={1322} height={1190} loading="lazy" decoding="async" />
-              <h3><span aria-hidden="true">0{index + 1}</span>{scene.title}</h3>
-              <p>{scene.text}</p>
-            </article>
-          ))}
-        </div>
-        <p className="homes-note">Przykłady scen — ich działanie ustalamy z domownikami. Zdjęcia są wizualizacjami koncepcyjnymi.</p>
-      </section>
 
       <section id="mozliwosci" className="homes-functions homes-width homes-section" aria-labelledby="homes-functions-title">
         <div className="homes-section-heading">

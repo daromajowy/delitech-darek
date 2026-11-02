@@ -33,13 +33,6 @@
 .homes-function__label { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; }
 .homes-note { margin: 24px 0 0; padding-left: 18px; border-left: 2px solid var(--color-accent); color: var(--homes-muted); font-size: 13px; line-height: 1.7; max-width: 1000px; }
 .homes-integrations { background: #f1f2ec; border-block: 1px solid var(--homes-line); }
-.homes-scenes { border-top: 1px solid var(--homes-line); }
-.homes-scenes__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; }
-.homes-scene > img { display: block; width: 100%; aspect-ratio: 1.22; object-fit: cover; }
-.homes-scene h3 { display: flex; align-items: center; gap: 16px; margin: 24px 0 12px; font-size: 27px; }
-.homes-scene h3 span { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 11px; font-weight: 600; color: #617b16; border-top: 2px solid var(--color-accent); padding-top: 6px; align-self: center; }
-.homes-scene > p { margin: 0; color: var(--homes-muted); font-size: 16px; line-height: 1.75; }
-.homes-scenes .homes-note { margin-top: 32px; }
 .homes-number { display: block; color: #617b16; font-size: 12px; line-height: 1.4; font-weight: 600; letter-spacing: .05em; }
 .homes-process { background: #efeee8; }
 .homes-process__steps { list-style: none; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 30px; padding: 0; margin: 0; }
@@ -72,8 +65,6 @@
   .homes-functions__head, .homes-function { grid-template-columns: .85fr 1fr 1fr; gap: 24px; }
   .homes-function h3 { flex-direction: column; gap: 12px; font-size: 19px; }
   .homes-function p { font-size: 15px; }
-  .homes-scenes__grid { gap: 24px; }
-  .homes-scene h3 { font-size: 23px; }
   .homes-questions { gap: 44px; }
   .homes-process__steps { grid-template-columns: 1fr 1fr; gap: 36px; }
   .homes-process__steps h3 { margin-top: 16px; }
@@ -104,10 +95,6 @@
   .homes-function p { font-size: 15px; }
   .homes-function__label { position: static; display: block; width: auto; height: auto; margin: 0 0 6px; overflow: visible; clip: auto; white-space: normal; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; color: #617b16; }
   .homes-note { font-size: 12px; padding-left: 14px; margin-top: 20px; }
-  .homes-scenes__grid { grid-template-columns: 1fr; gap: 32px; }
-  .homes-scene > img { aspect-ratio: 1.4; }
-  .homes-scene h3 { margin-top: 18px; font-size: 25px; }
-  .homes-scene > p { font-size: 15px; }
   .homes-process__steps { grid-template-columns: 1fr; gap: 30px; }
   .homes-process__steps h3 { margin-block: 12px; }
   .homes-process__steps p { margin-bottom: 16px; }
