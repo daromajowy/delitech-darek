@@ -4,7 +4,7 @@
 .proav-page button { cursor: pointer; }
 .proav-page :is(a, button, summary, [tabindex]):focus-visible { outline: 3px solid var(--color-accent); outline-offset: 5px; }
 .proav-page section[id] { scroll-margin-top: 116px; }
-.proav-page h2 { font-size: clamp(29px, 3vw, 42px); line-height: 1.16; font-weight: 750; letter-spacing: -.035em; text-wrap: balance; }
+.proav-page h2 { font-size: var(--text-section-title); line-height: 1.16; font-weight: 750; letter-spacing: -.035em; text-wrap: balance; }
 .proav-page h3 { font-weight: 700; }
 .proav-container { width: min(1280px, calc(100% - 64px)); margin-inline: auto; }
 .proav-section { padding-block: 88px; }
@@ -30,7 +30,7 @@
 .proav-breadcrumb span { color: white; }
 .proav-hero .proav-eyebrow { display: flex; align-items: center; gap: 10px; color: var(--color-mist); }
 .proav-hero .proav-eyebrow > span { width: 7px; height: 7px; background: var(--color-accent); }
-.proav-hero h1 { max-width: 630px; font-size: clamp(48px, 5.1vw, 70px); line-height: 1.05; font-weight: 750; letter-spacing: -.045em; margin-bottom: 24px; }
+.proav-hero h1 { max-width: 630px; font-size: var(--text-page-title); line-height: 1.05; font-weight: 750; letter-spacing: -.045em; margin-bottom: 24px; }
 .proav-hero h1 span { display: block; color: var(--color-accent); }
 .proav-hero-lead { font-size: 16px; font-weight: 600; line-height: 1.6; max-width: 470px; }
 .proav-hero-text { color: var(--color-mist); font-size: 14px; line-height: 1.9; max-width: 410px; margin-top: 8px; margin-bottom: 27px; }
@@ -47,7 +47,6 @@
 .proav-contact-actions > span { font-size: 10px; }
 @media (min-width: 1700px) { .proav-hero-image { width: 55%; } }
 @media (max-width: 1100px) {
-  .proav-hero h1 { font-size: 57px; }
   .proav-hero-image { width: 54%; }
   .proav-hero .proav-actions { flex-direction: column; align-items: flex-start; gap: 20px; }
   .proav-section-heading { gap: 45px; }
@@ -63,7 +62,6 @@
   .proav-hero-image > span { bottom: 12px; right: 15px; font-size: 8px; }
   .proav-hero-content { padding-block: 23px 30px; }
   .proav-breadcrumb { margin-bottom: 30px; }
-  .proav-hero h1 { font-size: clamp(44px, 8vw, 59px); }
   .proav-hero h1 span { display: inline; }
   .proav-hero-lead { font-size: 14px; }
   .proav-hero-text { font-size: 14px; max-width: 440px; margin-bottom: 23px; }
@@ -76,7 +74,6 @@
   .proav-contact-actions { align-items: flex-start; }
 }
 @media (max-width: 420px) {
-  .proav-hero h1 { font-size: 43px; }
   .proav-button { font-size: 12px; gap: 18px; }
 }
 

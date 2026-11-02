@@ -28,7 +28,7 @@
 }
 
 .solutions-page .solutions-section-intro h2 {
-  font-size: clamp(28px, 3.4vw, 46px);
+  font-size: var(--text-section-title);
   font-weight: 800;
   line-height: 1.2;
   letter-spacing: -.04em;

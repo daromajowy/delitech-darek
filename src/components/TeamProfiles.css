@@ -6,7 +6,7 @@
 .team-profile__monogram > span:first-child { font: 400 88px/1 'Manrope', sans-serif; letter-spacing: -.06em; }
 .team-profile__mark { position: absolute; width: 16px; height: 16px; top: 30px; right: 30px; background: var(--color-accent); }
 .team-profile__specialty { font-size: 14px; line-height: 1.6; margin-top: 18px; padding-left: 14px; border-left: 3px solid var(--color-accent); }
-.team-profile__details h3 { font: 750 40px/1.15 'Manrope', sans-serif; letter-spacing: -.04em; }
+.team-profile__details h3 { font: 750 var(--text-subheading)/1.15 'Manrope', sans-serif; letter-spacing: -.04em; }
 .team-profile__role { margin-top: 12px; font-size: 18px; line-height: 1.55; font-weight: 600; max-width: 760px; }
 .team-profile__bio { max-width: 760px; margin-top: 26px; font-size: 17px; line-height: 1.85; color: #374c5b; }
 .team-profile__bio p + p { margin-top: 16px; }
@@ -19,7 +19,6 @@
 .team-profile__contact svg { flex-shrink: 0; }
 @media (max-width: 1000px) {
   .team-profile { grid-template-columns: 240px minmax(0, 1fr); gap: 36px; }
-  .team-profile__details h3 { font-size: 34px; }
   .team-profile__role { font-size: 16px; }
   .team-profile__bio { font-size: 16px; line-height: 1.75; }
 }

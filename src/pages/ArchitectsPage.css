@@ -43,7 +43,7 @@
 .architects-hero h1 {
   margin: 29px 0 0;
   font-family: 'Manrope', sans-serif;
-  font-size: clamp(46px, 4.95vw, 85px);
+  font-size: var(--text-page-title);
   font-weight: 750;
   line-height: 1.065;
   letter-spacing: -.045em;
@@ -145,7 +145,7 @@
 .architects-advice h2,
 .architects-presentation h2 {
   font-family: 'Manrope', sans-serif;
-  font-size: clamp(32px, 3.45vw, 55px);
+  font-size: var(--text-section-title);
   font-weight: 700;
   line-height: 1.12;
   letter-spacing: -.035em;
@@ -190,7 +190,7 @@
 .architects-guidance__eyebrow { display: flex; align-items: center; gap: 24px; margin: 0 0 32px; color: var(--color-mist); font-size: 13px; font-weight: 600; line-height: 1.6; letter-spacing: .2em; text-transform: uppercase; }
 .architects-guidance__eyebrow::after { content: ''; flex: 1; min-width: 28px; border-top: 1px solid #ffffff55; }
 .architects-guidance__grid { display: grid; grid-template-columns: minmax(0, 1.75fr) minmax(0, 1fr); gap: 64px; }
-.architects-guidance h2 { margin: 0; font-size: clamp(36px, 4.72vw, 68px); font-weight: 750; line-height: 1.12; letter-spacing: -.045em; text-wrap: balance; }
+.architects-guidance h2 { margin: 0; font-size: var(--text-section-title); font-weight: 750; line-height: 1.12; letter-spacing: -.045em; text-wrap: balance; }
 .architects-guidance__lead { max-width: 790px; margin: 18px 0 0; color: var(--color-mist); font-size: 29px; line-height: 1.5; }
 .architects-guidance__benefits { display: flex; flex-direction: column; justify-content: center; gap: 36px; margin: 0; padding: 12px 0 12px 50px; border-left: 1px solid #ffffff66; list-style: none; font-size: 21px; line-height: 1.5; }
 .architects-guidance__benefits li { position: relative; padding-left: 44px; }
@@ -202,7 +202,7 @@
 }
 .architects-content-width h2 {
   font-family: 'Manrope', sans-serif;
-  font-size: clamp(32px, 3.3vw, 52px);
+  font-size: var(--text-section-title);
   font-weight: 700;
   line-height: 1.13;
   letter-spacing: -.035em;
@@ -284,7 +284,6 @@
   .architects-process__steps li { grid-template-columns: 35px minmax(0, 1fr); gap: 16px; }
   .architects-process__steps h3 { font-size: 21px; }
   .architects-hero__copy { padding: 44px 30px; }
-  .architects-hero h1 { font-size: clamp(40px, 4.8vw, 55px); }
   .architects-hero__intro { margin-top: 24px; }
   .architects-hero__actions { margin-top: 28px; gap: 12px 24px; }
   .architects-support { padding: 36px 30px; }
@@ -298,11 +297,9 @@
   .architects-guidance__inner { padding-inline: 24px; }
   .architects-guidance__eyebrow { margin-bottom: 24px; gap: 16px; font-size: 11px; letter-spacing: .16em; }
   .architects-guidance__grid { grid-template-columns: 1fr; gap: 32px; }
-  .architects-guidance h2 { font-size: 34px; }
   .architects-guidance__lead { font-size: 19px; line-height: 1.6; }
   .architects-guidance__benefits { border-left: 0; border-top: 1px solid #ffffff40; padding: 24px 0 0; gap: 18px; font-size: 17px; }
   .architects-content-width { padding: 44px 24px; }
-  .architects-content-width h2 { font-size: clamp(31px, 7.3vw, 43px); }
   .architects-section-intro, .architects-standard__grid, .architects-process, .architects-faq { grid-template-columns: 1fr; gap: 28px; }
   .architects-standard__grid { margin-top: 30px; }
   .architects-standard__grid article { padding-top: 22px; }
@@ -321,7 +318,7 @@
   .architects-hero__copy { padding: 42px 24px; width: 100%; }
   .architects-eyebrow { font-size: 9px; gap: 9px; letter-spacing: .13em; }
   .architects-eyebrow::before { width: 26px; }
-  .architects-hero h1 { font-size: clamp(32px, 8.8vw, 58px); margin-top: 24px; }
+  .architects-hero h1 { margin-top: 24px; }
   .architects-hero__intro { font-size: 16px; max-width: 540px; }
   .architects-hero__actions { align-items: flex-start; flex-direction: column; gap: 10px; }
   .architects-button { max-width: 100%; font-size: 13px; padding: 15px 19px; gap: 18px; }
@@ -336,8 +333,6 @@
   .architects-advice { grid-template-columns: 1fr; }
   .architects-advice__image { min-height: 0; aspect-ratio: 1.43; }
   .architects-advice__copy { padding: 36px 24px; }
-  .architects-advice h2,
-  .architects-presentation h2 { font-size: clamp(31px, 7.3vw, 43px); }
   .architects-presentation { display: flex; flex-direction: column; }
   .architects-presentation__copy { width: 100%; padding: 40px 24px 20px; }
   .architects-presentation__intro { font-size: 16px; }

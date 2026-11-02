@@ -51,7 +51,7 @@ export function ContentHero({
           <p className="text-xs font-mono uppercase tracking-widest text-accent font-semibold mb-4">
             {eyebrow}
           </p>
-          <h1 className="text-4xl sm:text-5xl font-bold font-display leading-tight">{title}</h1>
+          <h1 className="text-page-title font-bold font-display leading-tight">{title}</h1>
           <div className="mt-5 space-y-5 text-base sm:text-lg text-mist/90 leading-relaxed">
             {children}
           </div>

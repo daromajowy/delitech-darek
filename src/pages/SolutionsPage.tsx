@@ -135,7 +135,7 @@ export function SolutionsPage({ onOpenConsultation }: SolutionsPageProps) {
                 <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-ink" aria-hidden="true" />
                 Integrator Automatyki Budynkowej w standardzie KNX
               </p>
-              <h2 id="solutions-project-title" className="text-balance font-display text-4xl leading-[1.08] font-extrabold tracking-tight text-ink sm:text-5xl lg:text-6xl">
+              <h2 id="solutions-project-title" className="text-balance font-display text-section-title leading-[1.08] font-extrabold tracking-tight text-ink">
                 Zaprojektuj przestrzeń, która myśli razem z Tobą.
               </h2>
               <p className="max-w-2xl text-base leading-relaxed text-ink/80 sm:text-lg">
