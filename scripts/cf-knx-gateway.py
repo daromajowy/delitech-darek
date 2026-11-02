@@ -17,9 +17,16 @@ def install(app, url):
     root = app.parent
     if 'Require all denied' not in (app / '.htaccess').read_text():
         raise ValueError('Private application directory must reject HTTP access')
+    # The main site and the app share this directory on CF. Only the old
+    # public guide URL should redirect; the app must still open its login.
+    guide_redirect = ''
+    if host == 'knx.intelispaces.pl':
+        guide_redirect = ('RewriteCond %{HTTP_HOST} ^(?:www\\.)?intelispaces\\.pl$ [NC]\n'
+                          'RewriteRule ^(?:index\\.html)?$ https://intelispaces.pl/standard-knx/ [R=301,END]\n')
     contents = {
         'index.php': '<?php\n// ' + SIGNATURE + '\nrequire __DIR__.\'/app/public/index.php\';\n',
         '.htaccess': '# ' + SIGNATURE + '\nOptions -Indexes\nRewriteEngine On\n'
+        + guide_redirect
         + 'RewriteCond %{HTTP_HOST} !^' + re.escape(host) + '$ [NC]\nRewriteRule ^index\\.php$ - [F,END]\n'
         + 'RewriteCond %{HTTP_HOST} !^' + re.escape(host) + '$ [NC]\nRewriteRule ^ - '
         + ('[F,END]\n' if host.startswith('knx-staging.') else '[L]\n')
