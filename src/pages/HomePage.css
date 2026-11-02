@@ -2,15 +2,6 @@
 .home-editorial__wrap { width: 100%; max-width: 1440px; margin-inline: auto; padding-inline: 64px; }
 .home-editorial h1, .home-editorial h2, .home-editorial h3, .home-editorial h4 { font-family: 'Manrope', system-ui, sans-serif; font-weight: 750; letter-spacing: -.045em; }
 .home-editorial h2 { font-size: clamp(38px, 5vw, 72px); line-height: 1.12; text-wrap: balance; }
-.home-project { scroll-margin-top: 132px; }
-.home-editorial .home-project__title { font-size: 2.25rem; line-height: 1.08; font-weight: 800; letter-spacing: -.025em; }
-.home-editorial .home-project h3 { font-weight: 700; letter-spacing: -.025em; }
-@media (min-width: 40rem) {
-  .home-editorial .home-project__title { font-size: 3rem; }
-}
-@media (min-width: 64rem) {
-  .home-editorial .home-project__title { font-size: 3.75rem; }
-}
 .home-editorial__button { display: inline-flex; align-items: center; justify-content: center; gap: 24px; min-height: 64px; padding: 18px 28px; border-radius: 2px; background: var(--color-accent); color: var(--color-ink); font: 700 19px/1.5 'Plus Jakarta Sans', sans-serif; text-align: center; text-decoration: none; cursor: pointer; transition: background-color .18s ease; }
 .home-editorial__button:hover { background: var(--color-accent-hover); }
 .home-editorial__button svg { flex-shrink: 0; }

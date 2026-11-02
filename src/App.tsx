@@ -29,6 +29,7 @@ import { TeamPage } from './pages/TeamPage.tsx';
 import { ContactPage } from './pages/ContactPage.tsx';
 
 const formerHomeSections = new Map([
+  ['projekt-knx', 'projekt-knx'],
   ['iot', 'iot'],
   ['systemy', 'systemy'],
   ['dom', 'integracje'],
@@ -174,11 +175,7 @@ export default function App() {
         )}
 
         {currentPage === 'solutions' && (
-          <SolutionsPage
-            onNavigate={handleNavigate}
-            onOpenConsultation={handleOpenConsultation}
-            initialHash={currentHash}
-          />
+          <SolutionsPage onOpenConsultation={handleOpenConsultation} />
         )}
 
         {currentPage === 'architects' && (
