@@ -7,7 +7,7 @@ import {
 import { pageUrl } from '../site';
 import { F50HomeDemo } from '../components/F50HomeDemo/F50HomeDemo';
 import { KnxFilm } from '../components/KnxFilm';
-import { HomeSystemComparison, IoTIntegrations } from '../components/HomeTechnologySections';
+import { HomeIntegrations, HomeSystemComparison, IoTIntegrations } from '../components/HomeTechnologySections';
 import morning from '../assets/images/solutions-scene-morning.webp';
 import leaving from '../assets/images/solutions-scene-leaving.webp';
 import returning from '../assets/images/solutions-scene-return.webp';
@@ -125,6 +125,7 @@ export function SolutionsPage({ onOpenConsultation }: SolutionsPageProps) {
   return (
     <div className="solutions-page">
       <F50HomeDemo asHero />
+      <HomeIntegrations />
 
       <section id="projekt-knx" aria-labelledby="solutions-project-title" className="relative overflow-hidden border-b border-ink/10 bg-surface py-8 lg:pt-6 lg:pb-11">
         <div className="bg-grid-subtle pointer-events-none absolute inset-0 opacity-70" aria-hidden="true" />

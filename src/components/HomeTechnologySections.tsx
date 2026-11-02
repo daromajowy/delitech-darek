@@ -78,7 +78,7 @@ export function HomeIntegrations() {
 
   return (
     <section id="integracje-knx" className="home-technology ht-integrations" aria-labelledby="ht-integrations-title">
-      <div className="homes-width">
+      <div className="solutions-container">
         <div className="ht-heading">
           <div><p className="ht-eyebrow">Możliwości KNX</p><h2 id="ht-integrations-title">Wiele instalacji.<br />Jeden pomysł na dom.</h2></div>
           <div className="ht-intro">

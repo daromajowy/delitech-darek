@@ -29,7 +29,7 @@ import { TeamPage } from './pages/TeamPage.tsx';
 import { ContactPage } from './pages/ContactPage.tsx';
 
 const formerHomeSections = new Map<string, [PageId, string]>([
-  ['integracje-knx', ['homes', 'integracje-knx']],
+  ['integracje-knx', ['solutions', 'integracje-knx']],
   ['smart-workspace', ['offices', 'smart-workspace']],
   ['home-workspace-title', ['offices', 'smart-workspace-title']],
   ['projekt-knx', ['solutions', 'projekt-knx']],

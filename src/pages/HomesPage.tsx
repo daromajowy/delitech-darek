@@ -3,7 +3,6 @@ import { ArrowDown, ArrowRight, ArrowUpRight, Blinds, Camera, DoorOpen, Droplets
 import type { PageId } from '../types';
 import { pageUrl } from '../site';
 import { DayRhythm } from '../components/DayRhythm';
-import { HomeIntegrations } from '../components/HomeTechnologySections';
 import contactImage from '../assets/images/homes-contact.webp';
 import './HomesPage.css';
 
@@ -122,6 +121,10 @@ export function HomesPage({ onOpenConsultation, initialHash }: HomesPageProps) {
   const page = useRef<HTMLDivElement>(null);
   useEffect(() => {
     if (!initialHash) return;
+    if (initialHash === 'integracje-knx') {
+      window.location.replace(pageUrl('solutions', initialHash));
+      return;
+    }
     if (initialHash === 'osprzet' || initialHash === 'dlaczego-knx') {
       window.location.replace(pageUrl('home', initialHash));
       return;
@@ -147,7 +150,7 @@ export function HomesPage({ onOpenConsultation, initialHash }: HomesPageProps) {
 
       <nav className="homes-jump homes-width" aria-label="Skróty dla domów i apartamentów">
         <span>Przejdź do</span>
-        <a href={pageUrl('homes', 'integracje-knx')}>Możliwości KNX <ArrowDown size={14} aria-hidden="true" /></a>
+        <a href={pageUrl('solutions', 'integracje-knx')} aria-label="Możliwości KNX – w kategorii Co może Twój dom">Możliwości KNX <ArrowUpRight size={14} aria-hidden="true" /></a>
         <a href={pageUrl('home', 'osprzet')} aria-label="Design i obsługa – sekcja na stronie głównej">Design i obsługa <ArrowUpRight size={14} aria-hidden="true" /></a>
         <a href={pageUrl('homes', 'mozliwosci')}>Funkcje domu <ArrowDown size={14} aria-hidden="true" /></a>
         <a href={pageUrl('homes', 'integracje')}>Integracje i ogród <ArrowDown size={14} aria-hidden="true" /></a>
@@ -155,8 +158,6 @@ export function HomesPage({ onOpenConsultation, initialHash }: HomesPageProps) {
         <a href={pageUrl('homes', 'etapy')}>Etapy współpracy <ArrowDown size={14} aria-hidden="true" /></a>
         <a href={pageUrl('homes', 'koszt')}>Koszt i przygotowanie <ArrowDown size={14} aria-hidden="true" /></a>
       </nav>
-
-      <HomeIntegrations />
 
       <section id="mozliwosci" className="homes-functions homes-width homes-section" aria-labelledby="homes-functions-title">
         <div className="homes-section-heading">
