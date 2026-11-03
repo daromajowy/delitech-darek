@@ -1,6 +1,8 @@
 import type { PageId } from './types';
 import { pages } from './page-config.ts';
 
+export const previewPlannerUrl = 'https://knx-staging.intelispaces.pl/editor';
+
 export interface SiteConfig {
   page: PageId;
   urls: Record<PageId, string>;
@@ -17,7 +19,7 @@ export function createSiteConfig(page: PageId, base: string, preview: boolean): 
     page,
     urls: Object.fromEntries(Object.entries(pages).map(([key, entry]) => [key, base + entry.path.slice(1)])) as Record<PageId, string>,
     endpoint: preview ? undefined : 'https://knx.intelispaces.pl/api/inquiries',
-    plannerUrl: preview ? base + 'projektant-knx/' : 'https://knx.intelispaces.pl/',
+    plannerUrl: preview ? previewPlannerUrl : 'https://knx.intelispaces.pl/',
     preview,
   };
 }

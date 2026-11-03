@@ -46,6 +46,16 @@ test('a component edit reaches Vite, production HTML and branch previews without
       execFileSync(process.execPath,['scripts/build-site.mjs',...(preview?['--preview']:[])],{
         cwd:fixture,env:{...process.env,SITE_BASE:base},stdio:'pipe',timeout:45000,
       });
+      const planner = path.join(fixture,'dist','projektant-knx');
+      if (preview) {
+        assert.deepEqual(fs.readdirSync(planner), ['index.html'], 'Pages must not publish any editor assets');
+        const redirect = fs.readFileSync(path.join(planner,'index.html'),'utf8');
+        assert.ok(redirect.includes('http-equiv="refresh" content="0;url=https://knx-staging.intelispaces.pl/editor"'));
+        assert.ok(redirect.includes('href="https://knx-staging.intelispaces.pl/editor"'));
+        assert.doesNotMatch(redirect, /<(?:script|form)\b/i);
+      } else {
+        assert.ok(!fs.existsSync(planner), 'CF handles the legacy URL on the server');
+      }
       for (const page of Object.values(pages)) {
         const html = fs.readFileSync(path.join(fixture,'dist',page.path,'index.html'),'utf8');
         assert.ok(html.includes(`<title>${page.title}</title>`));
@@ -55,7 +65,7 @@ test('a component edit reaches Vite, production HTML and branch previews without
         assert.equal(config.endpoint,preview?undefined:'https://knx.intelispaces.pl/api/inquiries');
         assert.ok(!Object.hasOwn(config,'values'));
         assert.equal(config.urls.team,base+'team/');
-        assert.equal(config.plannerUrl,preview?base+'projektant-knx/':'https://knx.intelispaces.pl/');
+        assert.equal(config.plannerUrl,preview?'https://knx-staging.intelispaces.pl/editor':'https://knx.intelispaces.pl/');
       }
       assert.ok(fs.readFileSync(path.join(fixture,'dist/team/index.html'),'utf8').includes(escaped));
     }

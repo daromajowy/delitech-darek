@@ -5,7 +5,7 @@ import {build as esbuild} from 'esbuild';
 import {renderToString} from 'react-dom/server';
 import React from 'react';
 import {pages} from '../src/page-config.ts';
-import {createSiteConfig} from '../src/site.ts';
+import {createSiteConfig, previewPlannerUrl} from '../src/site.ts';
 
 const preview = process.argv.includes('--preview');
 const base = process.env.SITE_BASE || '/';
@@ -33,6 +33,17 @@ for (const [key,page] of Object.entries(pages)) {
   fs.mkdirSync(folder,{recursive:true}); fs.writeFileSync(path.join(folder,'index.html'),html);
 }
 delete globalThis.__INTELISPACES__;
+if (preview) {
+  const plannerFolder = path.join(out, 'projektant-knx');
+  fs.mkdirSync(plannerFolder, {recursive: true});
+  fs.writeFileSync(path.join(plannerFolder, 'index.html'), `<!doctype html>
+<html lang="pl"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<meta http-equiv="refresh" content="0;url=${previewPlannerUrl}">
+<title>Logowanie do Projektanta KNX | InteliSpaces</title>
+</head><body><p><a href="${previewPlannerUrl}">Przejdź do logowania do testowego Projektanta KNX</a></p></body></html>\n`);
+}
 fs.writeFileSync(`${out}/robots.txt`, preview?'User-agent: *\nDisallow: /\n':'User-agent: *\nAllow: /\nSitemap: https://intelispaces.pl/sitemap.xml\n');
 fs.writeFileSync(`${out}/sitemap.xml`, '<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+Object.values(pages).map(page=>`<url><loc>https://intelispaces.pl${page.path}</loc></url>`).join('')+'</urlset>');
 fs.writeFileSync(`${out}/404.html`, '<!doctype html><html lang="pl"><meta charset="utf-8"><meta name="robots" content="noindex"><title>Nie znaleziono strony</title><h1>Nie znaleziono strony</h1><p><a href="'+base+'">Wróć do InteliSpaces</a></p></html>');
