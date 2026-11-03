@@ -27,7 +27,7 @@ jobs:
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: 24
-      - name: Build separate branch previews with an in-memory KNX demo
+      - name: Build branch previews with authenticated KNX on staging
         env:
           REPOSITORY: ${{ github.repository }}
         run: |
@@ -39,16 +39,14 @@ jobs:
               cd "$RUNNER_TEMP/preview-$branch"
               npm ci --no-audit --no-fund
               SITE_BASE="/delitech-darek/$branch/" npm run build:preview
-              npm ci --prefix planner --no-audit --no-fund
-              VITE_KNX_DEMO=1 npm run build --prefix planner
-              mkdir -p dist/projektant-knx
-              cp -R planner/dist/. dist/projektant-knx/
-              printf '{"branch":"%s","commit":"%s","demo":true}\n' "$branch" "$(git rev-parse HEAD)" > dist/release.json
+              test "$(find dist/projektant-knx -mindepth 1 -printf '%P\n')" = 'index.html'
+              grep -Fq 'http-equiv="refresh" content="0;url=https://knx-staging.intelispaces.pl/editor"' dist/projektant-knx/index.html
+              printf '{"branch":"%s","commit":"%s","demo":false}\n' "$branch" "$(git rev-parse HEAD)" > dist/release.json
             )
             cp -R "$RUNNER_TEMP/preview-$branch/dist" "site/$branch"
           done
           cat > site/index.html <<'HTML'
-          <!doctype html><html lang="pl"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>InteliSpaces · podglądy</title><style>body{font:18px system-ui;max-width:800px;margin:10vh auto;padding:24px;background:#f3f7f8;color:#173744}a{display:inline-block;padding:18px;background:white;border:1px solid #ccdadd;border-radius:12px;margin:8px;color:#087b88}</style><h1>InteliSpaces · podglądy</h1><p>Każda gałąź ma własną wersję strony i konfigurator z przykładowym projektem.</p><a href="Janka/">Janka</a><a href="Darka/">Darka</a><a href="main/">main</a><p>Prawdziwe projekty zapisujemy na <a href="https://knx.intelispaces.pl/">knx.intelispaces.pl</a>.</p></html>
+          <!doctype html><html lang="pl"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>InteliSpaces · podglądy</title><style>body{font:18px system-ui;max-width:800px;margin:10vh auto;padding:24px;background:#f3f7f8;color:#173744}a{display:inline-block;padding:18px;background:white;border:1px solid #ccdadd;border-radius:12px;margin:8px;color:#087b88}</style><h1>InteliSpaces · podglądy</h1><p>Wybierz wersję strony. Aby otworzyć Projektanta KNX, zaloguj się na swoje konto testowe.</p><a href="Janka/">Janka</a><a href="Darka/">Darka</a><a href="main/">main</a><p><a href="https://knx-staging.intelispaces.pl/editor">Zaloguj się do testowego Projektanta KNX</a></p></html>
           HTML
           cp site/index.html site/404.html
           printf 'User-agent: *\nDisallow: /\n' > site/robots.txt

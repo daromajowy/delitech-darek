@@ -6,7 +6,7 @@
 - Codex pracuje na `Janka`, Darek na `Darka`. Zatwierdzone zmiany trafiają do `main`, który automatycznie publikuje **InteliSpaces Staging**. Produkcja wymaga osobnego, ręcznego uruchomienia publikacji po testach.
 - Staging strony: `https://staging.intelispaces.pl/`. Staging konfiguratora i panelu: `https://knx-staging.intelispaces.pl/`.
 - Podglądy: `https://daromajowy.github.io/delitech-darek/Janka/`, odpowiednio `/Darka/` i `/main/`.
-- Konfigurator w podglądzie pod `projektant-knx/` używa przykładowych danych wyłącznie w pamięci karty. Nie łączy się z produkcyjnym API; odświeżenie usuwa zmiany. Formularze podglądu nie wysyłają zgłoszeń.
+- We wszystkich trzech podglądach link do Projektanta KNX oraz dawny adres `projektant-knx/` prowadzą do `https://knx-staging.intelispaces.pl/editor`. Logowanie i dostęp do projektów obsługuje staging CF. Formularze kontaktowe podglądu nie wysyłają zgłoszeń.
 - Przed pracą pobierz gałąź i sprawdź różnice. Uzgadniaj wspólne modele i migracje bazy; nie nadpisuj nieznanych zmian ani nie używaj force push.
 
 ## Architektura i dane
