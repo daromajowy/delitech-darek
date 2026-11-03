@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', fn () => redirect()->route('planner'));
+Route::get('/planner/{entry?}', fn (Request $request) => redirect()->route('planner', $request->query()))
+    ->where('entry', 'index\.html');
 Route::middleware(['auth', 'auth.session', WorkspaceAccess::class])->group(function () {
     Route::get('/inquiries/{inquiry}', [InquiryController::class, 'show'])->name('inquiries.show');
     Route::get('/inquiries/{inquiry}/files/{index}', [InquiryController::class, 'download'])->name('inquiries.download');

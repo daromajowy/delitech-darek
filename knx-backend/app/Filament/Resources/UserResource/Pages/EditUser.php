@@ -15,4 +15,14 @@ class EditUser extends EditRecord
 
         return $data;
     }
+
+    protected function mutateFormDataBeforeSave(array $data): array
+    {
+        unset($data['active']);
+        if ($this->getRecord()->is(auth()->user())) {
+            unset($data['role']);
+        }
+
+        return $data;
+    }
 }

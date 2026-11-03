@@ -28,6 +28,8 @@ def package(commit):
             raise ValueError('Symlink in KNX build: ' + name)
         if not path.is_file() or path.name == '.gitignore' or name.startswith('bootstrap/cache/'):
             continue
+        if name == 'public/planner/index.html':
+            continue  # Laravel serves the editor HTML only after authentication.
         if path.name in {'.env', 'auth.json', '.htpasswd', 'hot'} or name.startswith(('public/storage/', 'storage/')):
             raise ValueError('Runtime file in KNX package: ' + name)
         files[name] = hashlib.sha256(path.read_bytes()).hexdigest()

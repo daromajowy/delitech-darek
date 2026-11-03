@@ -23,10 +23,13 @@ def install(app, url):
     if host == 'knx.intelispaces.pl':
         guide_redirect = ('RewriteCond %{HTTP_HOST} ^(?:www\\.)?intelispaces\\.pl$ [NC]\n'
                           'RewriteRule ^(?:index\\.html)?$ https://intelispaces.pl/standard-knx/ [R=301,END]\n')
+    planner_hosts = (r'(?:knx\.|www\.)?intelispaces\.pl' if host == 'knx.intelispaces.pl' else re.escape(host))
     contents = {
         'index.php': '<?php\n// ' + SIGNATURE + '\nrequire __DIR__.\'/app/public/index.php\';\n',
         '.htaccess': '# ' + SIGNATURE + '\nOptions -Indexes\nRewriteEngine On\n'
         + guide_redirect
+        + 'RewriteCond %{HTTP_HOST} ^' + planner_hosts + '$ [NC]\n'
+        + 'RewriteRule ^planner(?:/index\\.html|/?)$ ' + url + '/editor [R=302,END]\n'
         + 'RewriteCond %{HTTP_HOST} !^' + re.escape(host) + '$ [NC]\nRewriteRule ^index\\.php$ - [F,END]\n'
         + 'RewriteCond %{HTTP_HOST} !^' + re.escape(host) + '$ [NC]\nRewriteRule ^ - '
         + ('[F,END]\n' if host.startswith('knx-staging.') else '[L]\n')

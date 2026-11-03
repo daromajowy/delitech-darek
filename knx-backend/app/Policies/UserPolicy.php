@@ -26,6 +26,11 @@ class UserPolicy
         return $u->isAdmin();
     }
 
+    public function managePlannerAccess(User $u, User $record): bool
+    {
+        return $u->isAdmin() && ! $u->is($record);
+    }
+
     public function delete(User $u, User $record): bool
     {
         return false;

@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Auth\PlannerLogin;
 use App\Http\Middleware\WorkspaceAccess;
 use Filament\Auth\MultiFactor\App\AppAuthentication;
 use Filament\Http\Middleware\Authenticate;
@@ -29,7 +30,7 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->path('admin')
-            ->login()
+            ->login(PlannerLogin::class)
             ->brandName(app()->environment('staging') ? 'InteliSpaces Staging · Projekty KNX' : 'InteliSpaces · Projekty KNX')
             ->brandLogo(fn () => view('brand'))
             ->brandLogoHeight('3rem')
@@ -67,6 +68,6 @@ class AdminPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
                 WorkspaceAccess::class,
-            ]);
+            ], isPersistent: true);
     }
 }

@@ -5,6 +5,8 @@
 
     RewriteEngine On
 
+    RewriteRule ^planner(?:/index\.html|/?)$ /editor [R=302,END]
+
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
