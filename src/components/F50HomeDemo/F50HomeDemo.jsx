@@ -43,6 +43,7 @@ export function F50HomeDemo({ asHero = false }) {
     title: "Twój dom. Jeden przycisk od zmiany.",
     text: "Naciśnij symbol na panelu i zobacz, co się wydarzy.",
   });
+  const showCinemaHint = last.kind === "intro";
   const [pressed, setPressed] = useState("");
   const pulseTimer = useRef(),
     pressTimer = useRef(),
@@ -329,6 +330,7 @@ export function F50HomeDemo({ asHero = false }) {
       Icon: Clapperboard,
       label: "Scena Kino",
       short: "Kino",
+      descriptionId: showCinemaHint ? "f50-cinema-hint" : undefined,
       active: cinema,
       action: activateCinema,
     },
@@ -431,6 +433,7 @@ export function F50HomeDemo({ asHero = false }) {
                     action,
                     disabled,
                     direction,
+                    descriptionId,
                   }) => (
                     <button
                       key={id}
@@ -444,7 +447,7 @@ export function F50HomeDemo({ asHero = false }) {
                       }
                       aria-label={label}
                       aria-describedby={
-                        direction ? "f50-blind-instructions" : undefined
+                        direction ? "f50-blind-instructions" : descriptionId
                       }
                       aria-pressed={
                         ["salon", "kitchen"].includes(id) ? !!active : undefined
@@ -489,14 +492,25 @@ export function F50HomeDemo({ asHero = false }) {
                 </div>
               </div>
             </div>
-            <p className="panel-hint">
-              <MousePointer2 size={16} />
-              <span>
-                Kliknij symbol na przycisku.
-                <br />
-                Diody pokazują stan funkcji.
-              </span>
-            </p>
+            <div className="panel-guidance">
+              <p className="cinema-hint" id="f50-cinema-hint" aria-hidden={!showCinemaHint}>
+                <span className="cinema-hint-icon" aria-hidden="true">
+                  <Clapperboard size={26} strokeWidth={1.65} />
+                </span>
+                <span>
+                  <strong>Naciśnij „Kino”</strong>
+                  Zobacz, jak przygasa salon.
+                </span>
+              </p>
+              <p className="panel-hint" aria-hidden={showCinemaHint}>
+                <MousePointer2 size={16} aria-hidden="true" />
+                <span>
+                  Kliknij symbol na przycisku.
+                  <br />
+                  Diody pokazują stan funkcji.
+                </span>
+              </p>
+            </div>
             <div className="control-note" id="f50-blind-instructions">
               <Blinds size={16} />
               <span>

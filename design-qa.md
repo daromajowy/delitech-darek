@@ -1,3 +1,16 @@
+# F50 cinema key hint
+
+2026-11-03 · `/co-moze-twoj-dom/#steruj-domem` · initial state, all lights on.
+
+- Visual target: `../outputs/f50-dymek-warianty-20261103/02-kino.png` (1641 × 959). In `../outputs/f50-kino-wdrozenie-20261103/`, `dymek-desktop.jpg` is the matching 1265 × 739 CSS-pixel crop from the 1280 × 720 browser at 1×. `porownanie-sekcja.jpg` aligns both full sections; `porownanie-panel.jpg` compares the switches and lettering at the same scale.
+- The white note, lime edge and key outline, circular clapperboard, dark heading and lighter second line match the selected design. The pointer meets the bottom of the real Kino key. The house and F50 retain their original assets and proportions. The hint uses the site font and stays legible without clipping at both mobile sizes.
+- Mobile: 390 × 844 and 320 × 720, no horizontal overflow. `dymek-telefon.jpg` shows the house above the control and hint at 390 px. The blind controls remain accessible.
+- All eight controls dismiss the hint and remove the key outline and accessible description. Enter on Kino dims the three ground-floor zones and turns on the TV. Restart restores the hint. The shared instruction slot keeps the panel and blind instructions steady. No browser console errors.
+
+final result: passed
+
+---
+
 # Five office and meeting-room benefits — Janka
 
 Date: 2026-10-31. Scope: Offices page and its metadata on Janka.
