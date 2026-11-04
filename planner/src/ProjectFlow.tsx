@@ -36,9 +36,11 @@ function RoomData({ project, room, edit, select }: { project: Project; room: Roo
       if (!confirm(`Usunąć ${room.name} wraz z obwodami i punktami? Sceny pozostaną do uzupełnienia.`)) return;
       edit(p => { const copy = removeTargets(p, room.circuits.map(c => c.id)); copy.rooms = copy.rooms.filter(r => r.id !== room.id); copy.points = copy.points.filter(pt => pt.roomId !== room.id); copy.scenes.forEach(s => { if (s.roomId === room.id) delete s.roomId; }); Object.assign(p, copy); });
     }}/></div></div>
-    <Field label="Nazwa pomieszczenia"><input value={room.name} maxLength={150} onChange={e => update(r => { r.name = e.target.value; })}/></Field>
-    <Field label="Kondygnacja"><Select value={room.floor} options={[...new Set([room.floor, 'Parter', 'Piętro', 'Piętro 2', 'Poddasze', 'Piwnica', 'Na zewnątrz'])]} onChange={v => update(r => { r.floor = v; })}/></Field>
-    <Field label="Powierzchnia (m²)"><NumberInput value={room.area} onChange={v => update(r => { r.area = v; })}/></Field>
+    <div className="room-data-fields">
+      <Field label="Nazwa pomieszczenia"><input value={room.name} maxLength={150} onChange={e => update(r => { r.name = e.target.value; })}/></Field>
+      <Field label="Kondygnacja"><Select value={room.floor} options={[...new Set([room.floor, 'Parter', 'Piętro', 'Piętro 2', 'Poddasze', 'Piwnica', 'Na zewnątrz'])]} onChange={v => update(r => { r.floor = v; })}/></Field>
+      <Field label="Powierzchnia (m²)"><NumberInput value={room.area} onChange={v => update(r => { r.area = v; })}/></Field>
+    </div>
     <details className="flow-details"><summary>Uwagi do pomieszczenia<Icon name="ChevronDown" size={16}/></summary><Field label="Uwagi"><textarea value={room.notes} maxLength={3000} onChange={e => update(r => { r.notes = e.target.value; })}/></Field></details>
   </div>;
 }
@@ -54,10 +56,14 @@ export function ProjectFlow(props: FlowProps) {
     {step === 0 && <>
       <section className="flow-main"><div className="section-heading"><h2>Twoja przestrzeń</h2><p className="muted">Dodaj pomieszczenia. Rzut możesz dołączyć teraz lub później.</p></div>
         <PlanBoard project={project} select={() => {}} edit={edit} upload={upload} busy={busy} dragging={false} roomId={room?.id} selectRoom={setRoomId} roomMode/>
-        {room && <details className="flow-details"><summary>Punkty sterowania w {room.name}<Icon name="ChevronDown" size={16}/></summary><RoomPoints project={project} room={room} edit={edit} configure={id => { setPointId(id); go(2); }}/></details>}
-      </section>
-      <aside className="right-panel flow-context">{room ? <RoomData project={project} room={room} edit={edit} select={setRoomId}/> : <div className="empty-inline">Dodaj pierwsze pomieszczenie z listy po lewej.</div>}
+        {room && <RoomData project={project} room={room} edit={edit} select={setRoomId}/>}
         <details className="flow-details" open={!project.studio}><summary>Dane inwestycji<Icon name="ChevronDown" size={16}/></summary><ProjectDetails project={project} edit={edit}/></details>
+      </section>
+      <aside className="right-panel flow-context space-points">
+        {room ? <>
+          <p className="eyebrow">{room.name}</p>
+          <RoomPoints project={project} room={room} edit={edit} configure={id => { setPointId(id); go(2); }}/>
+        </> : <div className="empty-inline">Dodaj pierwsze pomieszczenie z listy po lewej.</div>}
       </aside>
     </>}
     {step === 1 && <FunctionsStep {...props} room={room}/>}

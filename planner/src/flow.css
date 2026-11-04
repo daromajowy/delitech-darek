@@ -25,8 +25,29 @@
 .flow-context .form-grid .segments { flex-wrap: wrap; }
 .flow-context .form-grid .segments button { flex: 1 1 40%; }
 .room-data > .row > .row { gap: 0; }
-.room-data h2 { flex: 1; margin: 0; }
+.room-data h2 { flex: 1; min-width: 0; margin: 0; overflow-wrap: anywhere; }
 .room-data .tool { width: 28px; }
+.flow-main > .room-data { margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--line); }
+.room-data-fields { display: grid; grid-template-columns: minmax(0, 2fr) repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 16px; }
+.room-data-fields > .field { font-size: 12px; }
+.space-points > .eyebrow { overflow-wrap: anywhere; }
+.space-points .room-points { margin: 0; padding: 0; border: 0; }
+.space-points .room-points > .row { flex-wrap: wrap; gap: 8px; }
+.space-points .room-point {
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas: "code actions" "name name" "type height";
+  gap: 8px;
+  padding: 14px 0;
+}
+.space-points .point-code { grid-area: code; }
+.space-points .room-point > label { grid-area: name; min-width: 0; }
+.space-points .room-point > select { grid-area: type; min-width: 0; font-size: 12px; padding: 8px; }
+.space-points .room-point > .height-input { grid-area: height; width: 74px; max-width: 100%; justify-self: end; }
+.space-points .room-point > .row { grid-area: actions; justify-self: end; }
+@media (max-width: 720px) {
+  .room-data-fields { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .room-data-fields > .field:first-child { grid-column: 1 / -1; }
+}
 .flow-details { border-top: 1px solid var(--line); margin-top: 22px; padding-top: 14px; }
 .flow-details > summary { display: flex; align-items: center; justify-content: space-between; gap: 12px; cursor: pointer; min-height: 32px; font-weight: 600; font-size: 13px; list-style: none; }
 .flow-details > summary::-webkit-details-marker { display: none; }
