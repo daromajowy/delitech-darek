@@ -92,8 +92,28 @@ function FunctionsStep({ project, room, edit, sceneId, setSceneId, setPointId, g
   return <><section className="flow-main">
     <div className="section-heading"><h2>{room ? `Co ma robić ${room.name.toLocaleLowerCase('pl')}?` : 'Funkcje i sceny'}</h2><p className="muted">Wybierz funkcje i gotowe sceny. Szczegóły dopracujesz później.</p></div>
     {room ? <>
-      <div className="function-overview"><div><h3>Funkcje pomieszczenia</h3>{categories.map(k => <div key={k} className={`function-group ${category === k ? 'expanded' : ''}`}><button className="function-summary" aria-expanded={category === k} onClick={() => setCategory(category === k ? null : k)}><Icon name={categoryIcon[k]}/><span>{k === 'Oświetlenie' ? 'Światło' : k}<small>{room.circuits.filter(c => c.kind === k).length || 'Do ustalenia'}{room.circuits.some(c => c.kind === k) ? ' · obwody / strefy' : ''}</small></span><span className="accent">Edytuj</span><Icon name={category === k ? 'ChevronDown' : 'ChevronRight'} size={16}/></button>{category === k && <CircuitEditor project={project} room={room} kind={k} edit={edit}/>}</div>)}</div>
-        <div className="room-plan-preview"><PlanBoard project={project} select={() => {}} edit={() => {}} upload={upload} busy={busy} dragging={false} readOnly roomId={room.id} focusRoom/><small>{room.name} · {room.area ?? '—'} m²</small></div>
+      <div className="function-overview">
+        <h3 id="room-functions-heading">Funkcje pomieszczenia</h3>
+        <div className="room-function-buttons" role="group" aria-labelledby="room-functions-heading">
+          {categories.map(kind => {
+            const active = category === kind;
+            const count = room.circuits.filter(c => c.kind === kind).length;
+            return <button key={kind} type="button" className="function-summary" aria-expanded={active}
+              aria-controls="room-function-editor" onClick={() => setCategory(active ? null : kind)}>
+              <Icon name={categoryIcon[kind]} size={16}/>
+              <span>{kind === 'Oświetlenie' ? 'Światło' : kind}
+                <small>{count ? `${kind === 'Klimat' ? 'Strefy' : 'Obwody'}: ${count}` : 'Do ustalenia'}</small>
+              </span>
+              <Icon name={active ? 'ChevronUp' : 'ChevronDown'} size={14}/>
+            </button>;
+          })}
+        </div>
+        <div id="room-function-editor" hidden={!category}>
+          {category && <CircuitEditor key={category} project={project} room={room} kind={category} edit={edit}/>}
+        </div>
+        <div className="room-plan-preview">
+          <PlanBoard project={project} select={() => {}} edit={() => {}} upload={upload} busy={busy} dragging={false} readOnly roomId={room.id} focusRoom/>
+        </div>
       </div>
       <h3>Sceny na dobry początek</h3><div className="scene-ideas">{sceneIdeas.map(idea => {
         const existing = project.scenes.find(s => s.name === idea.name && (s.roomId === room.id || s.actions.some(a => room.circuits.some(c => c.id === a.target))));

@@ -116,9 +116,6 @@ export function PlanBoard({ project, point, select, edit, upload, busy, dragging
     clearTimeout(timer.current);
     timer.current = setTimeout(() => { const v = liveView.current; if (v) latest.current.edit(p => { p.planView = v; }); }, 700);
   }
-  function fitPage() {
-    void transform.current?.setTransform((size.width - pageWidth * fit) / 2, (size.height - pageHeight * fit) / 2, fit, 0);
-  }
   function place(id: string, x: number, y: number) {
     if (readOnly || !page || !sheet.current || !container.current) return;
     const clip = container.current.getBoundingClientRect();
@@ -186,13 +183,25 @@ export function PlanBoard({ project, point, select, edit, upload, busy, dragging
   const drawing = mode === 'room' || mode === 'polygon';
   const svgPoints = (points: PlanVertex[]) => points.map(p => `${p.x * pageWidth},${p.y * pageHeight}`).join(' ');
   const draft = mode === 'polygon' ? [...vertices, ...(cursor ? [cursor] : [])] : corner && cursor ? [corner, { x: cursor.x, y: corner.y }, cursor, { x: corner.x, y: cursor.y }] : [];
-  const roomArea = project.rooms.find(r => r.id === roomId)?.planArea;
-  const areaView = focusRoom && roomArea?.documentId === docId && roomArea.page === pageNumber ? { zoom: Math.min(size.width / (roomArea.width * pageWidth + 32), size.height / (roomArea.height * pageHeight + 32)) / fit, centerX: roomArea.x + roomArea.width / 2, centerY: roomArea.y + roomArea.height / 2 } : undefined;
-  const savedView = areaView ?? (project.planView?.documentId === docId && project.planView.page === pageNumber ? project.planView : undefined);
+  const room = project.rooms.find(r => r.id === roomId);
+  const roomArea = room?.planArea;
+  const areaView = focusRoom && roomArea?.documentId === docId && roomArea.page === pageNumber ? {
+    zoom: Math.min((size.width - 32) / (roomArea.width * pageWidth), (size.height - 32) / (roomArea.height * pageHeight)) / fit,
+    centerX: roomArea.x + roomArea.width / 2, centerY: roomArea.y + roomArea.height / 2,
+  } : undefined;
+  const savedView = focusRoom ? areaView : (project.planView?.documentId === docId && project.planView.page === pageNumber ? project.planView : undefined);
   const initialScale = Math.max(fit / 2, Math.min(fit * 10, fit * (savedView?.zoom ?? 1)));
+  function fitView() {
+    const targetScale = areaView ? initialScale : fit;
+    transform.current?.setTransform(size.width / 2 - pageWidth * targetScale * (areaView?.centerX ?? 0.5),
+      size.height / 2 - pageHeight * targetScale * (areaView?.centerY ?? 0.5), targetScale, 0);
+  }
   return <section className={`plan-board ${expanded ? "expanded" : ""}`} aria-label="Rzut architektoniczny">
-    <div className="plan-heading"><h3><Icon name="Map" />{roomMode ? 'Rzut i pomieszczenia' : 'Rzut i punkty sterowania'}</h3><span>{markers.length} pkt</span>
-      <Tool icon={expanded ? "Minimize2" : "Maximize2"} label={expanded ? "Zamknij duży rzut" : "Powiększ obszar rzutu"} onClick={() => setExpanded(v => !v)} /></div>
+    <div className="plan-heading">
+      <h3><Icon name="Map" />{focusRoom && room ? `Rzut · ${room.name}` : roomMode ? 'Rzut i pomieszczenia' : 'Rzut i punkty sterowania'}</h3>
+      {focusRoom ? room?.area != null && <span>{room.area} m²</span> : <span>{markers.length} pkt</span>}
+      {(!focusRoom || docId) && <Tool icon={expanded ? "Minimize2" : "Maximize2"} label={expanded ? "Zamknij duży rzut" : "Powiększ obszar rzutu"} onClick={() => setExpanded(v => !v)} />}
+    </div>
     <div className="plan-toolbar">
       <select aria-label="Rzut PDF" value={docId} onChange={e => { clearTimeout(timer.current); setDocId(e.target.value); setPageNumber(1); }}>
         {!plans.length && <option value="">Brak rzutu PDF</option>}{plans.map(a => <option key={a.id} value={a.id}>{a.name}</option>)}
@@ -250,7 +259,7 @@ export function PlanBoard({ project, point, select, edit, upload, busy, dragging
         {!readOnly && !roomMode && <button className={`tool ${mode === "place" ? "selected" : ""}`} disabled={!point} title="Wskaż pozycję wybranego punktu" aria-label="Wskaż pozycję wybranego punktu" aria-pressed={mode === "place"} onClick={() => setMode("place")}><Icon name="MapPinPlus"/></button>}
         <Tool icon="Minus" label="Pomniejsz rzut" onClick={() => zoomStep(-1)}/><output>{Math.round(scale / fit * 100)}%</output>
         <Tool icon="Plus" label="Powiększ rzut" onClick={() => zoomStep(1)}/>
-        <Tool icon="Scan" label="Dopasuj cały rzut" onClick={fitPage}/>
+        <Tool icon="Scan" label={areaView ? "Dopasuj pomieszczenie" : "Dopasuj cały rzut"} onClick={fitView}/>
       </div>}
     </div>
     <div className={`plan-status ${drawingError ? 'drawing-error' : ''}`}><span role="status">{drawingError || (roomMode ? (mode === 'polygon' ? `Narożniki: ${vertices.length}. Klikaj kolejne narożniki. Zamknij obrys pierwszym punktem lub Enter. Esc anuluje.` : mode === 'room' ? corner ? 'Kliknij przeciwległy narożnik obszaru.' : 'Kliknij pierwszy narożnik pomieszczenia.' : project.rooms.find(r => r.id === roomId)?.name ?? 'Wybierz pomieszczenie') : point ? `${point.code} · ${point.name}` : "Widok rzutu")}</span>
