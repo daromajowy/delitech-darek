@@ -63,12 +63,20 @@
 .plan-status.drawing-error { color: #a43d2c; background: #fff7f3; }
 .plan-canvas:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
 @media (max-width: 720px) { .plan-room-tools button { min-height: 42px; } .plan-drawing-actions { flex-basis: 100%; margin-left: 0; } }
-.function-overview { margin: 20px 0; }
-.function-overview > h3 { margin-bottom: 8px; }
+.function-overview {
+  display: grid;
+  grid-template-columns: minmax(56px, 1fr) minmax(0, 4fr);
+  gap: 8px clamp(6px, 1vw, 14px);
+  align-items: start;
+  margin: 20px 0;
+}
+.function-overview > h3, #room-function-editor { grid-column: 1 / -1; }
+.function-overview > h3 { margin: 0; }
+#room-function-editor-heading { margin: 6px 0 8px; scroll-margin-block-end: min(28vh, 200px); }
 .room-function-buttons {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  max-width: 640px;
+  grid-area: 2 / 1;
+  container: room-buttons / inline-size;
   gap: 6px;
 }
 .function-summary {
@@ -81,10 +89,15 @@
 .function-summary > svg { flex-shrink: 0; }
 .function-summary:hover, .function-summary[aria-expanded="true"] { background: var(--soft); border-color: #80b9c3; }
 .function-summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-@media (max-width: 560px) { .room-function-buttons { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@container room-buttons (max-width: 120px) {
+  .function-summary { flex-direction: column; justify-content: center; gap: 2px; padding: 4px 2px; text-align: center; font-size: 11px; }
+  .function-summary > span { flex: none; }
+  .function-summary small { font-size: 9px; }
+  .function-summary > svg:last-child { display: none; }
+}
 @media (max-width: 720px), (pointer: coarse) { .function-summary { min-height: 44px; } }
 .accent { color: var(--accent); }
-.circuit-editor { margin-top: 8px; padding: 12px; border: 1px solid var(--line); border-radius: 4px; }
+.circuit-editor { padding: 12px; border: 1px solid var(--line); border-radius: 4px; }
 .circuit-row { padding: 8px 0 15px; border-bottom: 1px solid var(--line); margin-bottom: 12px; }
 .circuit-row .row { gap: 8px; }
 .circuit-row .row .field { flex: 1; min-width: 0; }
@@ -92,7 +105,7 @@
 .circuit-row input, .circuit-row select { padding: 7px 8px; font-size: 12px; }
 .circuit-row .mono { font-size: 10px; color: var(--muted); }
 .circuit-editor > .outline { font-size: 12px; width: 100%; }
-.room-plan-preview { margin-top: 12px; }
+.room-plan-preview { grid-area: 2 / 2; min-width: 0; }
 .room-plan-preview .plan-heading h3 { min-width: 0; overflow-wrap: anywhere; }
 .room-plan-preview .plan-heading > span { white-space: nowrap; }
 .room-plan-preview .plan-board:not(.expanded) .plan-canvas { height: clamp(320px, 52vh, 660px); }

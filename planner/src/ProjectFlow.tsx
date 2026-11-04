@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { DndContext } from '@dnd-kit/core';
 import { Field, Icon, NumberInput, Select, Tool, Check } from './components';
 import { ActionField } from './ActionField';
@@ -82,6 +82,12 @@ function CircuitEditor({ project, room, kind, edit }: { project: Project; room: 
 
 function FunctionsStep({ project, room, edit, sceneId, setSceneId, setPointId, go, upload, busy }: FlowProps & { room?: Room }) {
   const [category, setCategory] = useState<Category | null>(null);
+  const editorHeading = useRef<HTMLHeadingElement>(null);
+  useEffect(() => {
+    if (!category || !editorHeading.current) return;
+    editorHeading.current.focus({ preventScroll: true });
+    editorHeading.current.scrollIntoView({ block: 'nearest' });
+  }, [category]);
   const selected = project.scenes.find(s => s.id === sceneId) ?? project.scenes.find(s => s.roomId === room?.id) ?? project.scenes.find(s => s.actions.some(a => room?.circuits.some(c => c.id === a.target)));
   const addIdea = (name: string, icon: string) => {
     if (!room) return;
@@ -108,7 +114,8 @@ function FunctionsStep({ project, room, edit, sceneId, setSceneId, setPointId, g
             </button>;
           })}
         </div>
-        <div id="room-function-editor" hidden={!category}>
+        <div id="room-function-editor" hidden={!category} role="region" aria-labelledby="room-function-editor-heading">
+          <h4 id="room-function-editor-heading" ref={editorHeading} tabIndex={-1}>Ustawienia · {category}</h4>
           {category && <CircuitEditor key={category} project={project} room={room} kind={category} edit={edit}/>}
         </div>
         <div className="room-plan-preview">
