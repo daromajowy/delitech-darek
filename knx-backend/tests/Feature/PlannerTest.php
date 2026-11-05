@@ -80,6 +80,79 @@ class PlannerTest extends TestCase
         $this->get('/projects/'.$p['id'].'/download')->assertNotFound();
     }
 
+    public function test_floor_pdfs_pages_and_empty_floors_survive_save_and_reload(): void
+    {
+        $p = $this->createProject();
+        $documents = [];
+        foreach (['parter.pdf', 'pietro.pdf'] as $name) {
+            $documents[] = Document::create(['id' => (string) Str::uuid(), 'project_id' => $p['id'], 'name' => $name, 'mime' => 'application/pdf', 'size' => 100, 'path' => 'private/'.$name]);
+        }
+        $p['floors'] = [
+            ['id' => (string) Str::uuid(), 'name' => 'Parter', 'plan' => ['documentId' => $documents[0]->id, 'page' => 2]],
+            ['id' => (string) Str::uuid(), 'name' => 'Piętro', 'plan' => ['documentId' => $documents[1]->id, 'page' => 1]],
+            ['id' => (string) Str::uuid(), 'name' => 'Poddasze'],
+        ];
+        $p['rooms'][0]['floorId'] = $p['floors'][0]['id'];
+        $p['rooms'][0]['floor'] = 'Parter';
+        $this->save($p)->assertOk();
+        $saved = $this->getJson('/api?api=project&id='.$p['id'])->assertOk()->json('project');
+        $this->assertSame($p['floors'], $saved['floors']);
+        $this->assertSame($p['rooms'], $saved['rooms']);
+        $saved['floors'][1]['plan'] = ['documentId' => $documents[0]->id, 'page' => 3];
+        $this->save($saved)->assertOk()->assertJsonPath('project.floors.1.plan.page', 3);
+    }
+
+    #[DataProvider('invalidFloors')]
+    public function test_invalid_floors_cannot_overwrite_a_project(string $case): void
+    {
+        $p = $this->createProject();
+        $d = Document::create(['id' => (string) Str::uuid(), 'project_id' => $p['id'], 'name' => 'plan.pdf', 'mime' => 'application/pdf', 'size' => 100, 'path' => 'private/plan']);
+        $p['floors'] = [['id' => (string) Str::uuid(), 'name' => 'Parter', 'plan' => ['documentId' => $d->id, 'page' => 1]]];
+        $p = $this->save($p)->assertOk()->json('project');
+        $before = $p['floors'];
+        switch ($case) {
+            case 'null': $p['floors'] = null;
+                break;
+            case 'not-list': $p['floors'] = ['floor' => $p['floors'][0]];
+                break;
+            case 'scalar-floor': $p['floors'] = ['Parter'];
+                break;
+            case 'duplicate-id': $p['floors'][] = $p['floors'][0];
+                break;
+            case 'duplicate-name': $p['floors'][] = ['id' => (string) Str::uuid(), 'name' => ' PARTER '];
+                break;
+            case 'empty-name': $p['floors'][0]['name'] = ' ';
+                break;
+            case 'unknown-floor': $p['rooms'][0]['floorId'] = (string) Str::uuid();
+                break;
+            case 'name-mismatch': $p['rooms'][0]['floorId'] = $p['floors'][0]['id'];
+                $p['rooms'][0]['floor'] = 'Piwnica';
+                break;
+            case 'foreign-pdf': $other = $this->createProject();
+                $foreign = Document::create(['id' => (string) Str::uuid(), 'project_id' => $other['id'], 'name' => 'foreign.pdf', 'mime' => 'application/pdf', 'size' => 100, 'path' => 'private/foreign']);
+                $p['floors'][0]['plan']['documentId'] = $foreign->id;
+                $p['attachments'][] = ['id' => $foreign->id, 'name' => 'forged.pdf', 'mime' => 'application/pdf', 'size' => 100];
+                break;
+            case 'image': $d->update(['mime' => 'image/png']);
+                break;
+            case 'zero-page': $p['floors'][0]['plan']['page'] = 0;
+                break;
+            case 'too-many-pages': $p['floors'][0]['plan']['page'] = 201;
+                break;
+            case 'string-page': $p['floors'][0]['plan']['page'] = '2';
+                break;
+        }
+        $this->save($p)->assertUnprocessable();
+        $saved = $this->getJson('/api?api=project&id='.$p['id'])->assertOk()->json('project');
+        $this->assertSame($before, $saved['floors']);
+        $this->assertSame($p['revision'], $saved['revision']);
+    }
+
+    public static function invalidFloors(): array
+    {
+        return array_map(fn ($case) => [$case], ['null', 'not-list', 'scalar-floor', 'duplicate-id', 'duplicate-name', 'empty-name', 'unknown-floor', 'name-mismatch', 'foreign-pdf', 'image', 'zero-page', 'too-many-pages', 'string-page']);
+    }
+
     public function test_touch_pages_preserve_layout_and_shared_functions_on_save_and_reload(): void
     {
         $p = $this->createProject();
@@ -312,11 +385,14 @@ class PlannerTest extends TestCase
         Document::create(['id' => $id, 'project_id' => $p['id'], 'name' => 'test.pdf', 'mime' => 'application/pdf', 'size' => 13, 'path' => 'test.pdf']);
         $p['points'][0]['placement'] = ['documentId' => $id, 'page' => 1, 'x' => 0.5, 'y' => 0.5];
         $p['rooms'][0]['planArea'] = ['documentId' => $id, 'page' => 1, 'x' => 0.1, 'y' => 0.1, 'width' => 0.5, 'height' => 0.5];
+        $p['floors'] = [['id' => (string) Str::uuid(), 'name' => 'Parter', 'plan' => ['documentId' => $id, 'page' => 1]]];
         $p = $this->save($p)->json('project');
         $p = $this->postJson('/api?api=submit', ['id' => $p['id'], 'revision' => $p['revision'], 'submissionId' => (string) Str::uuid(), 'consent' => true], ['X-CSRF-Token' => $this->token])->json('project');
         $r = $this->postJson('/api?api=remove-file', ['project' => $p['id'], 'revision' => $p['revision'], 'id' => $id], ['X-CSRF-Token' => $this->token])->assertOk();
         $this->assertArrayNotHasKey('placement', $r->json('project.points.0'));
         $this->assertArrayNotHasKey('planArea', $r->json('project.rooms.0'));
+        $this->assertArrayNotHasKey('plan', $r->json('project.floors.0'));
+        $r->assertJsonPath('project.floors.0.name', 'Parter');
         $r->assertJsonCount(0, 'project.attachments');
         $this->get('/api?api=file&project='.$p['id'].'&id='.$id)->assertOk();
     }

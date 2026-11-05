@@ -152,6 +152,14 @@ class PlannerController extends Controller
             $d = $p->documents()->where('active', true)->findOrFail($r->input('id'));
             $d->update(['active' => false]);
             $data = $p->payload;
+            if (isset($data['floors'])) {
+                foreach ($data['floors'] as &$floor) {
+                    if (($floor['plan']['documentId'] ?? null) === $d->id) {
+                        unset($floor['plan']);
+                    }
+                }
+                unset($floor);
+            }
             foreach ($data['rooms'] as &$room) {
                 if (($room['planArea']['documentId'] ?? null) === $d->id) {
                     unset($room['planArea']);

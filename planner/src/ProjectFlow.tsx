@@ -5,10 +5,12 @@ import { ActionField } from './ActionField';
 import { ControlWorkspace } from './ControlWorkspace';
 import { PlanBoard } from './PlanBoard';
 import { RoomPoints } from './RoomPoints';
+import { FloorEditor } from './FloorEditor';
+import { conflictingPlacements, MAX_FLOORS, moveRoomToFloor, roomFloor } from './floors';
 import { assignRoomColors, roomColor, roomColorStyle, roomPalette } from './room-colors';
 import { SensorKeys } from './SensorPreview';
 import { actionProblem, reviewItems, sceneIdeas, simulate, suggestedScene, type ReviewItem, type Simulation } from './behavior';
-import { categories, controls, duplicateRoom, emptyRoom, newCircuit, newScene, removeTargets, sceneTemplates, targets, uid, type Attachment, type Category, type Circuit, type Project, type Room, type Scene } from './model';
+import { categories, controls, duplicateRoom, emptyRoom, newCircuit, newScene, removeTargets, sceneTemplates, targets, uid, type Attachment, type Category, type Circuit, type Floor, type Project, type Room, type Scene } from './model';
 
 type Edit = (fn: (p: Project) => void) => void;
 type FlowProps = {
@@ -19,9 +21,14 @@ type FlowProps = {
 const roomIcon = (name: string) => /salon/i.test(name) ? 'Sofa' : /kuchni/i.test(name) ? 'CookingPot' : /łazien/i.test(name) ? 'Bath' : /sypial/i.test(name) ? 'Moon' : 'DoorOpen';
 const categoryIcon: Record<Category, string> = { Oświetlenie: 'Lightbulb', Osłony: 'Blinds', Klimat: 'Thermometer', Pozostałe: 'Ellipsis' };
 
-export function RoomSidebar({ project, room, select, edit, title = 'Pomieszczenia' }: { project: Project; room?: Room; select: (id: string) => void; edit: Edit; title?: string }) {
+export function RoomSidebar({ project, room, floor, selectFloor, select, edit, upload, busy, title = 'Pomieszczenia' }: {
+  project: Project; room?: Room; floor?: Floor; selectFloor: (id: string) => void; select: (id: string) => void;
+  edit: Edit; upload: FlowProps['upload']; busy: boolean; title?: string;
+}) {
   const sidebar = useRef<HTMLElement>(null);
   const list = useRef<HTMLDivElement>(null);
+  const menu = useRef<HTMLDetailsElement>(null);
+  const [editingFloor, setEditingFloor] = useState<string | null>(null);
   useLayoutEffect(() => {
     const panel = sidebar.current;
     if (!panel) return;
@@ -51,21 +58,31 @@ export function RoomSidebar({ project, room, select, edit, title = 'Pomieszczeni
   }, []);
   useLayoutEffect(() => {
     const viewport = list.current;
-    const selected = viewport?.querySelector('.nav-entry[aria-pressed="true"]');
+    const selected = viewport?.querySelector('.nav-entry[aria-pressed="true"]') ?? viewport?.querySelector('.floor-select[aria-pressed="true"]');
     if (!viewport || !selected) return;
     const bounds = viewport.getBoundingClientRect(), item = selected.getBoundingClientRect();
     if (item.top < bounds.top) viewport.scrollTop += item.top - bounds.top - 4;
     else if (item.bottom > bounds.bottom) viewport.scrollTop += item.bottom - bounds.bottom + 4;
-  }, [room?.id]);
-  const add = (name = 'Nowe pomieszczenie') => { const r = emptyRoom(name); edit(p => { p.rooms.push(r); assignRoomColors(p.rooms); }); select(r.id); };
-  return <aside ref={sidebar} className="left-panel flow-rooms">
-    <div className="row spread room-sidebar-heading"><h3>{title}</h3><Tool icon="Plus" label="Dodaj pomieszczenie" onClick={() => add()} disabled={project.rooms.length >= 100}/></div>
+  }, [room?.id, floor?.id]);
+  const add = (name = 'Nowe pomieszczenie') => { const r = { ...emptyRoom(name, floor?.name), floorId: floor?.id }; edit(p => { p.rooms.push(r); assignRoomColors(p.rooms); }); select(r.id); };
+  const closeMenu = () => { if (menu.current) menu.current.open = false; };
+  return <><aside ref={sidebar} className="left-panel flow-rooms">
+    <div className="row spread room-sidebar-heading"><h3>{title}</h3><details ref={menu} className="room-add-menu">
+      <summary className="tool" aria-label="Dodaj pomieszczenie lub kondygnację" title="Dodaj pomieszczenie lub kondygnację"><Icon name="Plus"/></summary>
+      <div className="room-add-options"><button type="button" onClick={() => { closeMenu(); add(); }} disabled={project.rooms.length >= 100}><Icon name="DoorOpen" size={17}/>Dodaj pomieszczenie</button>
+        <button type="button" onClick={() => { closeMenu(); setEditingFloor('new'); }} disabled={(project.floors?.length ?? 0) >= MAX_FLOORS}><Icon name="Building2" size={17}/>Dodaj kondygnację</button></div>
+    </details></div>
     <div ref={list} className="room-sidebar-content" role="region" aria-label="Lista pomieszczeń" tabIndex={0}>
-    {[...new Set(project.rooms.map(r => r.floor))].map(floor => <section className="nav-group" key={floor}><h4>{floor || 'Bez kondygnacji'}</h4>{project.rooms.filter(r => r.floor === floor).map(r => <button key={r.id} className={`nav-entry ${r.id === room?.id ? 'selected' : ''}`} style={roomColorStyle(r)} aria-pressed={r.id === room?.id} onClick={() => select(r.id)}><Icon name={roomIcon(r.name)}/><span>{r.name}<small>{r.area === null ? 'Powierzchnia do ustalenia' : `${r.area} m²`}</small></span><i className={r.circuits.length ? 'complete' : 'pending'}/></button>)}</section>)}
+    {project.floors?.map(f => <section className={`nav-group floor-group ${f.id === floor?.id ? 'active-floor' : ''}`} key={f.id}>
+      <div className="floor-group-heading"><button type="button" className="floor-select" aria-label={`Kondygnacja ${f.name}`} aria-pressed={f.id === floor?.id} onClick={() => selectFloor(f.id)}><Icon name="Building2" size={15}/><span>{f.name}</span></button><Tool icon="Pencil" label={`Ustawienia kondygnacji ${f.name}`} onClick={() => setEditingFloor(f.id)}/></div>
+      <button className="floor-plan-label" type="button" onClick={() => setEditingFloor(f.id)} title={project.attachments.find(a => a.id === f.plan?.documentId)?.name ?? 'Dodaj rzut kondygnacji'}><Icon name="FileText" size={12}/>{f.plan ? `PDF · strona ${f.plan.page}` : 'Dodaj rzut PDF'}</button>
+      {project.rooms.filter(r => roomFloor(project, r)?.id === f.id).map(r => <button key={r.id} className={`nav-entry ${r.id === room?.id ? 'selected' : ''}`} style={roomColorStyle(r)} aria-pressed={r.id === room?.id} onClick={() => select(r.id)}><Icon name={roomIcon(r.name)}/><span>{r.name}<small>{r.area === null ? 'Powierzchnia do ustalenia' : `${r.area} m²`}</small></span><i className={r.circuits.length ? 'complete' : 'pending'}/></button>)}
+      {!project.rooms.some(r => roomFloor(project, r)?.id === f.id) && <p className="floor-empty">Brak pomieszczeń</p>}
+    </section>)}
     <div className="sidebar-actions"><button className="outline" onClick={() => add()} disabled={project.rooms.length >= 100}><Icon name="Plus"/>Dodaj pomieszczenie</button><select value="" aria-label="Dodaj pomieszczenie z szablonu" disabled={project.rooms.length >= 100} onChange={e => { if (e.target.value) add(e.target.value); }}><option value="">Z szablonu…</option>{['Salon', 'Kuchnia', 'Sypialnia', 'Łazienka', 'Gabinet', 'Taras'].map(n => <option key={n}>{n}</option>)}</select></div>
     <p className="inline-info"><Icon name="FileText"/><span>Nie masz rzutu?<small>Możesz pracować bez niego i dodać PDF później.</small></span></p>
     </div>
-  </aside>;
+  </aside>{editingFloor !== null && <FloorEditor project={project} floor={project.floors?.find(f => f.id === editingFloor)} edit={edit} upload={upload} busy={busy} close={() => setEditingFloor(null)} saved={id => { if (id !== floor?.id) selectFloor(id); }}/>}</>;
 }
 
 function RoomData({ project, room, edit, select }: { project: Project; room: Room; edit: Edit; select: (id: string) => void }) {
@@ -77,7 +94,13 @@ function RoomData({ project, room, edit, select }: { project: Project; room: Roo
     }}/></div></div>
     <div className="room-data-fields">
       <Field label="Nazwa pomieszczenia"><input value={room.name} maxLength={150} onChange={e => update(r => { r.name = e.target.value; })}/></Field>
-      <Field label="Kondygnacja"><Select value={room.floor} options={[...new Set([room.floor, 'Parter', 'Piętro', 'Piętro 2', 'Poddasze', 'Piwnica', 'Na zewnątrz'])]} onChange={v => update(r => { r.floor = v; })}/></Field>
+      <Field label="Kondygnacja"><select value={roomFloor(project, room)?.id ?? ''} onChange={e => {
+        const floor = project.floors?.find(f => f.id === e.target.value);
+        if (!floor || floor.id === roomFloor(project, room)?.id) return;
+        const count = conflictingPlacements(project, [room.id], floor.plan);
+        if (count && !confirm(`Przeniesienie do „${floor.name}” usunie oznaczenie pokoju i jego punktów na poprzednim rzucie. Funkcje pozostaną. Kontynuować?`)) return;
+        edit(p => moveRoomToFloor(p, room.id, floor.id));
+      }}>{project.floors?.map(f => <option key={f.id} value={f.id}>{f.name}</option>)}</select></Field>
       <Field label="Powierzchnia (m²)"><NumberInput value={room.area} onChange={v => update(r => { r.area = v; })}/></Field>
     </div>
     <fieldset className="room-color-picker">
@@ -90,19 +113,23 @@ function RoomData({ project, room, edit, select }: { project: Project; room: Roo
 
 export function ProjectFlow(props: FlowProps) {
   const { project, step, edit, roomId, setRoomId, pointId, setPointId, sceneId, setSceneId, upload, busy, go } = props;
-  const room = project.rooms.find(r => r.id === roomId) ?? project.rooms[0];
+  const [floorId, setFloorId] = useState('');
+  const selectedRoom = project.rooms.find(r => r.id === roomId);
+  const floor = roomFloor(project, selectedRoom) ?? project.floors?.find(f => f.id === floorId) ?? project.floors?.[0];
+  const room = selectedRoom ?? project.rooms.find(r => roomFloor(project, r)?.id === floor?.id);
+  const selectFloor = (id: string) => { setFloorId(id); setRoomId(project.rooms.find(r => roomFloor(project, r)?.id === id)?.id ?? ''); setSceneId(''); };
   const selectRoom = (id: string) => { setRoomId(id); setSceneId(''); };
   const jump = (item: ReviewItem) => { if (item.roomId) setRoomId(item.roomId); if (item.pointId) setPointId(item.pointId); setSceneId(item.sceneId ?? ''); go(item.step); };
   if (step === 2) return <ControlWorkspace project={project} pointId={pointId} select={setPointId} edit={edit} upload={upload} busy={busy} goRooms={() => go(0)}/>;
   return <DndContext><div className={`flow-layout flow-step-${step}`}>
-    <RoomSidebar project={project} room={room} select={selectRoom} edit={edit} title={step === 3 ? 'Podgląd pomieszczeń' : 'Pomieszczenia'}/>
+    <RoomSidebar project={project} room={room} floor={floor} selectFloor={selectFloor} select={selectRoom} edit={edit} upload={upload} busy={busy} title={step === 3 ? 'Podgląd pomieszczeń' : 'Pomieszczenia'}/>
     {step === 0 && <>
       <section className="flow-main"><div className="section-heading"><h2>Twoja przestrzeń</h2><p className="muted">Dodaj pomieszczenia. Rzut możesz dołączyć teraz lub później.</p></div>
-        <PlanBoard project={project} select={() => {}} edit={edit} upload={upload} busy={busy} dragging={false} roomId={room?.id} selectRoom={setRoomId} roomMode/>
+        <PlanBoard project={project} select={() => {}} edit={edit} upload={upload} busy={busy} dragging={false} floorId={floor?.id} roomId={room?.id} selectRoom={setRoomId} roomMode/>
       </section>
       <aside className="right-panel flow-context space-room-config" aria-label="Konfiguracja wybranego pomieszczenia">
         {room ? <RoomData project={project} room={room} edit={edit} select={setRoomId}/>
-          : <div className="empty-inline">Dodaj pierwsze pomieszczenie z listy po lewej.</div>}
+          : <div className="empty-inline"><h3>{floor?.name}</h3>Dodaj pierwsze pomieszczenie na tej kondygnacji przyciskiem „+” po lewej.</div>}
       </aside>
     </>}
     {step === 1 && <FunctionsStep {...props} room={room}/>}

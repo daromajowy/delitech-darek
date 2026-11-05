@@ -24,6 +24,9 @@ final class ProjectPayload
     public static function validate(array $p): void
     {
         Validator::make($p, [
+            'floors' => ['sometimes', 'array'], 'floors.*' => ['array'],
+            'floors.*.plan' => ['sometimes', 'array'],
+            'rooms.*.floorId' => ['sometimes', 'string'],
             'rooms.*' => ['array'], 'rooms.*.circuits.*' => ['array'],
             'rooms.*.planArea' => ['sometimes', 'array'],
             'scenes.*.roomId' => ['sometimes', 'string'],
@@ -79,10 +82,33 @@ final class ProjectPayload
                 }
             }
         };
+        $floors = [];
+        $floorNames = [];
+        if (array_key_exists('floors', $p)) {
+            if (! array_is_list($p['floors']) || count($p['floors']) > 100) {
+                self::fail('Nieprawidłowa lista kondygnacji.');
+            }
+            foreach ($p['floors'] as $floor) {
+                $addId($floor['id'] ?? null);
+                $name = $floor['name'] ?? null;
+                if (! is_string($name) || ! trim($name) || mb_strlen($name) > 100) {
+                    self::fail('Nieprawidłowa nazwa kondygnacji.');
+                }
+                $key = mb_strtolower(trim($name));
+                if (isset($floorNames[$key])) {
+                    self::fail('Nazwy kondygnacji muszą być różne.');
+                }
+                $floorNames[$key] = true;
+                $floors[$floor['id']] = $floor;
+            }
+        }
         foreach ($p['rooms'] as $r) {
             $addId($r['id'] ?? null);
             $roomIds[$r['id']] = true;
             $text($r, ['name', 'floor', 'notes']);
+            if (isset($r['floorId']) && (! isset($floors[$r['floorId']]) || $r['floor'] !== $floors[$r['floorId']]['name'])) {
+                self::fail('Pomieszczenie wskazuje nieprawidłową kondygnację.');
+            }
             if (! array_key_exists('area', $r) || ($r['area'] !== null && (! is_numeric($r['area']) || $r['area'] < 0 || $r['area'] > 100000))) {
                 self::fail('Nieprawidłowa powierzchnia pomieszczenia.');
             }
@@ -126,13 +152,21 @@ final class ProjectPayload
         };
         $attachments = array_column($p['attachments'] ?? [], null, 'id');
         $codes = [];
-        $position = function ($pos, bool $view = false) use ($attachments) {
+        $plan = function ($pos) use ($attachments) {
             if (! is_array($pos) || ! is_string($pos['documentId'] ?? null) || ! isset($attachments[$pos['documentId']]) || $attachments[$pos['documentId']]['mime'] !== 'application/pdf') {
                 self::fail('Punkt wymaga rzutu PDF należącego do projektu.');
             }
             if (! is_int($pos['page'] ?? null) || $pos['page'] < 1 || $pos['page'] > 200) {
                 self::fail('Nieprawidłowa strona rzutu.');
             }
+        };
+        foreach ($floors as $floor) {
+            if (isset($floor['plan'])) {
+                $plan($floor['plan']);
+            }
+        }
+        $position = function ($pos, bool $view = false) use ($plan) {
+            $plan($pos);
             foreach ($view ? ['zoom', 'centerX', 'centerY'] : ['x', 'y'] as $field) {
                 $n = $pos[$field] ?? null;
                 if ((! is_int($n) && ! is_float($n)) || ! is_finite((float) $n)) {

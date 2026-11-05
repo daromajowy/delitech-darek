@@ -1,6 +1,7 @@
 import { reviewItems } from './behavior';
 import { clonePointControls, ensureTouchPages, isLsTouch } from './touch-pages';
 import { assignRoomColors } from './room-colors';
+import { normalizeFloors } from './floors';
 export type Category = "Oświetlenie" | "Osłony" | "Klimat" | "Pozostałe";
 export type Priority = "Konieczne" | "Opcjonalne";
 export interface Circuit {
@@ -15,6 +16,7 @@ export interface Room {
   id: string;
   name: string;
   floor: string;
+  floorId?: string;
   area: number | null;
   notes: string;
   circuits: Circuit[];
@@ -49,6 +51,8 @@ export interface PlanView {
   centerX: number;
   centerY: number;
 }
+export interface FloorPlan { documentId: string; page: number }
+export interface Floor { id: string; name: string; plan?: FloorPlan }
 export interface TouchPage {
   id: string;
   name: string;
@@ -114,6 +118,7 @@ export interface Project {
   scope: string[];
   notes: string;
   rooms: Room[];
+  floors?: Floor[];
   points: Point[];
   scenes: Scene[];
   integrations: Integration[];
@@ -477,6 +482,7 @@ export const keyActions = ["Włącz / wyłącz", "Włącz", "Wyłącz", "Ściemn
 // Codes are persistent identities shared by the floor plan and the brief, not array indexes.
 export function normalizeProject(source: Project): Project {
   const p = structuredClone(source);
+  normalizeFloors(p);
   assignRoomColors(p.rooms);
   let next = Math.max(1, p.nextPointNumber ?? 1, ...p.points.map(pt => Number(pt.code?.match(/^P(\d+)$/)?.[1] ?? 0) + 1));
   const seen = new Set<string>();
@@ -501,6 +507,7 @@ export function addControlPoint(p: Project, roomId: string, source?: Point): Poi
 
 export function detachDocument(p: Project, id: string) {
   p.attachments = p.attachments.filter(a => a.id !== id);
+  p.floors?.forEach(f => { if (f.plan?.documentId === id) delete f.plan; });
   p.rooms.forEach(r => { if (r.planArea?.documentId === id) delete r.planArea; });
   p.points.forEach(pt => {
     if (pt.placement?.documentId === id) delete pt.placement;

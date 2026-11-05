@@ -7,6 +7,7 @@ import { documentBlob } from "./documents";
 import { normalizedDrop, type Attachment, type PlanVertex, type Point, type Project, type RoomPlanArea } from "./model";
 import { MAX_ROOM_VERTICES, polygonRoomArea, roomLabelPosition, roomPolygonError, roomVertices } from './room-geometry';
 import { roomColorStyle } from './room-colors';
+import { conflictingPlacements, planChangeMessage, roomFloor, samePlan, setFloorPlan } from './floors';
 
 function Marker({ point, selected, scale, select, edit, readOnly }: { point: Point; selected: boolean; scale: number; select: () => void; edit: (fn: (p: Project) => void) => void; readOnly?: boolean }) {
   const { setNodeRef, listeners, attributes, isDragging } = useDraggable({ id: `marker-${point.id}`, disabled: readOnly, data: { pointId: point.id, marker: true } });
@@ -20,14 +21,17 @@ function Marker({ point, selected, scale, select, edit, readOnly }: { point: Poi
     }}><Icon name="MapPin" size={13} /><strong>{point.code}</strong></button>;
 }
 
-export function PlanBoard({ project, point, select, edit, upload, busy, dragging, roomId, selectRoom, roomMode = false, readOnly = false, focusRoom = false }: {
+export function PlanBoard({ project, point, select, edit, upload, busy, dragging, floorId, roomId, selectRoom, roomMode = false, readOnly = false, focusRoom = false }: {
   project: Project; point?: Point; select: (id: string) => void; edit: (fn: (p: Project) => void) => void;
   upload: (file: File) => Promise<Attachment | undefined>; busy: boolean; dragging: boolean;
-  roomId?: string; selectRoom?: (id: string) => void; roomMode?: boolean; readOnly?: boolean; focusRoom?: boolean;
+  floorId?: string; roomId?: string; selectRoom?: (id: string) => void; roomMode?: boolean; readOnly?: boolean; focusRoom?: boolean;
 }) {
   const plans = project.attachments.filter(a => a.mime === "application/pdf");
-  const [docId, setDocId] = useState(project.planView?.documentId ?? plans[0]?.id ?? "");
-  const [pageNumber, setPageNumber] = useState(project.planView?.page ?? 1);
+  const room = project.rooms.find(r => r.id === roomId);
+  const floor = project.floors?.find(f => f.id === floorId) ?? roomFloor(project, room);
+  const preferredPlan = point?.placement ?? room?.planArea ?? floor?.plan;
+  const [docId, setDocId] = useState(preferredPlan?.documentId ?? (floor ? '' : project.planView?.documentId ?? plans[0]?.id ?? ''));
+  const [pageNumber, setPageNumber] = useState(preferredPlan?.page ?? 1);
   const [pdf, setPdf] = useState<PDFDocumentProxy | null>(null);
   const [page, setPage] = useState<PDFPageProxy | null>(null);
   const [failure, setFailure] = useState("");
@@ -43,6 +47,7 @@ export function PlanBoard({ project, point, select, edit, upload, busy, dragging
   const container = useRef<HTMLDivElement>(null), sheet = useRef<HTMLDivElement>(null), canvas = useRef<HTMLCanvasElement>(null);
   const transform = useRef<ReactZoomPanPinchRef>(null);
   const latest = useRef({ project, edit }); latest.current = { project, edit };
+  const activeFloor = useRef(floor?.id); activeFloor.current = floor?.id;
   const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const liveView = useRef(project.planView);
   const input = useRef<HTMLInputElement>(null);
@@ -56,7 +61,7 @@ export function PlanBoard({ project, point, select, edit, upload, busy, dragging
     return () => { document.body.style.overflow = previous; window.removeEventListener("keydown", close); };
   }, [expanded]);
   useEffect(() => {
-    if (!plans.some(a => a.id === docId)) { setDocId(plans[0]?.id ?? ""); setPageNumber(1); }
+    if (docId && !plans.some(a => a.id === docId)) { setDocId(floor ? '' : plans[0]?.id ?? ''); setPageNumber(1); }
   }, [project.attachments, docId]);
   useEffect(() => {
     const el = container.current; if (!el) return;
@@ -161,9 +166,23 @@ export function PlanBoard({ project, point, select, edit, upload, busy, dragging
   }
   useEffect(() => { drawingMode('pan'); }, [roomId, docId, pageNumber, readOnly]);
   useEffect(() => {
-    const position = point?.placement ?? project.rooms.find(r => r.id === roomId)?.planArea;
+    clearTimeout(timer.current); liveView.current = undefined;
+    const position = point?.placement ?? room?.planArea ?? floor?.plan;
     if (position && project.attachments.some(a => a.id === position.documentId)) { setDocId(position.documentId); setPageNumber(position.page); }
-  }, [point?.id, roomId]);
+    else if (floor) { setDocId(''); setPageNumber(1); }
+  }, [point?.id, roomId, floor?.id, floor?.plan?.documentId, floor?.plan?.page]);
+  function choosePlan(documentId: string, page: number) {
+    const plan = documentId ? { documentId, page } : undefined;
+    if (roomMode && !readOnly && floor && !samePlan(floor.plan, plan)) {
+      const current = latest.current.project;
+      const count = conflictingPlacements(current, current.rooms.filter(r => roomFloor(current, r)?.id === floor.id).map(r => r.id), plan);
+      if (count && !confirm(planChangeMessage(count))) return;
+      latest.current.edit(p => setFloorPlan(p, floor.id, plan));
+    }
+    if (activeFloor.current !== floor?.id) return;
+    clearTimeout(timer.current); liveView.current = undefined;
+    setPage(null); setDocId(documentId); setPageNumber(page);
+  }
   function zoomStep(direction: number) {
     const ref = transform.current; if (!ref) return;
     const next = Math.max(fit / 2, Math.min(fit * 10, fit * (Math.round(ref.state.scale / fit * 10) + direction) / 10));
@@ -179,12 +198,12 @@ export function PlanBoard({ project, point, select, edit, upload, busy, dragging
       place(id, rect.left + pt.placement.x * rect.width + event.delta.x, rect.top + pt.placement.y * rect.height + event.delta.y);
     } else if (typeof ev.clientX === "number") place(id, ev.clientX + event.delta.x, ev.clientY + event.delta.y);
   }});
-  const markers = project.points.filter(p => p.placement?.documentId === docId && p.placement.page === pageNumber);
-  const markedRooms = project.rooms.filter(r => r.planArea?.documentId === docId && r.planArea.page === pageNumber);
+  const floorRooms = new Set(project.rooms.filter(r => !floor || roomFloor(project, r)?.id === floor.id).map(r => r.id));
+  const markers = project.points.filter(p => floorRooms.has(p.roomId) && p.placement?.documentId === docId && p.placement.page === pageNumber);
+  const markedRooms = project.rooms.filter(r => floorRooms.has(r.id) && r.planArea?.documentId === docId && r.planArea.page === pageNumber);
   const drawing = mode === 'room' || mode === 'polygon';
   const svgPoints = (points: PlanVertex[]) => points.map(p => `${p.x * pageWidth},${p.y * pageHeight}`).join(' ');
   const draft = mode === 'polygon' ? [...vertices, ...(cursor ? [cursor] : [])] : corner && cursor ? [corner, { x: cursor.x, y: corner.y }, cursor, { x: corner.x, y: cursor.y }] : [];
-  const room = project.rooms.find(r => r.id === roomId);
   const roomArea = room?.planArea;
   const areaView = focusRoom && roomArea?.documentId === docId && roomArea.page === pageNumber ? {
     zoom: Math.min((size.width - 32) / (roomArea.width * pageWidth), (size.height - 32) / (roomArea.height * pageHeight)) / fit,
@@ -199,21 +218,21 @@ export function PlanBoard({ project, point, select, edit, upload, busy, dragging
   }
   return <section className={`plan-board ${expanded ? "expanded" : ""}`} aria-label="Rzut architektoniczny">
     <div className="plan-heading">
-      <h3><Icon name="Map" />{focusRoom && room ? `Rzut · ${room.name}` : roomMode ? 'Rzut i pomieszczenia' : 'Rzut i punkty sterowania'}</h3>
+      <h3><Icon name="Map" />{focusRoom && room ? `Rzut · ${room.name}` : floor ? `Rzut · ${floor.name}` : roomMode ? 'Rzut i pomieszczenia' : 'Rzut i punkty sterowania'}</h3>
       {focusRoom ? room?.area != null && <span>{room.area} m²</span> : <span>{markers.length} pkt</span>}
       {(!focusRoom || docId) && <Tool icon={expanded ? "Minimize2" : "Maximize2"} label={expanded ? "Zamknij duży rzut" : "Powiększ obszar rzutu"} onClick={() => setExpanded(v => !v)} />}
     </div>
     <div className="plan-toolbar">
-      <select aria-label="Rzut PDF" value={docId} onChange={e => { clearTimeout(timer.current); setDocId(e.target.value); setPageNumber(1); }}>
-        {!plans.length && <option value="">Brak rzutu PDF</option>}{plans.map(a => <option key={a.id} value={a.id}>{a.name}</option>)}
+      <select aria-label="Rzut PDF" value={docId} onChange={e => choosePlan(e.target.value, 1)} disabled={busy}>
+        <option value="">{floor ? 'Brak PDF dla tej kondygnacji' : 'Brak rzutu PDF'}</option>{plans.map(a => <option key={a.id} value={a.id}>{a.name}</option>)}
       </select>
       {!readOnly && <Tool icon="Upload" label="Wczytaj rzut PDF" disabled={busy} onClick={() => input.current?.click()} />}
       <input ref={input} type="file" accept="application/pdf" aria-label="Plik rzutu PDF" hidden onChange={async e => {
         const file = e.target.files?.[0]; e.target.value = "";
-        if (file) { const a = await upload(file); if (a?.mime === "application/pdf") { setDocId(a.id); setPageNumber(1); } }
+        if (file) { const a = await upload(file); if (a?.mime === "application/pdf") choosePlan(a.id, 1); }
       }}/>
-      <div className="plan-pages"><Tool icon="ChevronLeft" label="Poprzednia strona rzutu" disabled={!pdf || pageNumber <= 1} onClick={() => setPageNumber(n => n - 1)} />
-        <span>{pageNumber} / {pdf?.numPages ?? "—"}</span><Tool icon="ChevronRight" label="Następna strona rzutu" disabled={!pdf || pageNumber >= pdf.numPages} onClick={() => setPageNumber(n => n + 1)} /></div>
+      <div className="plan-pages"><Tool icon="ChevronLeft" label="Poprzednia strona rzutu" disabled={!pdf || pageNumber <= 1} onClick={() => choosePlan(docId, pageNumber - 1)} />
+        <span>{pageNumber} / {pdf?.numPages ?? "—"}</span><Tool icon="ChevronRight" label="Następna strona rzutu" disabled={!pdf || pageNumber >= pdf.numPages} onClick={() => choosePlan(docId, pageNumber + 1)} /></div>
     </div>
     {roomMode && !readOnly && page && <div className="plan-room-tools" role="group" aria-label="Kształt pomieszczenia">
       <span>Oznacz:</span>
