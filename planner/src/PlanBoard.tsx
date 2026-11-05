@@ -6,6 +6,7 @@ import { Icon, Tool } from "./components";
 import { documentBlob } from "./documents";
 import { normalizedDrop, type Attachment, type PlanVertex, type Point, type Project, type RoomPlanArea } from "./model";
 import { MAX_ROOM_VERTICES, polygonRoomArea, roomLabelPosition, roomPolygonError, roomVertices } from './room-geometry';
+import { roomColorStyle } from './room-colors';
 
 function Marker({ point, selected, scale, select, edit, readOnly }: { point: Point; selected: boolean; scale: number; select: () => void; edit: (fn: (p: Project) => void) => void; readOnly?: boolean }) {
   const { setNodeRef, listeners, attributes, isDragging } = useDraggable({ id: `marker-${point.id}`, disabled: readOnly, data: { pointId: point.id, marker: true } });
@@ -241,12 +242,12 @@ export function PlanBoard({ project, point, select, edit, upload, busy, dragging
             <canvas ref={canvas} role="img" aria-label={`Rzut PDF, strona ${pageNumber}`} style={{ width: pageWidth, height: pageHeight }}/>
             <svg className="room-shapes" width={pageWidth} height={pageHeight} viewBox={`0 0 ${pageWidth} ${pageHeight}`}>
               {markedRooms.map(r => <polygon key={r.id} className={`room-outline ${r.id === roomId ? 'selected' : ''}`} points={svgPoints(roomVertices(r.planArea!))} vectorEffect="non-scaling-stroke"
-                role="button" aria-label={`Pomieszczenie ${r.name} na rzucie`} aria-pressed={r.id === roomId} tabIndex={selectRoom && mode === 'pan' ? 0 : -1} style={{ pointerEvents: mode === 'pan' && selectRoom ? 'visiblePainted' : 'none' }}
+                role="button" aria-label={`Pomieszczenie ${r.name} na rzucie`} aria-pressed={r.id === roomId} tabIndex={selectRoom && mode === 'pan' ? 0 : -1} style={{ ...roomColorStyle(r), pointerEvents: mode === 'pan' && selectRoom ? 'visiblePainted' : 'none' }}
                 onClick={e => { e.stopPropagation(); selectRoom?.(r.id); }} onKeyDown={e => { if (selectRoom && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); selectRoom(r.id); } }}/>) }
               {draft.length > 1 && <polygon className={`room-draft ${drawingError ? 'invalid' : ''}`} points={svgPoints(draft)} vectorEffect="non-scaling-stroke"/>}
               {(mode === 'polygon' ? vertices : corner ? [corner] : []).map((v, i) => <circle key={i} className={`room-vertex ${i === 0 ? 'first' : ''}`} cx={v.x * pageWidth} cy={v.y * pageHeight} r={(i === 0 ? 7 : 4) / scale} vectorEffect="non-scaling-stroke"/>)}
             </svg>
-            {markedRooms.map(r => { const label = roomLabelPosition(r.planArea!); return <span key={r.id} className="room-label" style={{ left: `${label.x * 100}%`, top: `${label.y * 100}%`, transform: `translate(-50%, -50%) scale(${1 / scale})` }}>{r.name}</span>; })}
+            {markedRooms.map(r => { const label = roomLabelPosition(r.planArea!); return <span key={r.id} className={`room-label ${r.id === roomId ? 'selected' : ''}`} style={{ ...roomColorStyle(r), left: `${label.x * 100}%`, top: `${label.y * 100}%`, transform: `translate(-50%, -50%) scale(${1 / scale})` }}>{r.name}</span>; })}
             {markers.map(pt => <Marker key={pt.id} point={pt} selected={point?.id === pt.id} scale={scale} select={() => select(pt.id)} edit={edit} readOnly={readOnly || roomMode} />)}
           </div>
         </TransformComponent>

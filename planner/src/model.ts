@@ -1,5 +1,6 @@
 import { reviewItems } from './behavior';
 import { clonePointControls, ensureTouchPages, isLsTouch } from './touch-pages';
+import { assignRoomColors } from './room-colors';
 export type Category = "Oświetlenie" | "Osłony" | "Klimat" | "Pozostałe";
 export type Priority = "Konieczne" | "Opcjonalne";
 export interface Circuit {
@@ -18,6 +19,7 @@ export interface Room {
   notes: string;
   circuits: Circuit[];
   planArea?: RoomPlanArea;
+  color?: string;
 }
 export interface Binding {
   id: string;
@@ -404,6 +406,7 @@ export function duplicateRoom(p: Project, roomId: string): Project {
   room.id = uid();
   room.name += " (kopia)";
   delete room.planArea;
+  delete room.color;
   room.circuits.forEach((c) => {
     const id = uid();
     ids.set(c.id, id);
@@ -474,6 +477,7 @@ export const keyActions = ["Włącz / wyłącz", "Włącz", "Wyłącz", "Ściemn
 // Codes are persistent identities shared by the floor plan and the brief, not array indexes.
 export function normalizeProject(source: Project): Project {
   const p = structuredClone(source);
+  assignRoomColors(p.rooms);
   let next = Math.max(1, p.nextPointNumber ?? 1, ...p.points.map(pt => Number(pt.code?.match(/^P(\d+)$/)?.[1] ?? 0) + 1));
   const seen = new Set<string>();
   p.points.forEach(pt => {

@@ -6,6 +6,7 @@ import { ControlWorkspace } from './ControlWorkspace';
 import { PlanBoard } from './PlanBoard';
 import { ProjectDetails } from './ProjectDetails';
 import { RoomPoints } from './RoomPoints';
+import { assignRoomColors, roomColor, roomColorStyle, roomPalette } from './room-colors';
 import { SensorKeys } from './SensorPreview';
 import { actionProblem, reviewItems, sceneIdeas, simulate, suggestedScene, type ReviewItem, type Simulation } from './behavior';
 import { categories, controls, duplicateRoom, emptyRoom, newCircuit, newScene, removeTargets, sceneTemplates, targets, uid, type Attachment, type Category, type Circuit, type Project, type Room, type Scene } from './model';
@@ -20,10 +21,10 @@ const roomIcon = (name: string) => /salon/i.test(name) ? 'Sofa' : /kuchni/i.test
 const categoryIcon: Record<Category, string> = { Oświetlenie: 'Lightbulb', Osłony: 'Blinds', Klimat: 'Thermometer', Pozostałe: 'Ellipsis' };
 
 export function RoomSidebar({ project, room, select, edit, title = 'Pomieszczenia' }: { project: Project; room?: Room; select: (id: string) => void; edit: Edit; title?: string }) {
-  const add = (name = 'Nowe pomieszczenie') => { const r = emptyRoom(name); edit(p => p.rooms.push(r)); select(r.id); };
+  const add = (name = 'Nowe pomieszczenie') => { const r = emptyRoom(name); edit(p => { p.rooms.push(r); assignRoomColors(p.rooms); }); select(r.id); };
   return <aside className="left-panel flow-rooms">
     <div className="row spread"><h3>{title}</h3><Tool icon="Plus" label="Dodaj pomieszczenie" onClick={() => add()} disabled={project.rooms.length >= 100}/></div>
-    {[...new Set(project.rooms.map(r => r.floor))].map(floor => <section className="nav-group" key={floor}><h4>{floor || 'Bez kondygnacji'}</h4>{project.rooms.filter(r => r.floor === floor).map(r => <button key={r.id} className={`nav-entry ${r.id === room?.id ? 'selected' : ''}`} aria-pressed={r.id === room?.id} onClick={() => select(r.id)}><Icon name={roomIcon(r.name)}/><span>{r.name}<small>{r.area === null ? 'Powierzchnia do ustalenia' : `${r.area} m²`}</small></span><i className={r.circuits.length ? 'complete' : 'pending'}/></button>)}</section>)}
+    {[...new Set(project.rooms.map(r => r.floor))].map(floor => <section className="nav-group" key={floor}><h4>{floor || 'Bez kondygnacji'}</h4>{project.rooms.filter(r => r.floor === floor).map(r => <button key={r.id} className={`nav-entry ${r.id === room?.id ? 'selected' : ''}`} style={roomColorStyle(r)} aria-pressed={r.id === room?.id} onClick={() => select(r.id)}><Icon name={roomIcon(r.name)}/><span>{r.name}<small>{r.area === null ? 'Powierzchnia do ustalenia' : `${r.area} m²`}</small></span><i className={r.circuits.length ? 'complete' : 'pending'}/></button>)}</section>)}
     <div className="sidebar-actions"><button className="outline" onClick={() => add()} disabled={project.rooms.length >= 100}><Icon name="Plus"/>Dodaj pomieszczenie</button><select value="" aria-label="Dodaj pomieszczenie z szablonu" disabled={project.rooms.length >= 100} onChange={e => { if (e.target.value) add(e.target.value); }}><option value="">Z szablonu…</option>{['Salon', 'Kuchnia', 'Sypialnia', 'Łazienka', 'Gabinet', 'Taras'].map(n => <option key={n}>{n}</option>)}</select></div>
     <p className="inline-info"><Icon name="FileText"/><span>Nie masz rzutu?<small>Możesz pracować bez niego i dodać PDF później.</small></span></p>
   </aside>;
@@ -41,6 +42,10 @@ function RoomData({ project, room, edit, select }: { project: Project; room: Roo
       <Field label="Kondygnacja"><Select value={room.floor} options={[...new Set([room.floor, 'Parter', 'Piętro', 'Piętro 2', 'Poddasze', 'Piwnica', 'Na zewnątrz'])]} onChange={v => update(r => { r.floor = v; })}/></Field>
       <Field label="Powierzchnia (m²)"><NumberInput value={room.area} onChange={v => update(r => { r.area = v; })}/></Field>
     </div>
+    <fieldset className="room-color-picker">
+      <legend>Kolor pomieszczenia <span>{roomColor(room).name}</span></legend>
+      <div className="room-color-options">{roomPalette.map(color => <button key={color.fill} type="button" className="room-color-swatch" style={{ backgroundColor: color.fill }} title={color.name} aria-label={`Kolor: ${color.name}`} aria-pressed={room.color === color.fill} onClick={() => update(r => { r.color = color.fill; })}>{room.color === color.fill && <Icon name="Check" size={17}/>}</button>)}</div>
+    </fieldset>
     <details className="flow-details"><summary>Uwagi do pomieszczenia<Icon name="ChevronDown" size={16}/></summary><Field label="Uwagi"><textarea value={room.notes} maxLength={3000} onChange={e => update(r => { r.notes = e.target.value; })}/></Field></details>
   </div>;
 }

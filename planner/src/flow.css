@@ -9,6 +9,8 @@
 .flow-rooms h3 { margin: 0; font-size: 15px; }
 .flow-rooms .nav-group { margin-top: 26px; }
 .flow-rooms .nav-entry { min-height: 58px; padding: 10px 12px; }
+.flow-rooms .nav-entry { border-left: 4px solid var(--room-fill); }
+.flow-rooms .nav-entry.selected { border-left-color: var(--room-stroke); }
 .flow-rooms .nav-entry span { min-width: 0; flex: 1; overflow-wrap: anywhere; }
 .flow-rooms .nav-entry small { font-size: 11px; margin-top: 3px; }
 .flow-rooms .nav-entry > i { flex-shrink: 0; }
@@ -30,6 +32,13 @@
 .flow-main > .room-data { margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--line); }
 .room-data-fields { display: grid; grid-template-columns: minmax(0, 2fr) repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 16px; }
 .room-data-fields > .field { font-size: 12px; }
+.room-color-picker { min-width: 0; padding: 0; margin: 18px 0 0; border: 0; }
+.room-color-picker legend { padding: 0; margin-bottom: 10px; font-size: 12px; }
+.room-color-picker legend span { color: var(--muted); margin-left: 8px; }
+.room-color-options { display: flex; flex-wrap: wrap; gap: 10px; }
+.room-color-swatch { display: inline-flex; align-items: center; justify-content: center; flex: 0 0 36px; width: 36px; height: 36px; min-height: 36px; padding: 0; border: 1px solid #1b34422b; border-radius: 8px; color: #1b3442; }
+.room-color-swatch[aria-pressed="true"] { outline: 2px solid #1b3442; outline-offset: 3px; }
+.room-color-swatch:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
 .space-points > .eyebrow { overflow-wrap: anywhere; }
 .space-points .room-points { margin: 0; padding: 0; border: 0; }
 .space-points .room-points > .row { flex-wrap: wrap; gap: 8px; }
@@ -66,10 +75,12 @@
 .plan-marker.selected { background: #07869b; outline: 3px solid #69c6d3a6; outline-offset: 4px; }
 .plan-status { line-height: 1.5; }
 .room-shapes { position: absolute; inset: 0; pointer-events: none; overflow: visible; }
-.room-outline { fill: #e0f7fc24; stroke: #118ba8b0; stroke-width: 1; stroke-dasharray: 5 4; cursor: pointer; }
-.room-outline.selected, .room-outline:focus-visible { fill: #6bc5d82b; stroke: #07869b; stroke-width: 2; stroke-dasharray: none; outline: none; }
-.room-outline:focus-visible { stroke-width: 4; }
-.room-label { position: absolute; pointer-events: none; transform-origin: center; background: #ffffffdc; color: #154c60; padding: 3px 7px; border-radius: 3px; white-space: nowrap; font-size: 12px; }
+.room-outline { fill: var(--room-fill); fill-opacity: .32; stroke: var(--room-stroke); stroke-width: 1.8; cursor: pointer; }
+.room-outline.selected, .room-outline:focus-visible { fill-opacity: .46; stroke-width: 3.5; outline: none; }
+.room-outline:hover { fill-opacity: .4; }
+.room-outline:focus-visible { stroke-width: 4.5; stroke-dasharray: 6 3; }
+.room-label { position: absolute; pointer-events: none; transform-origin: center; background: #fffffff2; color: #243c48; border: 1px solid var(--room-stroke); border-left-width: 5px; padding: 3px 7px; border-radius: 4px; white-space: nowrap; font-size: 12px; }
+.room-label.selected { background: var(--room-fill); font-weight: 700; }
 .room-draft { fill: #6bc5d833; stroke: #07869b; stroke-width: 2; stroke-dasharray: 6 4; }
 .room-draft.invalid { stroke: #b54832; fill: #f1846426; }
 .room-vertex { fill: #07869b; stroke: white; stroke-width: 1.5; }
