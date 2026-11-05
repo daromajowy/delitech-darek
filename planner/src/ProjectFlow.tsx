@@ -9,7 +9,7 @@ import { FloorEditor } from './FloorEditor';
 import { conflictingPlacements, MAX_FLOORS, moveRoomToFloor, roomFloor } from './floors';
 import { assignRoomColors, roomColor, roomColorStyle, roomPalette } from './room-colors';
 import { SensorKeys } from './SensorPreview';
-import { actionProblem, initialStateOptions, reviewItems, sceneIdeas, simulate, suggestedScene, type ReviewItem, type Simulation } from './behavior';
+import { actionProblem, initialStateOptions, reviewItems, sceneIdeaName, sceneIdeas, simulate, suggestedScene, type ReviewItem, type Simulation } from './behavior';
 import { categories, controls, duplicateRoom, emptyRoom, newCircuit, newScene, removeTargets, sceneTemplates, targets, uid, type Attachment, type Category, type Circuit, type Floor, type Project, type Room, type Scene } from './model';
 
 type Edit = (fn: (p: Project) => void) => void;
@@ -188,7 +188,7 @@ function FunctionsStep({ project, room, edit, sceneId, setSceneId, setPointId, g
   const selected = project.scenes.find(s => s.id === sceneId) ?? project.scenes.find(s => s.roomId === room?.id) ?? project.scenes.find(s => s.actions.some(a => room?.circuits.some(c => c.id === a.target)));
   const addIdea = (name: string, icon: string) => {
     if (!room) return;
-    const existing = project.scenes.find(s => s.name === name && (s.roomId === room.id || s.id === selected?.id));
+    const existing = project.scenes.find(s => sceneIdeaName(s.name) === sceneIdeaName(name) && (s.roomId === room.id || s.id === selected?.id));
     if (existing) { setSceneId(existing.id); return; }
     const scene = suggestedScene(room, name, icon); edit(p => p.scenes.push(scene)); setSceneId(scene.id);
   };
@@ -202,7 +202,7 @@ function FunctionsStep({ project, room, edit, sceneId, setSceneId, setPointId, g
         </div>
       </div>
       <h3>Sceny na dobry początek</h3><div className="scene-ideas">{sceneIdeas.map(idea => {
-        const existing = project.scenes.find(s => s.name === idea.name && (s.roomId === room.id || s.actions.some(a => room.circuits.some(c => c.id === a.target))));
+        const existing = project.scenes.find(s => sceneIdeaName(s.name) === idea.name && (s.roomId === room.id || s.actions.some(a => room.circuits.some(c => c.id === a.target))));
         return <button key={idea.name} className={`scene-idea ${selected?.id === existing?.id && existing ? 'selected' : ''}`} disabled={!existing && project.scenes.length >= 100} onClick={() => existing ? setSceneId(existing.id) : addIdea(idea.name, idea.icon)}><span className="scene-symbol"><Icon name={idea.icon} size={27}/></span><span><strong>{idea.name}</strong><small>{idea.description}</small></span><Icon name={existing ? 'CircleCheck' : 'Plus'} size={17}/></button>;
       })}</div>
       <div className="row scene-add"><button className="outline" disabled={project.scenes.length >= 100} onClick={() => { const s = newScene(['Nowa scena', 'Sparkles', 'Dom']); s.roomId = room.id; edit(p => p.scenes.push(s)); setSceneId(s.id); }}><Icon name="Plus"/>Własna scena</button><select aria-label="Więcej scen" value="" disabled={project.scenes.length >= 100} onChange={e => { const t = sceneTemplates[Number(e.target.value)]; if (e.target.value && t) addIdea(t[0], t[1]); }}><option value="">Więcej scen…</option>{sceneTemplates.map((t, i) => <option key={t[0]} value={i}>{t[0]}</option>)}</select></div>
