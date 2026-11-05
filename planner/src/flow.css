@@ -43,7 +43,6 @@
 .space-functions > h3 { margin: 0 0 14px; font-size: 16px; }
 .space-functions .room-function-buttons { grid-area: auto; gap: 8px; }
 .space-functions .function-summary { min-height: 52px; padding: 9px 12px; }
-.space-functions .room-function-editor { margin-top: 18px; }
 .project-identity { position: relative; padding-right: 36px; }
 .project-identity > .tool { position: absolute; right: 0; top: 50%; transform: translateY(-50%); }
 .project-setup-fields { min-width: 0; padding: 0; margin: 0; border: 0; }
@@ -104,9 +103,14 @@
   align-items: start;
   margin: 20px 0;
 }
-.function-overview > h3, .function-overview > .room-function-editor { grid-column: 1 / -1; }
+.function-overview > h3 { grid-column: 1 / -1; }
 .function-overview > h3 { margin: 0; }
-.room-function-editor-heading { margin: 6px 0 8px; scroll-margin-block-end: min(28vh, 200px); }
+.flow-step-1 .flow-main { container: functions-main / inline-size; }
+.function-overview:has(.function-summary[aria-expanded="true"]) { grid-template-columns: minmax(220px, 1fr) minmax(0, 4fr); }
+@container functions-main (max-width: 480px) {
+  .function-overview:has(.function-summary[aria-expanded="true"]) { grid-template-columns: minmax(0, 1fr); }
+  .function-overview:has(.function-summary[aria-expanded="true"]) > .room-plan-preview { grid-area: auto; }
+}
 .room-function-buttons {
   display: grid;
   grid-area: 2 / 1;
@@ -114,8 +118,8 @@
   gap: 6px;
 }
 .function-summary {
-  display: flex; align-items: center; gap: 7px; min-width: 0; min-height: 40px;
-  padding: 4px 9px; border: 1px solid var(--line); border-radius: 4px;
+  display: flex; align-items: center; gap: 7px; width: 100%; min-width: 0; min-height: 40px;
+  padding: 4px 9px; border: 0; border-radius: 3px;
   text-align: left; font-size: 12px; line-height: 1.25;
 }
 .function-summary > span { flex: 1; }
@@ -123,6 +127,9 @@
 .function-summary > svg { flex-shrink: 0; }
 .function-summary:hover, .function-summary[aria-expanded="true"] { background: var(--soft); border-color: #80b9c3; }
 .function-summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.room-function-item { min-width: 0; border: 1px solid var(--line); border-radius: 4px; }
+.room-function-item:has(.function-summary[aria-expanded="true"]) { border-color: #80b9c3; }
+.room-function-editor > .circuit-editor { border: 0; border-top: 1px solid var(--line); border-radius: 0; }
 @container room-buttons (max-width: 120px) {
   .function-summary { flex-direction: column; justify-content: center; gap: 2px; padding: 4px 2px; text-align: center; font-size: 11px; }
   .function-summary > span { flex: none; }

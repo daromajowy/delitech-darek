@@ -1,4 +1,4 @@
-import { useEffect, useId, useRef, useState } from 'react';
+import { useEffect, useId, useState } from 'react';
 import { DndContext } from '@dnd-kit/core';
 import { Field, Icon, NumberInput, Select, Tool, Check } from './components';
 import { ActionField } from './ActionField';
@@ -92,31 +92,27 @@ function CircuitEditor({ project, room, kind, edit }: { project: Project; room: 
 function RoomFunctionFields({ project, room, edit }: { project: Project; room: Room; edit: Edit }) {
   const id = useId();
   const [category, setCategory] = useState<Category | null>(null);
-  const editorHeading = useRef<HTMLHeadingElement>(null);
-  useEffect(() => {
-    if (!category || !editorHeading.current) return;
-    editorHeading.current.focus({ preventScroll: true });
-    editorHeading.current.scrollIntoView({ block: 'nearest' });
-  }, [category]);
   return <>
     <h3 id={`${id}-heading`}>Funkcje pomieszczenia</h3>
     <div className="room-function-buttons" role="group" aria-labelledby={`${id}-heading`}>
-      {categories.map(kind => {
+      {categories.map((kind, index) => {
         const active = category === kind;
         const count = room.circuits.filter(c => c.kind === kind).length;
-        return <button key={kind} type="button" className="function-summary" aria-expanded={active}
-          aria-controls={`${id}-editor`} onClick={() => setCategory(active ? null : kind)}>
-          <Icon name={categoryIcon[kind]} size={16}/>
-          <span>{kind === 'Oświetlenie' ? 'Światło' : kind}
-            <small>{count ? `${kind === 'Klimat' ? 'Strefy' : 'Obwody'}: ${count}` : 'Do ustalenia'}</small>
-          </span>
-          <Icon name={active ? 'ChevronUp' : 'ChevronDown'} size={14}/>
-        </button>;
+        const itemId = `${id}-${index}`;
+        return <div className="room-function-item" key={kind}>
+          <button id={`${itemId}-button`} type="button" className="function-summary" aria-expanded={active}
+            aria-controls={`${itemId}-editor`} onClick={() => setCategory(active ? null : kind)}>
+            <Icon name={categoryIcon[kind]} size={16}/>
+            <span>{kind === 'Oświetlenie' ? 'Światło' : kind}
+              <small>{count ? `${kind === 'Klimat' ? 'Strefy' : 'Obwody'}: ${count}` : 'Do ustalenia'}</small>
+            </span>
+            <Icon name={active ? 'ChevronUp' : 'ChevronDown'} size={14}/>
+          </button>
+          <div id={`${itemId}-editor`} className="room-function-editor" hidden={!active} role="region" aria-labelledby={`${itemId}-button`}>
+            {active && <CircuitEditor project={project} room={room} kind={kind} edit={edit}/>}
+          </div>
+        </div>;
       })}
-    </div>
-    <div id={`${id}-editor`} className="room-function-editor" hidden={!category} role="region" aria-labelledby={`${id}-editor-heading`}>
-      <h4 id={`${id}-editor-heading`} className="room-function-editor-heading" ref={editorHeading} tabIndex={-1}>Ustawienia · {category}</h4>
-      {category && <CircuitEditor key={category} project={project} room={room} kind={category} edit={edit}/>}
     </div>
   </>;
 }
