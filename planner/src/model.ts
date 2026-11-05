@@ -2,7 +2,7 @@ import { reviewItems } from './behavior';
 import { clonePointControls, ensureTouchPages, isLsTouch } from './touch-pages';
 import { assignRoomColors } from './room-colors';
 import { normalizeFloors } from './floors';
-export type Category = "Oświetlenie" | "Osłony" | "Klimat" | "Pozostałe";
+export type Category = "Oświetlenie" | "Osłony" | "Klimat" | "Muzyka i kino" | "Ochrona i dostęp" | "Energia i ładowanie" | "Ogród i woda" | "Pozostałe";
 export type Priority = "Konieczne" | "Opcjonalne";
 export interface Circuit {
   id: string;
@@ -131,6 +131,10 @@ export const categories: Category[] = [
   "Oświetlenie",
   "Osłony",
   "Klimat",
+  "Muzyka i kino",
+  "Ochrona i dostęp",
+  "Energia i ładowanie",
+  "Ogród i woda",
   "Pozostałe",
 ];
 export const controls: Record<Category, string[]> = {
@@ -155,6 +159,10 @@ export const controls: Record<Category, string[]> = {
     "Wentylacja",
     "Do ustalenia",
   ],
+  "Muzyka i kino": ["Do ustalenia", "Audio / multiroom", "Telewizor", "Projektor", "Amplituner", "Ekran projekcyjny"],
+  "Ochrona i dostęp": ["Do ustalenia", "Alarm", "Wideodomofon", "Brama wjazdowa", "Brama garażowa", "Furtka", "Kamera IP", "Kontaktron", "Czujnik ruchu", "Czujnik zalania", "Czujnik dymu"],
+  "Energia i ładowanie": ["Do ustalenia", "Pomiar energii", "Fotowoltaika", "Magazyn energii", "Ładowarka samochodu", "Gniazdo sterowane"],
+  "Ogród i woda": ["Do ustalenia", "Nawadnianie", "Zawór wody", "Pompa", "Basen", "Robot koszący", "Czujnik wilgotności gleby"],
   Pozostałe: [
     "Gniazdo sterowane",
     "Czujnik obecności",

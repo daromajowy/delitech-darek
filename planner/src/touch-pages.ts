@@ -78,5 +78,5 @@ export function touchBindingIcon(project: Project, binding: Binding) {
   const scene = project.scenes.find(s => s.id === binding.target);
   if (scene) return scene.icon;
   const circuit = project.rooms.flatMap(r => r.circuits).find(c => c.id === binding.target);
-  return ({ Oświetlenie: 'Lightbulb', Osłony: 'Blinds', Klimat: 'Thermometer', Pozostałe: 'PanelTop' } as const)[circuit?.kind ?? 'Pozostałe'];
+  return ({ Oświetlenie: 'Lightbulb', Osłony: 'Blinds', Klimat: 'Thermometer', 'Muzyka i kino': 'Clapperboard', 'Ochrona i dostęp': 'LockKeyhole', 'Energia i ładowanie': 'Zap', 'Ogród i woda': 'Trees', Pozostałe: 'PanelTop' } as const)[circuit?.kind ?? 'Pozostałe'];
 }

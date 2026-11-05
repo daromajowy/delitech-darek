@@ -57,6 +57,7 @@ import {
   Utensils,
   Wind,
   X,
+  Zap,
 } from "lucide-react";
 export const iconMap = {
   RotateCcw, GripVertical, MapPin, MapPinCheck, MapPinPlus, MapPinOff, Map, ListTree, Settings2,
@@ -117,4 +118,5 @@ export const iconMap = {
   Utensils,
   Wind,
   X,
+  Zap,
 };

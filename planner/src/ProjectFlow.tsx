@@ -9,7 +9,7 @@ import { FloorEditor } from './FloorEditor';
 import { conflictingPlacements, MAX_FLOORS, moveRoomToFloor, roomFloor } from './floors';
 import { assignRoomColors, roomColor, roomColorStyle, roomPalette } from './room-colors';
 import { SensorKeys } from './SensorPreview';
-import { actionProblem, reviewItems, sceneIdeas, simulate, suggestedScene, type ReviewItem, type Simulation } from './behavior';
+import { actionProblem, initialStateOptions, reviewItems, sceneIdeas, simulate, suggestedScene, type ReviewItem, type Simulation } from './behavior';
 import { categories, controls, duplicateRoom, emptyRoom, newCircuit, newScene, removeTargets, sceneTemplates, targets, uid, type Attachment, type Category, type Circuit, type Floor, type Project, type Room, type Scene } from './model';
 
 type Edit = (fn: (p: Project) => void) => void;
@@ -19,7 +19,8 @@ type FlowProps = {
   go: (step: number) => void; openHandoff: () => void; exportFile: (format: 'pdf' | 'xlsx') => void;
 };
 const roomIcon = (name: string) => /salon/i.test(name) ? 'Sofa' : /kuchni/i.test(name) ? 'CookingPot' : /łazien/i.test(name) ? 'Bath' : /sypial/i.test(name) ? 'Moon' : 'DoorOpen';
-const categoryIcon: Record<Category, string> = { Oświetlenie: 'Lightbulb', Osłony: 'Blinds', Klimat: 'Thermometer', Pozostałe: 'Ellipsis' };
+const categoryIcon: Record<Category, string> = { Oświetlenie: 'Lightbulb', Osłony: 'Blinds', Klimat: 'Thermometer', 'Muzyka i kino': 'Clapperboard', 'Ochrona i dostęp': 'LockKeyhole', 'Energia i ładowanie': 'Zap', 'Ogród i woda': 'Trees', Pozostałe: 'Ellipsis' };
+const integrationCategory = (kind: Category) => ['Muzyka i kino', 'Ochrona i dostęp', 'Energia i ładowanie', 'Ogród i woda'].includes(kind);
 
 export function RoomSidebar({ project, room, floor, selectFloor, select, edit, upload, busy, title = 'Pomieszczenia' }: {
   project: Project; room?: Room; floor?: Floor; selectFloor: (id: string) => void; select: (id: string) => void;
@@ -138,17 +139,20 @@ export function ProjectFlow(props: FlowProps) {
 }
 
 function CircuitEditor({ project, room, kind, edit }: { project: Project; room: Room; kind: Category; edit: Edit }) {
+  const integrated = integrationCategory(kind);
+  const label = integrated ? 'Nazwa elementu' : 'Nazwa obwodu';
   const update = (id: string, fn: (c: Circuit) => void) => edit(p => { const c = p.rooms.find(r => r.id === room.id)?.circuits.find(c => c.id === id); if (c) fn(c); });
   return <div className="circuit-editor">
-    {room.circuits.filter(c => c.kind === kind).map((c, i) => <div key={c.id} className="circuit-row" role="group" aria-label={`Obwód ${i + 1}`}>
-      <div className="row circuit-heading"><b className="mono">{String(i + 1).padStart(2, '0')}</b><Field label="Nazwa obwodu"><input value={c.name} aria-label={`Nazwa obwodu ${i + 1}`} placeholder="Nazwa obwodu" maxLength={150} onChange={e => update(c.id, x => { x.name = e.target.value; })}/></Field><Tool icon="Trash2" label={`Usuń obwód ${c.name}`} onClick={() => {
+    {room.circuits.filter(c => c.kind === kind).map((c, i) => <div key={c.id} className="circuit-row" role="group" aria-label={`${integrated ? 'Element' : 'Obwód'} ${i + 1}`}>
+      <div className="row circuit-heading"><b className="mono">{String(i + 1).padStart(2, '0')}</b><Field label={label}><input value={c.name} aria-label={`${label} ${i + 1}`} placeholder={label} maxLength={150} onChange={e => update(c.id, x => { x.name = e.target.value; })}/></Field><Tool icon="Trash2" label={`Usuń ${integrated ? 'element' : 'obwód'} ${c.name}`} onClick={() => {
         if (confirm(`Usunąć ${c.name}? Przypisania zostaną oznaczone jako do ustalenia.`)) edit(p => { const next = removeTargets(p, [c.id]); next.rooms.find(r => r.id === room.id)!.circuits = next.rooms.find(r => r.id === room.id)!.circuits.filter(x => x.id !== c.id); Object.assign(p, next); });
       }}/></div>
-      <Field label="Rodzaj sterowania"><Select value={c.control} options={[...new Set([c.control, ...controls[kind]])]} onChange={v => update(c.id, x => { x.control = v; })}/></Field>
+      <Field label={integrated ? 'Urządzenie / funkcja' : 'Rodzaj sterowania'}><Select value={c.control} options={[...new Set([c.control, ...controls[kind]])]} onChange={v => update(c.id, x => { x.control = v; })}/></Field>
       <details className="flow-details compact"><summary>Parametry i priorytet<Icon name="ChevronDown" size={14}/></summary><Field label="Model / parametry"><input value={c.spec} placeholder="Do ustalenia" maxLength={3000} onChange={e => update(c.id, x => { x.spec = e.target.value; })}/></Field><Field label="Priorytet"><Select value={c.priority} options={['Konieczne', 'Opcjonalne']} onChange={v => update(c.id, x => { x.priority = v as Circuit['priority']; })}/></Field></details>
     </div>)}
-    {!room.circuits.some(c => c.kind === kind) && <p className="muted small">Zakres do ustalenia. Dodaj nazwane obwody, które chcesz uwzględnić.</p>}
-    <button className="outline" disabled={room.circuits.length >= 200} onClick={() => edit(p => p.rooms.find(r => r.id === room.id)!.circuits.push(newCircuit(kind)))}><Icon name="Plus"/>Dodaj {kind === 'Klimat' ? 'strefę' : 'obwód'}</button>
+    {!room.circuits.some(c => c.kind === kind) && <p className="muted small">{integrated ? 'Dodaj urządzenia i funkcje, które chcesz uwzględnić.' : 'Zakres do ustalenia. Dodaj nazwane obwody, które chcesz uwzględnić.'}</p>}
+    {integrated && <p className="muted small">Zakres sterowania potwierdzimy dla wybranego modelu i sposobu połączenia.</p>}
+    <button className="outline" disabled={room.circuits.length >= 200} onClick={() => edit(p => { const c = newCircuit(kind); if (integrated) c.name = 'Nowy element'; p.rooms.find(r => r.id === room.id)!.circuits.push(c); })}><Icon name="Plus"/>Dodaj {integrated ? 'element' : kind === 'Klimat' ? 'strefę' : 'obwód'}</button>
   </div>;
 }
 
@@ -167,7 +171,7 @@ function RoomFunctionFields({ project, room, edit }: { project: Project; room: R
             aria-controls={`${itemId}-editor`} onClick={() => setCategory(active ? null : kind)}>
             <Icon name={categoryIcon[kind]} size={16}/>
             <span>{kind === 'Oświetlenie' ? 'Światło' : kind}
-              <small>{count ? `${kind === 'Klimat' ? 'Strefy' : 'Obwody'}: ${count}` : 'Do ustalenia'}</small>
+              <small>{count ? `${integrationCategory(kind) ? 'Elementy' : kind === 'Klimat' ? 'Strefy' : 'Obwody'}: ${count}` : 'Do ustalenia'}</small>
             </span>
             <Icon name={active ? 'ChevronUp' : 'ChevronDown'} size={14}/>
           </button>
@@ -240,7 +244,7 @@ function ReviewStep({ project, room, edit, pointId, setPointId, upload, busy, op
     <p className="simulation-status" role="status"><Icon name={last ? 'CircleCheck' : 'MousePointer2'}/>{last ? `Wypróbowano: ${last}` : 'Wybierz scenę lub klawisz po prawej.'}</p>
     {simulation.changed.some(id => !room?.circuits.some(c => c.id === id)) && <div className="inline-info">Zmiany także poza tym pomieszczeniem:<ul>{simulation.changed.filter(id => !room?.circuits.some(c => c.id === id)).map(id => <li key={id}>{allTargets.find(t => t.id === id)?.label}: {simulation.values[id]}</li>)}</ul></div>}
     {simulation.warnings.length > 0 && <div className="simulation-warnings" role="status"><strong>Wymaga ustalenia</strong><ul>{simulation.warnings.map(w => <li key={w}>{w}</li>)}</ul></div>}
-    <details className="flow-details"><summary>Ustal stan początkowy w podglądzie<Icon name="ChevronDown" size={16}/></summary><p className="small muted">Przełączanie wymaga znanego stanu. Te ustawienia dotyczą wyłącznie symulacji.</p>{room?.circuits.map(c => <Field label={c.name} key={c.id}><select value={simulation.values[c.id] ?? ''} onChange={e => { const value = e.target.value; setSimulation(s => { const values = { ...s.values }; if (value) values[c.id] = value; else delete values[c.id]; return { values, changed: [], warnings: [] }; }); }}><option value="">Stan nieustalony</option>{(c.kind === 'Osłony' ? ['Otwarte', 'Zamknięte'] : c.kind === 'Klimat' ? ['Komfort', 'Eco'] : ['Wyłączone', 'Włączone', ...(['Ściemnianie', 'DALI', 'RGBW'].includes(c.control) ? ['10%', '20%', '50%', '100%'] : [])]).map(v => <option key={v}>{v}</option>)}</select></Field>)}</details>
+    <details className="flow-details"><summary>Ustal stan początkowy w podglądzie<Icon name="ChevronDown" size={16}/></summary><p className="small muted">Przełączanie wymaga znanego stanu. Te ustawienia dotyczą wyłącznie symulacji.</p>{room?.circuits.map(c => <Field label={c.name} key={c.id}><select value={simulation.values[c.id] ?? ''} onChange={e => { const value = e.target.value; setSimulation(s => { const values = { ...s.values }; if (value) values[c.id] = value; else delete values[c.id]; return { values, changed: [], warnings: [] }; }); }}><option value="">Stan nieustalony</option>{initialStateOptions(c).map(v => <option key={v}>{v}</option>)}</select></Field>)}</details>
     <details className="flow-details review-issues"><summary><span>Do ustalenia ({problems.length})</span><Icon name="ChevronDown" size={16}/></summary><p className="small muted">Możesz przekazać projekt do konsultacji także z otwartymi pytaniami.</p>{problems.map((item, i) => <button key={i} onClick={() => jump(item)}><Icon name="TriangleAlert" size={16}/><span>{item.label}</span><Icon name="ArrowRight" size={16}/></button>)}{!problems.length && <p>Założenia uzupełnione.</p>}</details>
     <p className="small muted">Symulacja założeń, bez połączenia z instalacją. Nie odwzorowuje czasów napędów, logiki ETS ani blokad bezpieczeństwa.</p>
   </section><aside className="right-panel flow-context simulation-context"><h3>Wypróbuj przycisk</h3>

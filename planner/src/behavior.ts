@@ -1,10 +1,52 @@
-import type { Binding, Circuit, Project, Room, Scene } from './model';
+import type { Binding, Category, Circuit, Project, Room, Scene } from './model';
 
 export type Command = Pick<Binding, 'target' | 'action'>;
 export const isDimmable = (c: Circuit) => c.kind === 'Oświetlenie' && ['Ściemnianie', 'DALI', 'RGBW'].includes(c.control);
 export const findCircuit = (p: Project, id: string) => p.rooms.flatMap(r => r.circuits).find(c => c.id === id);
 const percentage = /^(100|[1-9]?\d)%$/;
 const temperature = /^(\d+(?:\.\d+)?)°C$/;
+
+// These are brief/simulation commands; compatibility is confirmed for the selected device.
+const integrationActions: Partial<Record<Category, Record<string, string[]>>> = {
+  'Muzyka i kino': {
+    'Audio / multiroom': ['Odtwórz', 'Pauza', 'Wycisz'],
+    Telewizor: ['Włącz', 'Wyłącz'], Projektor: ['Włącz', 'Wyłącz'], Amplituner: ['Włącz', 'Wyłącz', 'Wycisz'],
+    'Ekran projekcyjny': ['Wysuń ekran', 'Schowaj ekran', 'Stop'],
+  },
+  'Ochrona i dostęp': {
+    Alarm: ['Uzbrój', 'Rozbrój'],
+    'Brama wjazdowa': ['Otwórz', 'Zamknij', 'Stop'], 'Brama garażowa': ['Otwórz', 'Zamknij', 'Stop'],
+    Furtka: ['Zwolnij elektrozaczep'],
+  },
+  'Energia i ładowanie': {
+    'Ładowarka samochodu': ['Rozpocznij ładowanie', 'Zatrzymaj ładowanie'], 'Gniazdo sterowane': ['Włącz', 'Wyłącz'],
+  },
+  'Ogród i woda': {
+    Nawadnianie: ['Włącz', 'Wyłącz'], 'Zawór wody': ['Otwórz', 'Zamknij'], Pompa: ['Włącz', 'Wyłącz'],
+    'Robot koszący': ['Rozpocznij koszenie', 'Wróć do stacji'],
+  },
+};
+const integrationStates: Record<string, string> = {
+  Odtwórz: 'Odtwarzanie', Pauza: 'Wstrzymane', Wycisz: 'Wyciszone',
+  'Wysuń ekran': 'Ekran wysunięty', 'Schowaj ekran': 'Ekran schowany',
+  Uzbrój: 'Uzbrojone', Rozbrój: 'Rozbrojone', 'Zwolnij elektrozaczep': 'Wysłano impuls otwarcia',
+  'Rozpocznij ładowanie': 'Ładowanie', 'Zatrzymaj ładowanie': 'Ładowanie zatrzymane',
+  'Rozpocznij koszenie': 'Koszenie', 'Wróć do stacji': 'Powrót do stacji',
+};
+
+function integrationCommands(c: Circuit): string[] {
+  const group = Object.hasOwn(integrationActions, c.kind) ? integrationActions[c.kind] : undefined;
+  return group && Object.hasOwn(group, c.control) ? group[c.control] : [];
+}
+
+export function initialStateOptions(c: Circuit): string[] {
+  if (c.control === 'Do ustalenia') return [];
+  if (c.kind === 'Osłony') return ['Otwarte', 'Zamknięte'];
+  if (c.kind === 'Klimat') return ['Komfort', 'Eco'];
+  if (c.kind === 'Oświetlenie' || (c.kind === 'Pozostałe' && c.control === 'Gniazdo sterowane')) return ['Wyłączone', 'Włączone', ...(isDimmable(c) ? ['10%', '20%', '50%', '100%'] : [])];
+  const states: Record<string, string> = { ...integrationStates, Włącz: 'Włączone', Wyłącz: 'Wyłączone', Otwórz: 'Otwarte', Zamknij: 'Zamknięte' };
+  return [...new Set(integrationCommands(c).filter(a => a !== 'Zwolnij elektrozaczep').map(a => states[a]).filter(Boolean))];
+}
 
 export function actionOptions(p: Project, target: string, scene = false): string[] {
   if (p.scenes.some(s => s.id === target)) return ['Uruchom scenę', 'Do ustalenia'];
@@ -17,6 +59,7 @@ export function actionOptions(p: Project, target: string, scene = false): string
     if (isDimmable(c)) values.push(...Array.from({ length: 11 }, (_, i) => `${i * 10}%`), ...(!scene ? ['Rozjaśnij', 'Przyciemnij', 'Ściemnianie'] : []));
   } else if (c.kind === 'Osłony') values = [...(!scene ? ['Otwórz / zamknij'] : []), 'Otwórz', 'Zamknij', 'Stop'];
   else if (c.kind === 'Klimat') values = ['Komfort', 'Eco', ...Array.from({ length: 21 }, (_, i) => `${i + 10}°C`)];
+  else values = integrationCommands(c);
   return [...values, 'Do ustalenia'];
 }
 
@@ -97,7 +140,7 @@ export function simulate(p: Project, command: Command, previous: SimState = {}):
         break;
       }
       case 'Ściemnianie': result.warnings.push(`${c.name}: ustal kierunek lub docelowy poziom ściemniania`); break;
-      default: if (percentage.test(cmd.action) || temperature.test(cmd.action)) value = cmd.action;
+      default: value = integrationStates[cmd.action]; if (percentage.test(cmd.action) || temperature.test(cmd.action)) value = cmd.action;
     }
     if (value !== undefined) { result.values[c.id] = value; result.changed.push(c.id); }
   };
