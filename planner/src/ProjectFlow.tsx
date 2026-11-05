@@ -77,8 +77,8 @@ export function ProjectFlow(props: FlowProps) {
 function CircuitEditor({ project, room, kind, edit }: { project: Project; room: Room; kind: Category; edit: Edit }) {
   const update = (id: string, fn: (c: Circuit) => void) => edit(p => { const c = p.rooms.find(r => r.id === room.id)?.circuits.find(c => c.id === id); if (c) fn(c); });
   return <div className="circuit-editor">
-    {room.circuits.filter(c => c.kind === kind).map((c, i) => <div key={c.id} className="circuit-row">
-      <div className="row"><b className="mono">{String(i + 1).padStart(2, '0')}</b><Field label="Nazwa obwodu"><input value={c.name} aria-label={`Nazwa obwodu ${i + 1}`} maxLength={150} onChange={e => update(c.id, x => { x.name = e.target.value; })}/></Field><Tool icon="Trash2" label={`Usuń obwód ${c.name}`} onClick={() => {
+    {room.circuits.filter(c => c.kind === kind).map((c, i) => <div key={c.id} className="circuit-row" role="group" aria-label={`Obwód ${i + 1}`}>
+      <div className="row circuit-heading"><b className="mono">{String(i + 1).padStart(2, '0')}</b><Field label="Nazwa obwodu"><input value={c.name} aria-label={`Nazwa obwodu ${i + 1}`} placeholder="Nazwa obwodu" maxLength={150} onChange={e => update(c.id, x => { x.name = e.target.value; })}/></Field><Tool icon="Trash2" label={`Usuń obwód ${c.name}`} onClick={() => {
         if (confirm(`Usunąć ${c.name}? Przypisania zostaną oznaczone jako do ustalenia.`)) edit(p => { const next = removeTargets(p, [c.id]); next.rooms.find(r => r.id === room.id)!.circuits = next.rooms.find(r => r.id === room.id)!.circuits.filter(x => x.id !== c.id); Object.assign(p, next); });
       }}/></div>
       <Field label="Rodzaj sterowania"><Select value={c.control} options={[...new Set([c.control, ...controls[kind]])]} onChange={v => update(c.id, x => { x.control = v; })}/></Field>
