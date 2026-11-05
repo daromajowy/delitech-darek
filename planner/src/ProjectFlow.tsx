@@ -1,4 +1,4 @@
-import { useEffect, useId, useState } from 'react';
+import { useEffect, useId, useLayoutEffect, useRef, useState } from 'react';
 import { DndContext } from '@dnd-kit/core';
 import { Field, Icon, NumberInput, Select, Tool, Check } from './components';
 import { ActionField } from './ActionField';
@@ -20,12 +20,51 @@ const roomIcon = (name: string) => /salon/i.test(name) ? 'Sofa' : /kuchni/i.test
 const categoryIcon: Record<Category, string> = { Oświetlenie: 'Lightbulb', Osłony: 'Blinds', Klimat: 'Thermometer', Pozostałe: 'Ellipsis' };
 
 export function RoomSidebar({ project, room, select, edit, title = 'Pomieszczenia' }: { project: Project; room?: Room; select: (id: string) => void; edit: Edit; title?: string }) {
+  const sidebar = useRef<HTMLElement>(null);
+  const list = useRef<HTMLDivElement>(null);
+  useLayoutEffect(() => {
+    const panel = sidebar.current;
+    if (!panel) return;
+    const desktop = window.matchMedia('(min-width: 721px)');
+    const footer = document.querySelector('.workflow-footer');
+    let frame = 0;
+    const measure = () => {
+      frame = 0;
+      if (!desktop.matches) { panel.style.removeProperty('--room-sidebar-height'); return; }
+      const bottom = Math.min(window.innerHeight, footer?.getBoundingClientRect().top ?? window.innerHeight);
+      const top = Math.max(16, panel.getBoundingClientRect().top);
+      panel.style.setProperty('--room-sidebar-height', `${Math.max(96, bottom - top - 12)}px`);
+    };
+    const schedule = () => { if (!frame) frame = requestAnimationFrame(measure); };
+    const observer = new ResizeObserver(schedule);
+    if (footer) observer.observe(footer);
+    if (panel.parentElement) observer.observe(panel.parentElement);
+    window.addEventListener('scroll', schedule, { passive: true });
+    window.addEventListener('resize', schedule);
+    measure();
+    return () => {
+      cancelAnimationFrame(frame);
+      observer.disconnect();
+      window.removeEventListener('scroll', schedule);
+      window.removeEventListener('resize', schedule);
+    };
+  }, []);
+  useLayoutEffect(() => {
+    const viewport = list.current;
+    const selected = viewport?.querySelector('.nav-entry[aria-pressed="true"]');
+    if (!viewport || !selected) return;
+    const bounds = viewport.getBoundingClientRect(), item = selected.getBoundingClientRect();
+    if (item.top < bounds.top) viewport.scrollTop += item.top - bounds.top - 4;
+    else if (item.bottom > bounds.bottom) viewport.scrollTop += item.bottom - bounds.bottom + 4;
+  }, [room?.id]);
   const add = (name = 'Nowe pomieszczenie') => { const r = emptyRoom(name); edit(p => { p.rooms.push(r); assignRoomColors(p.rooms); }); select(r.id); };
-  return <aside className="left-panel flow-rooms">
-    <div className="row spread"><h3>{title}</h3><Tool icon="Plus" label="Dodaj pomieszczenie" onClick={() => add()} disabled={project.rooms.length >= 100}/></div>
+  return <aside ref={sidebar} className="left-panel flow-rooms">
+    <div className="row spread room-sidebar-heading"><h3>{title}</h3><Tool icon="Plus" label="Dodaj pomieszczenie" onClick={() => add()} disabled={project.rooms.length >= 100}/></div>
+    <div ref={list} className="room-sidebar-content" role="region" aria-label="Lista pomieszczeń" tabIndex={0}>
     {[...new Set(project.rooms.map(r => r.floor))].map(floor => <section className="nav-group" key={floor}><h4>{floor || 'Bez kondygnacji'}</h4>{project.rooms.filter(r => r.floor === floor).map(r => <button key={r.id} className={`nav-entry ${r.id === room?.id ? 'selected' : ''}`} style={roomColorStyle(r)} aria-pressed={r.id === room?.id} onClick={() => select(r.id)}><Icon name={roomIcon(r.name)}/><span>{r.name}<small>{r.area === null ? 'Powierzchnia do ustalenia' : `${r.area} m²`}</small></span><i className={r.circuits.length ? 'complete' : 'pending'}/></button>)}</section>)}
     <div className="sidebar-actions"><button className="outline" onClick={() => add()} disabled={project.rooms.length >= 100}><Icon name="Plus"/>Dodaj pomieszczenie</button><select value="" aria-label="Dodaj pomieszczenie z szablonu" disabled={project.rooms.length >= 100} onChange={e => { if (e.target.value) add(e.target.value); }}><option value="">Z szablonu…</option>{['Salon', 'Kuchnia', 'Sypialnia', 'Łazienka', 'Gabinet', 'Taras'].map(n => <option key={n}>{n}</option>)}</select></div>
     <p className="inline-info"><Icon name="FileText"/><span>Nie masz rzutu?<small>Możesz pracować bez niego i dodać PDF później.</small></span></p>
+    </div>
   </aside>;
 }
 

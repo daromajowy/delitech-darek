@@ -5,13 +5,29 @@
 .flow-main h2, .control-plan-main h2 { font-size: 25px; }
 .flow-main .section-heading, .control-plan-main .section-heading { margin-bottom: 22px; }
 .section-heading p { font-size: 13px; margin: 7px 0 0; }
+.flow-step-0 .section-heading { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 16px; margin-bottom: 12px; }
+.flow-step-0 .section-heading h2, .flow-step-0 .section-heading p { margin: 0; }
 .flow-rooms, .control-points { padding-right: 22px; min-height: 640px; }
+.flow-rooms { position: sticky; top: 16px; align-self: start; display: flex; flex-direction: column; min-height: 0; max-height: var(--room-sidebar-height, calc(100dvh - 280px)); }
+.room-sidebar-heading { position: sticky; top: 0; z-index: 1; flex-shrink: 0; background: white; }
+.room-sidebar-content { min-height: 0; overflow-y: auto; overscroll-behavior-y: contain; scrollbar-width: thin; scrollbar-color: #9eb7c2 transparent; scrollbar-gutter: stable; padding: 4px 0 8px; }
+.room-sidebar-content:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.room-sidebar-content .nav-entry:focus-visible { outline-offset: -2px; }
+.room-sidebar-content .nav-group:first-child { margin-top: 12px; }
+@media (max-width: 720px) {
+  .flow-rooms { position: static; max-height: none; }
+  .room-sidebar-content { width: 100%; max-height: min(42dvh, 300px); }
+  .room-sidebar-content .nav-group { display: block; overflow: visible; }
+  .room-sidebar-content .nav-group h4 { margin-bottom: 8px; }
+  .flow-rooms .room-sidebar-content .nav-entry { width: 100%; max-width: none; }
+  .room-sidebar-content > .inline-info { display: none; }
+}
 .flow-rooms h3 { margin: 0; font-size: 15px; }
 .flow-rooms .nav-group { margin-top: 26px; }
-.flow-rooms .nav-entry { min-height: 58px; padding: 10px 12px; }
+.flow-rooms .nav-entry { min-height: 58px; padding: 10px 8px; gap: 8px; }
 .flow-rooms .nav-entry { border-left: 4px solid var(--room-fill); }
 .flow-rooms .nav-entry.selected { border-left-color: var(--room-stroke); }
-.flow-rooms .nav-entry span { min-width: 0; flex: 1; overflow-wrap: anywhere; }
+.flow-rooms .nav-entry span { min-width: 0; flex: 1; font-size: 13px; overflow-wrap: anywhere; }
 .flow-rooms .nav-entry small { font-size: 11px; margin-top: 3px; }
 .flow-rooms .nav-entry > i { flex-shrink: 0; }
 .flow-rooms .sidebar-actions { margin-top: 20px; }
