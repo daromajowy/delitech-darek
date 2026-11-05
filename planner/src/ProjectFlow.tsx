@@ -60,13 +60,10 @@ export function ProjectFlow(props: FlowProps) {
     {step === 0 && <>
       <section className="flow-main"><div className="section-heading"><h2>Twoja przestrzeń</h2><p className="muted">Dodaj pomieszczenia. Rzut możesz dołączyć teraz lub później.</p></div>
         <PlanBoard project={project} select={() => {}} edit={edit} upload={upload} busy={busy} dragging={false} roomId={room?.id} selectRoom={setRoomId} roomMode/>
-        {room && <RoomData project={project} room={room} edit={edit} select={setRoomId}/>}
       </section>
-      <aside className="right-panel flow-context space-functions" aria-label="Funkcje wybranego pomieszczenia">
-        {room ? <>
-          <p className="eyebrow">{room.name}</p>
-          <RoomFunctionFields key={room.id} project={project} room={room} edit={edit}/>
-        </> : <div className="empty-inline">Dodaj pierwsze pomieszczenie z listy po lewej.</div>}
+      <aside className="right-panel flow-context space-room-config" aria-label="Konfiguracja wybranego pomieszczenia">
+        {room ? <RoomData project={project} room={room} edit={edit} select={setRoomId}/>
+          : <div className="empty-inline">Dodaj pierwsze pomieszczenie z listy po lewej.</div>}
       </aside>
     </>}
     {step === 1 && <FunctionsStep {...props} room={room}/>}

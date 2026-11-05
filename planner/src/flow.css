@@ -29,9 +29,8 @@
 .room-data > .row > .row { gap: 0; }
 .room-data h2 { flex: 1; min-width: 0; margin: 0; overflow-wrap: anywhere; }
 .room-data .tool { width: 28px; }
-.flow-main > .room-data { margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--line); }
-.room-data-fields { display: grid; grid-template-columns: minmax(0, 2fr) repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 16px; }
-.room-data-fields > .field { font-size: 12px; }
+.room-data-fields { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; margin-top: 18px; }
+.room-data-fields > .field { margin: 0; font-size: 12px; }
 .room-color-picker { min-width: 0; padding: 0; margin: 18px 0 0; border: 0; }
 .room-color-picker legend { padding: 0; margin-bottom: 10px; font-size: 12px; }
 .room-color-picker legend span { color: var(--muted); margin-left: 8px; }
@@ -39,10 +38,7 @@
 .room-color-swatch { display: inline-flex; align-items: center; justify-content: center; flex: 0 0 36px; width: 36px; height: 36px; min-height: 36px; padding: 0; border: 1px solid #1b34422b; border-radius: 8px; color: #1b3442; }
 .room-color-swatch[aria-pressed="true"] { outline: 2px solid #1b3442; outline-offset: 3px; }
 .room-color-swatch:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
-.space-functions > .eyebrow { overflow-wrap: anywhere; }
-.space-functions > h3 { margin: 0 0 14px; font-size: 16px; }
-.space-functions .room-function-buttons { grid-area: auto; gap: 8px; }
-.space-functions .function-summary { min-height: 52px; padding: 9px 12px; }
+.space-room-config .room-color-options { gap: 8px; }
 .project-identity { position: relative; padding-right: 36px; }
 .project-identity > .tool { position: absolute; right: 0; top: 50%; transform: translateY(-50%); }
 .project-setup-fields { min-width: 0; padding: 0; margin: 0; border: 0; }
@@ -53,10 +49,6 @@
   .project-setup .segments { flex-wrap: wrap; }
   .project-setup .segments button { flex: 1 1 45%; }
   .project-setup-actions { bottom: -16px; }
-}
-@media (max-width: 720px) {
-  .room-data-fields { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .room-data-fields > .field:first-child { grid-column: 1 / -1; }
 }
 .flow-details { border-top: 1px solid var(--line); margin-top: 22px; padding-top: 14px; }
 .flow-details > summary { display: flex; align-items: center; justify-content: space-between; gap: 12px; cursor: pointer; min-height: 32px; font-weight: 600; font-size: 13px; list-style: none; }
