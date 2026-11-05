@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { actionOptions, actionProblem, reviewItems, simulate, suggestedScene } from '../src/behavior';
-import { addControlPoint, detachDocument, duplicateRoom, exampleProject, newScene, normalizeProject, removeTargets } from '../src/model';
+import { actionOptions, actionProblem, reviewItems, sceneIdeaName, simulate, suggestedScene } from '../src/behavior';
+import { addControlPoint, detachDocument, duplicateRoom, exampleProject, newCircuit, newScene, normalizeProject, removeTargets } from '../src/model';
 
 test('one scene drives a key, preview and exports without altering project data', () => {
   const p = normalizeProject(exampleProject());
@@ -62,6 +62,54 @@ test('templates use existing IDs and unknown controls never become guessed setti
   assert.equal(suggestedScene(r, 'Kino', 'Clapperboard').actions[0].action, 'Do ustalenia');
   assert.equal(suggestedScene(r, 'Koszenie', 'Flower2').actions.length, 0);
   assert.ok(!suggestedScene(r, 'Wyjście', 'LogOut').actions.some(a => r.circuits.find(c => c.id === a.target)?.kind === 'Osłony'));
+});
+
+test('guest and dinner suggestions suit switches and dimmers while keeping other devices unchanged', () => {
+  const p = exampleProject(), room = p.rooms[0];
+  room.circuits.push({ ...newCircuit('Muzyka i kino'), control: 'Telewizor' });
+  room.circuits[3].control = 'Do ustalenia';
+  const before = JSON.stringify(room);
+  for (const [name, icon, level] of [['Goście', 'Users', '80%'], ['Kolacja', 'Utensils', '50%']]) {
+    const scene = suggestedScene(room, name, icon);
+    assert.equal(scene.roomId, room.id);
+    assert.equal(scene.actions.find(a => a.target === room.circuits[0].id)?.action, 'Włącz');
+    assert.equal(scene.actions.find(a => a.target === room.circuits[1].id)?.action, level);
+    assert.equal(scene.actions.find(a => a.target === room.circuits[3].id)?.action, 'Do ustalenia');
+    assert.ok(scene.actions.every(a => room.circuits.some(c => c.id === a.target && c.kind === 'Oświetlenie')));
+    assert.ok(scene.actions.filter(a => a.action !== 'Do ustalenia').every(a => !actionProblem(p, a)));
+    assert.equal(JSON.stringify(room), before);
+  }
+});
+
+test('holiday suggestion switches off room lights without assuming alarm, water or heating actions', () => {
+  const p = exampleProject(), room = p.rooms[0];
+  room.circuits.push({ ...newCircuit('Ochrona i dostęp'), control: 'Alarm' }, { ...newCircuit('Ogród i woda'), control: 'Zawór wody' }, newCircuit('Klimat'));
+  const scene = suggestedScene(room, 'Wakacje', 'Plane');
+  p.scenes.push(scene);
+  const unchanged = Object.fromEntries(room.circuits.filter(c => c.kind !== 'Oświetlenie').map(c => [c.id, 'Dotychczasowy stan']));
+  const result = simulate(p, { target: scene.id, action: 'Uruchom scenę' }, unchanged);
+  assert.deepEqual(result.warnings, []);
+  assert.equal(result.changed.length, room.circuits.filter(c => c.kind === 'Oświetlenie').length);
+  assert.ok(result.changed.every(id => result.values[id] === 'Wyłączone'));
+  Object.entries(unchanged).forEach(([id, state]) => assert.equal(result.values[id], state));
+});
+
+test('Relax and Wakacje recognise legacy names without changing saved scenes or key assignments', () => {
+  const p = normalizeProject(exampleProject());
+  for (const [oldName, label, icon] of [['Relaks', 'Relax', 'Armchair'], ['Urlop', 'Wakacje', 'Plane']]) {
+    const saved = newScene([oldName, icon, 'Dom']);
+    saved.roomId = p.rooms[0].id;
+    p.scenes.push(saved);
+    p.points[0].bindings[0].target = saved.id;
+    p.points[0].bindings[0].action = 'Uruchom scenę';
+    const restored = normalizeProject(JSON.parse(JSON.stringify(p)));
+    const matched = restored.scenes.find(s => sceneIdeaName(s.name) === label && s.roomId === saved.roomId)!;
+    assert.deepEqual(matched, saved);
+    assert.equal(restored.points[0].bindings[0].target, matched.id);
+    const legacySuggestion = suggestedScene(p.rooms[0], oldName, icon), current = suggestedScene(p.rooms[0], label, icon);
+    assert.equal(legacySuggestion.name, label);
+    assert.deepEqual(legacySuggestion.actions.map(({ target, action }) => ({ target, action })), current.actions.map(({ target, action }) => ({ target, action })));
+  }
 });
 
 test('review links lead back to the affected room, point or scene', () => {

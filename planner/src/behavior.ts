@@ -82,20 +82,35 @@ export const sceneIdeas = [
   { name: 'Noc', icon: 'Moon', description: 'Delikatne światło na drogę i cisza.' },
   { name: 'Wyjście', icon: 'LogOut', description: 'Wyłączenie wybranych świateł.' },
   { name: 'Poranek', icon: 'Sunrise', description: 'Jasne wnętrze na początek dnia.' },
-  { name: 'Relaks', icon: 'Armchair', description: 'Przyjemne światło do odpoczynku.' },
+  { name: 'Relax', icon: 'Armchair', description: 'Przyjemne światło do odpoczynku.' },
+  { name: 'Goście', icon: 'Users', description: 'Światło gotowe na spotkanie z bliskimi.' },
+  { name: 'Wakacje', icon: 'Plane', description: 'Wybrane światła wyłączone na czas wyjazdu.' },
+  { name: 'Kolacja', icon: 'Utensils', description: 'Przyjemne oświetlenie do wspólnego posiłku.' },
 ];
+
+// Match older projects without renaming saved scenes or changing their assignments.
+export const sceneIdeaName = (name: string) => name === 'Relaks' ? 'Relax' : name === 'Urlop' ? 'Wakacje' : name;
 
 /** Templates are explicit suggestions on existing receivers, never new hardware. */
 export function suggestedScene(room: Room, name: string, icon: string): Scene {
-  const actions = room.circuits.filter(c => sceneIdeas.some(idea => idea.name === name) && (c.kind === 'Oświetlenie' || (c.kind === 'Osłony' && name !== 'Wyjście'))).map(c => {
+  const preset = sceneIdeaName(name);
+  const known = sceneIdeas.some(idea => idea.name === preset);
+  const includeShades = ['Kino', 'Wieczór', 'Noc', 'Poranek', 'Relax'].includes(preset);
+  const lightsOff = ['Wyjście', 'Wakacje'].includes(preset);
+  const actions = room.circuits.filter(c => known && (c.kind === 'Oświetlenie' || (c.kind === 'Osłony' && includeShades))).map(c => {
     let action = 'Do ustalenia';
     if (c.control !== 'Do ustalenia') {
-      if (c.kind === 'Osłony') action = name === 'Poranek' ? 'Otwórz' : 'Zamknij';
-      if (c.kind === 'Oświetlenie') action = name === 'Wyjście' ? 'Wyłącz' : name === 'Poranek' ? 'Włącz' : isDimmable(c) ? (name === 'Noc' ? '10%' : name === 'Kino' ? '20%' : '50%') : 'Wyłącz';
+      if (c.kind === 'Osłony') action = preset === 'Poranek' ? 'Otwórz' : 'Zamknij';
+      if (c.kind === 'Oświetlenie') {
+        if (lightsOff) action = 'Wyłącz';
+        else if (preset === 'Poranek') action = 'Włącz';
+        else if (isDimmable(c)) action = preset === 'Noc' ? '10%' : preset === 'Kino' ? '20%' : preset === 'Goście' ? '80%' : '50%';
+        else action = ['Goście', 'Kolacja'].includes(preset) ? 'Włącz' : 'Wyłącz';
+      }
     }
     return { id: crypto.randomUUID(), target: c.id, action };
   });
-  return { id: crypto.randomUUID(), name, icon, roomId: room.id, area: 'Dom', priority: 'Konieczne', triggers: [], exception: false, notes: '', actions };
+  return { id: crypto.randomUUID(), name: preset, icon, roomId: room.id, area: 'Dom', priority: 'Konieczne', triggers: [], exception: false, notes: '', actions };
 }
 
 export type SimState = Record<string, string>;
