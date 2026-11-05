@@ -39,20 +39,22 @@
 .room-color-swatch { display: inline-flex; align-items: center; justify-content: center; flex: 0 0 36px; width: 36px; height: 36px; min-height: 36px; padding: 0; border: 1px solid #1b34422b; border-radius: 8px; color: #1b3442; }
 .room-color-swatch[aria-pressed="true"] { outline: 2px solid #1b3442; outline-offset: 3px; }
 .room-color-swatch:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
-.space-points > .eyebrow { overflow-wrap: anywhere; }
-.space-points .room-points { margin: 0; padding: 0; border: 0; }
-.space-points .room-points > .row { flex-wrap: wrap; gap: 8px; }
-.space-points .room-point {
-  grid-template-columns: minmax(0, 1fr) auto;
-  grid-template-areas: "code actions" "name name" "type height";
-  gap: 8px;
-  padding: 14px 0;
+.space-functions > .eyebrow { overflow-wrap: anywhere; }
+.space-functions > h3 { margin: 0 0 14px; font-size: 16px; }
+.space-functions .room-function-buttons { grid-area: auto; gap: 8px; }
+.space-functions .function-summary { min-height: 52px; padding: 9px 12px; }
+.space-functions .room-function-editor { margin-top: 18px; }
+.project-identity { position: relative; padding-right: 36px; }
+.project-identity > .tool { position: absolute; right: 0; top: 50%; transform: translateY(-50%); }
+.project-setup-fields { min-width: 0; padding: 0; margin: 0; border: 0; }
+.project-setup-actions { position: sticky; bottom: -28px; padding: 18px 0; margin-top: 16px; background: white; border-top: 1px solid var(--line); }
+.project-setup-error { color: #a43d2c; }
+@media (max-width: 520px) {
+  .project-setup .form-grid { grid-template-columns: minmax(0, 1fr); }
+  .project-setup .segments { flex-wrap: wrap; }
+  .project-setup .segments button { flex: 1 1 45%; }
+  .project-setup-actions { bottom: -16px; }
 }
-.space-points .point-code { grid-area: code; }
-.space-points .room-point > label { grid-area: name; min-width: 0; }
-.space-points .room-point > select { grid-area: type; min-width: 0; font-size: 12px; padding: 8px; }
-.space-points .room-point > .height-input { grid-area: height; width: 74px; max-width: 100%; justify-self: end; }
-.space-points .room-point > .row { grid-area: actions; justify-self: end; }
 @media (max-width: 720px) {
   .room-data-fields { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .room-data-fields > .field:first-child { grid-column: 1 / -1; }
@@ -102,9 +104,9 @@
   align-items: start;
   margin: 20px 0;
 }
-.function-overview > h3, #room-function-editor { grid-column: 1 / -1; }
+.function-overview > h3, .function-overview > .room-function-editor { grid-column: 1 / -1; }
 .function-overview > h3 { margin: 0; }
-#room-function-editor-heading { margin: 6px 0 8px; scroll-margin-block-end: min(28vh, 200px); }
+.room-function-editor-heading { margin: 6px 0 8px; scroll-margin-block-end: min(28vh, 200px); }
 .room-function-buttons {
   display: grid;
   grid-area: 2 / 1;

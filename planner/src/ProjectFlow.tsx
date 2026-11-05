@@ -1,10 +1,9 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
 import { DndContext } from '@dnd-kit/core';
 import { Field, Icon, NumberInput, Select, Tool, Check } from './components';
 import { ActionField } from './ActionField';
 import { ControlWorkspace } from './ControlWorkspace';
 import { PlanBoard } from './PlanBoard';
-import { ProjectDetails } from './ProjectDetails';
 import { RoomPoints } from './RoomPoints';
 import { assignRoomColors, roomColor, roomColorStyle, roomPalette } from './room-colors';
 import { SensorKeys } from './SensorPreview';
@@ -62,12 +61,11 @@ export function ProjectFlow(props: FlowProps) {
       <section className="flow-main"><div className="section-heading"><h2>Twoja przestrzeń</h2><p className="muted">Dodaj pomieszczenia. Rzut możesz dołączyć teraz lub później.</p></div>
         <PlanBoard project={project} select={() => {}} edit={edit} upload={upload} busy={busy} dragging={false} roomId={room?.id} selectRoom={setRoomId} roomMode/>
         {room && <RoomData project={project} room={room} edit={edit} select={setRoomId}/>}
-        <details className="flow-details" open={!project.studio}><summary>Dane inwestycji<Icon name="ChevronDown" size={16}/></summary><ProjectDetails project={project} edit={edit}/></details>
       </section>
-      <aside className="right-panel flow-context space-points">
+      <aside className="right-panel flow-context space-functions" aria-label="Funkcje wybranego pomieszczenia">
         {room ? <>
           <p className="eyebrow">{room.name}</p>
-          <RoomPoints project={project} room={room} edit={edit} configure={id => { setPointId(id); go(2); }}/>
+          <RoomFunctionFields key={room.id} project={project} room={room} edit={edit}/>
         </> : <div className="empty-inline">Dodaj pierwsze pomieszczenie z listy po lewej.</div>}
       </aside>
     </>}
@@ -91,7 +89,8 @@ function CircuitEditor({ project, room, kind, edit }: { project: Project; room: 
   </div>;
 }
 
-function FunctionsStep({ project, room, edit, sceneId, setSceneId, setPointId, go, upload, busy }: FlowProps & { room?: Room }) {
+function RoomFunctionFields({ project, room, edit }: { project: Project; room: Room; edit: Edit }) {
+  const id = useId();
   const [category, setCategory] = useState<Category | null>(null);
   const editorHeading = useRef<HTMLHeadingElement>(null);
   useEffect(() => {
@@ -99,6 +98,30 @@ function FunctionsStep({ project, room, edit, sceneId, setSceneId, setPointId, g
     editorHeading.current.focus({ preventScroll: true });
     editorHeading.current.scrollIntoView({ block: 'nearest' });
   }, [category]);
+  return <>
+    <h3 id={`${id}-heading`}>Funkcje pomieszczenia</h3>
+    <div className="room-function-buttons" role="group" aria-labelledby={`${id}-heading`}>
+      {categories.map(kind => {
+        const active = category === kind;
+        const count = room.circuits.filter(c => c.kind === kind).length;
+        return <button key={kind} type="button" className="function-summary" aria-expanded={active}
+          aria-controls={`${id}-editor`} onClick={() => setCategory(active ? null : kind)}>
+          <Icon name={categoryIcon[kind]} size={16}/>
+          <span>{kind === 'Oświetlenie' ? 'Światło' : kind}
+            <small>{count ? `${kind === 'Klimat' ? 'Strefy' : 'Obwody'}: ${count}` : 'Do ustalenia'}</small>
+          </span>
+          <Icon name={active ? 'ChevronUp' : 'ChevronDown'} size={14}/>
+        </button>;
+      })}
+    </div>
+    <div id={`${id}-editor`} className="room-function-editor" hidden={!category} role="region" aria-labelledby={`${id}-editor-heading`}>
+      <h4 id={`${id}-editor-heading`} className="room-function-editor-heading" ref={editorHeading} tabIndex={-1}>Ustawienia · {category}</h4>
+      {category && <CircuitEditor key={category} project={project} room={room} kind={category} edit={edit}/>}
+    </div>
+  </>;
+}
+
+function FunctionsStep({ project, room, edit, sceneId, setSceneId, setPointId, go, upload, busy }: FlowProps & { room?: Room }) {
   const selected = project.scenes.find(s => s.id === sceneId) ?? project.scenes.find(s => s.roomId === room?.id) ?? project.scenes.find(s => s.actions.some(a => room?.circuits.some(c => c.id === a.target)));
   const addIdea = (name: string, icon: string) => {
     if (!room) return;
@@ -110,25 +133,7 @@ function FunctionsStep({ project, room, edit, sceneId, setSceneId, setPointId, g
     <div className="section-heading"><h2>{room ? `Co ma robić ${room.name.toLocaleLowerCase('pl')}?` : 'Funkcje i sceny'}</h2><p className="muted">Wybierz funkcje i gotowe sceny. Szczegóły dopracujesz później.</p></div>
     {room ? <>
       <div className="function-overview">
-        <h3 id="room-functions-heading">Funkcje pomieszczenia</h3>
-        <div className="room-function-buttons" role="group" aria-labelledby="room-functions-heading">
-          {categories.map(kind => {
-            const active = category === kind;
-            const count = room.circuits.filter(c => c.kind === kind).length;
-            return <button key={kind} type="button" className="function-summary" aria-expanded={active}
-              aria-controls="room-function-editor" onClick={() => setCategory(active ? null : kind)}>
-              <Icon name={categoryIcon[kind]} size={16}/>
-              <span>{kind === 'Oświetlenie' ? 'Światło' : kind}
-                <small>{count ? `${kind === 'Klimat' ? 'Strefy' : 'Obwody'}: ${count}` : 'Do ustalenia'}</small>
-              </span>
-              <Icon name={active ? 'ChevronUp' : 'ChevronDown'} size={14}/>
-            </button>;
-          })}
-        </div>
-        <div id="room-function-editor" hidden={!category} role="region" aria-labelledby="room-function-editor-heading">
-          <h4 id="room-function-editor-heading" ref={editorHeading} tabIndex={-1}>Ustawienia · {category}</h4>
-          {category && <CircuitEditor key={category} project={project} room={room} kind={category} edit={edit}/>}
-        </div>
+        <RoomFunctionFields key={room.id} project={project} room={room} edit={edit}/>
         <div className="room-plan-preview">
           <PlanBoard project={project} select={() => {}} edit={() => {}} upload={upload} busy={busy} dragging={false} readOnly roomId={room.id} focusRoom/>
         </div>

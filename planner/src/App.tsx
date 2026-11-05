@@ -11,6 +11,7 @@ import {
 import { Brand, Icon, Modal, Tool } from './components';
 import { normalizeProject, detachDocument, exampleProject, newProject, issues, uid, type Project } from './model';
 import { ProjectFlow } from './ProjectFlow';
+import { ProjectDetails } from './ProjectDetails';
 import { Handoff } from './Handoff';
 
 const steps = ["Przestrzeń", "Funkcje i sceny", "Sterowanie", "Sprawdź i przekaż"];
@@ -46,6 +47,10 @@ export function App() {
     [pointId, setPointId] = useState(""),
     [sceneId, setSceneId] = useState("");
   const [showHandoff, setShowHandoff] = useState(false);
+  const [newProjectDraft, setNewProjectDraft] = useState<Project | null>(null),
+    [showProjectDetails, setShowProjectDetails] = useState(false),
+    [createError, setCreateError] = useState("");
+  const creating = useRef(false);
   const [consent, setConsent] = useState(false),
     [pendingSubmit, setPendingSubmit] = useState(false);
   const [saved, setSaved] = useState("");
@@ -175,17 +180,31 @@ export function App() {
       report(e);
     }
   }
-  async function create(example = false) {
+  const startProject = () => {
+    setCreateError("");
+    setNewProjectDraft({ ...newProject(), name: "" });
+  };
+  async function create(draft: Project) {
+    if (creating.current) return;
     if (dirty && !window.confirm("Pozostawić niezapisane zmiany?")) return;
+    creating.current = true;
+    setBusy(true);
+    setCreateError("");
     try {
       if (saving.current) await saving.current;
-      const r = await saveProject(example ? exampleProject() : newProject());
+      setBusy(true);
+      const r = await saveProject({ ...draft, name: draft.name.trim() });
       adopt(r.project);
+      setNewProjectDraft(null);
       setShowProjects(false);
       setStep(0);
       sessionStorage.setItem("knx-last-project", r.project.id);
     } catch (e) {
+      setCreateError(e instanceof Error ? e.message : "Nie udało się utworzyć projektu.");
       report(e);
+    } finally {
+      creating.current = false;
+      setBusy(false);
     }
   }
   async function upload(file: File) {
@@ -334,6 +353,7 @@ export function App() {
               <span title={project.studio || "Pracownia do uzupełnienia"}>
                 {project.studio || "Pracownia do uzupełnienia"}
               </span>
+              <Tool icon="Pencil" label="Edytuj dane inwestycji" onClick={() => setShowProjectDetails(true)}/>
             </div>
             <div className="save-area">
               <button
@@ -445,7 +465,7 @@ export function App() {
             {ready ? "Twoja przestrzeń projektowa" : "Otwieranie projektanta…"}
           </h1>
           {ready && (
-            <button className="primary" onClick={() => create()}>
+            <button className="primary" onClick={startProject}>
               <Icon name="Plus" />
               Nowy projekt
             </button>
@@ -507,12 +527,31 @@ export function App() {
         <Handoff project={project} exportFile={exportFile} downloadJson={downloadJson} upload={upload} removeFile={removeFile}
           busy={busy} consent={consent} setConsent={setConsent} setPendingSubmit={setPendingSubmit}/>
       </Modal>}
-      {showProjects && ready && (
+      {newProjectDraft && <Modal title="Nowy projekt" onClose={() => { if (!creating.current) setNewProjectDraft(null); }}>
+        <form className="project-setup" onSubmit={e => { e.preventDefault(); if (newProjectDraft.name.trim()) void create(newProjectDraft); }}>
+          <p className="muted">Uzupełnij dane inwestycji. Później możesz je zmienić przy nazwie projektu.</p>
+          <fieldset className="project-setup-fields" disabled={busy}>
+            <ProjectDetails project={newProjectDraft} edit={fn => setNewProjectDraft(p => { if (!p) return p; const next = structuredClone(p); fn(next); return next; })}/>
+          </fieldset>
+          {createError && <p className="project-setup-error" role="alert">{createError}</p>}
+          <div className="row end project-setup-actions">
+            <button className="outline" type="button" disabled={busy} onClick={() => setNewProjectDraft(null)}>Anuluj</button>
+            <button className="primary" type="submit" disabled={busy || !newProjectDraft.name.trim()}><Icon name={busy ? 'LoaderCircle' : 'Plus'}/>{busy ? 'Tworzenie projektu…' : 'Utwórz projekt'}</button>
+          </div>
+        </form>
+      </Modal>}
+      {showProjectDetails && project && <Modal title="Dane inwestycji" onClose={() => setShowProjectDetails(false)}>
+        <div className="project-setup">
+          <ProjectDetails project={project} edit={edit}/>
+          <div className="row end project-setup-actions"><button className="primary" onClick={() => setShowProjectDetails(false)}>Gotowe</button></div>
+        </div>
+      </Modal>}
+      {showProjects && ready && !newProjectDraft && (
         <Modal title="Projekty zespołu" onClose={() => setShowProjects(false)}>
           <div className="row project-actions">
             <button
               className="primary"
-              onClick={() => create()}
+              onClick={startProject}
               disabled={busy}
             >
               <Icon name="Plus" />
@@ -520,7 +559,7 @@ export function App() {
             </button>
             <button
               className="outline"
-              onClick={() => create(true)}
+              onClick={() => create(exampleProject())}
               disabled={busy}
             >
               <Icon name="House" />

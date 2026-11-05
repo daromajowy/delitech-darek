@@ -35,7 +35,7 @@ export function ControlWorkspace({ project, pointId, select, edit, upload, busy,
   const updateKey = (fn: (b: Binding) => void) => update(p => { const b = p.bindings.find(x => x.id === key?.id); if (b) fn(b); });
   return <DndContext sensors={dndSensors} onDragStart={e => { setDragId(e.active.data.current?.pointId ?? ""); select(e.active.data.current?.pointId ?? ""); }} onDragCancel={() => setDragId("")} onDragEnd={() => setDragId("")}>
     <div className="control-workspace">
-      <aside className="control-points left-panel"><div className="row spread"><h3>Punkty sterowania</h3><Tool icon="ListTree" label="Edytuj punkty w pomieszczeniach" onClick={goRooms}/></div>
+      <aside className="control-points left-panel"><div className="row spread"><h3>Punkty sterowania</h3><Tool icon="ListTree" label="Edytuj pomieszczenia" onClick={goRooms}/></div>
         {project.rooms.map(room => <section key={room.id} className={`control-room ${project.points.some(p => p.roomId === room.id) ? '' : 'empty'}`}><h4>{room.name}<small>{room.floor}</small></h4>
           {project.points.filter(p => p.roomId === room.id).map(pt => <PointNav key={pt.id} point={pt} selected={pt.id === point?.id} choose={() => select(pt.id)}/>)}
           <button className="quiet" onClick={() => { const copy = structuredClone(project); const added = addControlPoint(copy, room.id); edit(p => { p.points = copy.points; p.nextPointNumber = copy.nextPointNumber; }); select(added.id); }}><Icon name="Plus" size={15}/>Punkt w {room.name}</button>

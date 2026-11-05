@@ -7,6 +7,8 @@ export function ProjectDetails({project, edit}: {project:Project; edit:(fn:(p:Pr
                       <input
                         value={project.name}
                         maxLength={180}
+                        required
+                        placeholder="np. Apartament na Mokotowie"
                         onChange={(e) => set("name", e.target.value)}
                       />
                     </Field>
