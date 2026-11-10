@@ -45,6 +45,93 @@ class PlannerTest extends TestCase
         return $this->save($this->payload())->assertOk()->json('project');
     }
 
+    private function detectorPayload(): array
+    {
+        $p = $this->payload();
+        $p['points'][0]['bindings'] = [];
+        unset($p['points'][0]['panelPages']);
+        $p['points'][0]['detector'] = [
+            'kind' => 'window', 'connection' => 'binary', 'manualOverride' => true,
+            'rules' => [[
+                'id' => (string) Str::uuid(), 'event' => 'opened', 'condition' => 'always',
+                'luxThreshold' => 150, 'delaySeconds' => 60,
+                'actions' => [['id' => (string) Str::uuid(), 'target' => $p['rooms'][0]['circuits'][0]['id'], 'action' => 'Wyłącz']],
+            ]],
+        ];
+
+        return $p;
+    }
+
+    public function test_detectors_reactions_and_placements_round_trip_with_revision_history(): void
+    {
+        $p = $this->save($this->detectorPayload())->assertOk()->json('project');
+        $document = Document::create(['id' => (string) Str::uuid(), 'project_id' => $p['id'], 'name' => 'floor.pdf', 'mime' => 'application/pdf', 'size' => 100, 'path' => 'private/floor']);
+        $p['points'][0]['placement'] = ['documentId' => $document->id, 'page' => 2, 'x' => 0.45, 'y' => 0.7];
+        foreach (['motion', 'presence', 'door'] as $kind) {
+            $point = $p['points'][0];
+            $point['id'] = (string) Str::uuid();
+            unset($point['code']);
+            $point['detector']['kind'] = $kind;
+            $point['detector']['rules'][0]['id'] = (string) Str::uuid();
+            $point['detector']['rules'][0]['event'] = $kind === 'door' ? 'closed' : 'absent';
+            $point['detector']['rules'][0]['actions'][0]['id'] = (string) Str::uuid();
+            $p['points'][] = $point;
+        }
+        $this->save($p)->assertOk();
+        $saved = $this->getJson('/api?api=project&id='.$p['id'])->assertOk()->json('project');
+        $this->assertSame($p['points'], $saved['points']);
+        $history = $this->getJson('/api?api=revision&project='.$p['id'].'&revision=2')->assertOk()->json('project');
+        $this->assertSame($p['points'], $history['points']);
+    }
+
+    #[DataProvider('invalidDetectorData')]
+    public function test_malformed_or_cross_project_detector_reactions_are_rejected(string $path, mixed $value): void
+    {
+        $p = $this->detectorPayload();
+        data_set($p, 'points.0.'.$path, $value);
+        $this->save($p)->assertUnprocessable();
+        $this->assertDatabaseCount('projects', 0);
+    }
+
+    public static function invalidDetectorData(): array
+    {
+        return [
+            'scalar detector' => ['detector', 'window'],
+            'unknown kind' => ['detector.kind', 'leak'],
+            'unknown connection' => ['detector.connection', 'cloud'],
+            'manual priority must be boolean' => ['detector.manualOverride', 'yes'],
+            'invalid contact event' => ['detector.rules.0.event', 'detected'],
+            'unknown condition' => ['detector.rules.0.condition', 'maybe'],
+            'negative delay' => ['detector.rules.0.delaySeconds', -1],
+            'large delay' => ['detector.rules.0.delaySeconds', 86401],
+            'fractional delay' => ['detector.rules.0.delaySeconds', 1.2],
+            'missing brightness' => ['detector.rules.0.luxThreshold', null],
+            'excess brightness' => ['detector.rules.0.luxThreshold', 100001],
+            'scalar rules' => ['detector.rules', 'bad'],
+            'scalar rule' => ['detector.rules.0', 'bad'],
+            'scalar actions' => ['detector.rules.0.actions', 'bad'],
+            'scalar action' => ['detector.rules.0.actions.0', 'bad'],
+            'foreign target' => ['detector.rules.0.actions.0.target', '11111111-1111-4111-8111-111111111111'],
+            'hold is unsupported' => ['detector.rules.0.actions.0.hold', null],
+        ];
+    }
+
+    public function test_detector_limits_and_duplicate_reaction_identifiers_are_rejected(): void
+    {
+        $p = $this->detectorPayload();
+        $rule = $p['points'][0]['detector']['rules'][0];
+        $p['points'][0]['detector']['rules'][] = $rule;
+        $this->save($p)->assertUnprocessable();
+        $p['points'][0]['detector']['rules'] = array_fill(0, 17, $rule);
+        $this->save($p)->assertUnprocessable();
+        $p['points'][0]['detector']['rules'] = [$rule];
+        $p['points'][0]['detector']['rules'][0]['actions'] = array_fill(0, 17, $rule['actions'][0]);
+        $this->save($p)->assertUnprocessable();
+        $p = $this->detectorPayload();
+        $p['points'][0]['bindings'] = [$rule['actions'][0]];
+        $this->save($p)->assertUnprocessable();
+    }
+
     public function test_anonymous_api_and_editor_are_protected(): void
     {
         $this->getJson('/api?api=projects')->assertUnauthorized();

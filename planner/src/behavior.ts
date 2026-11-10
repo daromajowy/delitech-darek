@@ -1,4 +1,5 @@
 import type { Binding, Category, Circuit, Project, Room, Scene } from './model';
+import { detectorRuleLabel, pauseClimate, restoreClimate, lockShades, unlockShades } from './detector-config';
 
 export type Command = Pick<Binding, 'target' | 'action'>;
 export const isDimmable = (c: Circuit) => c.kind === 'Oświetlenie' && ['Ściemnianie', 'DALI', 'RGBW'].includes(c.control);
@@ -48,22 +49,24 @@ export function initialStateOptions(c: Circuit): string[] {
   return [...new Set(integrationCommands(c).filter(a => a !== 'Zwolnij elektrozaczep').map(a => states[a]).filter(Boolean))];
 }
 
-export function actionOptions(p: Project, target: string, scene = false): string[] {
+export function actionOptions(p: Project, target: string, scene = false, detector = false): string[] {
   if (p.scenes.some(s => s.id === target)) return ['Uruchom scenę', 'Do ustalenia'];
   const c = findCircuit(p, target);
   if (!c || c.control === 'Do ustalenia') return ['Do ustalenia'];
   let values: string[] = [];
   if (c.kind === 'Oświetlenie' || (c.kind === 'Pozostałe' && c.control === 'Gniazdo sterowane')) {
     values = ['Włącz', 'Wyłącz'];
-    if (!scene) values.unshift('Włącz / wyłącz');
-    if (isDimmable(c)) values.push(...Array.from({ length: 11 }, (_, i) => `${i * 10}%`), ...(!scene ? ['Rozjaśnij', 'Przyciemnij', 'Ściemnianie'] : []));
-  } else if (c.kind === 'Osłony') values = [...(!scene ? ['Otwórz / zamknij'] : []), 'Otwórz', 'Zamknij', 'Stop'];
+    if (!scene && !detector) values.unshift('Włącz / wyłącz');
+    if (isDimmable(c)) values.push(...Array.from({ length: 11 }, (_, i) => `${i * 10}%`), ...(!scene && !detector ? ['Rozjaśnij', 'Przyciemnij', 'Ściemnianie'] : []));
+  } else if (c.kind === 'Osłony') values = [...(!scene && !detector ? ['Otwórz / zamknij'] : []), 'Otwórz', 'Zamknij', 'Stop'];
   else if (c.kind === 'Klimat') values = ['Komfort', 'Eco', ...Array.from({ length: 21 }, (_, i) => `${i + 10}°C`)];
   else values = integrationCommands(c);
+  if (detector && c.kind === 'Klimat' && c.control !== 'Wentylacja') values.push(pauseClimate, restoreClimate);
+  if (detector && c.kind === 'Osłony') values.push(lockShades, unlockShades);
   return [...values, 'Do ustalenia'];
 }
 
-export function actionProblem(p: Project, command: Command): string | undefined {
+export function actionProblem(p: Project, command: Command, detector = false): string | undefined {
   if (!command.target) return 'Wybierz obwód lub scenę';
   if (p.scenes.some(s => s.id === command.target)) return command.action === 'Uruchom scenę' ? undefined : 'Scena wymaga polecenia „Uruchom scenę”';
   const c = findCircuit(p, command.target);
@@ -73,7 +76,7 @@ export function actionProblem(p: Project, command: Command): string | undefined 
   if (isDimmable(c) && percentage.test(command.action)) return;
   const t = command.action.match(temperature);
   if (c.kind === 'Klimat' && t && Number(t[1]) >= 10 && Number(t[1]) <= 30) return;
-  if (!actionOptions(p, command.target).includes(command.action)) return 'Działanie nie pasuje do rodzaju obwodu';
+  if (!actionOptions(p, command.target, false, detector).includes(command.action)) return 'Działanie nie pasuje do rodzaju obwodu';
 }
 
 export const sceneIdeas = [
@@ -82,20 +85,35 @@ export const sceneIdeas = [
   { name: 'Noc', icon: 'Moon', description: 'Delikatne światło na drogę i cisza.' },
   { name: 'Wyjście', icon: 'LogOut', description: 'Wyłączenie wybranych świateł.' },
   { name: 'Poranek', icon: 'Sunrise', description: 'Jasne wnętrze na początek dnia.' },
-  { name: 'Relaks', icon: 'Armchair', description: 'Przyjemne światło do odpoczynku.' },
+  { name: 'Relax', icon: 'Armchair', description: 'Przyjemne światło do odpoczynku.' },
+  { name: 'Goście', icon: 'Users', description: 'Światło gotowe na spotkanie z bliskimi.' },
+  { name: 'Wakacje', icon: 'Plane', description: 'Wybrane światła wyłączone na czas wyjazdu.' },
+  { name: 'Kolacja', icon: 'Utensils', description: 'Przyjemne oświetlenie do wspólnego posiłku.' },
 ];
+
+// Match older projects without renaming saved scenes or changing their assignments.
+export const sceneIdeaName = (name: string) => name === 'Relaks' ? 'Relax' : name === 'Urlop' ? 'Wakacje' : name;
 
 /** Templates are explicit suggestions on existing receivers, never new hardware. */
 export function suggestedScene(room: Room, name: string, icon: string): Scene {
-  const actions = room.circuits.filter(c => sceneIdeas.some(idea => idea.name === name) && (c.kind === 'Oświetlenie' || (c.kind === 'Osłony' && name !== 'Wyjście'))).map(c => {
+  const preset = sceneIdeaName(name);
+  const known = sceneIdeas.some(idea => idea.name === preset);
+  const includeShades = ['Kino', 'Wieczór', 'Noc', 'Poranek', 'Relax'].includes(preset);
+  const lightsOff = ['Wyjście', 'Wakacje'].includes(preset);
+  const actions = room.circuits.filter(c => known && (c.kind === 'Oświetlenie' || (c.kind === 'Osłony' && includeShades))).map(c => {
     let action = 'Do ustalenia';
     if (c.control !== 'Do ustalenia') {
-      if (c.kind === 'Osłony') action = name === 'Poranek' ? 'Otwórz' : 'Zamknij';
-      if (c.kind === 'Oświetlenie') action = name === 'Wyjście' ? 'Wyłącz' : name === 'Poranek' ? 'Włącz' : isDimmable(c) ? (name === 'Noc' ? '10%' : name === 'Kino' ? '20%' : '50%') : 'Wyłącz';
+      if (c.kind === 'Osłony') action = preset === 'Poranek' ? 'Otwórz' : 'Zamknij';
+      if (c.kind === 'Oświetlenie') {
+        if (lightsOff) action = 'Wyłącz';
+        else if (preset === 'Poranek') action = 'Włącz';
+        else if (isDimmable(c)) action = preset === 'Noc' ? '10%' : preset === 'Kino' ? '20%' : preset === 'Goście' ? '80%' : '50%';
+        else action = ['Goście', 'Kolacja'].includes(preset) ? 'Włącz' : 'Wyłącz';
+      }
     }
     return { id: crypto.randomUUID(), target: c.id, action };
   });
-  return { id: crypto.randomUUID(), name, icon, roomId: room.id, area: 'Dom', priority: 'Konieczne', triggers: [], exception: false, notes: '', actions };
+  return { id: crypto.randomUUID(), name: preset, icon, roomId: room.id, area: 'Dom', priority: 'Konieczne', triggers: [], exception: false, notes: '', actions };
 }
 
 export type SimState = Record<string, string>;
@@ -168,11 +186,23 @@ export function reviewItems(p: Project): ReviewItem[] {
       if (actionProblem(p, b)) add(`${pt.code}, klawisz ${i + 1}: ${actionProblem(p, b)}`, 2, { pointId: pt.id });
       if (b.hold && actionProblem(p, b.hold)) add(`${pt.code}, przytrzymanie ${i + 1}: ${actionProblem(p, b.hold)}`, 2, { pointId: pt.id });
     });
+    if (pt.detector) {
+      if (pt.detector.connection === 'undecided') add(`${pt.code}: sposób podłączenia czujnika`, 2, { pointId: pt.id });
+      if (!pt.detector.rules.length) add(`${pt.code}: dodaj reakcję czujnika`, 2, { pointId: pt.id });
+      pt.detector.rules.forEach(rule => {
+        if (!rule.actions.length) add(`${pt.code}: ${detectorRuleLabel(rule)} — brak działań`, 2, { pointId: pt.id });
+        rule.actions.forEach(action => {
+          const problem = actionProblem(p, action, true);
+          if (problem) add(`${pt.code}: ${detectorRuleLabel(rule)} — ${problem}`, 2, { pointId: pt.id });
+        });
+      });
+    }
   });
   p.scenes.forEach(s => {
     const context = { sceneId: s.id, roomId: s.roomId };
     if (!s.actions.length || s.actions.some(a => actionProblem(p, a))) add(`${s.name}: uzupełnij działania`, 1, context);
-    const assigned = p.points.some(pt => pt.bindings.some(b => b.target === s.id || b.hold?.target === s.id));
+    const assigned = p.points.some(pt => pt.bindings.some(b => b.target === s.id || b.hold?.target === s.id)
+      || pt.detector?.rules.some(rule => rule.actions.some(a => a.target === s.id)));
     if (!s.triggers.length && !assigned) add(`${s.name}: wybierz wyzwalanie lub przypisz klawisz`, 1, context);
     const warnings = simulate(p, { target: s.id, action: 'Uruchom scenę' }).warnings;
     if (warnings.some(w => w.startsWith('Zapętlenie'))) add(`${s.name}: zapętlenie scen`, 1, context);

@@ -66,7 +66,12 @@ export function clonePointControls(point: Point, targetIds = new Map<string, str
     hold: b.hold ? { ...b.hold, target: targetIds.get(b.hold.target) ?? b.hold.target } : undefined,
   }));
   const panelPages = point.panelPages?.map(page => ({ ...page, id: crypto.randomUUID(), bindingIds: page.bindingIds.map(id => ids.get(id)!).filter(Boolean) }));
-  return { bindings, ...(panelPages ? { panelPages } : {}) };
+  const detector = point.detector ? { ...structuredClone(point.detector), rules: point.detector.rules.map(rule => ({
+    ...structuredClone(rule), id: crypto.randomUUID(), actions: rule.actions.map(action => ({
+      ...structuredClone(action), id: crypto.randomUUID(), target: targetIds.get(action.target) ?? action.target,
+    })),
+  })) } : undefined;
+  return { bindings, ...(panelPages ? { panelPages } : {}), ...(detector ? { detector } : {}) };
 }
 
 export function touchBindingLabel(project: Project, binding: Binding) {

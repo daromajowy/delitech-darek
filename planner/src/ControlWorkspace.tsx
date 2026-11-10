@@ -1,19 +1,22 @@
-import { useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import { DndContext, DragOverlay, PointerSensor, useDraggable, useSensor, useSensors } from "@dnd-kit/core";
 import { Field, Icon, NumberInput, Select, Tool } from "./components";
-import { addControlPoint, deviceTypes, finishes, sensors, selectSensor, targets, uid, type Attachment, type Binding, type Point, type Project } from "./model";
+import { addControlPoint, deviceTypes, finishes, sensors, selectSensor, targets, uid, type Attachment, type Binding, type DetectorKind, type Point, type Project } from "./model";
 import { SensorKeys } from "./SensorPreview";
 import { TouchPageEditor } from "./TouchPanel";
 import { ensureTouchPages, isLsTouch, touchPages } from "./touch-pages";
 import { ActionField } from "./ActionField";
 import { actionOptions } from "./behavior";
 import { PlanBoard } from "./PlanBoard";
+import { DetectorEditor } from './DetectorEditor';
+import { detectorKinds, pointIcon } from './detector-config';
+import { useSidebarViewport } from "./useSidebarViewport";
 
 function PointNav({ point, selected, choose }: { point: Point; selected: boolean; choose: () => void }) {
   const { setNodeRef, listeners, attributes } = useDraggable({ id: `point-${point.id}`, data: { pointId: point.id } });
   return <div className={`point-nav ${selected ? "selected" : ""}`}>
     <button ref={setNodeRef} {...listeners} {...attributes} className="point-handle" title={`Przeciągnij ${point.code} na rzut`} aria-label={`Przeciągnij ${point.code} na rzut`}><Icon name="GripVertical" size={18}/></button>
-    <button onClick={choose} aria-pressed={selected}><strong>{point.code}</strong><span>{point.name}<small>{point.sensor}</small></span><Icon name={point.placement ? "MapPinCheck" : "MapPin"} size={16}/></button>
+    <button onClick={choose} aria-pressed={selected}><strong>{point.code}</strong><span>{point.name}<small>{point.sensor}</small></span><Icon name={point.detector ? pointIcon(point) : point.placement ? "MapPinCheck" : "MapPin"} size={16}/></button>
   </div>;
 }
 
@@ -33,21 +36,43 @@ export function ControlWorkspace({ project, pointId, select, edit, upload, busy,
   const dndSensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 6 } }));
   const update = (fn: (p: Point) => void) => edit(p => { const pt = p.points.find(x => x.id === point?.id); if (pt) fn(pt); });
   const updateKey = (fn: (b: Binding) => void) => update(p => { const b = p.bindings.find(x => x.id === key?.id); if (b) fn(b); });
+  const pointsSidebar = useSidebarViewport();
+  const editorSidebar = useSidebarViewport(1051);
+  const pointList = useRef<HTMLDivElement>(null);
+  const editorContent = useRef<HTMLDivElement>(null);
+  useLayoutEffect(() => {
+    const viewport = pointList.current;
+    const selected = viewport?.querySelector('.point-nav.selected');
+    if (viewport && selected) {
+      const bounds = viewport.getBoundingClientRect(), item = selected.getBoundingClientRect();
+      if (item.top < bounds.top) viewport.scrollTop += item.top - bounds.top - 4;
+      else if (item.bottom > bounds.bottom) viewport.scrollTop += item.bottom - bounds.bottom + 4;
+    }
+    if (editorContent.current) editorContent.current.scrollTop = 0;
+  }, [point?.id]);
   return <DndContext sensors={dndSensors} onDragStart={e => { setDragId(e.active.data.current?.pointId ?? ""); select(e.active.data.current?.pointId ?? ""); }} onDragCancel={() => setDragId("")} onDragEnd={() => setDragId("")}>
     <div className="control-workspace">
-      <aside className="control-points left-panel"><div className="row spread"><h3>Punkty sterowania</h3><Tool icon="ListTree" label="Edytuj pomieszczenia" onClick={goRooms}/></div>
+      <aside ref={pointsSidebar} className="control-points left-panel"><div className="row spread control-sidebar-heading"><h3>Przyciski i czujniki</h3><Tool icon="ListTree" label="Edytuj pomieszczenia" onClick={goRooms}/></div>
+        <div ref={pointList} className="control-sidebar-content" role="region" aria-label="Lista punktów sterowania" tabIndex={0}>
         {project.rooms.map(room => <section key={room.id} className={`control-room ${project.points.some(p => p.roomId === room.id) ? '' : 'empty'}`}><h4>{room.name}<small>{room.floor}</small></h4>
           {project.points.filter(p => p.roomId === room.id).map(pt => <PointNav key={pt.id} point={pt} selected={pt.id === point?.id} choose={() => select(pt.id)}/>)}
-          <button className="quiet" onClick={() => { const copy = structuredClone(project); const added = addControlPoint(copy, room.id); edit(p => { p.points = copy.points; p.nextPointNumber = copy.nextPointNumber; }); select(added.id); }}><Icon name="Plus" size={15}/>Punkt w {room.name}</button>
+          <label className="control-add-device"><span className="sr-only">Dodaj urządzenie w {room.name}</span><select aria-label={`Dodaj urządzenie w ${room.name}`} value="" disabled={project.points.length >= 500} onChange={e => {
+            const value = e.target.value; if (!value) return;
+            const copy = structuredClone(project); const added = addControlPoint(copy, room.id, undefined, value === 'button' ? undefined : value as DetectorKind);
+            edit(p => { p.points = copy.points; p.nextPointNumber = copy.nextPointNumber; }); select(added.id);
+          }}><option value="">+ Dodaj urządzenie</option><option value="button">Przycisk / panel</option>{Object.entries(detectorKinds).map(([value, kind]) => <option key={value} value={value}>{kind.label}</option>)}</select></label>
         </section>)}
         {!project.rooms.length && <button className="outline" onClick={goRooms}><Icon name="Plus"/>Dodaj pomieszczenie</button>}
+        </div>
       </aside>
       <section className="control-plan-main"><div className="section-heading"><h2>Rzut i sterowanie</h2><p className="muted">Przeciągnij punkt na rzut lub wybierz jego pozycję kliknięciem.</p></div>
         <PlanBoard project={project} point={point} select={select} edit={edit} upload={upload} busy={busy} dragging={!!dragId} roomId={point?.roomId}/>
       </section>
-      <aside className="right-panel control-editor">
+      <aside ref={editorSidebar} className="right-panel control-editor">
         {point ? <>
-          <div className="row spread"><h3>{point.code} · {point.name}</h3><div className="row"><Tool icon="Copy" label="Powiel punkt" onClick={() => { const copy = structuredClone(project); const added = addControlPoint(copy, point.roomId, point); edit(p => { p.points = copy.points; p.nextPointNumber = copy.nextPointNumber; }); select(added.id); }}/><Tool icon="Trash2" label="Usuń punkt sterowania" onClick={() => { if (confirm(`Usunąć ${point.code} wraz z funkcjami i pozycją na rzucie?`)) edit(p => { p.points = p.points.filter(x => x.id !== point.id); }); }}/></div></div>
+          <div className="row spread control-sidebar-heading"><h3>{point.code} · {point.name}</h3><div className="row"><Tool icon="Copy" label="Powiel punkt" onClick={() => { const copy = structuredClone(project); const added = addControlPoint(copy, point.roomId, point); edit(p => { p.points = copy.points; p.nextPointNumber = copy.nextPointNumber; }); select(added.id); }}/><Tool icon="Trash2" label="Usuń punkt sterowania" onClick={() => { if (confirm(`Usunąć ${point.code} wraz z funkcjami i pozycją na rzucie?`)) edit(p => { p.points = p.points.filter(x => x.id !== point.id); }); }}/></div></div>
+          <div ref={editorContent} className="control-sidebar-content" role="region" aria-label="Ustawienia punktu sterowania" tabIndex={0}>
+          <>{point.detector ? <DetectorEditor project={project} point={point} update={update}/> : <>
           <small>{point.sensor} · {point.finish}</small>
           <details className="flow-details model-settings" key={point.id}><summary><span><Icon name="Pencil" size={16}/>Zmień model i dane punktu</span><Icon name="ChevronDown" size={16}/></summary><div className="form-grid">
             <Field label="Nazwa punktu"><input value={point.name} maxLength={150} onChange={e => update(p => { p.name = e.target.value; })}/></Field>
@@ -80,10 +105,12 @@ export function ControlWorkspace({ project, pointId, select, edit, upload, busy,
           </div>}
           <details className="flow-details"><summary>Dane montażowe · {point.height ?? '—'} cm<Icon name="ChevronDown" size={16}/></summary><Field label="Wysokość montażu (cm)"><NumberInput value={point.height} max={500} onChange={v => update(p => { p.height = v; })}/></Field><Field label="Status uzgodnienia"><Select value={point.status} options={["Propozycja", "Do uzgodnienia", "Zatwierdzony"]} onChange={v => update(p => { p.status = v; })}/></Field></details>
           <Field label="Uwagi do punktu"><textarea rows={2} maxLength={3000} value={point.notes} onChange={e => update(p => { p.notes = e.target.value; })}/></Field>
-        </> : <div className="empty-inline"><h3>Dodaj punkt sterowania</h3><p>Przy wybranym pomieszczeniu kliknij „Punkt w…”. Potem wybierz sensor i przypisz klawisze.</p></div>}
+          </>}</>
+          </div>
+        </> : <div className="empty-inline"><h3>Dodaj punkt sterowania</h3><p>Przy pomieszczeniu wybierz „Dodaj urządzenie”. Dodaj przycisk, czujkę lub kontaktron, a potem umieść je na rzucie.</p></div>}
       </aside>
 
     </div>
-    <DragOverlay dropAnimation={null}>{dragPoint && <div className="point-drag"><Icon name="MapPin"/><b>{dragPoint.code}</b><span>{dragPoint.name}</span></div>}</DragOverlay>
+    <DragOverlay dropAnimation={null}>{dragPoint && <div className="point-drag"><Icon name={pointIcon(dragPoint)}/><b>{dragPoint.code}</b><span>{dragPoint.name}</span></div>}</DragOverlay>
   </DndContext>;
 }

@@ -1,3 +1,4 @@
+import { detectorConnections, detectorRuleLabel, pointIcon } from './detector-config';
 import { jsPDF } from "jspdf";
 import { autoTable } from "jspdf-autotable";
 import { createElement } from "react";
@@ -196,14 +197,15 @@ export async function buildPdf(p: Project): Promise<Blob> {
     ]),
   );
   page();
-  title("Sensory i punkty sterowania");
+  title("Przyciski, czujniki i punkty sterowania");
   const lookup = new Map(targets(p).map((t) => [t.id, t.label]));
   for (const pt of p.points) {
     const rows = pt.bindings.reduce((n, b) => n + 1 + (b.hold ? 1 : 0) + Math.ceil((b.notes?.length ?? 0) / 95), 0);
     ensure(Math.min(230, 63 + rows * 9));
     title(`${pt.code} · ${p.rooms.find(r => r.id === pt.roomId)?.name} · ${pt.name}`);
     const top = y;
-    const photo = await pointPhoto(p, pt);
+    const photo = pt.detector ? undefined : await pointPhoto(p, pt);
+    if (pt.detector) doc.addImage(await sceneIcon(pointIcon(pt)), "PNG", 24, top + 4, 22, 22);
     if (photo) {
       try { doc.addImage(await raster(photo.url), "PNG", 18, top, 33, 33); }
       finally { photo.release(); }
@@ -217,6 +219,15 @@ export async function buildPdf(p: Project): Promise<Blob> {
     let my = top + 9 + device.length * 5;
     for (const line of meta) { const lines = doc.splitTextToSize(line, 124); doc.text(lines, 66, my); my += lines.length * 4 + 2; }
     y = Math.max(top + 37, my + 3);
+    if (pt.detector) {
+      text(`Podłączenie: ${detectorConnections[pt.detector.connection]} · Ręczne pierwszeństwo: ${pt.detector.manualOverride ? 'tak' : 'nie'}`, 8);
+      table(['Zdarzenie i warunek', 'Obwód / scena', 'Reakcja'], pt.detector.rules.flatMap(rule =>
+        (rule.actions.length ? rule.actions : [{ target: '', action: 'Do ustalenia' }]).map(action =>
+          [detectorRuleLabel(rule), lookup.get(action.target) ?? 'Do ustalenia', action.action])), true);
+      if (!pt.detector.rules.length) text('Reakcje do ustalenia.', 8);
+      if (pt.notes) text(pt.notes, 8);
+      continue;
+    }
     if (isLsTouch(pt)) {
       text('Podstrony ulubionych LS TOUCH · układ do uzgodnienia w ETS', 8, true);
       table(['Podstrona', 'Pole na ekranie', 'Funkcja / opis'], touchPages(pt).flatMap((page, index) => page.bindingIds.map((id, slot) => {
@@ -446,6 +457,18 @@ export async function buildXlsx(p: Project): Promise<Blob> {
       ]),
     ),
   );
+  if (p.points.some(pt => pt.detector)) sheet('Czujniki i reakcje',
+    ['Pomieszczenie', 'Punkt', 'Typ', 'Model', 'Podłączenie', 'Wysokość cm', 'Status', 'Zdarzenie / warunek / czas', 'Obwód / scena', 'Reakcja', 'Ręczne pierwszeństwo', 'Rzut i uwagi'],
+    p.points.filter(pt => pt.detector).flatMap(pt => {
+      const detector = pt.detector!;
+      const reactions = detector.rules.flatMap(rule => (rule.actions.length ? rule.actions : [{ target: '', action: 'Do ustalenia' }]).map(action =>
+        [detectorRuleLabel(rule), lookup.get(action.target) ?? 'Do ustalenia', action.action]));
+      return (reactions.length ? reactions : [['Do ustalenia', '', '']]).map(row => [
+        p.rooms.find(r => r.id === pt.roomId)?.name ?? '', `${pt.code} · ${pt.name}`, pt.sensor, pt.model ?? '',
+        detectorConnections[detector.connection], pt.height, pt.status, ...row, detector.manualOverride ? 'Tak' : 'Nie',
+        [pt.placement ? `${p.attachments.find(a => a.id === pt.placement!.documentId)?.name} · str. ${pt.placement.page} · x=${pt.placement.x.toFixed(4)}, y=${pt.placement.y.toFixed(4)}` : 'Bez pozycji na rzucie', pt.notes].join('\n'),
+      ]);
+    }));
   if (p.points.some(isLsTouch)) sheet('Podstrony LS TOUCH', ['Punkt', 'Podstrona', 'Pole na ekranie', 'Numer funkcji', 'Opis', 'Obwód / scena', 'Działanie'],
     p.points.filter(isLsTouch).flatMap(pt => touchPages(pt).flatMap((page, pageIndex) => page.bindingIds.map((id, slot) => {
       const binding = pt.bindings.find(b => b.id === id)!;
