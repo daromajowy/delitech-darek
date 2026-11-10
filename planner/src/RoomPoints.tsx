@@ -11,7 +11,7 @@ export function RoomPoints({ project, room, edit, configure }: {
     {points.map(pt => <div className="room-point" key={pt.id}>
       <strong className="point-code">{pt.code}</strong>
       <label><span className="sr-only">Nazwa punktu {pt.code}</span><input value={pt.name} maxLength={150} onChange={e => edit(p => { p.points.find(x => x.id === pt.id)!.name = e.target.value; })} /></label>
-      <Select label={`Rodzaj ${pt.code}`} value={pt.deviceType ?? "Sensor KNX"} options={deviceTypes} onChange={v => edit(p => { p.points.find(x => x.id === pt.id)!.deviceType = v; })} />
+      <>{pt.detector ? <small>{pt.sensor}</small> : <Select label={`Rodzaj ${pt.code}`} value={pt.deviceType ?? "Sensor KNX"} options={deviceTypes} onChange={v => edit(p => { p.points.find(x => x.id === pt.id)!.deviceType = v; })} />}</>
       <div className="height-input"><NumberInput label={`Wysokość ${pt.code}`} max={500} value={pt.height} onChange={v => edit(p => { p.points.find(x => x.id === pt.id)!.height = v; })}/><small>cm</small></div>
       <div className="row"><Tool icon="Settings2" label={`Ustaw funkcje ${pt.code}`} onClick={() => configure(pt.id)} />
         <Tool icon="Copy" label={`Powiel ${pt.code}`} onClick={() => edit(p => { addControlPoint(p, room.id, pt); })} />

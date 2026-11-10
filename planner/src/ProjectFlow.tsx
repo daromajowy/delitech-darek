@@ -1,3 +1,6 @@
+import { DetectorTrial } from './DetectorEditor';
+import { detectorEvents, pointIcon } from './detector-config';
+import { simulateDetector, simulateManual, type DetectorSimulation } from './detector-behavior';
 import { useEffect, useId, useLayoutEffect, useRef, useState } from 'react';
 import { DndContext } from '@dnd-kit/core';
 import { Field, Icon, NumberInput, Select, Tool, Check } from './components';
@@ -10,7 +13,7 @@ import { useSidebarViewport } from './useSidebarViewport';
 import { conflictingPlacements, MAX_FLOORS, moveRoomToFloor, roomFloor } from './floors';
 import { assignRoomColors, roomColor, roomColorStyle, roomPalette } from './room-colors';
 import { SensorKeys } from './SensorPreview';
-import { actionProblem, initialStateOptions, reviewItems, sceneIdeaName, sceneIdeas, simulate, suggestedScene, type ReviewItem, type Simulation } from './behavior';
+import { actionProblem, initialStateOptions, reviewItems, sceneIdeaName, sceneIdeas, suggestedScene, type ReviewItem } from './behavior';
 import { categories, controls, duplicateRoom, emptyRoom, newCircuit, newScene, removeTargets, sceneTemplates, targets, uid, type Attachment, type Category, type Circuit, type Floor, type Project, type Room, type Scene } from './model';
 
 type Edit = (fn: (p: Project) => void) => void;
@@ -175,6 +178,7 @@ function FunctionsStep({ project, room, edit, sceneId, setSceneId, setPointId, g
           <PlanBoard project={project} select={() => {}} edit={() => {}} upload={upload} busy={busy} dragging={false} readOnly roomId={room.id} focusRoom/>
         </div>
       </div>
+      {project.points.some(pt => pt.roomId === room.id && pt.detector) && <div className="room-detector-links"><h3>Czujniki w pomieszczeniu</h3><p className="small muted">Reakcje edytujesz w Sterowaniu. Korzystają z obwodów i scen tego projektu.</p>{project.points.filter(pt => pt.roomId === room.id && pt.detector).map(pt => <button className="quiet" key={pt.id} onClick={() => { setPointId(pt.id); go(2); }}><Icon name={pointIcon(pt)} size={17}/><span>{pt.code} · {pt.name}<small>Reakcje: {pt.detector!.rules.length}</small></span><Icon name="ArrowRight" size={15}/></button>)}</div>}
       <h3>Sceny na dobry początek</h3><div className="scene-ideas">{sceneIdeas.map(idea => {
         const existing = project.scenes.find(s => sceneIdeaName(s.name) === idea.name && (s.roomId === room.id || s.actions.some(a => room.circuits.some(c => c.id === a.target))));
         return <button key={idea.name} className={`scene-idea ${selected?.id === existing?.id && existing ? 'selected' : ''}`} disabled={!existing && project.scenes.length >= 100} onClick={() => existing ? setSceneId(existing.id) : addIdea(idea.name, idea.icon)}><span className="scene-symbol"><Icon name={idea.icon} size={27}/></span><span><strong>{idea.name}</strong><small>{idea.description}</small></span><Icon name={existing ? 'CircleCheck' : 'Plus'} size={17}/></button>;
@@ -202,15 +206,15 @@ function SceneEditor({ project, scene, edit }: { project: Project; scene: Scene;
 }
 
 function ReviewStep({ project, room, edit, pointId, setPointId, upload, busy, openHandoff, exportFile, jump }: FlowProps & { room?: Room; jump: (item: ReviewItem) => void }) {
-  const [simulation, setSimulation] = useState<Simulation>({ values: {}, warnings: [], changed: [] });
+  const [simulation, setSimulation] = useState<DetectorSimulation>({ values: {}, warnings: [], changed: [] });
   const [activeKey, setActiveKey] = useState(''), [last, setLast] = useState('');
   const point = project.points.find(p => p.id === pointId && p.roomId === room?.id) ?? project.points.find(p => p.roomId === room?.id);
   const configuration = JSON.stringify([project.rooms, project.points, project.scenes]);
   useEffect(() => { setSimulation({ values: {}, warnings: [], changed: [] }); setLast(''); setActiveKey(''); }, [configuration]);
-  const run = (target: string, action: string, label: string) => { setSimulation(prev => simulate(project, { target, action }, prev.values)); setLast(label); };
+  const run = (target: string, action: string, label: string) => { setSimulation(prev => simulateManual(project, { target, action }, prev)); setLast(label); };
   const allTargets = targets(project);
   const problems = reviewItems(project);
-  return <><section className="flow-main simulation-main"><div className="section-heading"><h2>{room ? `Sprawdź, jak będzie działać ${room.name.toLocaleLowerCase('pl')}` : 'Sprawdź projekt'}</h2><p className="muted">Kliknij klawisz i zobacz efekt. Zapisany projekt pozostaje bez zmian.</p></div>
+  return <><section className="flow-main simulation-main"><div className="section-heading"><h2>{room ? `Sprawdź, jak będzie działać ${room.name.toLocaleLowerCase('pl')}` : 'Sprawdź projekt'}</h2><p className="muted">Wypróbuj klawisz, czujnik lub scenę i zobacz efekt. Zapisany projekt pozostaje bez zmian.</p></div>
     <div className="row spread simulation-toolbar"><span className="view-label"><Icon name="Map"/>Rzut · podgląd 2D</span><button className="quiet" onClick={() => { setSimulation({ values: {}, warnings: [], changed: [] }); setLast(''); setActiveKey(''); }}><Icon name="RotateCcw"/>Resetuj podgląd</button></div>
     {project.attachments.some(a => a.mime === 'application/pdf') && <PlanBoard project={project} point={point} select={setPointId} edit={() => {}} upload={upload} busy={busy} dragging={false} readOnly roomId={room?.id}/>}
     <div className="simulation-states" aria-label="Stany urządzeń w symulacji" aria-live="polite">{(room?.circuits ?? []).map(c => <div className={`receiver-state ${simulation.changed.includes(c.id) ? 'changed' : ''}`} key={c.id}><Icon name={categoryIcon[c.kind]}/><div><strong>{c.name}</strong><small>{c.control}</small></div><output>{simulation.values[c.id] ?? 'Stan nieustalony'}</output></div>)}</div>
@@ -218,13 +222,16 @@ function ReviewStep({ project, room, edit, pointId, setPointId, upload, busy, op
     <p className="simulation-status" role="status"><Icon name={last ? 'CircleCheck' : 'MousePointer2'}/>{last ? `Wypróbowano: ${last}` : 'Wybierz scenę lub klawisz po prawej.'}</p>
     {simulation.changed.some(id => !room?.circuits.some(c => c.id === id)) && <div className="inline-info">Zmiany także poza tym pomieszczeniem:<ul>{simulation.changed.filter(id => !room?.circuits.some(c => c.id === id)).map(id => <li key={id}>{allTargets.find(t => t.id === id)?.label}: {simulation.values[id]}</li>)}</ul></div>}
     {simulation.warnings.length > 0 && <div className="simulation-warnings" role="status"><strong>Wymaga ustalenia</strong><ul>{simulation.warnings.map(w => <li key={w}>{w}</li>)}</ul></div>}
-    <details className="flow-details"><summary>Ustal stan początkowy w podglądzie<Icon name="ChevronDown" size={16}/></summary><p className="small muted">Przełączanie wymaga znanego stanu. Te ustawienia dotyczą wyłącznie symulacji.</p>{room?.circuits.map(c => <Field label={c.name} key={c.id}><select value={simulation.values[c.id] ?? ''} onChange={e => { const value = e.target.value; setSimulation(s => { const values = { ...s.values }; if (value) values[c.id] = value; else delete values[c.id]; return { values, changed: [], warnings: [] }; }); }}><option value="">Stan nieustalony</option>{initialStateOptions(c).map(v => <option key={v}>{v}</option>)}</select></Field>)}</details>
+    <details className="flow-details"><summary>Ustal stan początkowy w podglądzie<Icon name="ChevronDown" size={16}/></summary><p className="small muted">Przełączanie wymaga znanego stanu. Te ustawienia dotyczą wyłącznie symulacji.</p>{room?.circuits.map(c => <Field label={c.name} key={c.id}><select value={simulation.values[c.id] ?? ''} onChange={e => { const value = e.target.value; setSimulation(s => { const values = { ...s.values }; if (value) values[c.id] = value; else delete values[c.id]; return { ...s, values, changed: [], warnings: [] }; }); }}><option value="">Stan nieustalony</option>{initialStateOptions(c).map(v => <option key={v}>{v}</option>)}</select></Field>)}</details>
     <details className="flow-details review-issues"><summary><span>Do ustalenia ({problems.length})</span><Icon name="ChevronDown" size={16}/></summary><p className="small muted">Możesz przekazać projekt do konsultacji także z otwartymi pytaniami.</p>{problems.map((item, i) => <button key={i} onClick={() => jump(item)}><Icon name="TriangleAlert" size={16}/><span>{item.label}</span><Icon name="ArrowRight" size={16}/></button>)}{!problems.length && <p>Założenia uzupełnione.</p>}</details>
     <p className="small muted">Symulacja założeń, bez połączenia z instalacją. Nie odwzorowuje czasów napędów, logiki ETS ani blokad bezpieczeństwa.</p>
-  </section><aside className="right-panel flow-context simulation-context"><h3>Wypróbuj przycisk</h3>
+  </section><aside className="right-panel flow-context simulation-context"><h3>Wypróbuj sterowanie</h3>
     <Field label="Punkt sterowania"><select value={point?.id ?? ''} onChange={e => { setPointId(e.target.value); setActiveKey(''); }}>{!point && <option value="">Brak punktu w pomieszczeniu</option>}{project.points.filter(p => p.roomId === room?.id).map(pt => <option key={pt.id} value={pt.id}>{pt.code} · {pt.name}</option>)}</select></Field>
-    {point && <><SensorKeys project={project} point={point} active={activeKey} simulate choose={id => { const b = point.bindings.find(b => b.id === id)!; setActiveKey(id); run(b.target, b.action, `${point.code} · klawisz ${point.bindings.indexOf(b) + 1}`); }}/><div className="sim-key-list">{point.bindings.map((b, i) => <div key={b.id}><button className={activeKey === b.id ? 'selected' : ''} onClick={() => { setActiveKey(b.id); run(b.target, b.action, `${point.code} · klawisz ${i + 1}`); }}><b>{i + 1}</b><span>{b.label || allTargets.find(t => t.id === b.target)?.label || 'Do ustalenia'}<small>{b.action}</small></span><Icon name="ChevronRight" size={16}/></button>{b.hold && <button className="quiet" onClick={() => { setActiveKey(b.id); run(b.hold!.target, b.hold!.action, `${point.code} · przytrzymanie ${i + 1}`); }}>Przytrzymaj {i + 1}</button>}</div>)}</div></>}
+    {point?.detector && <DetectorTrial key={point.id} point={point} run={(event, context) => {
+      setSimulation(previous => simulateDetector(project, point, event, context, previous)); setLast(`${point.code} · ${detectorEvents[event]}`);
+    }}/>}
+    {point && !point.detector && <><SensorKeys project={project} point={point} active={activeKey} simulate choose={id => { const b = point.bindings.find(b => b.id === id)!; setActiveKey(id); run(b.target, b.action, `${point.code} · klawisz ${point.bindings.indexOf(b) + 1}`); }}/><div className="sim-key-list">{point.bindings.map((b, i) => <div key={b.id}><button className={activeKey === b.id ? 'selected' : ''} onClick={() => { setActiveKey(b.id); run(b.target, b.action, `${point.code} · klawisz ${i + 1}`); }}><b>{i + 1}</b><span>{b.label || allTargets.find(t => t.id === b.target)?.label || 'Do ustalenia'}<small>{b.action}</small></span><Icon name="ChevronRight" size={16}/></button>{b.hold && <button className="quiet" onClick={() => { setActiveKey(b.id); run(b.hold!.target, b.hold!.action, `${point.code} · przytrzymanie ${i + 1}`); }}>Przytrzymaj {i + 1}</button>}</div>)}</div></>}
     <details className="flow-details"><summary>Wypróbuj scenę<Icon name="ChevronDown" size={16}/></summary><div className="scene-chips">{project.scenes.map(s => <button key={s.id} onClick={() => { setActiveKey(''); run(s.id, 'Uruchom scenę', `scena ${s.name}`); }}><Icon name={s.icon} size={17}/>{s.name}</button>)}</div></details>
-    <div className="review-export"><button className="outline full" disabled={busy} onClick={() => exportFile('pdf')}><Icon name="FileText"/>Pobierz PDF</button><small>Rzut, zdjęcia sensorów, klawisze i sceny.</small><button className="quiet" onClick={openHandoff}><Icon name="FolderOpen"/>Wszystkie eksporty i dokumenty</button></div>
+    <div className="review-export"><button className="outline full" disabled={busy} onClick={() => exportFile('pdf')}><Icon name="FileText"/>Pobierz PDF</button><small>Rzut, urządzenia, reakcje czujników, klawisze i sceny.</small><button className="quiet" onClick={openHandoff}><Icon name="FolderOpen"/>Wszystkie eksporty i dokumenty</button></div>
   </aside></>;
 }

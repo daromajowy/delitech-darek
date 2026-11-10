@@ -2,6 +2,7 @@ import { reviewItems } from './behavior';
 import { clonePointControls, ensureTouchPages, isLsTouch } from './touch-pages';
 import { assignRoomColors } from './room-colors';
 import { normalizeFloors } from './floors';
+import { detectorKinds } from './detector-config';
 export type Category = "Oświetlenie" | "Osłony" | "Klimat" | "Muzyka i kino" | "Ochrona i dostęp" | "Energia i ładowanie" | "Ogród i woda" | "Pozostałe";
 export type Priority = "Konieczne" | "Opcjonalne";
 export interface Circuit {
@@ -74,6 +75,23 @@ export interface Point {
   model?: string;
   photoId?: string;
   placement?: Placement;
+  detector?: DetectorConfig;
+}
+export type DetectorKind = 'motion' | 'presence' | 'window' | 'door';
+export type DetectorEvent = 'detected' | 'absent' | 'opened' | 'closed';
+export interface DetectorRule {
+  id: string;
+  event: DetectorEvent;
+  condition: 'always' | 'dark' | 'day' | 'night';
+  luxThreshold: number;
+  delaySeconds: number;
+  actions: Binding[];
+}
+export interface DetectorConfig {
+  kind: DetectorKind;
+  connection: 'knx' | 'binary' | 'alarm' | 'undecided';
+  manualOverride: boolean;
+  rules: DetectorRule[];
 }
 export interface Scene {
   id: string;
@@ -444,7 +462,7 @@ export function removeTargets(p: Project, ids: string[]): Project {
   const n = structuredClone(p),
     invalid = new Set(ids);
   n.points.forEach((pt) =>
-    pt.bindings.forEach((b) => {
+    [...pt.bindings, ...(pt.detector?.rules.flatMap(r => r.actions) ?? [])].forEach((b) => {
       if (invalid.has(b.target)) b.target = "";
       if (b.hold && invalid.has(b.hold.target)) b.hold.target = "";
     }),
@@ -504,9 +522,14 @@ export function normalizeProject(source: Project): Project {
   return p;
 }
 
-export function addControlPoint(p: Project, roomId: string, source?: Point): Point {
+export function addControlPoint(p: Project, roomId: string, source?: Point, kind?: DetectorKind): Point {
   const pt = source ? { ...structuredClone(source), id: uid(), name: `${source.name} (kopia)`, roomId,
     code: undefined, placement: undefined, ...clonePointControls(source) } : newPoint(roomId);
+  if (!source && kind) {
+    Object.assign(pt, { name: detectorKinds[kind].label, sensor: detectorKinds[kind].label,
+      deviceType: 'Czujnik', finish: 'Do ustalenia', height: null, bindings: [],
+      detector: { kind, connection: kind === 'motion' || kind === 'presence' ? 'knx' : 'undecided', manualOverride: true, rules: [] } });
+  }
   const numbered = normalizeProject({ ...p, points: [...p.points, pt] });
   p.points = numbered.points;
   p.nextPointNumber = numbered.nextPointNumber;
