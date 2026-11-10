@@ -33,11 +33,20 @@
   gap: 24px;
 }
 .primary-header__intro {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   margin: 0;
   color: #617b16;
   font-size: 13px;
   font-weight: 700;
   letter-spacing: .04em;
+}
+.primary-header__knx {
+  display: block;
+  width: 36px;
+  height: auto;
+  flex-shrink: 0;
 }
 .primary-header__contact {
   display: flex;

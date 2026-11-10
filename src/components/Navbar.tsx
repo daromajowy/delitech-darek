@@ -66,7 +66,10 @@ export function Navbar({ currentPage }: { currentPage: PageId }) {
       </a>
       <div className="primary-header__utility">
         <div className="primary-header__utility-inner">
-          <p className="primary-header__intro">INTEGRATOR AUTOMATYKI BUDYNKU</p>
+          <p className="primary-header__intro">
+            <span>INTEGRATOR AUTOMATYKI BUDYNKU</span>
+            <img className="primary-header__knx" src={`${pageUrl('home')}assets/brand/knx-logo.svg`} alt="KNX" width={36} height={17} />
+          </p>
           <nav className="primary-header__contact" aria-label="Szybki kontakt">
             <a href="tel:+48505260715">
               <Phone size={16} aria-hidden="true" />

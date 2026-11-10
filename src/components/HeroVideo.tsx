@@ -12,13 +12,18 @@ export const HeroVideo = () => {
   useEffect(() => {
     const query = window.matchMedia('(prefers-reduced-motion: reduce)');
     const update = () => setReduceMotion(query.matches);
+    update();
     query.addEventListener('change', update);
     return () => query.removeEventListener('change', update);
   }, []);
 
   useEffect(() => {
     const video = videoRef.current;
-    if (!video || reduceMotion) return;
+    if (!video) return;
+    if (reduceMotion) {
+      video.pause();
+      return;
+    }
 
     const syncPlayback = () => {
       if (document.hidden) {
@@ -39,15 +44,13 @@ export const HeroVideo = () => {
     };
   }, [reduceMotion]);
 
-  if (reduceMotion) return null;
-
   return (
-    <div className="hero-video" aria-hidden="true">
+    <div className="hero-video">
       <video
         ref={videoRef}
         className="hero-video__media"
         src={heroVideoUrl}
-        autoPlay
+        autoPlay={!reduceMotion}
         loop
         muted
         playsInline
@@ -56,7 +59,16 @@ export const HeroVideo = () => {
         disableRemotePlayback
         preload="auto"
         tabIndex={-1}
+        aria-hidden="true"
       />
+      <div className="hero-video__copy">
+        <p className="hero-video__title font-display">Twój dom</p>
+        <p className="hero-video__qualities">
+          <span>Prosty w obsłudze</span>
+          <span>Inteligentny</span>
+          <span>Niezawodny</span>
+        </p>
+      </div>
       <img className="hero-video__brand" src={`${pageUrl('home')}assets/brand/jung-logo.svg`} alt="" width={96} height={24} />
     </div>
   );
