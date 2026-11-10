@@ -19,6 +19,7 @@ import { plannerUrl } from "../../site";
 import { panel } from "./assets";
 import { F50Display } from "./F50Display";
 import { LSTouchPanel } from "./LSTouchPanel";
+import { F40Panel } from "./F40Panel";
 import { useTransientFeedback } from "./useTransientFeedback";
 
 import { HouseScene } from "./HouseScene";
@@ -30,6 +31,11 @@ import {
 } from "./homeLighting";
 
 const temperatureText = (t) => t.toFixed(1).replace(".", ",");
+const controllers = [
+  { id: "f40", label: "JUNG F40", finish: "Aluminium" },
+  { id: "f50", label: "JUNG F50", finish: "Aluminium" },
+  { id: "ls-touch", label: "LS TOUCH", finish: "Czarny mat" },
+];
 export function F50HomeDemo({ asHero = false }) {
   const Heading = asHero ? 'h1' : 'h2';
   const feedback = useTransientFeedback();
@@ -46,7 +52,8 @@ export function F50HomeDemo({ asHero = false }) {
     title: "Twój dom. Jeden przycisk od zmiany.",
     text: "Naciśnij symbol na panelu i zobacz, co się wydarzy.",
   });
-  const showCinemaHint = last.kind === "intro" && (controller === "f50" || touchPage === 0);
+  const selectedController = controllers.find(item => item.id === controller);
+  const showCinemaHint = last.kind === "intro" && (controller !== "ls-touch" || touchPage === 0);
   const [pressed, setPressed] = useState("");
   const pulseTimer = useRef(),
     pressTimer = useRef(),
@@ -407,15 +414,15 @@ export function F50HomeDemo({ asHero = false }) {
         </section>
         <section
           className="experience"
-          aria-label={`Steruj pokazowym domem panelem JUNG ${controller === "f50" ? "F50" : "LS TOUCH"}`}
+          aria-label={`Steruj pokazowym domem panelem ${controller === "ls-touch" ? "JUNG " : ""}${selectedController.label}`}
         >
           <aside className="control-area" data-controller={controller}>
             <div className="control-title">
               <span className="eyebrow">TWÓJ PRZYCISK</span>
-              <span>{controller === "f50" ? "Aluminium" : "Czarny mat"}</span>
+              <span>{selectedController.finish}</span>
             </div>
             <div className="controller-picker" role="group" aria-label="Wybierz przycisk do sterowania domem">
-              {[["f50", "JUNG F50"], ["ls-touch", "LS TOUCH"]].map(([value, label]) => (
+              {controllers.map(({ id: value, label }) => (
                 <button
                   key={value}
                   type="button"
@@ -439,6 +446,8 @@ export function F50HomeDemo({ asHero = false }) {
                   onGestureCancel={holdCancel}
                   blindEvents={blindEvents}
                 />
+              ) : controller === "f40" ? (
+                <F40Panel buttons={buttons} pressed={pressed} ledState={ledState} blindEvents={blindEvents} />
               ) : (
               <div
                 className="panel"
@@ -535,9 +544,9 @@ export function F50HomeDemo({ asHero = false }) {
               <p className="panel-hint" aria-hidden={showCinemaHint}>
                 <MousePointer2 size={16} aria-hidden="true" />
                 <span>
-                  {controller === "f50" ? "Kliknij symbol na przycisku." : `Ekran ${touchPage + 1}/2: ${touchPage === 0 ? "światła i sceny" : "rolety i temperatura"}.`}
+                  {controller === "f40" ? "Naciśnij górę lub dół klawisza." : controller === "f50" ? "Kliknij symbol na przycisku." : `Ekran ${touchPage + 1}/2: ${touchPage === 0 ? "światła i sceny" : "rolety i temperatura"}.`}
                   <br />
-                  {controller === "f50" ? "Diody pokazują stan funkcji." : "Przesuń ekran lub dotknij kwadratów."}
+                  {controller !== "ls-touch" ? "Diody pokazują stan funkcji." : "Przesuń ekran lub dotknij kwadratów."}
                 </span>
               </p>
             </div>
