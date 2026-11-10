@@ -2,8 +2,19 @@
   position: sticky;
   top: 0;
   z-index: 40;
-  background: #fff;
-  border-bottom: 1px solid #182c3d24;
+  background: rgb(243 245 242 / 96%);
+  border-bottom: 1px solid rgb(169 184 194 / 35%);
+  box-shadow: 0 4px 24px rgb(24 44 61 / 6%);
+}
+@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .primary-header {
+    background: rgb(243 245 242 / 72%);
+    -webkit-backdrop-filter: blur(22px) saturate(135%);
+    backdrop-filter: blur(22px) saturate(135%);
+  }
+  .primary-header--open {
+    background: rgb(243 245 242 / 92%);
+  }
 }
 .primary-header__utility {
   background: #f3f5f2;
@@ -137,7 +148,9 @@
   display: none;
 }
 .primary-header a:focus-visible,
-.primary-header button:focus-visible {
+.primary-header button:focus-visible,
+.primary-header__contact a:focus-visible,
+.primary-header__skip:focus-visible {
   outline: 3px solid #416184;
   outline-offset: 3px;
 }
@@ -149,10 +162,17 @@
   background: #fff;
   color: #182c3d;
   padding: 12px;
-  z-index: 2;
+  z-index: 60;
 }
 .primary-header__skip:focus {
   transform: none;
+}
+@media (prefers-reduced-transparency: reduce) {
+  .primary-header {
+    background: #f3f5f2;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
 }
 @media (min-width: 1280px) and (max-width: 1399px) {
   .primary-header__utility-inner,
