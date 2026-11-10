@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useId, useRef } from "react";
 import frame from "../../assets/images/ls-touch-graphite.png";
 import floorLight from "../../assets/images/ls-touch-light-floor.png";
 import ceilingLight from "../../assets/images/ls-touch-light-ceiling.png";
@@ -9,6 +9,32 @@ import "./LSTouchPanel.css";
 
 const icons = { salon: floorLight, kitchen: ceilingLight, cinema: movie, "all-off": power };
 const pageNames = ["Światła i sceny", "Rolety i temperatura"];
+
+// Keep the JUNG pictograms. Inactive variants hide only their activity marks:
+// lamp rays, the cinema activity/play marks, and the power symbol's stem.
+const inactiveShapes = {
+  salon: "M21 17H39V49H21Z",
+  kitchen: "M0 0H60V29H40L39 32L35 36H25L21 32L20 29H0Z",
+  cinema: "M0 24H60V60H0Z M26 38H34V44H26Z",
+  "all-off": "M0 0H27V33H33V0H60V60H0Z",
+};
+
+function StateIcon({ id, active }) {
+  const clipId = `ls-touch-icon-${useId().replace(/:/g, "")}`;
+  // ALL OFF is selected when the house is off, unlike the other functions.
+  const on = id === "all-off" ? !active : active;
+  return (
+    <svg className="ls-touch-icon" viewBox="0 0 60 60" aria-hidden="true" focusable="false" data-state={on ? "on" : "off"}>
+      <defs>
+        <clipPath id={clipId}>
+          <path d={inactiveShapes[id]} clipRule="evenodd" />
+        </clipPath>
+      </defs>
+      <image href={icons[id]} width="60" height="60" clipPath={on ? undefined : `url(#${clipId})`} />
+      {id === "all-off" && !on && <path d="M22 17A16.5 16.5 0 0 1 38 17" fill="none" stroke="currentColor" strokeWidth="2.8" />}
+    </svg>
+  );
+}
 
 // The manufacturer's frame stays intact. Only its active display is covered by
 // the live favourites UI. Both controllers use the same parent-owned actions.
@@ -81,9 +107,8 @@ export function LSTouchPanel({ buttons, temperature, blinds, pressed, page, onPa
           {page === 0 ? (
             <div className="ls-touch-favourites" role="group" aria-label={pageNames[0]}>
               {["salon", "kitchen", "cinema", "all-off"].map(id => functionButton(id, "ls-touch-tile", <>
-                <img src={icons[id]} alt="" aria-hidden="true" draggable="false" />
+                <StateIcon id={id} active={!!controls[id].active} />
                 <span>{controls[id].short}</span>
-                <span className="ls-touch-state" aria-hidden="true">{controls[id].active ? "●" : "○"}</span>
               </>))}
             </div>
           ) : (
