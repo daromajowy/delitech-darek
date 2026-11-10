@@ -1,8 +1,10 @@
-# JUNG F50 / LS TOUCH — interaktywna demonstracja domu
+# JUNG F40 / F50 / LS TOUCH — interaktywna demonstracja domu
 
 Sekcja na `solutions/#steruj-domem`, osadzona poniżej wstępu strony „Co może Twój dom”. CSS jest ograniczony do `.f50-demo`, a link konfiguratora korzysta z `plannerUrl()` — również w podglądach gałęzi.
 
-Wybór nad panelem przełącza aluminiowy F50 i LS TOUCH LS 990 w czarnym macie (LS 459 D 1S SWM), z czarnym tłem ekranu. Stan domu i akcje należą do wspólnego komponentu: wymiana panelu zachowuje światła, scenę, telewizor, temperaturę oraz położenie i ruch rolet.
+Wybór nad panelem przełącza aluminiowe F40 i F50 oraz LS TOUCH LS 990 w czarnym macie (LS 459 D 1S SWM), z czarnym tłem ekranu. Stan domu i akcje należą do wspólnego komponentu: wymiana panelu zachowuje światła, scenę, telewizor, temperaturę oraz położenie i ruch rolet.
+
+F40 to cztery duże klawisze w ramce LS 990. Góra i dół każdego klawisza uruchamiają osobne funkcje: lewy górny — Salon/Kuchnia, prawy górny — Góra/Dół rolet, lewy dolny — Cieplej/Chłodniej, prawy dolny — Kino/ALL OFF. Osiem czerwonych diod pokazuje stan przypisanych funkcji; niebieska dioda pośrodku pełni rolę orientacyjną. Panel nie ma wyświetlacza; zmianę nastawy temperatury pokazuje wspólny komunikat domu. Przełączenie modelu anuluje trwające przytrzymanie.
 
 LS TOUCH ma dwa ekrany ulubionych: cztery pola „Salon / Kuchnia / Kino / ALL OFF” i dwie kolumny „Rolety / Temperatura”. Kwadraty pod funkcjami i gest poziomy przełączają strony. Przesunięcie zaczęte na strzałce rolety anuluje przytrzymanie, a gest nie uruchamia przypadkowo funkcji pod palcem. Wszystkie funkcje i przełączniki są dostępne klawiaturą. Reset pozostawia wybrany model i przywraca pierwszy ekran LS TOUCH.
 
@@ -11,7 +13,7 @@ LS TOUCH ma dwa ekrany ulubionych: cztery pola „Salon / Kuchnia / Kino / ALL O
 - Temperatura: nastawa 18–26°C, co 0,5°C; krótka łuna sygnalizuje zmianę.
 - Kino: przygaszenie salonu, kuchni i przedpokoju, delikatne LED-y i włączony TV. Stan piętra pozostaje niezależny.
 - ALL OFF: wyłączenie świateł obu kondygnacji, wiaty oraz TV. Ponowne naciśnięcie przy wygaszonym domu przywraca wszystkie światła do pełnej jasności. TV pozostaje wyłączony; nastawa temperatury i rolety pozostają niezależne.
-- Diody F50 oraz warianty ikon LS TOUCH pokazują bieżący stan; dymki pojawiają się chwilowo. Reset wraca do oświetlonego domu.
+- Diody F40/F50 oraz warianty ikon LS TOUCH pokazują bieżący stan; dymki pojawiają się chwilowo. Reset wraca do oświetlonego domu.
 
 To demonstracja bez połączenia z rzeczywistymi urządzeniami KNX. TV pokazuje nieruchomy obraz. Oznaczenia funkcji i kolory diod są wybraną konfiguracją pokazową.
 
@@ -22,6 +24,8 @@ Zatwierdzony prototyp: `outputs/intelispaces-dom-f40-20261025` w głównym works
 Symbole LCD oparto na dokumentacji [JUNG F50](https://downloads.jung.de/Downloads/Produktdownloads/Produktdokumentation/KNX/xx529xD1ST/en_xx529xD1ST_99002323_td_20251113.pdf), s.167–175. Pozycje ośmiu diod: ta sama dokumentacja, s.10–11. Ilustracja obudowy nie jest zdjęciem produktu.
 
 Aktualna aluminiowa ilustracja F50 pochodzi z działającej demonstracji [Elektrodesign](https://elektrodesign.pl/automatyka-394#steruj-domem); zachowano jej położenie klawiszy i kontrolek, zmieniając wyłącznie format pliku na WebP.
+
+Aluminiowy F40: oryginalne zdjęcie z [Elektrodesign](https://elektrodesign.pl/pojedyncze/32496-knx-przycisk-4-krotny-aluminium-f40-jung.html), zapisane bez edycji. CSS kadruje białe marginesy, nakłada symbole funkcji i zastępuje statyczne światło w środkowym prowadniku diodami reagującymi na stan demonstracji. Zestaw klawiszy [AL 2404 TSA](https://www.jung-group.com/en-DE/p/Cover-kit-4-gang-F40-aluminium/AL-2404-TSA), ramka AL 2981. Podział góra/dół i dwie czerwone diody na klawisz: [instrukcja modułu F40](https://downloads.jung.de/Downloads/Produktdownloads/Bedienungsanleitung/KNX/en_xx429x1ST_32407623_20250415.pdf), s. 4. Symbole i przypisania są pokazową konfiguracją grawerowania, nie oznaczeniami fabrycznymi zdjęcia.
 
 LS TOUCH: niezmieniony front z [katalogu JUNG, LS 459 D 1S SWM](https://www.jung-group.com/en-DE/p/KNX-room-controller-LS-TOUCH-with-frame-LS-990-Secure-matt-graphite-black/LS-459-D-1S-SWM), z interaktywną warstwą na obszarze wyświetlacza. Oryginalne ikony „Lights – Floor – 1”, „Lights – Ceiling”, „Blinds – Vertical”, „Scene – Movie” i „Switching – Power” wyodrębniono bez przerysowywania z [dokumentacji JUNG LS TOUCH, 09.10.2026](https://downloads.jung.de/Downloads/Produktdownloads/Produktdokumentation/KNX/459D1S/en_459D1S_20261009_TD.pdf), s. 53–55. CSS odwraca ich kolor dla czarnego tła. Front i ikony: © ALBRECHT JUNG GMBH & CO. KG. To interaktywna demonstracja konfiguracji, nie oprogramowanie sprzętowego LS TOUCH.
 

@@ -1,6 +1,6 @@
 .f50-demo .controller-picker {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 4px;
   margin: -4px 0 14px;
   padding: 4px;
