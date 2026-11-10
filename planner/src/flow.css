@@ -8,7 +8,7 @@
 .flow-step-0 .section-heading { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 16px; margin-bottom: 12px; }
 .flow-step-0 .section-heading h2, .flow-step-0 .section-heading p { margin: 0; }
 .flow-rooms, .control-points { padding-right: 22px; min-height: 640px; }
-.flow-rooms { position: sticky; top: 16px; align-self: start; display: flex; flex-direction: column; min-height: 0; max-height: var(--room-sidebar-height, calc(100dvh - 280px)); }
+.flow-rooms { position: sticky; top: 16px; align-self: start; display: flex; flex-direction: column; min-height: 0; max-height: var(--sidebar-height, calc(100dvh - 280px)); }
 .room-sidebar-heading { position: sticky; top: 0; z-index: 1; flex-shrink: 0; background: white; }
 .room-add-menu { position: relative; }
 .room-add-menu > summary { list-style: none; cursor: pointer; }
@@ -237,13 +237,26 @@
 .integration-config { border-bottom: 1px solid var(--line); padding: 14px 0; }
 .integration-config .form-grid { margin-top: 10px; }
 .control-points { grid-area: auto; }
+.control-points, .control-editor { display: flex; flex-direction: column; min-height: 0; }
+.control-points { position: sticky; top: 16px; max-height: var(--sidebar-height, calc(100dvh - 280px)); }
+.control-sidebar-heading { flex-shrink: 0; background: white; padding-bottom: 8px; }
+.control-sidebar-content { min-height: 0; overflow-y: auto; overscroll-behavior-y: contain; scrollbar-width: none; padding: 4px 0 8px; }
+.control-sidebar-content::-webkit-scrollbar { display: none; }
+.control-sidebar-content:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.control-sidebar-content button:focus-visible { outline-offset: -2px; }
+@media (min-width: 1051px) {
+  .control-editor { position: sticky; top: 16px; max-height: var(--sidebar-height, calc(100dvh - 280px)); }
+}
+@media (max-width: 1050px) {
+  .control-editor .control-sidebar-content { overflow: visible; overscroll-behavior-y: auto; }
+}
 .control-points .control-room { margin-top: 18px; }
 .control-editor { min-width: 0; }
 .control-editor > .row { gap: 6px; }
 .control-editor > .row > .row { gap: 0; }
 .control-editor > .row .tool { width: 28px; }
 .control-editor > .row h3 { margin: 0; font-size: 15px; overflow-wrap: anywhere; }
-.control-editor > small { margin: 8px 0 12px; }
+.control-editor .control-sidebar-content > small { margin: 8px 0 12px; }
 .model-settings { border: 0; padding: 0; margin: 0; }
 .model-settings > summary { color: var(--accent); font-size: 12px; }
 .model-settings > summary > span { display: flex; gap: 8px; align-items: center; }
@@ -260,7 +273,7 @@
 .sensor-key-preview.spatial .sensor-key-map { position: absolute; top: 37px; left: 27px; width: 170px; height: 169px; max-width: none; margin: 0; gap: 2px; }
 .sensor-key-preview.spatial .sensor-key-map button { background: #ffffff0d; border-color: #2a536155; border-radius: 0; }
 .sensor-key-preview.spatial .sensor-key-map button.active { background: #008a9c85; color: white; }
-.control-editor .key-list { max-height: 180px; }
+.control-editor .key-list { max-height: none; overflow: visible; }
 .control-editor .key-list button { min-height: 34px; padding: 6px 9px; }
 .control-editor .key-editor { margin-top: 14px; padding-top: 14px; }
 .control-editor .key-editor h3 { font-size: 14px; margin-bottom: 10px; }
@@ -302,4 +315,4 @@
 @media (min-width: 1700px) { .flow-layout, .control-workspace { grid-template-columns: 240px minmax(0, 1fr) 340px; gap: 30px; } }
 @media (max-width: 1300px) { .flow-layout, .control-workspace { grid-template-columns: 180px minmax(0, 1fr) 285px; gap: 18px; } .unified-workspace { padding-left: 24px; padding-right: 24px; } .flow-rooms, .control-points { padding-right: 14px; } .flow-context, .control-editor { padding-left: 18px; } .scene-idea { padding: 12px; gap: 9px; } .scene-symbol { width: 34px; height: 38px; } }
 @media (max-width: 1050px) { .flow-layout, .control-workspace { grid-template-columns: 160px minmax(0, 1fr); gap: 20px; } .flow-context, .control-editor { grid-column: 2; border-left: 0; border-top: 1px solid var(--line); padding: 22px 0 0; } .flow-rooms, .control-points { grid-row: span 2; } .flow-context .form-grid { grid-template-columns: 1fr 1fr; gap: 0 14px; } .flow-context .scene-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; } .scene-actions .scene-action { margin: 0; } .control-editor .model-settings .form-grid { grid-template-columns: 1fr 1fr; } .simulation-context .sensor-key-preview { max-width: 220px; } }
-@media (max-width: 720px) { .unified-workspace { padding: 18px 15px 100px; } .flow-layout, .control-workspace { display: flex; flex-direction: column; gap: 22px; } .flow-layout > *, .control-workspace > * { width: 100%; } .flow-rooms, .control-points { min-height: 0; padding: 0 0 15px; border: 0; border-bottom: 1px solid var(--line); } .flow-rooms .nav-group { margin: 12px 0; } .flow-rooms .nav-entry { min-height: 48px; max-width: 200px; } .flow-rooms .nav-entry small { font-size: 9px; } .flow-rooms .sidebar-actions { margin-top: 12px; align-items: center; } .sidebar-actions > select { margin: 0; } .flow-rooms > .inline-info { display: none; } .flow-main h2, .control-plan-main h2 { font-size: 22px; } .flow-context, .control-editor { padding: 18px 0 0; } .flow-context .form-grid { grid-template-columns: 1fr; } .flow-context .scene-actions { display: block; } .scene-actions .scene-action { margin: 10px 0; } .scene-ideas { gap: 8px; } .scene-idea { gap: 8px; padding: 12px 10px; min-height: 112px; } .scene-idea > .scene-symbol { display: none; } .scene-idea strong { font-size: 12px; } .scene-idea small { font-size: 10px; } .function-overview { margin-top: 20px; } .flow-main > .plan-board .plan-canvas, .control-plan-main > .plan-board .plan-canvas { height: 370px; } .flow-context .field, .control-editor .field { font-size: 12px; } .simulation-states { grid-template-columns: 1fr; } .simulation-toolbar { align-items: flex-start; flex-wrap: wrap; } .control-room > .quiet { display: inline-flex; } .control-room.empty { display: block; } .point-nav { width: 100%; } .point-nav span { font-size: 12px; } .point-nav small { font-size: 10px; } .control-points { max-height: 260px; } .control-editor .key-list button { min-height: 42px; } .control-editor .key-list { max-height: 210px; } .sensor-key-map button { min-height: 40px; } .modal:has(.brief-layout) { width: calc(100vw - 16px); padding: 16px; } .modal .brief-aside { padding-left: 0; } .scene-editor .checks-grid { grid-template-columns: 1fr; } .plan-board.expanded .plan-canvas { height: auto; } }
+@media (max-width: 720px) { .unified-workspace { padding: 18px 15px 100px; } .flow-layout, .control-workspace { display: flex; flex-direction: column; gap: 22px; } .flow-layout > *, .control-workspace > * { width: 100%; } .flow-rooms, .control-points { min-height: 0; padding: 0 0 15px; border: 0; border-bottom: 1px solid var(--line); } .flow-rooms .nav-group { margin: 12px 0; } .flow-rooms .nav-entry { min-height: 48px; max-width: 200px; } .flow-rooms .nav-entry small { font-size: 9px; } .flow-rooms .sidebar-actions { margin-top: 12px; align-items: center; } .sidebar-actions > select { margin: 0; } .flow-rooms > .inline-info { display: none; } .flow-main h2, .control-plan-main h2 { font-size: 22px; } .flow-context, .control-editor { padding: 18px 0 0; } .flow-context .form-grid { grid-template-columns: 1fr; } .flow-context .scene-actions { display: block; } .scene-actions .scene-action { margin: 10px 0; } .scene-ideas { gap: 8px; } .scene-idea { gap: 8px; padding: 12px 10px; min-height: 112px; } .scene-idea > .scene-symbol { display: none; } .scene-idea strong { font-size: 12px; } .scene-idea small { font-size: 10px; } .function-overview { margin-top: 20px; } .flow-main > .plan-board .plan-canvas, .control-plan-main > .plan-board .plan-canvas { height: 370px; } .flow-context .field, .control-editor .field { font-size: 12px; } .simulation-states { grid-template-columns: 1fr; } .simulation-toolbar { align-items: flex-start; flex-wrap: wrap; } .control-room > .quiet { display: inline-flex; } .control-room.empty { display: block; } .point-nav { width: 100%; } .point-nav span { font-size: 12px; } .point-nav small { font-size: 10px; } .control-points { position: static; max-height: none; flex-wrap: nowrap; gap: 0; overflow: visible; } .control-points .control-sidebar-content { width: 100%; max-height: min(42dvh, 300px); } .control-editor .key-list button { min-height: 42px; } .control-editor .key-list { max-height: none; } .sensor-key-map button { min-height: 40px; } .modal:has(.brief-layout) { width: calc(100vw - 16px); padding: 16px; } .modal .brief-aside { padding-left: 0; } .scene-editor .checks-grid { grid-template-columns: 1fr; } .plan-board.expanded .plan-canvas { height: auto; } }

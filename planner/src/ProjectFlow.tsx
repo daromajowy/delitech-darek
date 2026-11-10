@@ -6,6 +6,7 @@ import { ControlWorkspace } from './ControlWorkspace';
 import { PlanBoard } from './PlanBoard';
 import { RoomPoints } from './RoomPoints';
 import { FloorEditor } from './FloorEditor';
+import { useSidebarViewport } from './useSidebarViewport';
 import { conflictingPlacements, MAX_FLOORS, moveRoomToFloor, roomFloor } from './floors';
 import { assignRoomColors, roomColor, roomColorStyle, roomPalette } from './room-colors';
 import { SensorKeys } from './SensorPreview';
@@ -26,37 +27,10 @@ export function RoomSidebar({ project, room, floor, selectFloor, select, edit, u
   project: Project; room?: Room; floor?: Floor; selectFloor: (id: string) => void; select: (id: string) => void;
   edit: Edit; upload: FlowProps['upload']; busy: boolean; title?: string;
 }) {
-  const sidebar = useRef<HTMLElement>(null);
+  const sidebar = useSidebarViewport();
   const list = useRef<HTMLDivElement>(null);
   const menu = useRef<HTMLDetailsElement>(null);
   const [editingFloor, setEditingFloor] = useState<string | null>(null);
-  useLayoutEffect(() => {
-    const panel = sidebar.current;
-    if (!panel) return;
-    const desktop = window.matchMedia('(min-width: 721px)');
-    const footer = document.querySelector('.workflow-footer');
-    let frame = 0;
-    const measure = () => {
-      frame = 0;
-      if (!desktop.matches) { panel.style.removeProperty('--room-sidebar-height'); return; }
-      const bottom = Math.min(window.innerHeight, footer?.getBoundingClientRect().top ?? window.innerHeight);
-      const top = Math.max(16, panel.getBoundingClientRect().top);
-      panel.style.setProperty('--room-sidebar-height', `${Math.max(96, bottom - top - 12)}px`);
-    };
-    const schedule = () => { if (!frame) frame = requestAnimationFrame(measure); };
-    const observer = new ResizeObserver(schedule);
-    if (footer) observer.observe(footer);
-    if (panel.parentElement) observer.observe(panel.parentElement);
-    window.addEventListener('scroll', schedule, { passive: true });
-    window.addEventListener('resize', schedule);
-    measure();
-    return () => {
-      cancelAnimationFrame(frame);
-      observer.disconnect();
-      window.removeEventListener('scroll', schedule);
-      window.removeEventListener('resize', schedule);
-    };
-  }, []);
   useLayoutEffect(() => {
     const viewport = list.current;
     const selected = viewport?.querySelector('.nav-entry[aria-pressed="true"]') ?? viewport?.querySelector('.floor-select[aria-pressed="true"]');
