@@ -60,7 +60,7 @@ export function Navbar({ currentPage }: { currentPage: PageId }) {
   ));
 
   return (
-    <header ref={header} className="site-header primary-header">
+    <>
       <a className="primary-header__skip" href="#main-content">
         Przejdź do treści
       </a>
@@ -79,43 +79,45 @@ export function Navbar({ currentPage }: { currentPage: PageId }) {
           </nav>
         </div>
       </div>
-      <div className="primary-header__bar">
-        <a
-          href={pageUrl('home')}
-          className="primary-header__logo"
-          aria-label="InteliSpaces — strona główna"
-        >
-          <Logo />
-        </a>
-        <nav className="primary-header__desktop" aria-label="Główne menu">
-          {links}
-        </nav>
-        <div className="primary-header__actions">
-          <a href={plannerHref} className="primary-header__planner">
-            {plannerLabel} <ArrowUpRight size={17} aria-hidden="true" />
-          </a>
-          <button
-            ref={toggle}
-            type="button"
-            className="primary-header__toggle"
-            aria-expanded={open}
-            aria-controls="mobile-navigation"
-            aria-label={open ? 'Zamknij menu' : 'Otwórz menu'}
-            onClick={() => setOpen((value) => !value)}
+      <header ref={header} className={`site-header primary-header${open ? ' primary-header--open' : ''}`}>
+        <div className="primary-header__bar">
+          <a
+            href={pageUrl('home')}
+            className="primary-header__logo"
+            aria-label="InteliSpaces — strona główna"
           >
-            {open ? <X size={22} aria-hidden="true" /> : <Menu size={22} aria-hidden="true" />}
-            <span>Menu</span>
-          </button>
-        </div>
-      </div>
-      {open && (
-        <nav id="mobile-navigation" className="primary-header__mobile" aria-label="Menu mobilne">
-          {links}
-          <a href={plannerHref} className="primary-header__mobile-planner" onClick={() => setOpen(false)}>
-            {plannerLabel} <ArrowUpRight size={18} aria-hidden="true" />
+            <Logo />
           </a>
-        </nav>
-      )}
-    </header>
+          <nav className="primary-header__desktop" aria-label="Główne menu">
+            {links}
+          </nav>
+          <div className="primary-header__actions">
+            <a href={plannerHref} className="primary-header__planner">
+              {plannerLabel} <ArrowUpRight size={17} aria-hidden="true" />
+            </a>
+            <button
+              ref={toggle}
+              type="button"
+              className="primary-header__toggle"
+              aria-expanded={open}
+              aria-controls="mobile-navigation"
+              aria-label={open ? 'Zamknij menu' : 'Otwórz menu'}
+              onClick={() => setOpen((value) => !value)}
+            >
+              {open ? <X size={22} aria-hidden="true" /> : <Menu size={22} aria-hidden="true" />}
+              <span>Menu</span>
+            </button>
+          </div>
+        </div>
+        {open && (
+          <nav id="mobile-navigation" className="primary-header__mobile" aria-label="Menu mobilne">
+            {links}
+            <a href={plannerHref} className="primary-header__mobile-planner" onClick={() => setOpen(false)}>
+              {plannerLabel} <ArrowUpRight size={18} aria-hidden="true" />
+            </a>
+          </nav>
+        )}
+      </header>
+    </>
   );
 }
