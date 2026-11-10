@@ -34,6 +34,11 @@ final class ProjectPayload
             'points.*.bindings.*.hold' => ['sometimes', 'array'],
             'points.*.panelPages' => ['sometimes', 'array'],
             'points.*.panelPages.*' => ['array'],
+            'points.*.detector' => ['sometimes', 'array'],
+            'points.*.detector.rules' => ['sometimes', 'array'],
+            'points.*.detector.rules.*' => ['array'],
+            'points.*.detector.rules.*.actions' => ['sometimes', 'array'],
+            'points.*.detector.rules.*.actions.*' => ['array'],
             'points.*.placement' => ['sometimes', 'array'],
             'points.*.placement.documentId' => ['sometimes', 'string'],
             'points.*.photoId' => ['sometimes', 'string'],
@@ -214,6 +219,44 @@ final class ProjectPayload
                 self::fail('Nieprawidłowa wysokość.');
             }
             $bindings($pt['bindings'] ?? null);
+            if (array_key_exists('detector', $pt)) {
+                $detector = $pt['detector'];
+                if (! in_array($detector['kind'] ?? null, ['motion', 'presence', 'window', 'door'], true)
+                    || ! in_array($detector['connection'] ?? null, ['knx', 'binary', 'alarm', 'undecided'], true)
+                    || ! is_bool($detector['manualOverride'] ?? null)) {
+                    self::fail('Nieprawidłowy rodzaj lub podłączenie czujnika.');
+                }
+                if ($pt['bindings'] !== [] || array_key_exists('panelPages', $pt)) {
+                    self::fail('Czujnik ma reakcje zamiast przypisań klawiszy.');
+                }
+                $rules = $detector['rules'] ?? null;
+                if (! is_array($rules) || ! array_is_list($rules) || count($rules) > 16) {
+                    self::fail('Czujnik może mieć do 16 reakcji.');
+                }
+                $events = in_array($detector['kind'], ['motion', 'presence'], true) ? ['detected', 'absent'] : ['opened', 'closed'];
+                foreach ($rules as $rule) {
+                    $addId($rule['id'] ?? null);
+                    if (! in_array($rule['event'] ?? null, $events, true)
+                        || ! in_array($rule['condition'] ?? null, ['always', 'dark', 'day', 'night'], true)) {
+                        self::fail('Zdarzenie lub warunek nie pasuje do czujnika.');
+                    }
+                    foreach (['delaySeconds' => 86400, 'luxThreshold' => 100000] as $field => $limit) {
+                        if (! is_int($rule[$field] ?? null) || $rule[$field] < 0 || $rule[$field] > $limit) {
+                            self::fail('Nieprawidłowy czas lub próg jasności reakcji.');
+                        }
+                    }
+                    $actions = $rule['actions'] ?? null;
+                    if (! is_array($actions) || ! array_is_list($actions) || count($actions) > 16) {
+                        self::fail('Reakcja może mieć do 16 działań.');
+                    }
+                    $bindings($actions);
+                    foreach ($actions as $action) {
+                        if (array_key_exists('hold', $action)) {
+                            self::fail('Reakcja czujnika nie ma długiego naciśnięcia.');
+                        }
+                    }
+                }
+            }
             if (array_key_exists('panelPages', $pt)) {
                 $pages = $pt['panelPages'];
                 if (! array_is_list($pages) || count($pages) < 1 || count($pages) > 5) {

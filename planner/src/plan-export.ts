@@ -44,7 +44,7 @@ export async function appendPlans(brief: Blob, project: Project): Promise<Blob> 
           const width = Math.max(29, font.widthOfTextAtSize(code, 8) + 12), height = 17;
           const bx = x - width / 2 * Math.cos(angle) + height / 2 * Math.sin(angle);
           const by = y - width / 2 * Math.sin(angle) - height / 2 * Math.cos(angle);
-          copy.drawRectangle({ x: bx, y: by, width, height, rotate: degrees(rotation), color: rgb(0.03, 0.5, 0.57), borderColor: rgb(1, 1, 1), borderWidth: 1 });
+          copy.drawRectangle({ x: bx, y: by, width, height, rotate: degrees(rotation), color: point.detector ? rgb(0.37, 0.33, 0.58) : rgb(0.03, 0.5, 0.57), borderColor: rgb(1, 1, 1), borderWidth: 1 });
           copy.drawText(code, { x: bx + 6 * Math.cos(angle) - 5 * Math.sin(angle), y: by + 6 * Math.sin(angle) + 5 * Math.cos(angle), size: 8, font, rotate: degrees(rotation), color: rgb(1, 1, 1) });
         }
       }

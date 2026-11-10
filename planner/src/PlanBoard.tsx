@@ -1,3 +1,4 @@
+import { pointIcon } from './detector-config';
 import { useEffect, useRef, useState } from "react";
 import { useDndMonitor, useDraggable } from "@dnd-kit/core";
 import { TransformComponent, TransformWrapper, type ReactZoomPanPinchRef } from "react-zoom-pan-pinch";
@@ -12,13 +13,13 @@ import { conflictingPlacements, planChangeMessage, roomFloor, samePlan, setFloor
 function Marker({ point, selected, scale, select, edit, readOnly }: { point: Point; selected: boolean; scale: number; select: () => void; edit: (fn: (p: Project) => void) => void; readOnly?: boolean }) {
   const { setNodeRef, listeners, attributes, isDragging } = useDraggable({ id: `marker-${point.id}`, disabled: readOnly, data: { pointId: point.id, marker: true } });
   const pos = point.placement!;
-  return <button ref={setNodeRef} {...(readOnly ? {} : listeners)} {...(readOnly ? {} : attributes)} className={`plan-marker ${selected ? "selected" : ""}`} title={`${point.code} · ${point.name}`} aria-label={`Punkt ${point.code} na rzucie`}
+  return <button ref={setNodeRef} {...(readOnly ? {} : listeners)} {...(readOnly ? {} : attributes)} className={`plan-marker ${point.detector ? "detector-marker" : ""} ${selected ? "selected" : ""}`} title={`${point.code} · ${point.name}${point.detector ? ` · ${point.sensor}` : ""}`} aria-label={`Punkt ${point.code} na rzucie`}
     style={{ left: `${pos.x * 100}%`, top: `${pos.y * 100}%`, transform: `translate(-50%, -50%) scale(${1 / scale})`, opacity: isDragging ? 0.4 : 1 }}
     onClick={e => { e.stopPropagation(); select(); }} onKeyDown={e => {
       const delta = { ArrowLeft: [-1, 0], ArrowRight: [1, 0], ArrowUp: [0, -1], ArrowDown: [0, 1] }[e.key];
       if (delta && !readOnly) { e.preventDefault(); const step = e.shiftKey ? 0.01 : 0.002; edit(p => { const pt = p.points.find(x => x.id === point.id)!; pt.placement = { ...pos, x: Math.max(0, Math.min(1, pos.x + delta[0] * step)), y: Math.max(0, Math.min(1, pos.y + delta[1] * step)) }; }); }
       if (e.key === "Enter" || e.key === " ") { e.preventDefault(); select(); }
-    }}><Icon name="MapPin" size={13} /><strong>{point.code}</strong></button>;
+    }}><Icon name={pointIcon(point)} size={13} /><strong>{point.code}</strong></button>;
 }
 
 export function PlanBoard({ project, point, select, edit, upload, busy, dragging, floorId, roomId, selectRoom, roomMode = false, readOnly = false, focusRoom = false }: {
