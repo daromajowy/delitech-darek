@@ -2,7 +2,7 @@ import house from "../../assets/images/smart-home-cutaway.webp";
 import houseOff from "../../assets/images/f50-demo-house-all-off-v2.webp";
 import houseRest from "../../assets/images/f50-demo-house-rest.webp";
 import houseCinema from "../../assets/images/f50-demo-house-cinema.webp";
-import panel from "../../assets/images/f50-demo-f50-panel.webp";
+import panel from "../../assets/images/f50-demo-f50-panel-aluminium.webp";
 import blind from "../../assets/images/f50-demo-blind-curtain.webp";
 import glyphComfort from "../../assets/images/f50-lcd-comfort.png";
 import glyphController from "../../assets/images/f50-lcd-controller.png";

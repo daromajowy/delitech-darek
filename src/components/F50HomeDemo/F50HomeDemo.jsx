@@ -18,6 +18,7 @@ import "./F50HomeDemo.css";
 import { plannerUrl } from "../../site";
 import { panel } from "./assets";
 import { F50Display } from "./F50Display";
+import { LSTouchPanel } from "./LSTouchPanel";
 import { useTransientFeedback } from "./useTransientFeedback";
 
 import { HouseScene } from "./HouseScene";
@@ -38,12 +39,14 @@ export function F50HomeDemo({ asHero = false }) {
   const [blinds, setBlinds] = useState(0);
   const [temp, setTemp] = useState(21);
   const [pulse, setPulse] = useState(null);
+  const [controller, setController] = useState("f50");
+  const [touchPage, setTouchPage] = useState(0);
   const [last, setLast] = useState({
     kind: "intro",
     title: "Twój dom. Jeden przycisk od zmiany.",
     text: "Naciśnij symbol na panelu i zobacz, co się wydarzy.",
   });
-  const showCinemaHint = last.kind === "intro";
+  const showCinemaHint = last.kind === "intro" && (controller === "f50" || touchPage === 0);
   const [pressed, setPressed] = useState("");
   const pulseTimer = useRef(),
     pressTimer = useRef(),
@@ -250,6 +253,7 @@ export function F50HomeDemo({ asHero = false }) {
     dispatchHome({ type: "reset" });
     setTarget(0);
     setTemp(21);
+    setTouchPage(0);
     setPulse(null);
     clearTimeout(pulseTimer.current);
     setLast({
@@ -403,14 +407,39 @@ export function F50HomeDemo({ asHero = false }) {
         </section>
         <section
           className="experience"
-          aria-label="Steruj pokazowym domem panelem JUNG F50"
+          aria-label={`Steruj pokazowym domem panelem JUNG ${controller === "f50" ? "F50" : "LS TOUCH"}`}
         >
-          <aside className="control-area">
+          <aside className="control-area" data-controller={controller}>
             <div className="control-title">
               <span className="eyebrow">TWÓJ PRZYCISK</span>
-              <span>JUNG F50</span>
+              <span>{controller === "f50" ? "Aluminium" : "Czarny mat"}</span>
             </div>
-            <div className="panel-plinth">
+            <div className="controller-picker" role="group" aria-label="Wybierz przycisk do sterowania domem">
+              {[["f50", "JUNG F50"], ["ls-touch", "LS TOUCH"]].map(([value, label]) => (
+                <button
+                  key={value}
+                  type="button"
+                  aria-pressed={controller === value}
+                  aria-controls="home-controller"
+                  onClick={() => { holdCancel(); setController(value); }}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+            <div className="panel-plinth" id="home-controller">
+              {controller === "ls-touch" ? (
+                <LSTouchPanel
+                  buttons={buttons}
+                  temperature={temp}
+                  blinds={blinds}
+                  pressed={pressed}
+                  page={touchPage}
+                  onPageChange={(next) => { holdCancel(); setTouchPage(next); }}
+                  onGestureCancel={holdCancel}
+                  blindEvents={blindEvents}
+                />
+              ) : (
               <div
                 className="panel"
                 aria-label="JUNG F50 z wyświetlaczem — pokazowy układ funkcji"
@@ -418,7 +447,7 @@ export function F50HomeDemo({ asHero = false }) {
                 <img
                   className="panel-art"
                   src={panel}
-                  alt="Biały panel JUNG F50, centralny wyświetlacz i osiem klawiszy"
+                  alt="Aluminiowy panel JUNG F50, centralny wyświetlacz i osiem klawiszy"
                 />
                 <F50Display temperature={temp} heating={temp > 21} />
                 {buttons.map(
@@ -491,6 +520,7 @@ export function F50HomeDemo({ asHero = false }) {
                   ))}
                 </div>
               </div>
+              )}
             </div>
             <div className="panel-guidance">
               <p className="cinema-hint" id="f50-cinema-hint" aria-hidden={!showCinemaHint}>
@@ -505,9 +535,9 @@ export function F50HomeDemo({ asHero = false }) {
               <p className="panel-hint" aria-hidden={showCinemaHint}>
                 <MousePointer2 size={16} aria-hidden="true" />
                 <span>
-                  Kliknij symbol na przycisku.
+                  {controller === "f50" ? "Kliknij symbol na przycisku." : `Ekran ${touchPage + 1}/2: ${touchPage === 0 ? "światła i sceny" : "rolety i temperatura"}.`}
                   <br />
-                  Diody pokazują stan funkcji.
+                  {controller === "f50" ? "Diody pokazują stan funkcji." : "Przesuń ekran lub dotknij kwadratów."}
                 </span>
               </p>
             </div>
