@@ -11,7 +11,7 @@ LS TOUCH ma dwa ekrany ulubionych: cztery pola „Salon / Kuchnia / Kino / ALL O
 - Temperatura: nastawa 18–26°C, co 0,5°C; krótka łuna sygnalizuje zmianę.
 - Kino: przygaszenie salonu, kuchni i przedpokoju, delikatne LED-y i włączony TV. Stan piętra pozostaje niezależny.
 - ALL OFF: wyłączenie świateł obu kondygnacji, wiaty oraz TV. Ponowne naciśnięcie przy wygaszonym domu przywraca wszystkie światła do pełnej jasności. TV pozostaje wyłączony; nastawa temperatury i rolety pozostają niezależne.
-- Diody pokazują bieżący stan; dymki pojawiają się chwilowo. Reset wraca do oświetlonego domu.
+- Diody F50 oraz warianty ikon LS TOUCH pokazują bieżący stan; dymki pojawiają się chwilowo. Reset wraca do oświetlonego domu.
 
 To demonstracja bez połączenia z rzeczywistymi urządzeniami KNX. TV pokazuje nieruchomy obraz. Oznaczenia funkcji i kolory diod są wybraną konfiguracją pokazową.
 
@@ -24,6 +24,8 @@ Symbole LCD oparto na dokumentacji [JUNG F50](https://downloads.jung.de/Download
 Aktualna aluminiowa ilustracja F50 pochodzi z działającej demonstracji [Elektrodesign](https://elektrodesign.pl/automatyka-394#steruj-domem); zachowano jej położenie klawiszy i kontrolek, zmieniając wyłącznie format pliku na WebP.
 
 LS TOUCH: niezmieniony front z [katalogu JUNG, LS 459 D 1S SWM](https://www.jung-group.com/en-DE/p/KNX-room-controller-LS-TOUCH-with-frame-LS-990-Secure-matt-graphite-black/LS-459-D-1S-SWM), z interaktywną warstwą na obszarze wyświetlacza. Oryginalne ikony „Lights – Floor – 1”, „Lights – Ceiling”, „Blinds – Vertical”, „Scene – Movie” i „Switching – Power” wyodrębniono bez przerysowywania z [dokumentacji JUNG LS TOUCH, 09.10.2026](https://downloads.jung.de/Downloads/Produktdownloads/Produktdokumentation/KNX/459D1S/en_459D1S_20261009_TD.pdf), s. 53–55. CSS odwraca ich kolor dla czarnego tła. Front i ikony: © ALBRECHT JUNG GMBH & CO. KG. To interaktywna demonstracja konfiguracji, nie oprogramowanie sprzętowego LS TOUCH.
+
+Podział czterech pól odwzorowuje zdjęcie referencyjne i układ ze s. 57 dokumentacji: jasny krzyż o grubości 1 px, wyśrodkowany na ekranie, z końcami odsuniętymi od krawędzi. Pola nie mają tła po najechaniu, ramki podpowiedzi ani kropek stanu. Fokus klawiatury pozostaje widoczny. Warianty nieaktywne ikon przygotowano w SVG przez maskowanie promieni lamp oraz oznaczeń aktywności kina i zasilania; nie są to osobno opublikowane pliki OFF producenta. Kształt zmienia się wraz ze stanem domu, przy stałej jasności symboli. ALL OFF pokazuje okrąg po wygaszeniu domu i symbol zasilania po przywróceniu świateł. Kwadraty na dole służą wyłącznie do wyboru ekranu.
 
 Cyfry wyświetlacza: [DSEG7 Classic Mini](https://github.com/keshikan/DSEG), OFL1.1; licencja w `src/assets/fonts/DSEG-LICENSE.txt`. To wizualny zamiennik, nie wyodrębniona czcionka producenta. Ikony klawiszy: istniejący `lucide-react`.
 
