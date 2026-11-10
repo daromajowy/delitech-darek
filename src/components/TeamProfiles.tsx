@@ -3,6 +3,7 @@ import { Mail, Phone } from 'lucide-react';
 import './TeamProfiles.css';
 import janPhoto from '../assets/images/janek.jpg';
 import dariuszPhoto from '../assets/images/darek.jpg';
+import marekPhoto from '../assets/images/marek.jpg';
 
 interface TeamMember {
   id: string;
@@ -58,6 +59,7 @@ const teamMembers: readonly TeamMember[] = [
       'Patrzy na projekt od strony wykonania: tras przewodów, montażu urządzeń i współpracy poszczególnych instalacji. Wspiera dobór rozwiązań, prowadzi prace instalacyjne i uczestniczy w uruchomieniu oraz sprawdzeniu działania systemu.',
     ],
     focus: ['Instalacje elektryczne i KNX', 'Alarmy i monitoring', 'Fotowoltaika'],
+    photo: { src: marekPhoto, width: 1122, height: 1402 },
     email: 'marek@intelispaces.pl',
   },
 ];
