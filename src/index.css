@@ -65,7 +65,7 @@
   }
 }
 
-/* Homepage message over the decorative JUNG video. */
+/* Decorative JUNG video on the homepage. */
 .hero-video {
   position: relative;
   width: 100%;
@@ -91,37 +91,6 @@
   filter: brightness(0) invert(1) drop-shadow(0 1px 4px rgb(0 0 0 / 50%));
   pointer-events: none;
   user-select: none;
-}
-
-.hero-video__copy {
-  position: absolute;
-  top: 18%;
-  right: clamp(16px, 2.4vw, 40px);
-  max-width: calc(100% - 32px);
-  text-align: right;
-  text-shadow: 0 2px 14px rgb(0 0 0 / 65%), 0 1px 3px rgb(0 0 0 / 60%);
-}
-
-.hero-video__title {
-  margin: 0 0 clamp(10px, 1.2vw, 20px);
-  color: var(--color-accent);
-  font-size: clamp(32px, 4.3vw, 72px);
-  font-weight: 500;
-  line-height: 1.16;
-  letter-spacing: -.025em;
-}
-
-.hero-video__qualities {
-  margin: 0;
-  color: #fff;
-  font-size: clamp(17px, 2.2vw, 36px);
-  font-weight: 400;
-  line-height: 1.5;
-  letter-spacing: -.025em;
-}
-
-.hero-video__qualities span {
-  display: block;
 }
 
 @media (prefers-reduced-motion: reduce) {

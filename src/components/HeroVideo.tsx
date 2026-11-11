@@ -61,14 +61,6 @@ export const HeroVideo = () => {
         tabIndex={-1}
         aria-hidden="true"
       />
-      <div className="hero-video__copy">
-        <p className="hero-video__title font-display">Twój dom</p>
-        <p className="hero-video__qualities">
-          <span>Prosty w obsłudze</span>
-          <span>Inteligentny</span>
-          <span>Niezawodny</span>
-        </p>
-      </div>
       <img className="hero-video__brand" src={`${pageUrl('home')}assets/brand/jung-logo.svg`} alt="" width={96} height={24} />
     </div>
   );
