@@ -164,7 +164,7 @@ export function HomeSystemComparison({ onOpenConsultation }: { onOpenConsultatio
             <p>Oświetlenie, rolety, ogrzewanie i inne instalacje połączone w system dobrany do budynku i Twojego sposobu życia.</p>
             <FeatureList items={['Urządzenia wielu producentów', 'Rozbudowane sceny i integracje', 'Projekt i profesjonalne uruchomienie']} />
             <div className="ht-system-fit"><strong>Gdy planujesz więcej.</strong><span>Do nowych instalacji i modernizacji, także z KNX RF.</span></div>
-            <a href={pageUrl('knx')} className="ht-button">Poznaj KNX <ArrowRight size={19} aria-hidden="true" /></a>
+            <a href="https://elektrodesign.pl/automatyka-394" className="ht-button">Poznaj KNX <ArrowRight size={19} aria-hidden="true" /></a>
           </article>
           <article className="ht-system-card ht-system-card--jung">
             <div className="ht-system-heading"><Bluetooth size={40} weight="light" aria-hidden="true" /><span>Bluetooth® Mesh</span></div>
