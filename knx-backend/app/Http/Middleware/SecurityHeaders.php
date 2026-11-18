@@ -11,6 +11,7 @@ class SecurityHeaders
     {
         $response = $next($r);
         $response->headers->set('Cache-Control', 'private, no-store');
+        $response->headers->set('Strict-Transport-Security', 'max-age=86400');
         $response->headers->set('X-Content-Type-Options', 'nosniff');
         $response->headers->set('X-Frame-Options', 'SAMEORIGIN');
         $response->headers->set('X-Robots-Tag', 'noindex, nofollow, noarchive');
