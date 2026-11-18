@@ -27,12 +27,17 @@ class InquiryTest extends TestCase
     public function test_submission_is_encrypted_and_private_attachment_requires_an_admin(): void
     {
         Storage::fake('local');
-        $file = UploadedFile::fake()->createWithContent('rzut.pdf', "%PDF-1.4\n1 0 obj\n<<>>\nendobj\n%%EOF");
-        $this->submit([], [$file])->assertCreated()->assertJsonStructure(['reference'])->assertJsonMissing(['email' => 'test@example.com']);
+        $this->submit()->assertCreated()->assertJsonStructure(['reference'])->assertJsonMissing(['email' => 'test@example.com']);
         $record = Inquiry::sole();
         $this->assertStringNotContainsString('test@example.com', DB::table('inquiries')->value('payload'));
         $this->assertSame('test@example.com', $record->payload['email']);
-        Storage::disk('local')->assertExists($record->files[0]['path']);
+        $this->assertSame([], $record->files);
+        $this->assertSame([], Storage::disk('local')->allFiles());
+
+        // Existing inquiries can contain attachments saved before uploads were disabled.
+        $path = 'inquiries/'.$record->id.'/original';
+        Storage::disk('local')->put($path, 'Archived test document');
+        $record->update(['files' => [['path' => $path, 'name' => 'rzut.pdf', 'size' => 22]]]);
         $url = route('inquiries.download', [$record, 0]);
         $this->getJson($url)->assertUnauthorized();
         $member = User::factory()->create(['active' => true, 'role' => 'member']);
@@ -47,15 +52,18 @@ class InquiryTest extends TestCase
         $this->get($url)->assertForbidden();
     }
 
-    public function test_forms_reject_other_origins_missing_consent_and_executable_uploads(): void
+    public function test_forms_reject_other_origins_missing_consent_and_attachments(): void
     {
         Storage::fake('local');
         $this->submit(origin: 'https://evil.example')->assertForbidden();
         $this->submit(origin: '')->assertForbidden();
         $this->submit(['consentDataProcessing' => false])->assertUnprocessable();
         $this->submit(['email' => 'invalid'])->assertUnprocessable();
-        $this->submit(files: [UploadedFile::fake()->createWithContent('plan.pdf', '<?php echo "unsafe";')])->assertUnprocessable();
-        $this->submit(files: [UploadedFile::fake()->createWithContent('shell.php', '%PDF-1.4')])->assertUnprocessable();
+        $file = UploadedFile::fake()->create('plan.pdf', 1, 'application/pdf');
+        $this->submit(files: [$file])->assertUnprocessable();
+        $this->post('/api/inquiries', ['payload' => json_encode($this->payload()), 'document' => $file], [
+            'Accept' => 'application/json', 'Origin' => 'https://intelispaces.pl',
+        ])->assertUnprocessable();
         $this->assertDatabaseCount('inquiries', 0);
         $this->assertSame([], Storage::disk('local')->allFiles());
     }
