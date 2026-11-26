@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Support\BackofficeConfirmation;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Livewire\Livewire;
 use PHPUnit\Framework\Attributes\TestWith;
 use Tests\TestCase;
@@ -71,6 +72,19 @@ class BackofficePasswordTest extends TestCase
         $this->travel(1)->seconds();
         $this->get('/admin/users')->assertRedirect(route('backoffice.password'));
         $this->get('/editor')->assertOk();
+    }
+
+    public function test_an_already_open_planner_can_save_after_confirming_backoffice_access(): void
+    {
+        $user = User::factory()->create(['role' => 'admin', 'active' => true]);
+        $token = $this->actingAs($user)->getJson('/api?api=session')->assertOk()->json('csrf');
+        $project = json_decode(file_get_contents(__DIR__.'/../Fixtures/project.json'), true);
+        $project['id'] = (string) Str::uuid();
+
+        $this->confirmBackoffice($user);
+
+        $this->withCredentials()->putJson('/api?api=save', $project, ['X-CSRF-Token' => $token])->assertOk();
+        $this->assertDatabaseHas('projects', ['id' => $project['id'], 'owner_id' => $user->id]);
     }
 
     public function test_a_new_planner_session_in_the_same_browser_keeps_the_unexpired_confirmation(): void
