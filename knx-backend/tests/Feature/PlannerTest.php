@@ -358,7 +358,7 @@ class PlannerTest extends TestCase
         $this->save($p, $other)->assertOk();
         $this->assertFalse($other->can('share', $project));
         $this->assertFalse($other->can('viewAny', User::class));
-        $this->get('/admin/users')->assertForbidden();
+        $this->confirmBackoffice($other)->get('/admin/users')->assertForbidden();
     }
 
     public function test_disabled_user_is_rejected_even_with_an_existing_session(): void
@@ -487,7 +487,7 @@ class PlannerTest extends TestCase
     public function test_admin_panel_and_editor_render(): void
     {
         $admin = User::factory()->create(['active' => true, 'role' => 'admin']);
-        $this->actingAs($admin)->get('/admin/projects')->assertOk();
+        $this->confirmBackoffice($admin)->get('/admin/projects')->assertOk();
         $this->get('/admin/users')->assertOk();
         $this->get('/editor')->assertOk()->assertSee('csrf-token')->assertSee('knx-api');
     }

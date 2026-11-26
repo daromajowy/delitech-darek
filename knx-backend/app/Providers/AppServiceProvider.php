@@ -3,7 +3,10 @@
 namespace App\Providers;
 
 use App\Models\User;
+use App\Support\BackofficeConfirmation;
+use Illuminate\Auth\Events\CurrentDeviceLogout;
 use Illuminate\Auth\Events\Login;
+use Illuminate\Auth\Events\Logout;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
 
@@ -22,6 +25,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Event::listen([Logout::class, CurrentDeviceLogout::class], function (Logout|CurrentDeviceLogout $event): void {
+            if ($event->guard === 'web') {
+                app(BackofficeConfirmation::class)->forget();
+            }
+        });
+
         Event::listen(Login::class, function (Login $event): void {
             if ($event->guard === 'web' && $event->user instanceof User) {
                 session()->put(User::PLANNER_ACCESS_SESSION, (int) $event->user->planner_access_version);
