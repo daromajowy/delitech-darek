@@ -39,7 +39,7 @@ class BackofficePasswordController extends Controller
         }
 
         RateLimiter::clear($key);
-        $request->session()->regenerate();
+        $request->session()->migrate(true);
 
         return redirect($confirmation->destination($request))->withCookie($confirmation->cookie($request));
     }
