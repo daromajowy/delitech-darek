@@ -34,7 +34,7 @@ class PlannerAccessTest extends TestCase
     public function test_admin_can_create_a_designer_then_block_and_restore_access_without_losing_the_project(): void
     {
         $admin = User::factory()->create(['role' => 'admin', 'active' => true]);
-        $this->actingAs($admin)->get('/admin/users')->assertOk()->assertSee('Dostęp do Projektanta KNX');
+        $this->confirmBackoffice($admin)->get('/admin/users')->assertOk()->assertSee('Dostęp do Projektanta KNX');
         Livewire::test(CreateUser::class)
             ->fillForm(['name' => 'Projektant testowy', 'email' => 'architekt@example.test', 'password' => 'TestoweHaslo493!', 'role' => 'member', 'active' => true])
             ->call('create')->assertHasNoFormErrors();
@@ -79,7 +79,7 @@ class PlannerAccessTest extends TestCase
         $sessionId = session()->getId();
         session()->save();
         $this->withCookie(config('session.cookie'), $sessionId)->withCredentials()->getJson('/api?api=session')->assertOk();
-        $this->get('/admin/users')->assertForbidden();
+        $this->confirmBackoffice($user->fresh(), 'TestoweHaslo493!')->get('/admin/users')->assertForbidden();
     }
 
     public function test_an_admin_cannot_block_their_own_account(): void

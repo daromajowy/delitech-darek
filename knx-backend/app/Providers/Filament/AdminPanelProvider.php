@@ -3,6 +3,7 @@
 namespace App\Providers\Filament;
 
 use App\Filament\Auth\PlannerLogin;
+use App\Http\Middleware\RequireBackofficePassword;
 use App\Http\Middleware\WorkspaceAccess;
 use Filament\Auth\MultiFactor\App\AppAuthentication;
 use Filament\Http\Middleware\Authenticate;
@@ -68,6 +69,7 @@ class AdminPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
                 WorkspaceAccess::class,
+                RequireBackofficePassword::class,
             ], isPersistent: true);
     }
 }

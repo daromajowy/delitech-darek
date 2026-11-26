@@ -41,11 +41,11 @@ class InquiryTest extends TestCase
         $url = route('inquiries.download', [$record, 0]);
         $this->getJson($url)->assertUnauthorized();
         $member = User::factory()->create(['active' => true, 'role' => 'member']);
-        $this->actingAs($member)->get($url)->assertForbidden();
+        $this->confirmBackoffice($member)->get($url)->assertForbidden();
         $this->get(route('inquiries.show', $record))->assertForbidden();
         $this->get('/admin/inquiries')->assertForbidden();
         $admin = User::factory()->create(['active' => true, 'role' => 'admin']);
-        $this->actingAs($admin)->get($url)->assertOk()->assertDownload('rzut.pdf');
+        $this->confirmBackoffice($admin)->get($url)->assertOk()->assertDownload('rzut.pdf');
         $this->get(route('inquiries.show', $record))->assertOk()->assertDontSee('<script>alert(1)</script>', false)->assertSee('&lt;script&gt;alert(1)&lt;/script&gt;', false);
         $this->get('/admin/inquiries')->assertOk();
         $admin->update(['active' => false]);
