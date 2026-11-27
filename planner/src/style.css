@@ -1133,29 +1133,6 @@ td small {
 .receipt small {
   margin-top: 5px;
 }
-.workflow-footer {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 15;
-  border-top: 1px solid var(--line);
-  background: #ffffffed;
-  backdrop-filter: blur(8px);
-  min-height: 70px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 12px 34px;
-  gap: 15px;
-}
-.workflow-footer .primary {
-  min-width: 195px;
-}
-.footer-caption {
-  font-size: 11px;
-  color: #8a99a2;
-}
 .alert,
 .notice {
   position: relative;
@@ -1677,22 +1654,6 @@ td small {
   }
   .brief-aside {
     margin-top: 25px;
-  }
-  .workflow-footer {
-    padding: 12px 15px;
-    min-height: 67px;
-  }
-  .workflow-footer .primary {
-    min-width: 0;
-    font-size: 12px;
-    gap: 8px;
-    padding: 10px 12px;
-  }
-  .workflow-footer .quiet {
-    font-size: 12px;
-  }
-  .footer-caption {
-    display: none;
   }
   .alert,
   .notice {
