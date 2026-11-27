@@ -133,10 +133,10 @@ function CircuitEditor({ project, room, kind, edit }: { project: Project; room: 
   </div>;
 }
 
-function RoomFunctionFields({ project, room, edit }: { project: Project; room: Room; edit: Edit }) {
+function RoomFunctionFields({ project, room, edit, upload, busy }: { project: Project; room: Room; edit: Edit; upload: FlowProps['upload']; busy: boolean }) {
   const id = useId();
   const [category, setCategory] = useState<Category | null>(null);
-  return <section className="room-functions" aria-label="Funkcje pomieszczenia">
+  return <section className={`function-overview ${category ? 'has-editor' : ''}`} aria-label="Funkcje pomieszczenia">
     <div className="room-function-buttons" role="group" aria-label="Wybierz funkcję pomieszczenia">
       {categories.map((kind, index) => {
         const active = category === kind;
@@ -153,8 +153,14 @@ function RoomFunctionFields({ project, room, edit }: { project: Project; room: R
       })}
     </div>
     {categories.map((kind, index) => <div key={kind} id={`${id}-${index}-editor`} className="room-function-editor" hidden={category !== kind} role="region" aria-labelledby={`${id}-${index}-button`}>
-      {category === kind && <CircuitEditor project={project} room={room} kind={kind} edit={edit}/>}
+      {category === kind && <>
+        <div className="function-editor-heading"><h3>{kind === 'Oświetlenie' ? 'Światło' : kind}</h3><Tool icon="X" label="Zamknij ustawienia funkcji" onClick={() => setCategory(null)}/></div>
+        <div className="function-editor-scroll" role="region" aria-label={`Ustawienia: ${kind}`} tabIndex={0}><CircuitEditor project={project} room={room} kind={kind} edit={edit}/></div>
+      </>}
     </div>)}
+    <div className="room-plan-preview">
+      <PlanBoard project={project} select={() => {}} edit={() => {}} upload={upload} busy={busy} dragging={false} readOnly roomId={room.id} focusRoom/>
+    </div>
   </section>;
 }
 
@@ -170,12 +176,7 @@ function FunctionsStep({ project, room, edit, sceneId, setSceneId, setPointId, g
   return <><section className="flow-main">
     <div className="section-heading functions-heading"><h2>{room ? `Co ma robić ${room.name.toLocaleLowerCase('pl')}?` : 'Funkcje i sceny'}</h2><p className="muted">Wybierz funkcje i gotowe sceny.</p></div>
     {room ? <>
-      <div className="function-overview">
-        <RoomFunctionFields key={room.id} project={project} room={room} edit={edit}/>
-        <div className="room-plan-preview">
-          <PlanBoard project={project} select={() => {}} edit={() => {}} upload={upload} busy={busy} dragging={false} readOnly roomId={room.id} focusRoom/>
-        </div>
-      </div>
+      <RoomFunctionFields key={room.id} project={project} room={room} edit={edit} upload={upload} busy={busy}/>
       {project.points.some(pt => pt.roomId === room.id && pt.detector) && <div className="room-detector-links"><h3>Czujniki w pomieszczeniu</h3><p className="small muted">Reakcje edytujesz w Sterowaniu. Korzystają z obwodów i scen tego projektu.</p>{project.points.filter(pt => pt.roomId === room.id && pt.detector).map(pt => <button className="quiet" key={pt.id} onClick={() => { setPointId(pt.id); go(2); }}><Icon name={pointIcon(pt)} size={17}/><span>{pt.code} · {pt.name}<small>Reakcje: {pt.detector!.rules.length}</small></span><Icon name="ArrowRight" size={15}/></button>)}</div>}
       <details className="flow-details"><summary>Punkty sterowania ({project.points.filter(pt => pt.roomId === room.id).length})<Icon name="ChevronDown" size={16}/></summary><RoomPoints project={project} room={room} edit={edit} configure={id => { setPointId(id); go(2); }}/></details>
     </> : <p className="empty-inline">Zacznij od dodania pomieszczenia po lewej.</p>}

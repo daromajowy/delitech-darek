@@ -473,6 +473,7 @@ export function App() {
         </main>
       ) : (
         <>
+          <div className="workflow-navigation">
           <nav className="steps" aria-label="Etapy projektu">
             {steps.map((s, i) => (
               <button
@@ -488,39 +489,41 @@ export function App() {
               </button>
             ))}
           </nav>
-          <main className={`workspace step-${step} unified-workspace`}>
-            <ProjectFlow key={project.id} project={project} step={step} roomId={roomId} setRoomId={setRoomId}
-              pointId={pointId} setPointId={setPointId} sceneId={sceneId} setSceneId={setSceneId}
-              edit={edit} upload={upload} busy={busy} go={go} openHandoff={() => setShowHandoff(true)} exportFile={exportFile}/>
-          </main>
-          <footer className="workflow-footer">
+          <div className="workflow-navigation-actions" role="group" aria-label="Nawigacja między etapami">
             <button
               className="quiet"
+              aria-label="Wstecz"
+              title="Wstecz"
               disabled={step === 0}
               onClick={() => go(step - 1)}
             >
               <Icon name="ArrowLeft" />
-              Wstecz
+              <span>Wstecz</span>
             </button>
-            <span className="footer-caption">
-              InteliSpaces · {step + 1} / 4
-            </span>
             {step < 3 ? (
-              <button className="primary" onClick={() => go(step + 1)}>
-                Dalej: {steps[step + 1].toLocaleLowerCase("pl")}
+              <button className="primary" onClick={() => go(step + 1)} aria-label={`Dalej: ${steps[step + 1].toLocaleLowerCase('pl')}`} title={`Dalej: ${steps[step + 1].toLocaleLowerCase('pl')}`}>
+                <span>Dalej</span>
                 <Icon name="ArrowRight" />
               </button>
             ) : (
               <button
                 className="primary"
+                aria-label="Przekaż do konsultacji"
+                title="Przekaż do konsultacji"
                 onClick={() => setShowHandoff(true)}
                 disabled={busy}
               >
                 <Icon name="Send" />
-                Przekaż do konsultacji
+                <span>Przekaż</span>
               </button>
             )}
-          </footer>
+          </div>
+          </div>
+          <main className={`workspace step-${step} unified-workspace`}>
+            <ProjectFlow key={project.id} project={project} step={step} roomId={roomId} setRoomId={setRoomId}
+              pointId={pointId} setPointId={setPointId} sceneId={sceneId} setSceneId={setSceneId}
+              edit={edit} upload={upload} busy={busy} go={go} openHandoff={() => setShowHandoff(true)} exportFile={exportFile}/>
+          </main>
         </>
       )}
       {showHandoff && project && <Modal title="Dokumentacja i przekazanie" onClose={() => setShowHandoff(false)}>
