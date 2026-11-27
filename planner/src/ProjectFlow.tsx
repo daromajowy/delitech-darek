@@ -136,32 +136,30 @@ function CircuitEditor({ project, room, kind, edit }: { project: Project; room: 
 function RoomFunctionFields({ project, room, edit }: { project: Project; room: Room; edit: Edit }) {
   const id = useId();
   const [category, setCategory] = useState<Category | null>(null);
-  return <>
-    <h3 id={`${id}-heading`}>Funkcje pomieszczenia</h3>
-    <div className="room-function-buttons" role="group" aria-labelledby={`${id}-heading`}>
+  return <section className="room-functions" aria-label="Funkcje pomieszczenia">
+    <div className="room-function-buttons" role="group" aria-label="Wybierz funkcję pomieszczenia">
       {categories.map((kind, index) => {
         const active = category === kind;
         const count = room.circuits.filter(c => c.kind === kind).length;
         const itemId = `${id}-${index}`;
-        return <div className="room-function-item" key={kind}>
-          <button id={`${itemId}-button`} type="button" className="function-summary" aria-expanded={active}
+        return <button key={kind} id={`${itemId}-button`} type="button" className="function-summary" aria-expanded={active}
             aria-controls={`${itemId}-editor`} onClick={() => setCategory(active ? null : kind)}>
             <Icon name={categoryIcon[kind]} size={16}/>
             <span>{kind === 'Oświetlenie' ? 'Światło' : kind}
               <small>{count ? `${integrationCategory(kind) ? 'Elementy' : kind === 'Klimat' ? 'Strefy' : 'Obwody'}: ${count}` : 'Do ustalenia'}</small>
             </span>
             <Icon name={active ? 'ChevronUp' : 'ChevronDown'} size={14}/>
-          </button>
-          <div id={`${itemId}-editor`} className="room-function-editor" hidden={!active} role="region" aria-labelledby={`${itemId}-button`}>
-            {active && <CircuitEditor project={project} room={room} kind={kind} edit={edit}/>}
-          </div>
-        </div>;
+          </button>;
       })}
     </div>
-  </>;
+    {categories.map((kind, index) => <div key={kind} id={`${id}-${index}-editor`} className="room-function-editor" hidden={category !== kind} role="region" aria-labelledby={`${id}-${index}-button`}>
+      {category === kind && <CircuitEditor project={project} room={room} kind={kind} edit={edit}/>}
+    </div>)}
+  </section>;
 }
 
 function FunctionsStep({ project, room, edit, sceneId, setSceneId, setPointId, go, upload, busy }: FlowProps & { room?: Room }) {
+  const scenesSidebar = useSidebarViewport(1051);
   const selected = project.scenes.find(s => s.id === sceneId) ?? project.scenes.find(s => s.roomId === room?.id) ?? project.scenes.find(s => s.actions.some(a => room?.circuits.some(c => c.id === a.target)));
   const addIdea = (name: string, icon: string) => {
     if (!room) return;
@@ -170,7 +168,7 @@ function FunctionsStep({ project, room, edit, sceneId, setSceneId, setPointId, g
     const scene = suggestedScene(room, name, icon); edit(p => p.scenes.push(scene)); setSceneId(scene.id);
   };
   return <><section className="flow-main">
-    <div className="section-heading"><h2>{room ? `Co ma robić ${room.name.toLocaleLowerCase('pl')}?` : 'Funkcje i sceny'}</h2><p className="muted">Wybierz funkcje i gotowe sceny. Szczegóły dopracujesz później.</p></div>
+    <div className="section-heading functions-heading"><h2>{room ? `Co ma robić ${room.name.toLocaleLowerCase('pl')}?` : 'Funkcje i sceny'}</h2><p className="muted">Wybierz funkcje i gotowe sceny.</p></div>
     {room ? <>
       <div className="function-overview">
         <RoomFunctionFields key={room.id} project={project} room={room} edit={edit}/>
@@ -179,16 +177,23 @@ function FunctionsStep({ project, room, edit, sceneId, setSceneId, setPointId, g
         </div>
       </div>
       {project.points.some(pt => pt.roomId === room.id && pt.detector) && <div className="room-detector-links"><h3>Czujniki w pomieszczeniu</h3><p className="small muted">Reakcje edytujesz w Sterowaniu. Korzystają z obwodów i scen tego projektu.</p>{project.points.filter(pt => pt.roomId === room.id && pt.detector).map(pt => <button className="quiet" key={pt.id} onClick={() => { setPointId(pt.id); go(2); }}><Icon name={pointIcon(pt)} size={17}/><span>{pt.code} · {pt.name}<small>Reakcje: {pt.detector!.rules.length}</small></span><Icon name="ArrowRight" size={15}/></button>)}</div>}
-      <h3>Sceny na dobry początek</h3><div className="scene-ideas">{sceneIdeas.map(idea => {
-        const existing = project.scenes.find(s => sceneIdeaName(s.name) === idea.name && (s.roomId === room.id || s.actions.some(a => room.circuits.some(c => c.id === a.target))));
-        return <button key={idea.name} className={`scene-idea ${selected?.id === existing?.id && existing ? 'selected' : ''}`} disabled={!existing && project.scenes.length >= 100} onClick={() => existing ? setSceneId(existing.id) : addIdea(idea.name, idea.icon)}><span className="scene-symbol"><Icon name={idea.icon} size={27}/></span><span><strong>{idea.name}</strong><small>{idea.description}</small></span><Icon name={existing ? 'CircleCheck' : 'Plus'} size={17}/></button>;
-      })}</div>
-      <div className="row scene-add"><button className="outline" disabled={project.scenes.length >= 100} onClick={() => { const s = newScene(['Nowa scena', 'Sparkles', 'Dom']); s.roomId = room.id; edit(p => p.scenes.push(s)); setSceneId(s.id); }}><Icon name="Plus"/>Własna scena</button><select aria-label="Więcej scen" value="" disabled={project.scenes.length >= 100} onChange={e => { const t = sceneTemplates[Number(e.target.value)]; if (e.target.value && t) addIdea(t[0], t[1]); }}><option value="">Więcej scen…</option>{sceneTemplates.map((t, i) => <option key={t[0]} value={i}>{t[0]}</option>)}</select></div>
       <details className="flow-details"><summary>Punkty sterowania ({project.points.filter(pt => pt.roomId === room.id).length})<Icon name="ChevronDown" size={16}/></summary><RoomPoints project={project} room={room} edit={edit} configure={id => { setPointId(id); go(2); }}/></details>
     </> : <p className="empty-inline">Zacznij od dodania pomieszczenia po lewej.</p>}
-    <details className="flow-details" open={!selected && project.scenes.length > 0}><summary>Wszystkie sceny projektu ({project.scenes.length})<Icon name="ChevronDown" size={16}/></summary><div className="scene-chips">{project.scenes.map(s => <button key={s.id} className={s.id === selected?.id ? 'selected' : ''} onClick={() => setSceneId(s.id)}><Icon name={s.icon} size={17}/>{s.name}<small>{project.rooms.find(r => r.id === s.roomId)?.name ?? s.area}</small></button>)}</div></details>
     <details className="flow-details"><summary>Integracje i urządzenia zewnętrzne<Icon name="ChevronDown" size={16}/></summary>{project.integrations.map(i => <div className="integration-config" key={i.id}><Check label={i.name} checked={i.enabled} onChange={v => edit(p => { p.integrations.find(x => x.id === i.id)!.enabled = v; })}/>{i.enabled && <div className="form-grid"><Field label="Model / system"><input value={i.model} maxLength={1000} onChange={e => edit(p => { p.integrations.find(x => x.id === i.id)!.model = e.target.value; })}/></Field><Field label="Zakres integracji"><input value={i.notes} maxLength={3000} onChange={e => edit(p => { p.integrations.find(x => x.id === i.id)!.notes = e.target.value; })}/></Field></div>}</div>)}</details>
-  </section><aside className="right-panel flow-context">{selected ? <SceneEditor key={selected.id} project={project} scene={selected} edit={edit}/> : <div className="empty-inline"><Icon name="Clapperboard" size={32}/><h3>Jedna scena. Wiele działań.</h3><p>Wybierz propozycję lub utwórz własną scenę.</p></div>}</aside></>;
+  </section><aside ref={scenesSidebar} className="right-panel flow-context functions-scenes" aria-label="Sceny i ich działania">
+    <div className="scenes-sidebar-heading"><h3>Sceny na dobry początek</h3></div>
+    <div className="scenes-sidebar-content" role="region" aria-label="Wybór i ustawienia scen" tabIndex={0}>
+      {room && <>
+        <div className="scene-ideas">{sceneIdeas.map(idea => {
+          const existing = project.scenes.find(s => sceneIdeaName(s.name) === idea.name && (s.roomId === room.id || s.actions.some(a => room.circuits.some(c => c.id === a.target))));
+          return <button type="button" key={idea.name} className={`scene-idea ${selected?.id === existing?.id && existing ? 'selected' : ''}`} aria-pressed={!!existing && selected?.id === existing.id} title={idea.description} disabled={!existing && project.scenes.length >= 100} onClick={() => existing ? setSceneId(existing.id) : addIdea(idea.name, idea.icon)}><span className="scene-symbol"><Icon name={idea.icon} size={20}/></span><strong>{idea.name}</strong><Icon name={existing ? 'CircleCheck' : 'Plus'} size={14}/></button>;
+        })}</div>
+        <div className="row scene-add"><button className="outline" disabled={project.scenes.length >= 100} onClick={() => { const s = newScene(['Nowa scena', 'Sparkles', 'Dom']); s.roomId = room.id; edit(p => p.scenes.push(s)); setSceneId(s.id); }}><Icon name="Plus"/>Własna scena</button><select aria-label="Więcej scen" value="" disabled={project.scenes.length >= 100} onChange={e => { const t = sceneTemplates[Number(e.target.value)]; if (e.target.value && t) addIdea(t[0], t[1]); }}><option value="">Więcej scen…</option>{sceneTemplates.map((t, i) => <option key={t[0]} value={i}>{t[0]}</option>)}</select></div>
+      </>}
+      <details className="flow-details scene-project-list" open={!selected && project.scenes.length > 0}><summary>Wszystkie sceny projektu ({project.scenes.length})<Icon name="ChevronDown" size={16}/></summary><div className="scene-chips">{project.scenes.map(s => <button key={s.id} className={s.id === selected?.id ? 'selected' : ''} onClick={() => setSceneId(s.id)}><Icon name={s.icon} size={17}/>{s.name}<small>{project.rooms.find(r => r.id === s.roomId)?.name ?? s.area}</small></button>)}</div></details>
+      {selected ? <SceneEditor key={selected.id} project={project} scene={selected} edit={edit}/> : <div className="empty-inline"><Icon name="Clapperboard" size={32}/><h3>Jedna scena. Wiele działań.</h3><p>Wybierz propozycję lub utwórz własną scenę.</p></div>}
+    </div>
+  </aside></>;
 }
 
 function SceneEditor({ project, scene, edit }: { project: Project; scene: Scene; edit: Edit }) {
