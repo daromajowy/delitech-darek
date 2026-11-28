@@ -15,6 +15,7 @@ import { assignRoomColors, roomColor, roomColorStyle, roomPalette } from './room
 import { SensorKeys } from './SensorPreview';
 import { actionProblem, initialStateOptions, reviewItems, sceneIdeaName, sceneIdeas, suggestedScene, type ReviewItem } from './behavior';
 import { categories, controls, duplicateRoom, emptyRoom, newCircuit, newScene, removeTargets, sceneTemplates, targets, uid, type Attachment, type Category, type Circuit, type Floor, type Project, type Room, type Scene } from './model';
+import { actionRoomId, addSceneRoom, forgetSceneRoom, removeSceneRoom, sceneRoomIds, sceneRoomsLabel } from './scene-rooms';
 
 type Edit = (fn: (p: Project) => void) => void;
 type FlowProps = {
@@ -68,7 +69,7 @@ function RoomData({ project, room, edit, select }: { project: Project; room: Roo
   return <div className="room-data">
     <div className="row spread"><h2>{room.name}</h2><div className="row"><Tool icon="Copy" label="Duplikuj pomieszczenie" onClick={() => { const copy = duplicateRoom(project, room.id); edit(p => Object.assign(p, copy)); select(copy.rooms.at(-1)!.id); }}/><Tool icon="Trash2" label="Usuń pomieszczenie" onClick={() => {
       if (!confirm(`Usunąć ${room.name} wraz z obwodami i punktami? Sceny pozostaną do uzupełnienia.`)) return;
-      edit(p => { const copy = removeTargets(p, room.circuits.map(c => c.id)); copy.rooms = copy.rooms.filter(r => r.id !== room.id); copy.points = copy.points.filter(pt => pt.roomId !== room.id); copy.scenes.forEach(s => { if (s.roomId === room.id) delete s.roomId; }); Object.assign(p, copy); });
+      edit(p => { const copy = removeTargets(p, room.circuits.map(c => c.id)); copy.rooms = copy.rooms.filter(r => r.id !== room.id); copy.points = copy.points.filter(pt => pt.roomId !== room.id); copy.scenes.forEach(s => forgetSceneRoom(s, room.id)); Object.assign(p, copy); });
     }}/></div></div>
     <div className="room-data-fields">
       <Field label="Nazwa pomieszczenia"><input value={room.name} maxLength={150} onChange={e => update(r => { r.name = e.target.value; })}/></Field>
@@ -166,10 +167,10 @@ function RoomFunctionFields({ project, room, edit, upload, busy }: { project: Pr
 
 function FunctionsStep({ project, room, edit, sceneId, setSceneId, setPointId, go, upload, busy }: FlowProps & { room?: Room }) {
   const scenesSidebar = useSidebarViewport(1051);
-  const selected = project.scenes.find(s => s.id === sceneId) ?? project.scenes.find(s => s.roomId === room?.id) ?? project.scenes.find(s => s.actions.some(a => room?.circuits.some(c => c.id === a.target)));
+  const selected = project.scenes.find(s => s.id === sceneId) ?? project.scenes.find(s => sceneRoomIds(project, s).includes(room?.id ?? ''));
   const addIdea = (name: string, icon: string) => {
     if (!room) return;
-    const existing = project.scenes.find(s => sceneIdeaName(s.name) === sceneIdeaName(name) && (s.roomId === room.id || s.id === selected?.id));
+    const existing = project.scenes.find(s => sceneIdeaName(s.name) === sceneIdeaName(name) && sceneRoomIds(project, s).includes(room.id));
     if (existing) { setSceneId(existing.id); return; }
     const scene = suggestedScene(room, name, icon); edit(p => p.scenes.push(scene)); setSceneId(scene.id);
   };
@@ -186,12 +187,12 @@ function FunctionsStep({ project, room, edit, sceneId, setSceneId, setPointId, g
     <div className="scenes-sidebar-content" role="region" aria-label="Wybór i ustawienia scen" tabIndex={0}>
       {room && <>
         <div className="scene-ideas">{sceneIdeas.map(idea => {
-          const existing = project.scenes.find(s => sceneIdeaName(s.name) === idea.name && (s.roomId === room.id || s.actions.some(a => room.circuits.some(c => c.id === a.target))));
+          const existing = project.scenes.find(s => sceneIdeaName(s.name) === idea.name && sceneRoomIds(project, s).includes(room.id));
           return <button type="button" key={idea.name} className={`scene-idea ${selected?.id === existing?.id && existing ? 'selected' : ''}`} aria-pressed={!!existing && selected?.id === existing.id} title={idea.description} disabled={!existing && project.scenes.length >= 100} onClick={() => existing ? setSceneId(existing.id) : addIdea(idea.name, idea.icon)}><span className="scene-symbol"><Icon name={idea.icon} size={20}/></span><strong>{idea.name}</strong><Icon name={existing ? 'CircleCheck' : 'Plus'} size={14}/></button>;
         })}</div>
-        <div className="row scene-add"><button className="outline" disabled={project.scenes.length >= 100} onClick={() => { const s = newScene(['Nowa scena', 'Sparkles', 'Dom']); s.roomId = room.id; edit(p => p.scenes.push(s)); setSceneId(s.id); }}><Icon name="Plus"/>Własna scena</button><select aria-label="Więcej scen" value="" disabled={project.scenes.length >= 100} onChange={e => { const t = sceneTemplates[Number(e.target.value)]; if (e.target.value && t) addIdea(t[0], t[1]); }}><option value="">Więcej scen…</option>{sceneTemplates.map((t, i) => <option key={t[0]} value={i}>{t[0]}</option>)}</select></div>
+        <div className="row scene-add"><button className="outline" disabled={project.scenes.length >= 100} onClick={() => { const s = newScene(['Nowa scena', 'Sparkles', 'Dom']); addSceneRoom(project, s, room.id); edit(p => p.scenes.push(s)); setSceneId(s.id); }}><Icon name="Plus"/>Własna scena</button><select aria-label="Więcej scen" value="" disabled={project.scenes.length >= 100} onChange={e => { const t = sceneTemplates[Number(e.target.value)]; if (e.target.value && t) addIdea(t[0], t[1]); }}><option value="">Więcej scen…</option>{sceneTemplates.map((t, i) => <option key={t[0]} value={i}>{t[0]}</option>)}</select></div>
       </>}
-      <details className="flow-details scene-project-list" open={!selected && project.scenes.length > 0}><summary>Wszystkie sceny projektu ({project.scenes.length})<Icon name="ChevronDown" size={16}/></summary><div className="scene-chips">{project.scenes.map(s => <button key={s.id} className={s.id === selected?.id ? 'selected' : ''} onClick={() => setSceneId(s.id)}><Icon name={s.icon} size={17}/>{s.name}<small>{project.rooms.find(r => r.id === s.roomId)?.name ?? s.area}</small></button>)}</div></details>
+      <details className="flow-details scene-project-list" open={!selected && project.scenes.length > 0}><summary>Wszystkie sceny projektu ({project.scenes.length})<Icon name="ChevronDown" size={16}/></summary><div className="scene-chips">{project.scenes.map(s => <button key={s.id} className={s.id === selected?.id ? 'selected' : ''} onClick={() => setSceneId(s.id)}><Icon name={s.icon} size={17}/>{s.name}<small>{sceneRoomsLabel(project, s)}</small></button>)}</div></details>
       {selected ? <SceneEditor key={selected.id} project={project} scene={selected} edit={edit}/> : <div className="empty-inline"><Icon name="Clapperboard" size={32}/><h3>Jedna scena. Wiele działań.</h3><p>Wybierz propozycję lub utwórz własną scenę.</p></div>}
     </div>
   </aside></>;
@@ -199,13 +200,33 @@ function FunctionsStep({ project, room, edit, sceneId, setSceneId, setPointId, g
 
 function SceneEditor({ project, scene, edit }: { project: Project; scene: Scene; edit: Edit }) {
   const update = (fn: (s: Scene) => void) => edit(p => { const s = p.scenes.find(s => s.id === scene.id); if (s) fn(s); });
-  return <section className="scene-editor"><div className="row spread scene-title"><div className="row"><span className="scene-symbol"><Icon name={scene.icon} size={28}/></span><h2>{scene.name}<small>{project.rooms.find(r => r.id === scene.roomId)?.name ?? scene.area}</small></h2></div><Tool icon="Trash2" label="Usuń scenę" onClick={() => { if (confirm(`Usunąć scenę ${scene.name}? Powiązane klawisze będą wymagały uzupełnienia.`)) edit(p => { const next = removeTargets(p, [scene.id]); next.scenes = next.scenes.filter(s => s.id !== scene.id); Object.assign(p, next); }); }}/></div>
+  const roomIds = sceneRoomIds(project, scene);
+  const rooms = project.rooms.filter(r => roomIds.includes(r.id));
+  const remaining = project.rooms.filter(r => !roomIds.includes(r.id));
+  const otherActions = scene.actions.filter(a => !actionRoomId(project, a));
+  const actionEditor = (action: Scene['actions'][number], roomId?: string) => {
+    const number = scene.actions.indexOf(action) + 1;
+    return <div className="scene-action" key={action.id}><div className="row spread"><strong>Działanie {number}</strong><Tool icon="X" label={`Usuń działanie ${number}`} onClick={() => update(s => { s.actions = s.actions.filter(a => a.id !== action.id); })}/></div><ActionField project={project} value={action} label={`Działanie ${number}`} scene roomId={roomId} change={v => update(s => { Object.assign(s.actions.find(a => a.id === action.id)!, v); })}/></div>;
+  };
+  return <section className="scene-editor"><div className="row spread scene-title"><div className="row"><span className="scene-symbol"><Icon name={scene.icon} size={28}/></span><h2>{scene.name}<small>{sceneRoomsLabel(project, scene)}</small></h2></div><Tool icon="Trash2" label="Usuń scenę" onClick={() => { if (confirm(`Usunąć scenę ${scene.name}? Powiązane klawisze będą wymagały uzupełnienia.`)) edit(p => { const next = removeTargets(p, [scene.id]); next.scenes = next.scenes.filter(s => s.id !== scene.id); Object.assign(p, next); }); }}/></div>
+    <div className="scene-room-picker"><Field label={`Pomieszczenia sceny (${rooms.length})`}><select aria-label="Dodaj pomieszczenie do sceny" value="" disabled={!remaining.length} onChange={e => { const id = e.target.value; if (id) update(s => addSceneRoom(project, s, id)); }}><option value="">{remaining.length ? '+ Dodaj pomieszczenie…' : 'Dodano wszystkie pomieszczenia'}</option>{[...new Set(remaining.map(r => r.floor))].map(floor => <optgroup label={floor} key={floor}>{remaining.filter(r => r.floor === floor).map(r => <option value={r.id} key={r.id}>{r.name}</option>)}</optgroup>)}</select></Field><p className="small muted">Jedna scena może obejmować kilka pokoi i kondygnacji. Działania ustalasz poniżej.</p></div>
     <h3>Co ma się wydarzyć?</h3>
-    {!scene.actions.length && <p className="inline-info">Dodaj pierwsze działanie. Pusta scena niczego nie uruchamia.</p>}
-    <div className="scene-actions">{scene.actions.map((action, i) => <div className="scene-action" key={action.id}><div className="row spread"><strong>Działanie {i + 1}</strong><Tool icon="X" label={`Usuń działanie ${i + 1}`} onClick={() => update(s => { s.actions = s.actions.filter(a => a.id !== action.id); })}/></div><ActionField project={project} value={action} label={`Działanie ${i + 1}`} scene change={v => update(s => { Object.assign(s.actions.find(a => a.id === action.id)!, v); })}/></div>)}</div>
-    <button className="outline full" disabled={scene.actions.length >= 100} onClick={() => update(s => s.actions.push({ id: uid(), target: '', action: 'Do ustalenia' }))}><Icon name="Plus"/>Dodaj działanie</button>
+    {!rooms.length && !otherActions.length && <p className="inline-info">Dodaj pomieszczenie, a następnie wybierz jego obwody i działania.</p>}
+    {rooms.map(room => {
+      const actions = scene.actions.filter(a => actionRoomId(project, a) === room.id);
+      return <section className="scene-room-group" key={room.id} aria-label={`Działania w pomieszczeniu ${room.name} · ${room.floor}`}>
+        <div className="scene-room-heading"><Icon name={roomIcon(room.name)} size={17}/><div><h4>{room.name}</h4><small>{room.floor}</small></div><Tool icon="X" label={`Usuń ${room.name} ze sceny`} onClick={() => {
+          if (actions.length && !confirm(`Usunąć ${room.name} ze sceny „${scene.name}” razem z działaniami w tym pomieszczeniu (${actions.length})? Pozostałe pomieszczenia i ich działania zostaną zachowane.`)) return;
+          update(s => removeSceneRoom(project, s, room.id));
+        }}/></div>
+        <div className="scene-actions">{actions.map(a => actionEditor(a, room.id))}</div>
+        {!actions.length && <p className="small muted">{room.circuits.length ? 'Wybierz, co ma się zmienić w tym pomieszczeniu.' : 'Najpierw dodaj funkcje tego pomieszczenia w kroku 2.'}</p>}
+        <button className="outline full" aria-label={`Dodaj działanie: ${room.name} · ${room.floor}`} disabled={!room.circuits.length || scene.actions.length >= 100} onClick={() => update(s => s.actions.push({ id: uid(), target: room.circuits[0].id, action: 'Do ustalenia' }))}><Icon name="Plus"/>Dodaj działanie</button>
+      </section>;
+    })}
+    {otherActions.length > 0 && <section className="scene-room-group" aria-label="Pozostałe zapisane działania"><h4>Pozostałe zapisane działania</h4><p className="small muted">Uzupełnij brakujący obwód lub pozostaw zapisane wywołanie innej sceny.</p><div className="scene-actions">{otherActions.map(a => actionEditor(a))}</div></section>}
     <p className="small muted scene-note">Pozostałe urządzenia bez zmian. Propozycję działań możesz dowolnie poprawić.</p>
-    <details className="flow-details"><summary>Nazwa i zakres sceny<Icon name="ChevronDown" size={16}/></summary><Field label="Nazwa sceny"><input value={scene.name} maxLength={150} onChange={e => update(s => { s.name = e.target.value; })}/></Field><Field label="Pomieszczenie sceny"><select value={scene.roomId ?? ''} onChange={e => update(s => { s.roomId = e.target.value || undefined; })}><option value="">Cały projekt</option>{project.rooms.map(r => <option key={r.id} value={r.id}>{r.name}</option>)}</select></Field><Field label="Obszar"><Select value={scene.area} options={[...new Set([scene.area, 'Dom', 'Na zewnątrz'])]} onChange={v => update(s => { s.area = v; })}/></Field><Field label="Priorytet"><Select value={scene.priority} options={['Konieczne', 'Opcjonalne']} onChange={v => update(s => { s.priority = v as Scene['priority']; })}/></Field></details>
+    <details className="flow-details"><summary>Nazwa i zakres sceny<Icon name="ChevronDown" size={16}/></summary><Field label="Nazwa sceny"><input value={scene.name} maxLength={150} onChange={e => update(s => { s.name = e.target.value; })}/></Field><Field label="Obszar"><Select value={scene.area} options={[...new Set([scene.area, 'Dom', 'Na zewnątrz'])]} onChange={v => update(s => { s.area = v; })}/></Field><Field label="Priorytet"><Select value={scene.priority} options={['Konieczne', 'Opcjonalne']} onChange={v => update(s => { s.priority = v as Scene['priority']; })}/></Field></details>
     <details className="flow-details"><summary>Automatyka i warunki<Icon name="ChevronDown" size={16}/></summary><h3>Uruchamianie sceny</h3><div className="checks-grid">{['Przycisk', 'Aplikacja', 'Harmonogram', 'Czujnik', 'Polecenie głosowe'].map(t => <Check key={t} label={t} checked={scene.triggers.includes(t)} onChange={v => update(s => { s.triggers = v ? [...s.triggers, t] : s.triggers.filter(x => x !== t); })}/>)}</div><Check label="Ręczne sterowanie ma pierwszeństwo przed automatyką" checked={scene.exception} onChange={v => update(s => { s.exception = v; })}/><Field label="Warunki, wyjątki i uwagi"><textarea value={scene.notes} maxLength={3000} onChange={e => update(s => { s.notes = e.target.value; })}/></Field></details>
     <p className="inline-info"><Icon name="MousePointer2"/><span>Do klawisza przypiszesz ją w następnym kroku.</span></p>
   </section>;
