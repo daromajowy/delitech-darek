@@ -1,0 +1,317 @@
+[
+  {
+    "code": "32001",
+    "name": "Blanc",
+    "color": "#fef5da"
+  },
+  {
+    "code": "32010",
+    "name": "Gris foncé 31",
+    "color": "#6a6e74"
+  },
+  {
+    "code": "32011",
+    "name": "Gris 31",
+    "color": "#8c8c8c"
+  },
+  {
+    "code": "32012",
+    "name": "Gris moyen",
+    "color": "#acacac"
+  },
+  {
+    "code": "32013",
+    "name": "Gris clair 31",
+    "color": "#c9c7c3"
+  },
+  {
+    "code": "32020",
+    "name": "Bleu outremer 31",
+    "color": "#5568a8"
+  },
+  {
+    "code": "32021",
+    "name": "Outremer moyen",
+    "color": "#9ac0df"
+  },
+  {
+    "code": "32022",
+    "name": "Outremer clair",
+    "color": "#c4d7e3"
+  },
+  {
+    "code": "32023",
+    "name": "Outremer pâle",
+    "color": "#d2dce4"
+  },
+  {
+    "code": "32024",
+    "name": "Outremer gris",
+    "color": "#e9efe8"
+  },
+  {
+    "code": "32030",
+    "name": "Bleu céruléen 31",
+    "color": "#2e6b9b"
+  },
+  {
+    "code": "32031",
+    "name": "Céruléen vif",
+    "color": "#629aae"
+  },
+  {
+    "code": "32032",
+    "name": "Céruléen moyen",
+    "color": "#8fbfca"
+  },
+  {
+    "code": "32033",
+    "name": "Céruléen clair",
+    "color": "#a5c6c9"
+  },
+  {
+    "code": "32034",
+    "name": "Céruléen pâle",
+    "color": "#d1e0db"
+  },
+  {
+    "code": "32040",
+    "name": "Vert anglais",
+    "color": "#2c7362"
+  },
+  {
+    "code": "32041",
+    "name": "Vert anglais clair",
+    "color": "#a5c3b2"
+  },
+  {
+    "code": "32042",
+    "name": "Vert anglais pâle",
+    "color": "#cddbc9"
+  },
+  {
+    "code": "32050",
+    "name": "Vert foncé",
+    "color": "#347d4e"
+  },
+  {
+    "code": "32051",
+    "name": "Vert 31",
+    "color": "#93b760"
+  },
+  {
+    "code": "32052",
+    "name": "Vert clair",
+    "color": "#b0cc67"
+  },
+  {
+    "code": "32053",
+    "name": "Vert jaune clair",
+    "color": "#dce6a8"
+  },
+  {
+    "code": "32060",
+    "name": "Ocre",
+    "color": "#fddebb"
+  },
+  {
+    "code": "32080",
+    "name": "Orange",
+    "color": "#ef6401"
+  },
+  {
+    "code": "32081",
+    "name": "Orange clair",
+    "color": "#f8974c"
+  },
+  {
+    "code": "32082",
+    "name": "Orange pâle",
+    "color": "#fce2cd"
+  },
+  {
+    "code": "32090",
+    "name": "Rouge vermillon 31",
+    "color": "#b80101"
+  },
+  {
+    "code": "32091",
+    "name": "Rose pâle",
+    "color": "#fbe3cb"
+  },
+  {
+    "code": "32100",
+    "name": "Rouge carmin",
+    "color": "#9c223b"
+  },
+  {
+    "code": "32101",
+    "name": "Rouge rubia",
+    "color": "#ae0147"
+  },
+  {
+    "code": "32102",
+    "name": "Rose clair",
+    "color": "#f5bda9"
+  },
+  {
+    "code": "32110",
+    "name": "L'ocre rouge",
+    "color": "#a84731"
+  },
+  {
+    "code": "32111",
+    "name": "L’ocre rouge moyen",
+    "color": "#e69c89"
+  },
+  {
+    "code": "32112",
+    "name": "L’ocre rouge clair",
+    "color": "#fed3c4"
+  },
+  {
+    "code": "32120",
+    "name": "Terre sienne brûlée 31",
+    "color": "#6d332b"
+  },
+  {
+    "code": "32121",
+    "name": "Terre sienne brique",
+    "color": "#c57769"
+  },
+  {
+    "code": "32122",
+    "name": "Terre sienne claire 31",
+    "color": "#f2caa5"
+  },
+  {
+    "code": "32123",
+    "name": "Terre sienne pâle",
+    "color": "#fde7d3"
+  },
+  {
+    "code": "32130",
+    "name": "Terre d’ombre brûlée 31",
+    "color": "#543c34"
+  },
+  {
+    "code": "32131",
+    "name": "Ombre brûlée claire",
+    "color": "#ccb5a8"
+  },
+  {
+    "code": "32140",
+    "name": "Ombre naturelle 31",
+    "color": "#544d42"
+  },
+  {
+    "code": "32141",
+    "name": "Ombre naturelle moyenne",
+    "color": "#9e9181"
+  },
+  {
+    "code": "32142",
+    "name": "Ombre naturelle claire",
+    "color": "#c9bcac"
+  },
+  {
+    "code": "4320A",
+    "name": "Rouge vermillon 59",
+    "color": "#bd340c"
+  },
+  {
+    "code": "4320B",
+    "name": "Blanc ivoire",
+    "color": "#fbeede"
+  },
+  {
+    "code": "4320C",
+    "name": "Rose vif",
+    "color": "#f19fba"
+  },
+  {
+    "code": "4320D",
+    "name": "Terre sienne brûlée 59",
+    "color": "#803921"
+  },
+  {
+    "code": "4320E",
+    "name": "Noir d'ivoire",
+    "color": "#271d25"
+  },
+  {
+    "code": "4320F",
+    "name": "Vert olive vif",
+    "color": "#bcb801"
+  },
+  {
+    "code": "4320G",
+    "name": "Vert 59",
+    "color": "#5b9d7e"
+  },
+  {
+    "code": "4320H",
+    "name": "Gris 59",
+    "color": "#768088"
+  },
+  {
+    "code": "4320J",
+    "name": "Terre d‘ombre brûlée 59",
+    "color": "#3b2c28"
+  },
+  {
+    "code": "4320K",
+    "name": "Bleu outremer 59",
+    "color": "#3f5ca7"
+  },
+  {
+    "code": "4320L",
+    "name": "Ocre jaune clair",
+    "color": "#fac072"
+  },
+  {
+    "code": "4320M",
+    "name": "Le rubis",
+    "color": "#85293f"
+  },
+  {
+    "code": "4320N",
+    "name": "Bleu céruléen 59",
+    "color": "#93bde1"
+  },
+  {
+    "code": "4320O",
+    "name": "Gris clair 59",
+    "color": "#a1a6ad"
+  },
+  {
+    "code": "4320P",
+    "name": "Terre sienne claire 59",
+    "color": "#fbd3a5"
+  },
+  {
+    "code": "4320R",
+    "name": "Ombre naturelle 59",
+    "color": "#35332f"
+  },
+  {
+    "code": "4320S",
+    "name": "Orange vif",
+    "color": "#de5e1c"
+  },
+  {
+    "code": "4320T",
+    "name": "Bleu outremer foncé",
+    "color": "#0f3369"
+  },
+  {
+    "code": "4320U",
+    "name": "Gris foncé 59",
+    "color": "#555f69"
+  },
+  {
+    "code": "4320W",
+    "name": "Le jaune vif",
+    "color": "#ffc702"
+  }
+]

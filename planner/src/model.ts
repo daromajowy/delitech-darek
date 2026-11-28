@@ -3,6 +3,8 @@ import { clonePointControls, ensureTouchPages, isLsTouch } from './touch-pages';
 import { assignRoomColors } from './room-colors';
 import { normalizeFloors } from './floors';
 import { detectorKinds } from './detector-config';
+import { panelFinishes } from './panel-finishes';
+export { finishes } from './panel-finishes';
 export type Category = "Oświetlenie" | "Osłony" | "Klimat" | "Muzyka i kino" | "Ochrona i dostęp" | "Energia i ładowanie" | "Ogród i woda" | "Pozostałe";
 export type Priority = "Konieczne" | "Opcjonalne";
 export interface Circuit {
@@ -202,36 +204,39 @@ export const sensors: Sensor[] = [
     deviceType: "Sensor KNX",
     image: "jung-f50.webp",
     keys: 4,
-    finishes: ["Biały", "Czarny", "Aluminium", "Stal", "Mosiądz"],
+    finishes: panelFinishes('JUNG F50').map(f => f.id),
+    description: "Pogląd w serii LS 990. Dobieramy klawisze, pole opisowe i ramkę w wybranym wykończeniu.",
   },
   {
     name: "JUNG F40",
     deviceType: "Sensor KNX",
     image: "jung-f40.webp",
     keys: 4,
-    finishes: ["Biały", "Czarny", "Aluminium", "Stal"],
+    finishes: panelFinishes('JUNG F40').map(f => f.id),
+    description: "Pogląd w serii LS 990. Wykończenie klawiszy i ramki dobieramy do wybranego modułu.",
   },
   {
     name: "JUNG LS TOUCH",
     deviceType: "Panel dotykowy",
     image: "jung-ls-touch.png",
     keys: 6,
-    finishes: ["Biały", "Czarny", "Aluminium", "Stal", "Mosiądz"],
+    finishes: panelFinishes('JUNG LS TOUCH').map(f => f.id),
+    description: "Pogląd z ramką LS 990. Kolorystykę ekranu można dopasować do wykończenia; ustawienia uzgadniamy w ETS.",
   },
   {
     name: "Ekinex FF · bez ramki (NF)",
     deviceType: "Sensor KNX",
     image: "ekinex-ff-nf.png",
     keys: 4,
-    finishes: ["Biały", "Czarny", "Aluminium", "Mosiądz"],
-    description: "Seria FF w wersji NF (No Frame), bez ramki. Układ klawiszy i materiał do uzgodnienia; zdjęcie referencyjne przedstawia wariant z dwoma pionowymi klawiszami.",
+    finishes: panelFinishes('Ekinex FF · bez ramki (NF)').map(f => f.id),
+    description: "Seria FF w wersji NF (No Frame), bez ramki. Pogląd z dwoma pionowymi klawiszami. Układ, materiał i oznaczenia dobieramy do projektu.",
   },
   {
     name: "JUNG Smart Control 5″",
     deviceType: "Panel dotykowy",
     image: "jung-smart-control-5.webp",
     keys: 6,
-    finishes: ["Czarny"],
+    finishes: panelFinishes('JUNG Smart Control 5″').map(f => f.id),
     description: "Panel dotykowy 5″ · SC 5 SW. Wizualizacja KNX wymaga serwera Smart Visu lub Visu Pro. Montaż pionowy; zasilanie PoE lub 24 V DC.",
   },
 ];
@@ -247,13 +252,6 @@ export function selectSensor(point: Point, name: string): void {
   delete point.photoId;
   if (isLsTouch(point)) ensureTouchPages(point);
 }
-export const finishes: Record<string, string> = {
-  Biały: "#fafafa",
-  Czarny: "#25292a",
-  Aluminium: "#aeb2b3",
-  Stal: "#767e80",
-  Mosiądz: "#bda569",
-};
 export const uid = () => crypto.randomUUID();
 export const emptyRoom = (
   name = "Nowe pomieszczenie",
