@@ -1,8 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import ExcelJS from 'exceljs';
-import { exampleProject, newCircuit, newScene, normalizeProject, duplicateRoom, removeTargets } from '../src/model';
-import { addSceneRoom, forgetSceneRoom, removeSceneRoom, sceneRoomIds, sceneRoomsLabel } from '../src/scene-rooms';
+import { exampleProject, emptyRoom, newProject, newCircuit, newScene, normalizeProject, duplicateRoom, removeTargets } from '../src/model';
+import { addAllSceneRooms, addSceneRoom, forgetSceneRoom, removeSceneRoom, sceneRoomIds, sceneRoomsLabel } from '../src/scene-rooms';
 import { reviewItems, simulate, suggestedScene } from '../src/behavior';
 import { buildXlsx } from '../src/exports';
 
@@ -15,6 +15,37 @@ test('legacy scenes reveal all directly controlled rooms without modifying saved
   assert.deepEqual(sceneRoomIds(p, scene), [p.rooms[0].id, p.rooms[1].id]);
   assert.deepEqual(normalizeProject(JSON.parse(JSON.stringify(p))).scenes, before.scenes);
   assert.deepEqual(p, before);
+});
+
+test('whole home adds all current rooms once while preserving customised exit and holiday scenes', () => {
+  for (const name of ['Wyjście', 'Wakacje']) {
+    const p = normalizeProject(exampleProject()), scene = suggestedScene(p.rooms[0], name, 'LogOut');
+    scene.actions[0].action = 'Włącz';
+    scene.notes = 'Zostaw światło przy wejściu';
+    p.scenes.push(scene);
+    const key = p.points[0].bindings[0]; key.target = scene.id; key.action = 'Uruchom scenę';
+    const before = structuredClone(p), original = structuredClone(scene), effect = simulate(p, key);
+    addAllSceneRooms(p, scene);
+    assert.deepEqual(new Set(scene.roomIds), new Set(p.rooms.map(r => r.id)));
+    assert.deepEqual(scene, { ...original, roomIds: p.rooms.map(r => r.id) });
+    assert.deepEqual(p.points, before.points); assert.deepEqual(p.rooms, before.rooms);
+    assert.deepEqual(simulate(p, key), effect);
+    const first = structuredClone(scene);
+    addAllSceneRooms(p, scene);
+    assert.deepEqual(scene, first);
+    assert.deepEqual(normalizeProject(JSON.parse(JSON.stringify(p))).scenes.at(-1), scene);
+    const extra = emptyRoom('Poddasze'); p.rooms.push(extra);
+    assert.ok(!scene.roomIds?.includes(extra.id));
+    addAllSceneRooms(p, scene);
+    assert.ok(scene.roomIds?.includes(extra.id));
+    assert.deepEqual(scene.actions, original.actions);
+  }
+});
+
+test('whole home does not alter a scene in a project without rooms', () => {
+  const p = newProject(), scene = newScene(), before = structuredClone(scene);
+  addAllSceneRooms(p, scene);
+  assert.deepEqual(scene, before);
 });
 
 test('adding multiple rooms including an empty room preserves every existing action and key binding', () => {

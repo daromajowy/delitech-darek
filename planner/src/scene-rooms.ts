@@ -31,6 +31,11 @@ export function addSceneRoom(project: Project, scene: Scene, roomId: string): vo
   setRooms(scene, [...new Set([...sceneRoomIds(project, scene), roomId])]);
 }
 
+export function addAllSceneRooms(project: Project, scene: Scene): void {
+  if (!project.rooms.length) return;
+  setRooms(scene, [...new Set([...sceneRoomIds(project, scene), ...project.rooms.map(room => room.id)])]);
+}
+
 // The editor requests confirmation before removing a room with actions.
 export function removeSceneRoom(project: Project, scene: Scene, roomId: string): void {
   const remaining = sceneRoomIds(project, scene).filter(id => id !== roomId);
