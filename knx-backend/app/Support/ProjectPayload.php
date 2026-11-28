@@ -30,6 +30,7 @@ final class ProjectPayload
             'rooms.*' => ['array'], 'rooms.*.circuits.*' => ['array'],
             'rooms.*.planArea' => ['sometimes', 'array'],
             'scenes.*.roomId' => ['sometimes', 'string'],
+            'scenes.*.roomIds' => ['sometimes', 'array'],
             'points.*' => ['array'], 'points.*.bindings.*' => ['array'],
             'points.*.bindings.*.hold' => ['sometimes', 'array'],
             'points.*.panelPages' => ['sometimes', 'array'],
@@ -301,6 +302,18 @@ final class ProjectPayload
         foreach ($p['scenes'] as $s) {
             if (isset($s['roomId']) && ! isset($roomIds[$s['roomId']])) {
                 self::fail('Scena wskazuje nieistniejące pomieszczenie.');
+            }
+            if (array_key_exists('roomIds', $s)) {
+                if (! array_is_list($s['roomIds']) || count($s['roomIds']) > 100) {
+                    self::fail('Nieprawidłowa lista pomieszczeń sceny.');
+                }
+                $sceneRooms = [];
+                foreach ($s['roomIds'] as $roomId) {
+                    if (! is_string($roomId) || ! isset($roomIds[$roomId]) || isset($sceneRooms[$roomId])) {
+                        self::fail('Scena wskazuje nieprawidłowe lub powtórzone pomieszczenie.');
+                    }
+                    $sceneRooms[$roomId] = true;
+                }
             }
             $text($s, ['name', 'icon', 'area', 'priority', 'notes']);
             $bindings($s['actions'] ?? null);

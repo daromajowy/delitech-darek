@@ -167,6 +167,64 @@ class PlannerTest extends TestCase
         $this->get('/projects/'.$p['id'].'/download')->assertNotFound();
     }
 
+    public function test_multi_room_scenes_keep_rooms_actions_and_bindings_in_projects_and_revisions(): void
+    {
+        $p = $this->createProject();
+        $room = $p['rooms'][0];
+        $room['id'] = (string) Str::uuid();
+        $room['name'] = 'Gabinet';
+        $room['circuits'] = [$room['circuits'][0]];
+        $room['circuits'][0]['id'] = (string) Str::uuid();
+        $p['rooms'][] = $room;
+        $p['scenes'][0]['roomId'] = $p['rooms'][0]['id'];
+        $p['scenes'][0]['roomIds'] = [$p['rooms'][0]['id'], $room['id']];
+        $p['scenes'][0]['actions'][] = ['id' => (string) Str::uuid(), 'target' => $room['circuits'][0]['id'], 'action' => 'Wyłącz'];
+        $p['points'][0]['bindings'][0]['target'] = $p['scenes'][0]['id'];
+        $p['points'][0]['bindings'][0]['action'] = 'Uruchom scenę';
+        $this->save($p)->assertOk();
+        $saved = $this->getJson('/api?api=project&id='.$p['id'])->assertOk()->json('project');
+        $history = $this->getJson('/api?api=revision&project='.$p['id'].'&revision=2')->assertOk()->json('project');
+        $this->assertSame($p['scenes'], $saved['scenes']);
+        $this->assertSame($p['scenes'], $history['scenes']);
+        $this->assertSame($p['points'], $saved['points']);
+        $p = $saved;
+        $p['scenes'][0]['roomIds'] = [];
+        unset($p['scenes'][0]['roomId']);
+        $this->save($p)->assertOk()->assertJsonPath('project.scenes.0.roomIds', []);
+    }
+
+    #[DataProvider('invalidSceneRooms')]
+    public function test_malformed_or_foreign_scene_rooms_cannot_be_saved(mixed $rooms): void
+    {
+        $p = $this->payload();
+        $p['scenes'][0]['roomIds'] = $rooms;
+        $this->save($p)->assertUnprocessable();
+        $this->assertDatabaseCount('projects', 0);
+    }
+
+    public static function invalidSceneRooms(): array
+    {
+        return [
+            'scalar' => ['salon'],
+            'null' => [null],
+            'nested list' => [[[]]],
+            'number' => [[42]],
+            'foreign room' => [['11111111-1111-4111-8111-111111111111']],
+            'object instead of list' => [['room' => '11111111-1111-4111-8111-111111111111']],
+            'too many rooms' => [array_fill(0, 101, '11111111-1111-4111-8111-111111111111')],
+        ];
+    }
+
+    public function test_repeated_scene_room_is_rejected_without_overwriting_the_project(): void
+    {
+        $p = $this->createProject();
+        $p['scenes'][0]['roomIds'] = [$p['rooms'][0]['id'], $p['rooms'][0]['id']];
+        $this->save($p)->assertUnprocessable();
+        $saved = $this->getJson('/api?api=project&id='.$p['id'])->assertOk()->json('project');
+        $this->assertArrayNotHasKey('roomIds', $saved['scenes'][0]);
+        $this->assertSame(1, $saved['revision']);
+    }
+
     public function test_floor_pdfs_pages_and_empty_floors_survive_save_and_reload(): void
     {
         $p = $this->createProject();

@@ -7,6 +7,7 @@ import { iconMap } from "./icons";
 import { issues, sensors, summary, targets, type Project } from "./model";
 import { pointPhoto } from "./documents";
 import { isLsTouch, touchPages, touchBindingLabel } from "./touch-pages";
+import { sceneRoomsLabel } from './scene-rooms';
 
 async function base64(url: string) {
   const r = await fetch(url);
@@ -280,7 +281,7 @@ export async function buildPdf(p: Project): Promise<Blob> {
   table(
     ["Scena / uruchamianie", "Działania, warunki i wyjątki"],
     p.scenes.map((s) => [
-      `${s.name} · ${s.area}\n${s.priority}\n${s.triggers.join(", ") || "Wyzwalanie do ustalenia"}`,
+      `${s.name} · ${s.area}\nPomieszczenia: ${sceneRoomsLabel(p, s)}\n${s.priority}\n${s.triggers.join(", ") || "Wyzwalanie do ustalenia"}`,
       [
         s.actions.length
           ? s.actions
@@ -485,6 +486,7 @@ export async function buildXlsx(p: Project): Promise<Blob> {
       "Działanie",
       "Ręczne pierwszeństwo",
       "Warunki / uwagi",
+      "Pomieszczenia",
     ],
     p.scenes.flatMap((s) =>
       (s.actions.length
@@ -499,6 +501,7 @@ export async function buildXlsx(p: Project): Promise<Blob> {
         b.action,
         s.exception ? "Tak" : "Nie",
         s.notes,
+        sceneRoomsLabel(p, s),
       ]),
     ),
   );
