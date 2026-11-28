@@ -1,5 +1,6 @@
 import type { Binding, Category, Circuit, Project, Room, Scene } from './model';
 import { detectorRuleLabel, pauseClimate, restoreClimate, lockShades, unlockShades } from './detector-config';
+import { sceneRoomIds } from './scene-rooms';
 
 export type Command = Pick<Binding, 'target' | 'action'>;
 export const isDimmable = (c: Circuit) => c.kind === 'Oświetlenie' && ['Ściemnianie', 'DALI', 'RGBW'].includes(c.control);
@@ -113,7 +114,7 @@ export function suggestedScene(room: Room, name: string, icon: string): Scene {
     }
     return { id: crypto.randomUUID(), target: c.id, action };
   });
-  return { id: crypto.randomUUID(), name: preset, icon, roomId: room.id, area: 'Dom', priority: 'Konieczne', triggers: [], exception: false, notes: '', actions };
+  return { id: crypto.randomUUID(), name: preset, icon, roomId: room.id, roomIds: [room.id], area: 'Dom', priority: 'Konieczne', triggers: [], exception: false, notes: '', actions };
 }
 
 export type SimState = Record<string, string>;
@@ -199,8 +200,11 @@ export function reviewItems(p: Project): ReviewItem[] {
     }
   });
   p.scenes.forEach(s => {
-    const context = { sceneId: s.id, roomId: s.roomId };
+    const context = { sceneId: s.id, roomId: sceneRoomIds(p, s)[0] };
     if (!s.actions.length || s.actions.some(a => actionProblem(p, a))) add(`${s.name}: uzupełnij działania`, 1, context);
+    const actionTargets = new Set(s.actions.map(a => a.target));
+    p.rooms.filter(r => s.roomIds?.includes(r.id) && !r.circuits.some(c => actionTargets.has(c.id)))
+      .forEach(r => add(`${s.name}: ${r.name} — wybierz działania`, 1, { sceneId: s.id, roomId: r.id }));
     const assigned = p.points.some(pt => pt.bindings.some(b => b.target === s.id || b.hold?.target === s.id)
       || pt.detector?.rules.some(rule => rule.actions.some(a => a.target === s.id)));
     if (!s.triggers.length && !assigned) add(`${s.name}: wybierz wyzwalanie lub przypisz klawisz`, 1, context);

@@ -106,6 +106,7 @@ export interface Scene {
   notes: string;
   actions: Binding[];
   roomId?: string;
+  roomIds?: string[];
 }
 export interface Integration {
   id: string;

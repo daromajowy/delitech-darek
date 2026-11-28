@@ -264,6 +264,21 @@
 .level-control output { min-width: 34px; text-align: right; }
 .field-warning { color: #986115; padding-top: 5px; line-height: 1.5; }
 .scene-note { margin: 16px 0; }
+.scene-room-picker { margin-bottom: 18px; }
+.scene-room-picker .field { margin-bottom: 5px; font-size: 11px; }
+.scene-room-picker select { min-width: 0; font-size: 12px; }
+.scene-room-picker p { margin: 6px 0; font-size: 10px; line-height: 1.5; }
+.scene-room-group { min-width: 0; margin: 12px 0; padding: 10px; background: #f7fafb; border: 1px solid var(--line); border-radius: 5px; }
+.scene-room-heading { display: flex; align-items: center; gap: 8px; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+.scene-room-heading > div { flex: 1; min-width: 0; }
+.scene-room-group h4 { margin: 0; font-size: 12px; overflow-wrap: anywhere; }
+.scene-room-heading small { font-size: 10px; color: var(--muted); margin-top: 2px; }
+.scene-room-heading .tool { flex-shrink: 0; width: 26px; height: 26px; }
+.scene-room-group .scene-action { background: white; padding-left: 8px; }
+.scene-room-group .action-fields { grid-template-columns: minmax(0, 1fr) 80px; gap: 5px; }
+.scene-room-group .outline { min-height: 30px; padding: 5px 7px; font-size: 11px; }
+.scene-room-group > p { font-size: 10px; line-height: 1.5; }
+.scene-title h2 small, .scene-chips > button small { overflow-wrap: anywhere; }
 .integration-config { border-bottom: 1px solid var(--line); padding: 14px 0; }
 .integration-config .form-grid { margin-top: 10px; }
 .control-points { grid-area: auto; }
