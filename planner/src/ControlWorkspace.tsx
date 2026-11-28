@@ -1,7 +1,7 @@
 import { useLayoutEffect, useRef, useState } from "react";
 import { DndContext, DragOverlay, PointerSensor, useDraggable, useSensor, useSensors } from "@dnd-kit/core";
 import { Field, Icon, NumberInput, Select, Tool } from "./components";
-import { addControlPoint, deviceTypes, finishes, sensors, selectSensor, targets, uid, type Attachment, type Binding, type DetectorKind, type Point, type Project } from "./model";
+import { addControlPoint, deviceTypes, sensors, selectSensor, targets, uid, type Attachment, type Binding, type DetectorKind, type Point, type Project } from "./model";
 import { SensorKeys } from "./SensorPreview";
 import { TouchPageEditor } from "./TouchPanel";
 import { ensureTouchPages, isLsTouch, touchPages } from "./touch-pages";
@@ -11,6 +11,7 @@ import { PlanBoard } from "./PlanBoard";
 import { DetectorEditor } from './DetectorEditor';
 import { detectorKinds, pointIcon } from './detector-config';
 import { useSidebarViewport } from "./useSidebarViewport";
+import { PanelFinishPicker } from './PanelFinishPicker';
 
 function PointNav({ point, selected, choose }: { point: Point; selected: boolean; choose: () => void }) {
   const { setNodeRef, listeners, attributes } = useDraggable({ id: `point-${point.id}`, data: { pointId: point.id } });
@@ -83,10 +84,10 @@ export function ControlWorkspace({ project, pointId, select, edit, upload, busy,
             {point.sensor === "Inny sensor / panel" && <Field label="Producent i model" wide><input value={point.model ?? ""} maxLength={250} onChange={e => update(p => { p.model = e.target.value; })}/></Field>}
             <Field label={touch ? "Liczba funkcji" : "Liczba klawiszy / pól"}><select value={point.bindings.length} onChange={e => { const n = Number(e.target.value); if (n < point.bindings.length && !confirm("Zmniejszenie liczby funkcji usunie ostatnie przypisania, także z podstron. Kontynuować?")) return; update(p => { p.bindings = Array.from({ length: n }, (_, i) => p.bindings[i] ?? { id: uid(), target: "", action: "Włącz / wyłącz" }); if (p.panelPages) ensureTouchPages(p); }); }}>{Array.from({ length: Math.max(point.bindings.length, touch ? 32 : 24) }, (_, i) => <option key={i} value={i + 1}>{i + 1}</option>)}</select></Field>
             <Field label="Wysokość montażu (cm)"><NumberInput value={point.height} max={500} onChange={v => update(p => { p.height = v; })}/></Field>
-            <Field label={`Wykończenie · ${point.finish}`} wide><div className="swatches">{(sensors.find(s => s.name === point.sensor)?.finishes ?? Object.keys(finishes)).map(f => <button key={f} type="button" title={f} aria-label={`Wykończenie ${f}`} aria-pressed={point.finish === f} className={point.finish === f ? "selected" : ""} style={{ background: finishes[f] }} onClick={() => update(p => { p.finish = f; })}>{point.finish === f && <Icon name="Check" size={17}/>}</button>)}</div></Field>
             <Field label="Status"><Select value={point.status} options={["Propozycja", "Do uzgodnienia", "Zatwierdzony"]} onChange={v => update(p => { p.status = v; })}/></Field>
             <Field label={touch ? "Zdjęcie w PDF" : "Zdjęcie sensora"}><select value={point.photoId ?? ""} onChange={e => update(p => { p.photoId = e.target.value || undefined; })}><option value="">Referencyjne</option>{project.attachments.filter(a => a.mime.startsWith("image/")).map(a => <option key={a.id} value={a.id}>{a.name}</option>)}</select></Field>
           </div></details>
+          <PanelFinishPicker key={point.id + point.sensor} point={point} change={finish => update(p => { p.finish = finish; })}/>
           <SensorKeys project={project} point={point} active={key?.id} choose={setKeyId} pageId={page?.id} changePage={id => { setPageId(id); setKeyId(''); }}/>
           {touch && <TouchPageEditor project={project} point={point} pageId={page!.id} changePage={id => { setPageId(id); setKeyId(''); }} choose={setKeyId} update={update}/>}
           <details className="flow-details touch-functions" open={touch ? undefined : true} key={`functions-${point.id}-${touch}`}><summary>{touch ? `Wszystkie funkcje (${point.bindings.length}/32)` : 'Lista klawiszy'}<Icon name="ChevronDown" size={16}/></summary>
