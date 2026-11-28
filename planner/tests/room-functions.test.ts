@@ -3,7 +3,8 @@ import assert from 'node:assert/strict';
 import ExcelJS from 'exceljs';
 import { actionOptions, actionProblem, initialStateOptions, simulate, suggestedScene } from '../src/behavior';
 import { buildXlsx } from '../src/exports';
-import { exampleProject, newCircuit, newScene, normalizeProject, targets, uid, type Category } from '../src/model';
+import { addControlPoint, exampleProject, newCircuit, newScene, normalizeProject, targets, uid, type Category } from '../src/model';
+import { newDetectorRule } from '../src/detector-config';
 import { touchBindingIcon } from '../src/touch-pages';
 
 const additions: [Category, string, string][] = [
@@ -38,6 +39,37 @@ test('new room functions retain IDs, assignments and categories through save/loa
   book.getWorksheet('Obwody')!.eachRow(row => rows.push([row.getCell(2).value, row.getCell(3).value, row.getCell(4).value]));
   circuits.forEach(c => assert.ok(rows.some(row => row[0] === c.name && row[1] === c.kind && row[2] === c.control)));
   assert.deepEqual(saved.rooms[0].circuits.slice(0, -4), originalCircuits);
+});
+
+test('legacy detector circuits keep their data and references alongside control devices after save/load and XLSX', async () => {
+  const p = normalizeProject(exampleProject()), room = p.rooms[0];
+  const legacy: [Category, string][] = [
+    ['Ochrona i dostęp', 'Kontaktron'], ['Ochrona i dostęp', 'Czujnik ruchu'],
+    ['Pozostałe', 'Czujnik obecności'], ['Pozostałe', 'Kontaktron'],
+  ];
+  const circuits = legacy.map(([kind, control], i) => ({
+    ...newCircuit(kind), control, name: `Zapisany czujnik ${i + 1}`, spec: 'Istniejące ustalenia projektowe',
+  }));
+  room.circuits.push(...circuits);
+  const scene = newScene();
+  scene.actions = circuits.map(c => ({ id: uid(), target: c.id, action: 'Do ustalenia' }));
+  p.scenes.push(scene);
+  p.points[0].bindings = structuredClone(scene.actions);
+  for (const kind of ['motion', 'presence', 'window', 'door'] as const) {
+    const point = addControlPoint(p, room.id, undefined, kind);
+    const rule = newDetectorRule(kind === 'motion' || kind === 'presence' ? 'detected' : 'opened');
+    rule.actions = [{ id: uid(), target: room.circuits[0].id, action: 'Włącz' }];
+    point.detector!.rules = [rule];
+    point.placement = { documentId: 'existing-plan', page: 2, x: .25, y: .75 };
+  }
+  const saved = normalizeProject(JSON.parse(JSON.stringify(p)));
+  assert.deepEqual(saved, p);
+  assert.ok(circuits.every(c => targets(saved).some(t => t.id === c.id)));
+  const book = new ExcelJS.Workbook();
+  await book.xlsx.load(await (await buildXlsx(saved)).arrayBuffer());
+  const rows: unknown[][] = [];
+  book.getWorksheet('Obwody')!.eachRow(row => rows.push([row.getCell(2).value, row.getCell(3).value, row.getCell(4).value]));
+  circuits.forEach(c => assert.ok(rows.some(row => row[0] === c.name && row[1] === c.kind && row[2] === c.control)));
 });
 
 test('explicit integration actions work together in a scene without modifying the project', () => {
