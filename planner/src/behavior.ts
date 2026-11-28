@@ -90,6 +90,8 @@ export const sceneIdeas = [
   { name: 'Goście', icon: 'Users', description: 'Światło gotowe na spotkanie z bliskimi.' },
   { name: 'Wakacje', icon: 'Plane', description: 'Wybrane światła wyłączone na czas wyjazdu.' },
   { name: 'Kolacja', icon: 'Utensils', description: 'Przyjemne oświetlenie do wspólnego posiłku.' },
+  { name: 'Powrót', icon: 'House', description: 'Wybrane światła włączone na powrót do domu.' },
+  { name: 'Sprzątanie', icon: 'Sparkles', description: 'Jasne oświetlenie ułatwiające sprzątanie.' },
 ];
 
 // Match older projects without renaming saved scenes or changing their assignments.
@@ -107,7 +109,8 @@ export function suggestedScene(room: Room, name: string, icon: string): Scene {
       if (c.kind === 'Osłony') action = preset === 'Poranek' ? 'Otwórz' : 'Zamknij';
       if (c.kind === 'Oświetlenie') {
         if (lightsOff) action = 'Wyłącz';
-        else if (preset === 'Poranek') action = 'Włącz';
+        else if (preset === 'Poranek' || preset === 'Powrót') action = 'Włącz';
+        else if (preset === 'Sprzątanie') action = isDimmable(c) ? '100%' : 'Włącz';
         else if (isDimmable(c)) action = preset === 'Noc' ? '10%' : preset === 'Kino' ? '20%' : preset === 'Goście' ? '80%' : '50%';
         else action = ['Goście', 'Kolacja'].includes(preset) ? 'Włącz' : 'Wyłącz';
       }
