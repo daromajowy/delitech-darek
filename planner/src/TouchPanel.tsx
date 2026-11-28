@@ -1,6 +1,7 @@
 import { useState, type CSSProperties } from 'react';
 import { Field, Icon, Tool } from './components';
-import { finishes, type Point, type Project } from './model';
+import { type Point, type Project } from './model';
+import { finishInk, finishSurface, mixFinish, panelFinish } from './panel-finishes';
 import { addTouchFunction, addTouchPage, MAX_TOUCH_FUNCTIONS, MAX_TOUCH_PAGES, removeTouchPage, resizeTouchPage, touchBindingIcon, touchBindingLabel, touchPages } from './touch-pages';
 import './touch-panel.css';
 
@@ -12,8 +13,12 @@ export function TouchPanel({ project, point, active, choose, pageId, changePage,
   const pages = touchPages(point), page = pages.find(p => p.id === (pageId ?? localPageId)) ?? pages[0];
   const pageIndex = pages.indexOf(page);
   const go = (id: string) => { setLocalPageId(id); changePage?.(id); };
+  const finish = panelFinish(point.sensor, point.finish), ink = finishInk(finish.color);
+  const theme = { '--touch-frame': finishSurface(finish), '--touch-screen': finish.color, '--touch-ink': ink,
+    '--touch-muted': mixFinish(finish.color, ink, .72), '--touch-line': mixFinish(finish.color, ink, .2),
+    '--touch-active': mixFinish(finish.color, ink, .12), '--touch-hover': mixFinish(finish.color, ink, .06) } as CSSProperties;
   return <div className="touch-preview">
-    <div className="touch-frame" style={{ '--touch-frame': finishes[point.finish] ?? '#eee' } as CSSProperties}>
+    <div className="touch-frame" data-finish={point.finish} style={theme}>
       <div className="touch-bezel"><div className="touch-screen" aria-label={`LS TOUCH · ${page.name || 'Podstrona'}`}>
         <header><span>{page.name || 'Podstrona'}</span><small>{pageIndex + 1}/{pages.length}</small></header>
         <div className={`touch-tiles tiles-${page.bindingIds.length}`}>

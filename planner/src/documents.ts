@@ -1,5 +1,6 @@
 import { type Point, type Project, sensors } from "./model";
 import { apiFetch } from "./api";
+import { panelArtwork } from './panel-artwork';
 
 export async function documentBlob(project: string, id: string): Promise<Blob> {
   const response = await apiFetch(`file&project=${encodeURIComponent(project)}&id=${encodeURIComponent(id)}`);
@@ -12,6 +13,8 @@ export async function pointPhoto(p: Project, point: Point): Promise<{ url: strin
     const url = URL.createObjectURL(await documentBlob(p.id, point.photoId));
     return { url, release: () => URL.revokeObjectURL(url) };
   }
+  const artwork = panelArtwork(point);
+  if (artwork) return { url: artwork, release: () => {} };
   const sensor = sensors.find(s => s.name === point.sensor);
   return sensor ? { url: `media/${sensor.image}`, release: () => {} } : null;
 }

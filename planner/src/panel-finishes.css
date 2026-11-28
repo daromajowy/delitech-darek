@@ -1,0 +1,25 @@
+.panel-finish-picker { margin: 13px 0 8px; padding: 12px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.panel-finish-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; font-size: 11px; }
+.panel-finish-heading > span { min-width: 0; text-align: right; overflow-wrap: anywhere; }
+.panel-finish-heading small { display: inline; margin-left: 5px; font: 9px Consolas, monospace; }
+.panel-finish-group { margin-top: 9px; }
+.panel-finish-group > small { display: block; font-size: 9px; margin-bottom: 5px; }
+.panel-finish-swatches { display: flex; flex-wrap: wrap; gap: 5px; }
+.panel-finish-swatches button { width: 27px; height: 27px; min-height: 27px; flex: 0 0 27px; padding: 0; display: grid; place-items: center; border: 1px solid #283e4433; border-radius: 3px; box-shadow: inset 0 0 0 1px #ffffff25; }
+.panel-finish-swatches button[aria-pressed=true] { outline: 2px solid var(--ink, #203744); outline-offset: 2px; }
+.panel-finish-swatches button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.panel-finish-extra { margin-top: 10px; padding-top: 7px; border-top: 1px solid var(--line); }
+.panel-finish-toggle { display: flex; align-items: center; justify-content: space-between; gap: 5px; min-height: 28px; width: 100%; padding: 0 0 7px; font-size: 10px; text-align: left; }
+.panel-finish-toggle small { display: inline; margin-left: 5px; font-size: 9px; }
+.panel-finish-note { margin: 9px 0 0; font-size: 9px; line-height: 1.5; color: var(--muted); }
+.panel-finish-single { display: flex; align-items: center; gap: 10px; margin-top: 10px; font-size: 10px; color: var(--muted); }
+.panel-key-stage { position: relative; width: 100%; }
+.sensor-key-preview .panel-key-stage > img, .sensor-key-preview .panel-key-stage > .sensor-placeholder { display: block; width: 100%; height: 210px; object-fit: contain; }
+.sensor-key-preview.finish-spatial .panel-key-stage { aspect-ratio: 1; }
+.sensor-key-preview.finish-spatial .panel-key-stage > img { height: auto; width: 100%; }
+.sensor-key-preview.finish-spatial .sensor-key-map { position: absolute; inset: 0; margin: 0; max-width: none; display: block; pointer-events: none; }
+.sensor-key-preview.finish-spatial .sensor-key-map button { position: absolute; min-height: 0; border: 1px solid transparent; border-radius: 1px; padding: 2px; display: grid; place-items: center; background: transparent; color: var(--panel-ink); pointer-events: auto; }
+.sensor-key-preview.finish-spatial .sensor-key-map button > span { position: absolute; top: 4px; left: 5px; font-size: 8px; opacity: .55; }
+.sensor-key-preview.finish-spatial .sensor-key-map button:hover { background: #0b93a51c; }
+.sensor-key-preview.finish-spatial .sensor-key-map button.active { background: #008a9c24; border-color: #00899b; box-shadow: inset 0 0 0 1px #00899b; color: var(--panel-ink); }
+.sensor-key-preview.finish-spatial .sensor-key-map button:focus-visible { outline: 2px solid #00899b; outline-offset: 1px; }
