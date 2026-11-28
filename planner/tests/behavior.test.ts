@@ -81,6 +81,22 @@ test('guest and dinner suggestions suit switches and dimmers while keeping other
   }
 });
 
+test('return and cleaning suggestions use lighting only and preserve unknown controls', () => {
+  const p = exampleProject(), room = p.rooms[0];
+  room.circuits.push({ ...newCircuit('Muzyka i kino'), control: 'Telewizor' });
+  room.circuits[1].control = 'Do ustalenia';
+  const before = structuredClone(room);
+  for (const name of ['Powrót', 'Sprzątanie']) {
+    const scene = suggestedScene(room, name, 'House');
+    assert.ok(scene.actions.every(a => room.circuits.find(c => c.id === a.target)?.kind === 'Oświetlenie'));
+    assert.equal(scene.actions.find(a => a.target === room.circuits[0].id)?.action, 'Włącz');
+    assert.equal(scene.actions.find(a => a.target === room.circuits[1].id)?.action, 'Do ustalenia');
+    assert.equal(scene.actions.find(a => a.target === room.circuits[2].id)?.action, name === 'Sprzątanie' ? '100%' : 'Włącz');
+    assert.ok(scene.actions.filter(a => a.action !== 'Do ustalenia').every(a => !actionProblem(p, a)));
+  }
+  assert.deepEqual(room, before);
+});
+
 test('holiday suggestion switches off room lights without assuming alarm, water or heating actions', () => {
   const p = exampleProject(), room = p.rooms[0];
   room.circuits.push({ ...newCircuit('Ochrona i dostęp'), control: 'Alarm' }, { ...newCircuit('Ogród i woda'), control: 'Zawór wody' }, newCircuit('Klimat'));
